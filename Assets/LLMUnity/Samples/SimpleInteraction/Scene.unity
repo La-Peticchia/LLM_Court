@@ -483,7 +483,7 @@ MonoBehaviour:
   numRetries: 10
   save: 
   saveCache: 0
-  debugPrompt: 0
+  debugPrompt: 1
   numPredict: -1
   slot: -1
   grammar: 
@@ -509,8 +509,8 @@ MonoBehaviour:
   nKeep: -1
   stop: []
   stream: 1
-  playerName: user
-  AIName: assistant
+  playerName: Peticchia
+  AIName: Kepler
   prompt: A chat between a curious human and an artificial intelligence assistant.
     The assistant gives helpful, detailed, and polite answers to the human's questions.
   setNKeepToPrompt: 1
@@ -1067,14 +1067,14 @@ MonoBehaviour:
   remote: 0
   port: 13333
   numThreads: -1
-  numGPULayers: 100
+  numGPULayers: 50
   debug: 0
   parallelPrompts: -1
   dontDestroyOnLoad: 1
   contextSize: 8000
   batchSize: 512
   model: gemma-3-12b-it-Q4_K_M.gguf
-  chatTemplate: gemma
+  chatTemplate: chatml
   lora: 
   loraWeights: 
   flashAttention: 0
@@ -1800,8 +1800,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10.375977, y: -110.75391}
-  m_SizeDelta: {x: 400, y: 100}
+  m_AnchoredPosition: {x: 10.375977, y: -202}
+  m_SizeDelta: {x: 1000, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2091685448
 MonoBehaviour:

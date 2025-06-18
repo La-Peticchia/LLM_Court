@@ -2,6 +2,7 @@
 /// @brief File implementing the chat templates.
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine;
 
 namespace LLMUnity
 {
@@ -187,6 +188,8 @@ namespace LLMUnity
         /// <returns>prompt</returns>
         public virtual string ComputePrompt(List<ChatMessage> chatMessages, string playerName, string AIName, bool endWithPrefix = true)
         {
+            Debug.Log(AIName);
+            
             List<ChatMessage> messages = chatMessages;
             if (!SystemPromptSupported())
             {

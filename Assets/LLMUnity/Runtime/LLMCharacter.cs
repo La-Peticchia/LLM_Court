@@ -423,6 +423,15 @@ namespace LLMUnity
             AddMessage(AIName, content);
         }
 
+        /// <summary>
+        /// Only works with chatml template
+        /// </summary>
+        /// <param name="content">message content</param>
+        public virtual void AddSystemMessage(string content)
+        {
+            AddMessage("system", content);
+        }
+
         protected virtual string ChatContent(ChatResult result)
         {
             // get content from a chat result received from the endpoint
@@ -503,6 +512,48 @@ namespace LLMUnity
                 chatLock.Release();
             }
             return result;
+        }        
+        
+        /// <summary>
+        /// Overload of the method PromptWithQuery
+        /// Only works with chatml template
+        /// </summary>
+        protected async Task<ChatRequest> PromptWithQuery(string query, string role)
+        {
+            ChatRequest result = default;
+            await chatLock.WaitAsync();
+            try
+            {
+                AddPlayerMessage(query);
+                string prompt = template.ComputePrompt(chat, playerName, role);
+                result = GenerateRequest(prompt);
+                chat.RemoveAt(chat.Count - 1);
+            }
+            finally
+            {
+                chatLock.Release();
+            }
+            return result;
+        }
+        
+        /// <summary>
+        /// Alternate version of PromptWithQuery method
+        /// Only works with chatml template
+        /// </summary>
+        protected async Task<ChatRequest> PromptWithoutQuery(string role)
+        {
+            ChatRequest result = default;
+            await chatLock.WaitAsync();
+            try
+            {
+                string prompt = template.ComputePrompt(chat, "", role);
+                result = GenerateRequest(prompt);
+            }
+            finally
+            {
+                chatLock.Release();
+            }
+            return result;
         }
 
         /// <summary>
@@ -535,6 +586,89 @@ namespace LLMUnity
                 {
                     AddPlayerMessage(query);
                     AddAIMessage(result);
+                }
+                finally
+                {
+                    chatLock.Release();
+                }
+                if (save != "") _ = Save(save);
+            }
+
+            completionCallback?.Invoke();
+            return result;
+        }
+
+        /// <summary>
+        /// Overload of the chat method
+        /// You can specify the character who you are talking to
+        /// </summary>
+        /// <param name="query">user query</param>
+        /// <param name="role"></param>
+        /// <param name="callback">callback function that receives the response as string</param>
+        /// <param name="completionCallback">callback function called when the full response has been received</param>
+        /// <param name="addToHistory">whether to add the user query to the chat history</param>
+        /// <returns>the LLM response</returns>
+        public virtual async Task<string> Chat(string query, string role, Callback<string> callback = null, EmptyCallback completionCallback = null, bool addToHistory = true)
+        {
+            // handle a chat message by the user
+            // call the callback function while the answer is received
+            // call the completionCallback function when the answer is fully received
+            await LoadTemplate();
+            if (!CheckTemplate()) return null;
+            if (!await InitNKeep()) return null;
+
+            ChatRequest request = await PromptWithQuery(query, role);
+            string result = await CompletionRequest(request, callback);
+
+            if (addToHistory && result != null)
+            {
+                await chatLock.WaitAsync();
+                try
+                {
+                    AddPlayerMessage(query);
+                    AddMessage(role, result);
+                }
+                finally
+                {
+                    chatLock.Release();
+                }
+                if (save != "") _ = Save(save);
+            }
+
+            completionCallback?.Invoke();
+            return result;
+        }
+
+        /// <summary>
+        /// Alternate version of the Chat method
+        /// It continues the dialogue without specifying any query
+        /// You can specify the character who continues the dialogue
+        /// Only works with chatml template 
+        /// </summary>
+        /// <param name="role">character</param>
+        /// <param name="callback">callback function that receives the response as string</param>
+        /// <param name="completionCallback">callback function called when the full response has been received</param>
+        /// <param name="addToHistory">whether to add the user query to the chat history</param>
+        /// <returns>the LLM response</returns>
+        public virtual async Task<string> ContinueChat(string role, Callback<string> callback = null, EmptyCallback completionCallback = null, bool addToHistory = true)
+        {
+            // handle a chat message by the user
+            // call the callback function while the answer is received
+            // call the completionCallback function when the answer is fully received
+            await LoadTemplate();
+            if (!CheckTemplate()) return null;
+            if (!await InitNKeep()) return null;
+
+            ChatRequest request = await PromptWithoutQuery(role);
+            string result = await CompletionRequest(request, callback);
+
+            if (addToHistory && result != null)
+            {
+                await chatLock.WaitAsync();
+                try
+                {
+                    
+                    AddMessage(role, result);
                 }
                 finally
                 {
