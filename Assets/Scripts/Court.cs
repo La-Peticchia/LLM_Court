@@ -4,7 +4,6 @@ using LLMUnity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class Court : MonoBehaviour
 {
     //References
