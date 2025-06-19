@@ -7,9 +7,10 @@ using UnityEngine.UI;
 
 public class RunJets : MonoBehaviour
 {
+    
     public ModelAsset modelAsset;
     public TextAsset phonemeAsset;
-    [SerializeField] private InputField inputField;
+    [SerializeField] private Text inputField;
     private string lastSpokenText = "";
     //public string inputText = "Once upon a time, there lived a girl called Alice. She lived in a house in the woods.";
     //string inputText = "The quick brown fox jumped over the lazy dog";
@@ -40,8 +41,9 @@ public class RunJets : MonoBehaviour
 
     readonly string[] alphabet = "AE1 B K D EH1 F G HH IH1 JH K L M N AA1 P K R S T AH1 V W K Y Z".Split(' ');
 
+    [Header("Voice Settings")]
     //Can change pitch and speed with this for a slightly different voice:
-    const int samplerate = 22050;
+    [SerializeField] private int samplerate = 22050;
 
     Dictionary<string, string> dict = new();
 
@@ -53,7 +55,6 @@ public class RunJets : MonoBehaviour
     {
         LoadModel();
         ReadDictionary();
-        inputField.onValueChanged.AddListener(OnTextChanged);
     }
 
     void LoadModel()
@@ -102,7 +103,7 @@ public class RunJets : MonoBehaviour
             }
         }
     }
-    void TextToSpeech(string input)
+    public void TextToSpeech(string input)
     {
         string ptext;
         if (hasPhenomeDictionary)

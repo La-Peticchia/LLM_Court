@@ -15,7 +15,8 @@ public class Court : MonoBehaviour
     [SerializeField] private TextMeshProUGUI systemMessages;
     [SerializeField] private TextMeshProUGUI caseDescriptionText;
     [SerializeField] private Button nextButton;
-    
+    [SerializeField] RunJets runJets;
+
     //Names
     [SerializeField] private string defenseName = "Defense";
     [SerializeField] private string attackName = "Attack";
@@ -113,6 +114,7 @@ public class Court : MonoBehaviour
     public void AIReplyComplete()
     {
         nextButton.interactable = true;
+        runJets.TextToSpeech(aiText.text);
     }
 
     private async Task NextRound(bool increment = true)

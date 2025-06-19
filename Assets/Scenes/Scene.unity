@@ -1138,13 +1138,14 @@ MonoBehaviour:
   systemMessages: {fileID: 1283318607}
   caseDescriptionText: {fileID: 72392618}
   nextButton: {fileID: 724531321}
+  runJets: {fileID: 726528682}
   defenseName: Defense
   attackName: Attack
   judgeName: Judge
   witnessNames:
   - Johnny
   mainPrompt: A court case where the AI takes control of several characters listed
-    below. Answers must be less than 200 words. Only one character at a time can
+    below. Answers must be less than 100 words. Only one character at a time can
     answer. Answers must be written in italian
   judgePrompt: The goal of Judge is to give the defendant's final sentence by listening
     to the dialogue
@@ -1549,11 +1550,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3443b9e57c05f3d489e736a5e2707f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelAsset: {fileID: 0}
-  phonemeAsset: {fileID: 0}
+  modelAsset: {fileID: 5022602860645237092, guid: 15ee614287ed5ea48a487ca8c9bc329e, type: 3}
+  phonemeAsset: {fileID: 4900000, guid: fc7c85ffe60029e48b5f570ea55b254a, type: 3}
   inputField: {fileID: 0}
   debounceDelay: 0.5
   minDelayAfterEnd: 1
+  samplerate: 22050
 --- !u!1 &856480601
 GameObject:
   m_ObjectHideFlags: 0
@@ -2005,7 +2007,7 @@ MonoBehaviour:
   remote: 0
   port: 13333
   numThreads: -1
-  numGPULayers: 50
+  numGPULayers: 25
   debug: 0
   parallelPrompts: -1
   dontDestroyOnLoad: 1
