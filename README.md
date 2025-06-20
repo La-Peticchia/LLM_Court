@@ -19,6 +19,7 @@ This project is currently in development.
 
 - **Oral interaction (Planned)**  
   Future versions will support oral interaction.
+
 ---
 
 ## Project Status
@@ -31,6 +32,11 @@ This project is **in progress**. Core systems under development:
 - [ ] Scoring or verdict logic
 - [ ] Integration of a Text To Speech model with different voices for each character
 - [ ] Integration of a Automatic speech recognition model to interact without periferals
+
+---
+
+## Unity version
+6000.1.5.f1
 
 ---
 
