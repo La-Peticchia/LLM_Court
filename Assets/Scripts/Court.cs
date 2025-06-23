@@ -16,6 +16,8 @@ public class Court : MonoBehaviour
     [SerializeField] private TextMeshProUGUI caseDescriptionText;
     [SerializeField] private Button nextButton;
     [SerializeField] RunJets runJets;
+    [SerializeField] public Button micButton;          
+    [SerializeField] public MicrophoneInput micInput;  
 
     //Names
     [SerializeField] private string defenseName = "Defense";
@@ -33,7 +35,8 @@ public class Court : MonoBehaviour
     private string[] witnessPrompts;
 
     private List<(string role, string systemMessage)> _roundsTimeline;
-     
+    public bool PlayerCanAct => _roundsTimeline[_round].role == defenseName;
+
     private int _round;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     async void Start()
@@ -46,6 +49,7 @@ public class Court : MonoBehaviour
         llmCharacter.playerName = defenseName;
         
         playerText.interactable = false;
+        micButton.interactable = false;
         nextButton.interactable = false;
         await llmCharacter.llm.WaitUntilReady();
         nextButton.interactable = true;
@@ -138,8 +142,18 @@ public class Court : MonoBehaviour
             string answer = await llmCharacter.ContinueChat(_roundsTimeline[_round].role ,SetAIText, AIReplyComplete);
             logText.text += $"<b><color=#550505>{_roundsTimeline[_round].role}</color></b>: {answer}\n\n";
         }
-        
-        
+
+        if (PlayerCanAct)
+        {
+            playerText.interactable = true;
+            micButton.interactable = true;
+        }
+        else
+        {
+            playerText.interactable = false;
+            micButton.interactable = false;
+        }
+
     }
     
     private async void OnNextButtonClick()
