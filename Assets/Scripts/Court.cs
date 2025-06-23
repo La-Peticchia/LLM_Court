@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using LLMUnity;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 public class Court : MonoBehaviour
 {
@@ -15,41 +17,54 @@ public class Court : MonoBehaviour
     [SerializeField] private TextMeshProUGUI systemMessages;
     [SerializeField] private TextMeshProUGUI caseDescriptionText;
     [SerializeField] private Button nextButton;
+    [SerializeField] private APIInterface apiManager;
     [SerializeField] RunJets runJets;
+    [SerializeField] public Button micButton;          
+    [SerializeField] public MicrophoneInput micInput;  
 
     //Names
     [SerializeField] private string defenseName = "Defense";
     [SerializeField] private string attackName = "Attack";
     [SerializeField] private string judgeName = "Judge";
-    [SerializeField] private string[] witnessNames = new string[] { "Witness1" };
 
     //Prompts
     [TextArea(5, 10)] public string mainPrompt = "A court case where the AI takes control of several characters listed below";
     [TextArea(5, 10)] public string judgePrompt = "The goal of Judge is to give the defendant's final sentence by listening to the dialogue";
     [TextArea(5, 10)] public string attackPrompt = "The goal of Attack is proving to the Judge that the defendant is guilty";
-    [TextArea(5, 10)] public string caseDescription = "Mr. Joe killed Mrs. Mama yesterday";
-
-    [SerializeField]
-    private string[] witnessPrompts;
+    
+    public bool PlayerCanAct => _roundsTimeline[_round].role == defenseName;
 
     private List<(string role, string systemMessage)> _roundsTimeline;
-     
+    private CaseDescription _caseDescription, _translatedDescription;
     private int _round;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     async void Start()
     {
+        playerText.interactable = false;
+        micButton.interactable = false;
+        nextButton.interactable = false;
+
+        apiManager = FindFirstObjectByType<APIInterface>();
+        (_caseDescription, _translatedDescription) = await apiManager.Request();
+        
         InitializePrompt();
         InitializeRounds();
-        caseDescriptionText.text = caseDescription;
+        caseDescriptionText.text = $"<b><color=#F64A3E>{_translatedDescription.sectionTitles[0]}</color></b>\n" +
+                                   $"{_translatedDescription.title}\n\n" +
+                                   $"<b><color=#F64A3E>{_translatedDescription.sectionTitles[1]}</color></b>\n" +
+                                   $"{_translatedDescription.summary}\n\n" +
+                                   $"<b><color=#F64A3E>{_translatedDescription.sectionTitles[2]}</color></b>\n" +
+                                   $"{string.Join("\n",_translatedDescription.clues.Select(x => "-" + x))}\n\n" +
+                                   $"<b><color=#F64A3E>{_translatedDescription.sectionTitles[3]}</color></b>\n" +
+                                   $"{string.Join("\n",_translatedDescription.witnesses.Select(x =>  $"-<i><color=#550505>{x.Key}</color></i>: {x.Value}").ToArray())}\n\n";
+            
+        
         playerText.onSubmit.AddListener(OnInputFieldSubmit);
         nextButton.onClick.AddListener(OnNextButtonClick);
         llmCharacter.playerName = defenseName;
         
-        playerText.interactable = false;
-        nextButton.interactable = false;
         await llmCharacter.llm.WaitUntilReady();
         nextButton.interactable = true;
-        
         
         
         //NextRound(false);
@@ -58,14 +73,15 @@ public class Court : MonoBehaviour
 
     private void InitializePrompt()
     {
-        llmCharacter.prompt = $"{mainPrompt}\n{judgeName} - {judgePrompt}\n{attackName} - {attackPrompt}\n";
+        llmCharacter.prompt = $"{mainPrompt}\n{judgeName} - {judgePrompt}\n{attackName} - {attackPrompt}\n\nWitnesses:";
 
-        for (int i = 0; i < witnessNames.Length; i++)
-        {
-            llmCharacter.prompt += $"{witnessNames[i]} - {witnessPrompts[i]}\n";
-        }
+        foreach (var item in _caseDescription.witnesses)
+            llmCharacter.prompt += $"{item.Key} - {item.Value}\n";
 
-        llmCharacter.prompt += $"\nCase Summary - {caseDescription}";
+        llmCharacter.prompt += $"\n {APIInterface.RemoveSplitters(string.Join("",_caseDescription.totalDescription.Split(APIInterface.sectionSplitCharacters).Take(3).ToArray()))}";
+        
+        Debug.Log(llmCharacter.prompt);
+        
         
         llmCharacter.ClearChat();
     }
@@ -80,16 +96,16 @@ public class Court : MonoBehaviour
             (defenseName, $"Now the {defenseName} dismantle the evidence trying to convince the judge")
         };
 
-        foreach (var item in witnessNames)
+        foreach (var item in _caseDescription.witnesses)
         {
-            _roundsTimeline.Add((attackName, $"Now the {attackName} questions {item} about the case"));
-            _roundsTimeline.Add((item, ""));
+            _roundsTimeline.Add((attackName, $"Now the {attackName} questions {item.Key} about the case"));
+            _roundsTimeline.Add((item.Key, ""));
         }
         
-        foreach (var item in witnessNames)
+        foreach (var item in _caseDescription.witnesses)
         {
-            _roundsTimeline.Add((defenseName, $"Now the {defenseName} questions {item} about the case"));
-            _roundsTimeline.Add((item, ""));
+            _roundsTimeline.Add((defenseName, $"Now the {defenseName} questions {item.Key} about the case"));
+            _roundsTimeline.Add((item.Key, ""));
         }
         
         _roundsTimeline.Add((attackName, $"Now it's the {attackName} last intervention"));
@@ -138,8 +154,18 @@ public class Court : MonoBehaviour
             string answer = await llmCharacter.ContinueChat(_roundsTimeline[_round].role ,SetAIText, AIReplyComplete);
             logText.text += $"<b><color=#550505>{_roundsTimeline[_round].role}</color></b>: {answer}\n\n";
         }
-        
-        
+
+        if (PlayerCanAct)
+        {
+            playerText.interactable = true;
+            micButton.interactable = true;
+        }
+        else
+        {
+            playerText.interactable = false;
+            micButton.interactable = false;
+        }
+
     }
     
     private async void OnNextButtonClick()
@@ -148,4 +174,24 @@ public class Court : MonoBehaviour
         await NextRound();
     }
 
+}
+
+public struct CaseDescription
+{
+    public string title;
+    public string summary;
+    public string[] clues;
+    public Dictionary<string, string> witnesses;
+    public string totalDescription;
+    public string[] sectionTitles;
+
+    public CaseDescription(string title, string summary, string[] clues, Dictionary<string, string> witnesses, string totalDescription, string[] sectionTitles)
+    {
+        this.title = title;
+        this.summary = summary;
+        this.clues = clues;
+        this.witnesses = witnesses;
+        this.totalDescription = totalDescription;
+        this.sectionTitles = sectionTitles;
+    }
 }
