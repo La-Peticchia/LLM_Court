@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Azure.AI.Inference</id>
+    <version>1.0.0-beta.5</version>
+    <authors>Microsoft</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>azureicon.png</icon>
+    <readme>README.md</readme>
+    <projectUrl>https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Inference_1.0.0-beta.5/sdk/ai/Azure.AI.Inference/README.md</projectUrl>
+    <description>This is the Microsoft Azure AI Inference Service client library</description>
+    <releaseNotes>https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Inference_1.0.0-beta.5/sdk/ai/Azure.AI.Inference/CHANGELOG.md</releaseNotes>
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+    <tags>Azure Inference</tags>
+    <repository type="git" url="https://github.com/Azure/azure-sdk-for-net" commit="42f57e7213de992cad00bc1b0be34b5d2e26a021" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="Azure.Core" version="1.46.1" exclude="Build,Analyzers" />
+        <dependency id="System.ClientModel" version="1.4.1" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Azure.Core" version="1.46.1" exclude="Build,Analyzers" />
+        <dependency id="System.ClientModel" version="1.4.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

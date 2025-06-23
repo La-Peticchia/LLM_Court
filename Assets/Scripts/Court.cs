@@ -114,7 +114,7 @@ public class Court : MonoBehaviour
     public void AIReplyComplete()
     {
         nextButton.interactable = true;
-        runJets.TextToSpeech(aiText.text);
+        //runJets.TextToSpeech(aiText.text);
     }
 
     private async Task NextRound(bool increment = true)
