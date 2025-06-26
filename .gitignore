@@ -78,3 +78,4 @@ crashlytics-build.properties
 #Custom ignore
 /[Aa]ssets/[Ss]treamingAssets/undreamai-v1.2.6-llamacpp/**
 /[Pp]ackages/**
+*.env

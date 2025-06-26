@@ -46,6 +46,7 @@ public class Court : MonoBehaviour
         micButton.interactable = false;
         nextButton.interactable = false;
 
+        characterAnimator = FindFirstObjectByType<CharacterAnimator>(); 
         apiManager = FindFirstObjectByType<APIInterface>();
         (_caseDescription, _translatedDescription) = await apiManager.Request();
         
@@ -67,6 +68,7 @@ public class Court : MonoBehaviour
         
         await llmCharacter.llm.WaitUntilReady();
         nextButton.interactable = true;
+        
         
         
         //NextRound(false);

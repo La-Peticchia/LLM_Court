@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -17,9 +18,11 @@ public class APIInterface : MonoBehaviour
     private ChatCompletionsOptions _requestOptions;
 
     [TextArea(20, 10)] public string prompt;
-
+    
     public static string sectionSplitCharacters = "***";
     public static string subsectionSplitCharacters = "+++";
+
+    [SerializeField] private bool useDebugPrompt = false;
     
     
     //Debug
@@ -29,7 +32,9 @@ public class APIInterface : MonoBehaviour
     private void Awake()
     {
         _endpoint = new Uri("https://models.github.ai/inference");
-        _credential = new AzureKeyCredential(Environment.GetEnvironmentVariable("GITHUB_TOKEN"));
+        string envPath = Application.dataPath + "/../.env";
+        string envVariable = LoadEnv(envPath).Where(x => x.Key == "GITHUB_TOKEN").ToArray()[0].Value;
+        _credential = new AzureKeyCredential(envVariable);
         _client = new ChatCompletionsClient(_endpoint, _credential, new AzureAIInferenceClientOptions());
         _requestOptions = new ChatCompletionsOptions()
         {
@@ -43,19 +48,23 @@ public class APIInterface : MonoBehaviour
             Model = _model
         };
 
-        //OnGenButtonClick();
-        
     }
 
 
 
     public async Task<(CaseDescription,CaseDescription)> Request()
     {
-        
-        Response<ChatCompletions> response = await _client.CompleteAsync(_requestOptions);
-        Debug.Log(response.Value.Content);
-        string[] descriptions = response.Value.Content.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
-        //string[] descriptions = dbgCaseDesc.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
+        string[] descriptions;
+        if (useDebugPrompt)
+        {
+            descriptions = dbgCaseDesc.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
+        }
+        else
+        {
+            Response<ChatCompletions> response = await _client.CompleteAsync(_requestOptions);
+            Debug.Log(response.Value.Content); 
+            descriptions = response.Value.Content.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
+        }
         
         return (BuildCaseDescription(descriptions[0]), BuildCaseDescription(descriptions[1]));
         
@@ -90,5 +99,18 @@ public class APIInterface : MonoBehaviour
         return inDescription.Replace(sectionSplitCharacters, "").Replace(subsectionSplitCharacters, "");
     }
     
+    
+    public static Dictionary<string, string> LoadEnv(string path)
+    {
+        var result = new Dictionary<string, string>();
+        foreach (var line in File.ReadAllLines(path))
+        {
+            if (string.IsNullOrWhiteSpace(line) || line.StartsWith("#")) continue;
+            var parts = line.Split('=', 2);
+            if (parts.Length == 2)
+                result[parts[0]] = parts[1];
+        }
+        return result;
+    }
     
 }
