@@ -19,8 +19,9 @@ public class Court : MonoBehaviour
     [SerializeField] private Button nextButton;
     private APIInterface apiManager;
     [SerializeField] RunJets runJets;
-    [SerializeField] public Button micButton;          
-    [SerializeField] public MicrophoneInput micInput;  
+    [SerializeField] public Button micButton;
+    [SerializeField] public MicrophoneInput micInput;
+    private CharacterAnimator characterAnimator;
 
     //Names
     [SerializeField] private string defenseName = "Defense";
@@ -41,6 +42,7 @@ public class Court : MonoBehaviour
     async void Start()
     {
         playerText.interactable = false;
+        playerText.gameObject.SetActive(false);
         micButton.interactable = false;
         nextButton.interactable = false;
 
@@ -140,30 +142,28 @@ public class Court : MonoBehaviour
 
         if (_roundsTimeline[_round].role == defenseName)
         {
+            characterAnimator.HideCurrentCharacter();  // Fa partire animazione di uscita
             playerText.interactable = true;
+            micButton.interactable = true;
+            playerText.gameObject.SetActive(true);
             playerText.text = "";
             playerText.Select();
+
         }
         else
         {
+            playerText.interactable = false;
+            playerText.gameObject.SetActive(false);
+            micButton.interactable = false;
             aiTitle.text = _roundsTimeline[_round].role;
             string systemMessage = _roundsTimeline[_round].systemMessage;
             if(systemMessage != "")
                 llmCharacter.AddSystemMessage(systemMessage);
             
             string answer = await llmCharacter.ContinueChat(_roundsTimeline[_round].role ,SetAIText, AIReplyComplete);
-            logText.text += $"<b><color=#550505>{_roundsTimeline[_round].role}</color></b>: {answer}\n\n";
-        }
+            characterAnimator.ShowCharacter(_roundsTimeline[_round].role, answer);  // Entra con animazione e poi mostra testo
 
-        if (PlayerCanAct)
-        {
-            playerText.interactable = true;
-            micButton.interactable = true;
-        }
-        else
-        {
-            playerText.interactable = false;
-            micButton.interactable = false;
+            logText.text += $"<b><color=#550505>{_roundsTimeline[_round].role}</color></b>: {answer}\n\n";
         }
 
     }

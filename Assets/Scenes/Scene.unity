@@ -413,7 +413,6 @@ RectTransform:
   - {fileID: 1789243293}
   - {fileID: 1202811256}
   - {fileID: 3698104710225534902}
-  - {fileID: 534833439}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1000,37 +999,6 @@ MonoBehaviour:
   chat: []
   grammarString: 
   grammarJSONString: 
---- !u!1 &534833438
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 534833439}
-  m_Layer: 0
-  m_Name: CharacterPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &534833439
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 534833438}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 472.14, y: -132.1653, z: 0}
-  m_LocalScale: {x: 1.4285713, y: 1.4285713, z: 1.4285713}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 158550917}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &545473198
 GameObject:
   m_ObjectHideFlags: 0
@@ -1305,7 +1273,6 @@ MonoBehaviour:
   systemMessages: {fileID: 1283318607}
   caseDescriptionText: {fileID: 72392618}
   nextButton: {fileID: 724531321}
-  apiManager: {fileID: 0}
   runJets: {fileID: 726528682}
   micButton: {fileID: 1202811257}
   micInput: {fileID: 0}
