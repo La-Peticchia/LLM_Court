@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using Whisper;
 using Whisper.Utils;
 
-public class MicrophoneInput : MonoBehaviour
+public class MicrophoneInput : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Dependencies")]
     public WhisperManager whisper;
@@ -11,74 +12,96 @@ public class MicrophoneInput : MonoBehaviour
 
     [Header("UI")]
     public Button micButton;
-    public Text buttonText;
     public Image micIcon;
-    public Sprite micIdleSprite;
-    public Sprite micRecSprite; 
-    public InputField playerInput;        
-    public Court court;                   // per sapere quando può parlare
+    public Sprite micIdleSprite;         // microfono rosso
+    public Sprite micRecSprite;          // cerchietto rosso
+    public Sprite micDisabledSprite;     // microfono grigio
+    public InputField playerInput;
+    public Court court;
 
     private bool isRecording = false;
-
+    private Vector3 defaultScale;
 
     void Awake()
     {
+        defaultScale = micButton.transform.localScale;
         micButton.onClick.AddListener(ToggleRecording);
         microphoneRecord.OnRecordStop += OnRecordStop;
 
-        // Imposta lingua automatica (lingua vuota o null, dipende da whisper)
         whisper.language = "";
-
-        // Configuro VAD interno per lo stop automatico
         microphoneRecord.useVad = true;
         microphoneRecord.vadStop = true;
-        microphoneRecord.vadStopTime = 2f;   // 2 s di silenzio
-        microphoneRecord.dropVadPart = false; // non tagliare l’ultima parte
+        microphoneRecord.vadStopTime = 2f;
+        microphoneRecord.dropVadPart = false;
+    }
+
+    void Update()
+    {
+        if (!court.PlayerCanAct)
+        {
+            micButton.interactable = false;
+            micIcon.sprite = micDisabledSprite;
+        }
+        else if (!isRecording)
+        {
+            micButton.interactable = true;
+            micIcon.sprite = micIdleSprite;
+        }
     }
 
     void ToggleRecording()
     {
-        
         if (!court.PlayerCanAct)
         {
             Debug.Log("Not player's turn");
             return;
         }
 
-        Debug.Log("Mic button pressed");
         if (!isRecording)
         {
             microphoneRecord.StartRecord();
-            buttonText.text = "Stop";
             isRecording = true;
+            micIcon.sprite = micRecSprite;
         }
         else
         {
             microphoneRecord.StopRecord();
-            buttonText.text = "Record";
             isRecording = false;
+            micIcon.sprite = micIdleSprite;
         }
     }
 
     async void OnRecordStop(AudioChunk clip)
     {
-        buttonText.text = "Record";
         isRecording = false;
+        micIcon.sprite = micIdleSprite;
 
-        var res = await whisper.GetTextAsync(
-            clip.Data, clip.Frequency, clip.Channels);
-
+        var res = await whisper.GetTextAsync(clip.Data, clip.Frequency, clip.Channels);
         var transcript = res?.Result ?? "";
 
-        // Se c’è già testo, lo appendo con uno spazio 
         if (!string.IsNullOrWhiteSpace(playerInput.text))
             playerInput.text = playerInput.text.TrimEnd() + " " + transcript;
         else
             playerInput.text = transcript;
 
-        // Riabilita e sposta il cursore in fondo
         playerInput.interactable = true;
         playerInput.caretPosition = playerInput.text.Length;
-        playerInput.Select(); 
+        playerInput.Select();
     }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        micButton.transform.localScale = defaultScale * 1.2f;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        micButton.transform.localScale = defaultScale;
+    }
+
+    void OnDestroy()
+    {
+        microphoneRecord.OnRecordStop -= OnRecordStop;
+    }
+
 }
