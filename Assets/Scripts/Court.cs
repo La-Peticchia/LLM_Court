@@ -16,8 +16,9 @@ public class Court : MonoBehaviour
     [SerializeField] private TextMeshProUGUI caseDescriptionText;
     [SerializeField] private Button nextButton;
     [SerializeField] RunJets runJets;
-    [SerializeField] public Button micButton;          
-    [SerializeField] public MicrophoneInput micInput;  
+    [SerializeField] public Button micButton;
+    [SerializeField] private CharacterAnimator characterAnimator;
+
 
     //Names
     [SerializeField] private string defenseName = "Defense";
@@ -31,8 +32,7 @@ public class Court : MonoBehaviour
     [TextArea(5, 10)] public string attackPrompt = "The goal of Attack is proving to the Judge that the defendant is guilty";
     [TextArea(5, 10)] public string caseDescription = "Mr. Joe killed Mrs. Mama yesterday";
 
-    [SerializeField]
-    private string[] witnessPrompts;
+    [SerializeField] private string[] witnessPrompts;
 
     private List<(string role, string systemMessage)> _roundsTimeline;
     public bool PlayerCanAct => _roundsTimeline[_round].role == defenseName;
@@ -49,12 +49,11 @@ public class Court : MonoBehaviour
         llmCharacter.playerName = defenseName;
         
         playerText.interactable = false;
+        playerText.gameObject.SetActive(false);
         micButton.interactable = false;
         nextButton.interactable = false;
         await llmCharacter.llm.WaitUntilReady();
         nextButton.interactable = true;
-        
-        
         
         //NextRound(false);
         
@@ -118,44 +117,41 @@ public class Court : MonoBehaviour
     public void AIReplyComplete()
     {
         nextButton.interactable = true;
-        runJets.TextToSpeech(aiText.text);
+        //runJets.TextToSpeech(aiText.text);
     }
+
+
 
     private async Task NextRound(bool increment = true)
     {
         if (increment) _round++;
         systemMessages.text = _roundsTimeline[_round].systemMessage;
 
-        if (_roundsTimeline[_round].role == defenseName)
+        string currentRole = _roundsTimeline[_round].role;
+
+        if (currentRole == defenseName)
         {
+            characterAnimator.HideCurrentCharacter();  // Fa partire animazione di uscita
             playerText.interactable = true;
+            playerText.gameObject.SetActive(true);
+            micButton.interactable = true;
             playerText.text = "";
             playerText.Select();
         }
         else
         {
-            aiTitle.text = _roundsTimeline[_round].role;
-            string systemMessage = _roundsTimeline[_round].systemMessage;
-            if(systemMessage != "")
-                llmCharacter.AddSystemMessage(systemMessage);
-            
-            string answer = await llmCharacter.ContinueChat(_roundsTimeline[_round].role ,SetAIText, AIReplyComplete);
-            logText.text += $"<b><color=#550505>{_roundsTimeline[_round].role}</color></b>: {answer}\n\n";
-        }
-
-        if (PlayerCanAct)
-        {
-            playerText.interactable = true;
-            micButton.interactable = true;
-        }
-        else
-        {
             playerText.interactable = false;
+            playerText.gameObject.SetActive(false);
             micButton.interactable = false;
-        }
 
+            string answer = await llmCharacter.ContinueChat(currentRole, null, AIReplyComplete);
+
+            characterAnimator.ShowCharacter(currentRole, answer);  // Entra con animazione e poi mostra testo
+
+            logText.text += $"<b><color=#550505>{currentRole}</color></b>: {answer}\n\n";
+        }
     }
-    
+
     private async void OnNextButtonClick()
     {
         nextButton.interactable = false;
