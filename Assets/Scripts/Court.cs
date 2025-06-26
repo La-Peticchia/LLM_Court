@@ -17,7 +17,7 @@ public class Court : MonoBehaviour
     [SerializeField] private TextMeshProUGUI systemMessages;
     [SerializeField] private TextMeshProUGUI caseDescriptionText;
     [SerializeField] private Button nextButton;
-    [SerializeField] private APIInterface apiManager;
+    private APIInterface apiManager;
     [SerializeField] RunJets runJets;
     [SerializeField] public Button micButton;          
     [SerializeField] public MicrophoneInput micInput;  
