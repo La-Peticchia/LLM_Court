@@ -23,8 +23,6 @@ public class APIInterface : MonoBehaviour
     
     
     //Debug
-    [SerializeField] private Button genButton;
-
     [TextArea(20, 10)] public string dbgCaseDesc;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -44,28 +42,20 @@ public class APIInterface : MonoBehaviour
             NucleusSamplingFactor = 1f,
             Model = _model
         };
-        
 
-        genButton.onClick.AddListener(OnGenButtonClick);
         //OnGenButtonClick();
         
     }
 
-    public async void OnGenButtonClick()
-    {
-        genButton.interactable = false;
-        await Request();
-        genButton.interactable = true;
-        
-    }
+
 
     public async Task<(CaseDescription,CaseDescription)> Request()
     {
         
-        //Response<ChatCompletions> response = await _client.CompleteAsync(_requestOptions);
-        //Debug.Log(response.Value.Content);
-        //string[] descriptions = response.Value.Content.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
-        string[] descriptions = dbgCaseDesc.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
+        Response<ChatCompletions> response = await _client.CompleteAsync(_requestOptions);
+        Debug.Log(response.Value.Content);
+        string[] descriptions = response.Value.Content.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
+        //string[] descriptions = dbgCaseDesc.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
         
         return (BuildCaseDescription(descriptions[0]), BuildCaseDescription(descriptions[1]));
         

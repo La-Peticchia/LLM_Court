@@ -1305,14 +1305,13 @@ MonoBehaviour:
   systemMessages: {fileID: 1283318607}
   caseDescriptionText: {fileID: 72392618}
   nextButton: {fileID: 724531321}
+  apiManager: {fileID: 0}
   runJets: {fileID: 726528682}
   micButton: {fileID: 1202811257}
-  characterAnimator: {fileID: 576788991}
+  micInput: {fileID: 0}
   defenseName: Defense
   attackName: Attack
   judgeName: Judge
-  witnessNames:
-  - Johnny
   mainPrompt: A court case where the AI takes control of several characters listed
     below. Answers must be less than 100 words. Only one character at a time can
     answer. Answers must be written in italian
@@ -1320,21 +1319,6 @@ MonoBehaviour:
     to the dialogue
   attackPrompt: The goal of Attack is proving to the Judge that the defendant is
     guilty
-  caseDescription: "State vs. Rivera \u2013 Criminal Case: Arson\nMs. Rivera is accused
-    of intentionally setting fire to a small restaurant where she used to work. The
-    fire caused significant damage but no injuries. Investigators suspect foul play
-    due to signs of accelerants at the scene.\n\nEvidence/Clues -\n\nSecurity footage
-    shows someone entering the back door of the restaurant around 2:15 a.m., shortly
-    before the fire started.\n\nA gasoline can was found in a nearby dumpster, with
-    fingerprints belonging to Rivera.\n\nText messages from Rivera to a friend the
-    day before mentioned how upset she was about being fired and hinted at \u201Cgetting
-    even.\u201D\n\nFire investigators confirmed the use of an accelerant to start
-    the fire."
-  witnessPrompts:
-  - "A neighbor who lives above the restaurant testifies that they saw a woman matching
-    Rivera\u2019s height and build entering the alley behind the restaurant late
-    at night. They describe hearing the back door creak open, followed by the smell
-    of gasoline and seeing a faint glow just before the fire alarm went off."
 --- !u!4 &708504566
 Transform:
   m_ObjectHideFlags: 0
@@ -4009,6 +3993,69 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1966107895}
   m_CullTransparentMesh: 1
+--- !u!1 &1971763132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1971763134}
+  - component: {fileID: 1971763133}
+  m_Layer: 0
+  m_Name: APIInterface
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1971763133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971763132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53c0915f97aefcb4e808d38c7a802dbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prompt: "I need the description of a courtroom case. You decide wether the case
+    is real or fake. The description must include:\r\n- The name of the case\r\n-
+    A summary of the case ranging from 200 to 300 words, I don't need that you specify
+    how the case developed in the courtroom\r\n- Evidence or clues about the case,
+    the number of clues is up to you.\r\n- A list of witnesses paired with a description
+    of who they are, their personality and what they have seen. If the case is fake,
+    you decide the number of witnesses from 1 to 4\r\n\r\nIf you can't gather all
+    the information I asked of a real case just make it up. \r\n\r\nThe description
+    must be formatted like this:\r\n\r\nCase Name >\r\n(here you put the name of
+    the case)\r\n***\r\nSummary >\r\n(here you put the summary)\r\n***\r\nEvidence
+    >\r\n-(here you put the first clue)+++\r\n-(here you put the second clue)+++\r\n-(here
+    you put the third clue)+++\r\n(you decide the number of clues)\r\n***\r\nWitnesses
+    >\r\n-(here you put the name of first witness): (here you put the description
+    of the first witness)+++\r\n-(here you put the name of second witness): (here
+    you put the description of the second witness)+++\r\n-(here you put the name
+    of third witness): (here you put the description of the third witness)+++\r\n(you
+    decide the number of witnesses from 1 to 4)\r\n^^^\r\n(here you put all the case
+    description translated in italian with the same specified format)"
+  dbgCaseDesc: 
+--- !u!4 &1971763134
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971763132}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 617.6744, y: 336.69586, z: -6.40024}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2015159264
 GameObject:
   m_ObjectHideFlags: 0
@@ -4275,3 +4322,4 @@ SceneRoots:
   - {fileID: 1263753840}
   - {fileID: 1421243307}
   - {fileID: 576788992}
+  - {fileID: 1971763134}
