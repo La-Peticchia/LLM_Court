@@ -6,14 +6,14 @@ using TMPro;
 
 public class CharacterAnimator : MonoBehaviour
 {
-    [System.Serializable]
-    public class CharacterPrefab
-    {
-        public string roleName;
-        public GameObject prefab;
-    }
+    [Header("Prefabs Fissi")]
+    public GameObject judgePrefab;
 
-    public List<CharacterPrefab> characterPrefabs;
+    [Header("Roster Random")]
+    public List<GameObject> attackPrefabs;
+    public List<GameObject> witnessPrefabs;
+
+    [Header("UI")]
     public Transform parentCanvas;
     public GameObject aiImageObject;
     public Text aiText;
@@ -22,6 +22,24 @@ public class CharacterAnimator : MonoBehaviour
     private Animator currentAnimator;
     private string currentRole;
 
+    private Dictionary<string, GameObject> roleToPrefab = new();
+
+    public void AssignDynamicPrefabs(List<string> witnesses, string attackRole)
+    {
+        roleToPrefab.Clear();
+
+        // Attacco → prefab random
+        if (attackPrefabs.Count > 0)
+            roleToPrefab[attackRole] = attackPrefabs[Random.Range(0, attackPrefabs.Count)];
+
+        // Testimoni → prefab random (diversi o ripetuti)
+        foreach (var witness in witnesses)
+        {
+            if (witnessPrefabs.Count > 0)
+                roleToPrefab[witness] = witnessPrefabs[Random.Range(0, witnessPrefabs.Count)];
+        }
+    }
+
     public void HideCurrentCharacter()
     {
         if (currentCharacterGO != null)
@@ -29,9 +47,9 @@ public class CharacterAnimator : MonoBehaviour
             aiImageObject.SetActive(false);
             aiText.text = "";
 
-            // Avvia animazione di uscita
             currentAnimator.SetBool("isExiting", true);
             StartCoroutine(DestroyAfterExit(currentCharacterGO));
+
             currentCharacterGO = null;
             currentRole = null;
         }
@@ -48,22 +66,27 @@ public class CharacterAnimator : MonoBehaviour
 
         if (currentCharacterGO != null)
         {
-            HideCurrentCharacter(); // Fa partire animazione di uscita
+            HideCurrentCharacter();
         }
 
         currentRole = role;
 
-        CharacterPrefab prefabEntry = characterPrefabs.Find(c => c.roleName == role);
-        if (prefabEntry == null)
+        // Seleziona prefab in base al ruolo
+        GameObject prefabToUse = null;
+        if (role == "Judge") prefabToUse = judgePrefab;
+        else if (roleToPrefab.ContainsKey(role)) prefabToUse = roleToPrefab[role];
+
+        if (prefabToUse == null)
         {
-            Debug.LogWarning($"Prefab per ruolo {role} non trovato!");
+            Debug.LogWarning($"Nessun prefab assegnato per ruolo: {role}");
             aiImageObject.SetActive(true);
             aiText.text = text;
             return;
         }
 
-        currentCharacterGO = Instantiate(prefabEntry.prefab, parentCanvas);
+        currentCharacterGO = Instantiate(prefabToUse, parentCanvas);
         currentAnimator = currentCharacterGO.GetComponent<Animator>();
+
         if (currentAnimator != null)
         {
             currentAnimator.SetBool("isEntering", true);
@@ -78,7 +101,7 @@ public class CharacterAnimator : MonoBehaviour
 
     private IEnumerator ShowTextAfterEnter(Animator animator, string text)
     {
-        // Aspetta che inizi Enter (max 1s)
+        // Attende che inizi l’animazione "Enter"
         float waitTime = 0f;
         while (!animator.GetCurrentAnimatorStateInfo(0).IsName("Enter"))
         {
@@ -91,7 +114,7 @@ public class CharacterAnimator : MonoBehaviour
             yield return null;
         }
 
-        // Aspetta che finisca Enter
+        // Attende che termini "Enter"
         waitTime = 0f;
         while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
         {
@@ -112,10 +135,9 @@ public class CharacterAnimator : MonoBehaviour
         foreach (char c in text)
         {
             aiText.text += c;
-            yield return new WaitForSeconds(0.02f);  // velocità di scrittura
+            yield return new WaitForSeconds(0.02f);
         }
     }
-
 
     private IEnumerator DestroyAfterExit(GameObject obj)
     {

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LLMUnity;
@@ -20,8 +20,8 @@ public class Court : MonoBehaviour
     private APIInterface apiManager;
     [SerializeField] RunJets runJets;
     [SerializeField] public Button micButton;
-    [SerializeField] public MicrophoneInput micInput;
-    private CharacterAnimator characterAnimator;
+    public MicrophoneInput micInput;
+    [SerializeField] private CharacterAnimator characterAnimator;
 
     //Names
     [SerializeField] private string defenseName = "Defense";
@@ -32,8 +32,6 @@ public class Court : MonoBehaviour
     [TextArea(5, 10)] public string mainPrompt = "A court case where the AI takes control of several characters listed below";
     [TextArea(5, 10)] public string judgePrompt = "The goal of Judge is to give the defendant's final sentence by listening to the dialogue";
     [TextArea(5, 10)] public string attackPrompt = "The goal of Attack is proving to the Judge that the defendant is guilty";
-    
-    public bool PlayerCanAct => _roundsTimeline[_round].role == defenseName;
 
     private List<(string role, string systemMessage)> _roundsTimeline;
     private CaseDescription _caseDescription, _translatedDescription;
@@ -46,10 +44,11 @@ public class Court : MonoBehaviour
         micButton.interactable = false;
         nextButton.interactable = false;
 
-        characterAnimator = FindFirstObjectByType<CharacterAnimator>(); 
         apiManager = FindFirstObjectByType<APIInterface>();
         (_caseDescription, _translatedDescription) = await apiManager.Request();
-        
+
+        characterAnimator.AssignDynamicPrefabs(_caseDescription.witnesses.Keys.ToList(), attackName);
+
         InitializePrompt();
         InitializeRounds();
         caseDescriptionText.text = $"<b><color=#F64A3E>{_translatedDescription.sectionTitles[0]}</color></b>\n" +
@@ -145,24 +144,28 @@ public class Court : MonoBehaviour
         if (_roundsTimeline[_round].role == defenseName)
         {
             characterAnimator.HideCurrentCharacter();  // Fa partire animazione di uscita
+
             playerText.interactable = true;
-            micButton.interactable = true;
             playerText.gameObject.SetActive(true);
             playerText.text = "";
             playerText.Select();
 
+            micInput.EnableMicInput(true);
         }
         else
         {
             playerText.interactable = false;
             playerText.gameObject.SetActive(false);
-            micButton.interactable = false;
+
+            micInput.EnableMicInput(false);
+
             aiTitle.text = _roundsTimeline[_round].role;
             string systemMessage = _roundsTimeline[_round].systemMessage;
             if(systemMessage != "")
                 llmCharacter.AddSystemMessage(systemMessage);
             
             string answer = await llmCharacter.ContinueChat(_roundsTimeline[_round].role ,SetAIText, AIReplyComplete);
+
             characterAnimator.ShowCharacter(_roundsTimeline[_round].role, answer);  // Entra con animazione e poi mostra testo
 
             logText.text += $"<b><color=#550505>{_roundsTimeline[_round].role}</color></b>: {answer}\n\n";
