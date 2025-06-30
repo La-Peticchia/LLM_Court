@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,11 +34,14 @@ public class Court : MonoBehaviour
     [TextArea(5, 10)] public string judgePrompt = "The goal of Judge is to give the defendant's final sentence by listening to the dialogue";
     [TextArea(5, 10)] public string attackPrompt = "The goal of Attack is proving to the Judge that the defendant is guilty";
     
+    //Gameplay
+    [SerializeField, Range(1,5)] private int numOfQuestions;
     public bool PlayerCanAct => _roundsTimeline[_round].role == defenseName;
 
     private List<(string role, string systemMessage)> _roundsTimeline;
     private CaseDescription _caseDescription, _translatedDescription;
     private int _round;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     async void Start()
     {
@@ -48,10 +52,12 @@ public class Court : MonoBehaviour
 
         characterAnimator = FindFirstObjectByType<CharacterAnimator>(); 
         apiManager = FindFirstObjectByType<APIInterface>();
-        (_caseDescription, _translatedDescription) = await apiManager.Request();
+
+        while (string.IsNullOrWhiteSpace(((_caseDescription, _translatedDescription) = await apiManager.Request())._caseDescription.summary)) ;
         
         InitializePrompt();
         InitializeRounds();
+        
         caseDescriptionText.text = $"<b><color=#F64A3E>{_translatedDescription.sectionTitles[0]}</color></b>\n" +
                                    $"{_translatedDescription.title}\n\n" +
                                    $"<b><color=#F64A3E>{_translatedDescription.sectionTitles[1]}</color></b>\n" +
@@ -69,15 +75,13 @@ public class Court : MonoBehaviour
         await llmCharacter.llm.WaitUntilReady();
         nextButton.interactable = true;
         
-        
-        
         //NextRound(false);
         
     }
 
     private void InitializePrompt()
     {
-        llmCharacter.prompt = $"{mainPrompt}\n{judgeName} - {judgePrompt}\n{attackName} - {attackPrompt}\n\nWitnesses:";
+        llmCharacter.prompt = $"{mainPrompt}\n{judgeName} - {judgePrompt}\n{attackName} - {attackPrompt}\n\nWitnesses:\n";
 
         foreach (var item in _caseDescription.witnesses)
             llmCharacter.prompt += $"{item.Key} - {item.Value}\n";
@@ -95,26 +99,19 @@ public class Court : MonoBehaviour
         _roundsTimeline = new List<(string role, string systemMessage)>
         {
             (" "," "),
-            (judgeName, $"Now the {judgeName} introduces the court case then passes the word to {attackName}"),
-            (attackName, $"Now the {attackName} exposes the clues trying to convince the judge"),
-            (defenseName, $"Now the {defenseName} dismantle the evidence trying to convince the judge")
+            (judgeName, $"Introduction Round: Now the {judgeName} introduces the court case then passes the word to {attackName}"),
+            (attackName, $"Introduction Round: Now the {attackName} exposes the clues trying to convince the judge"),
+            (defenseName, $"Introduction Round: Now the {defenseName} dismantle the evidence trying to convince the judge")
         };
 
-        foreach (var item in _caseDescription.witnesses)
-        {
-            _roundsTimeline.Add((attackName, $"Now the {attackName} questions {item.Key} about the case"));
-            _roundsTimeline.Add((item.Key, ""));
-        }
+        for (int i = 0; i < numOfQuestions; i++)
+            _roundsTimeline.Add((attackName,"Interrogation Round - Questions remaining: " + (numOfQuestions - i)));
+        for (int i = 0; i < numOfQuestions; i++)
+            _roundsTimeline.Add((defenseName,"Interrogation Round - Questions remaining: " + (numOfQuestions - i)));
         
-        foreach (var item in _caseDescription.witnesses)
-        {
-            _roundsTimeline.Add((defenseName, $"Now the {defenseName} questions {item.Key} about the case"));
-            _roundsTimeline.Add((item.Key, ""));
-        }
-        
-        _roundsTimeline.Add((attackName, $"Now it's the {attackName} last intervention"));
-        _roundsTimeline.Add((defenseName, $"Now it's the {defenseName} last intervention"));
-        _roundsTimeline.Add((judgeName, $"Now the {judgeName} give their final sentence"));
+        _roundsTimeline.Add((attackName, $"Final Round: Now it's the {attackName} last intervention"));
+        _roundsTimeline.Add((defenseName, $"Final Round: Now it's the {defenseName} last intervention"));
+        _roundsTimeline.Add((judgeName, $"Final Round: Now the {judgeName} give their final sentence"));
     }
 
     private void OnInputFieldSubmit(string message)
@@ -123,12 +120,24 @@ public class Court : MonoBehaviour
         aiText.text = "...";
         llmCharacter.AddPlayerMessage(message);
         logText.text += $"<b><color=#550505>{_roundsTimeline[_round].role}</color></b>: {message}\n\n";
+        if(message.Contains(">"))
+            try
+            {
+                string questionedWitness = message.Split(">")[1].Replace(" ", "").Replace("\n", "");
+                _roundsTimeline.Insert(_round, (questionedWitness , ""));
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Debug.LogWarning(e.Message + "\nSplitting by > failed");
+            }
+        
+        
         _ = NextRound();
     }
     
     public void SetAIText(string text)
     {
-        aiText.text = text;
+        aiText.text = text.Split(">")[0];
     }
     
     public void AIReplyComplete()
@@ -164,8 +173,18 @@ public class Court : MonoBehaviour
             
             string answer = await llmCharacter.ContinueChat(_roundsTimeline[_round].role ,SetAIText, AIReplyComplete);
             characterAnimator.ShowCharacter(_roundsTimeline[_round].role, answer);  // Entra con animazione e poi mostra testo
-
             logText.text += $"<b><color=#550505>{_roundsTimeline[_round].role}</color></b>: {answer}\n\n";
+
+            if(answer.Contains(">"))
+                try
+                {
+                    string questionedWitness = answer.Split(">")[1].Replace(" ", "").Replace("\n", "");
+                    _roundsTimeline.Insert(_round, (questionedWitness , ""));
+                }
+                catch (IndexOutOfRangeException e)
+                {
+                    Debug.LogWarning(e.Message + "\nSplitting by > failed");
+                }
         }
 
     }

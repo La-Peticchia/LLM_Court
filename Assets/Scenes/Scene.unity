@@ -1284,8 +1284,24 @@ MonoBehaviour:
     answer. Answers must be written in italian
   judgePrompt: The goal of Judge is to give the defendant's final sentence by listening
     to the dialogue
-  attackPrompt: The goal of Attack is proving to the Judge that the defendant is
-    guilty
+  attackPrompt: 'The goal of Attack is proving to the Judge that the defendant is
+    guilty. Attack can ask questions to witesses ONLY in the Interrogation Round.
+    Attack can also answer back to the Defense and ask a question to a witness in
+    the same text. The system will also specify the number of questions left. During
+    the interrogation round the questions can be directed to a specific witness by
+    following this format:
+
+
+    (question to the witness)
+
+    >(name of the witness)
+
+
+    of
+    course parenthesis must be omitted
+
+'
+  numOfQuestions: 3
 --- !u!4 &708504566
 Transform:
   m_ObjectHideFlags: 0
@@ -1837,7 +1853,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 696282292}
   m_HandleRect: {fileID: 696282291}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2127,7 +2143,7 @@ MonoBehaviour:
   remote: 0
   port: 13333
   numThreads: -1
-  numGPULayers: 25
+  numGPULayers: 50
   debug: 0
   parallelPrompts: -1
   dontDestroyOnLoad: 1
@@ -4007,65 +4023,68 @@ MonoBehaviour:
     of third witness): (here you put the description of the third witness)+++\r\n(you
     decide the number of witnesses from 1 to 4)\r\n^^^\r\n(here you put all the case
     description translated in italian with the same specified format)"
-  useDebugPrompt: 0
-  dbgCaseDesc: "Case Name >  \nThe Holloway Art Heist  \n***  \nSummary >  \nThe
-    Holloway Art Heist is a high-profile criminal case centered around the theft
-    of three priceless paintings from the Holloway Modern Art Museum in Portland,
-    Oregon. The crime occurred in the early morning hours of January 12, 2022, when
-    museum security discovered that the paintings \"Midnight Bloom\" by Ethan Carter,
-    \"Reflections\" by Lena Zhou, and \"Urban Solitude\" by Marco Santiago were missing
-    from their usual display. The robbery was meticulously planned, with the culprit
-    disabling the museum\u2019s alarm system and avoiding security cameras by exploiting
-    a known blind spot. The estimated value of the stolen works exceeds $14 million.
-    Police investigations revealed fingerprints, a suspicious maintenance log entry,
-    and eyewitness statements, which drew attention to both a recently hired museum
-    technician and a disgruntled former employee. The case explores themes of trust,
-    insider knowledge, and human error. Public interest has been intense, both due
-    to the cultural significance of the stolen artwork and the dramatic nature of
-    the theft itself.  \n***  \nEvidence >  \n-Partial fingerprint found on the frame
-    of \"Midnight Bloom\"+++  \n-A tampered alarm panel showing signs of manual bypass+++ 
-    \n-Maintenance log entry with a forged signature for a midnight service call+++ 
-    \n-Security footage of a shadowy figure slipping through a service entrance+++ 
-    \n***  \nWitnesses >  \n-Gloria Hart: Senior night guard, highly observant and
-    no-nonsense, noticed the alarm activity and reported the theft; saw a figure
-    in technician\u2019s uniform near the service entrance at 2:45 a.m.+++  \n-Franklin
-    Lee: Museum curator, meticulous and anxious, discovered the missing paintings
-    early in the morning; recalls seeing the new technician loitering near restricted
-    areas the previous day.+++  \n-Tina Morales: Maintenance coordinator, friendly
-    but scattered, noticed her logbook was missing after the heist and later found
-    a forged entry; says she never issued a service call at midnight.+++  \n*** 
-    \n\n^^^  \nNome del Caso >  \nIl Colpo d'Arte di Holloway  \n***  \nSommario
-    >  \nIl Colpo d'Arte di Holloway \xE8 un caso criminale di grande risonanza incentrato
-    sul furto di tre dipinti inestimabili dal Museo d'Arte Moderna Holloway di Portland,
-    Oregon. Il crimine \xE8 avvenuto nelle prime ore del mattino del 12 gennaio 2022,
-    quando la sicurezza del museo ha scoperto che i dipinti \"Midnight Bloom\" di
-    Ethan Carter, \"Reflections\" di Lena Zhou e \"Urban Solitude\" di Marco Santiago
-    erano scomparsi dalla loro esposizione abituale. Il furto \xE8 stato pianificato
-    meticolosamente: il colpevole ha disattivato il sistema d'allarme e ha evitato
-    le telecamere di sicurezza sfruttando un noto punto cieco. Il valore stimato
-    delle opere rubate supera i 14 milioni di dollari. Le indagini della polizia
-    hanno portato alla luce impronte digitali, una voce sospetta nel registro delle
-    manutenzioni e testimonianze oculari, attirando l'attenzione sia su un tecnico
-    del museo assunto di recente sia su un ex dipendente scontento. Il caso esplora
-    i temi della fiducia, della conoscenza interna e dell'errore umano. L'interesse
-    pubblico \xE8 stato intenso, sia per l'importanza culturale delle opere rubate
-    sia per la natura drammatica del furto.  \n***  \nProve >  \n-Impronta digitale
-    parziale trovata sulla cornice di \"Midnight Bloom\"+++  \n-Pannello d'allarme
-    manomesso con segni evidenti di disattivazione manuale+++  \n-Voce nel registro
-    manutenzione con firma contraffatta per un intervento a mezzanotte+++  \n-Filmati
-    di sicurezza che mostrano una figura ombrosa entrare da un ingresso di servizio+++ 
-    \n***  \nTestimoni >  \n-Gloria Hart: Guardia notturna senior, molto attenta
-    e pragmatica, ha notato l\u2019attivit\xE0 sospetta del sistema d\u2019allarme
-    e ha denunciato il furto; ha visto una persona in uniforme da tecnico vicino
-    all\u2019ingresso di servizio alle 2:45 del mattino.+++  \n-Franklin Lee: Curatore
-    del museo, meticoloso e ansioso, ha scoperto la mancanza dei quadri la mattina
-    presto; ricorda di aver visto il nuovo tecnico aggirarsi nelle aree riservate
-    il giorno precedente.+++  \n-Tina Morales: Coordinatrice della manutenzione,
-    socievole ma smemorata, ha notato che il suo registro risultava sparito dopo
-    il furto e in seguito ha trovato una voce falsificata; sostiene di non aver mai
-    programmato un intervento a mezzanotte.+++\nUnityEngine.Debug:Log (object)\nAPIInterface/<Request>d__10:MoveNext
-    () (at Assets/Scripts/APIInterface.cs:56)\nUnityEngine.UnitySynchronizationContext:ExecuteTasks
-    ()\n"
+  useDebugPrompt: 1
+  dbgCaseDesc: "Case Name >  \nThe Case of the Vanishing Sapphire  \n***  \nSummary
+    >  \nIn the summer of 2019, the illustrious Medici Sapphire disappeared from
+    a gala event hosted at the Hampton House, a historic mansion turned private museum
+    in upstate New York. The sapphire, a rare 60-carat gem, was on display as part
+    of a traveling exhibition of royal jewels. Its sudden disappearance sent shockwaves
+    through the art and jewelry world, prompting a major investigation. Hundreds
+    of guests, including local dignitaries, celebrities, and collectors, attended
+    the gala on the night of the theft. Security footage revealed that the display
+    case had been opened during a two-minute blackout caused by a temporary electrical
+    fault, raising suspicions that the outage was orchestrated by the thief. The
+    sapphire\u2019s empty case was discovered minutes after power was restored, and
+    search dogs were unable to trace any scent beyond the main showroom. Authorities
+    considered possible involvement from the museum\u2019s staff, contractors, and
+    guests. As the investigation unfolded, several clues and witness statements pointed
+    toward a coordinated inside job, but no individual was immediately charged with
+    the theft, leaving the fate of the Medici Sapphire a compelling mystery.  \n*** 
+    \nEvidence >  \n- The display case\u2019s security lock was professionally picked,
+    leaving no visible damage.+++  \n- A single black leather glove, size medium,
+    was found beneath a table near the back exit.+++  \n- A guest list indicated
+    a last-minute addition: \u201CS. Linwood,\u201D later found to be a false identity.+++ 
+    \n- Power logs confirmed an irregularity at the main electrical panel 90 seconds
+    before the outage.+++  \n***  \nWitnesses >  \n- Claudia Benton: The museum\u2019s
+    head curator, meticulous and somewhat anxious. She recounts seeing a shadowy
+    figure by the electrical room just as the lights flickered.+++  \n- Victor Hahn:
+    A local art appraiser, sociable and observant. He reports a brief, hushed argument
+    between two staff members near the green room minutes before the outage.+++ 
+    \n- Malik Reyes: The contracted security guard, reserved and by-the-book, asserts
+    that all doors remained locked and saw a suspicious guest near the sapphire\u2019s
+    display before the blackout.+++  \n^^^  \nNome del Caso >  \nIl Caso dello Zaffiro
+    Svanito  \n***  \nSommario >  \nNell\u2019estate del 2019, il famoso Zaffiro
+    dei Medici scomparve durante un evento di gala presso la Hampton House, una storica
+    villa trasformata in museo privato nello stato di New York. Il prezioso zaffiro,
+    una gemma rara da 60 carati, era esposto come parte di una mostra itinerante
+    di gioielli reali. La sua improvvisa sparizione sconvolse il mondo dell\u2019arte
+    e dei gioielli, dando il via a una vasta indagine. Centinaia di ospiti, tra cui
+    personalit\xE0 locali, celebrit\xE0 e collezionisti, parteciparono al gala nella
+    notte del furto. I filmati di sicurezza mostrarono che la teca era stata aperta
+    durante un blackout di due minuti causato da un guasto elettrico temporaneo,
+    facendo sospettare che l\u2019interruzione fosse stata orchestrata dal ladro.
+    La teca vuota fu scoperta pochi minuti dopo il ripristino della corrente, e i
+    cani da ricerca non riuscirono a seguire alcun odore oltre la sala principale.
+    Le autorit\xE0 presero in considerazione il coinvolgimento di membri dello staff,
+    collaboratori e ospiti. Mentre le indagini proseguivano, diversi indizi e testimonianze
+    suggerirono la possibilit\xE0 di un colpo interno organizzato, ma nessuno fu
+    immediatamente accusato del furto, lasciando il destino dello Zaffiro dei Medici
+    un avvincente mistero.  \n***  \nProve >  \n- La serratura di sicurezza della
+    teca era stata aperta da un professionista, senza segni visibili di forzatura.+++ 
+    \n- Un solo guanto nero di pelle, taglia media, fu trovato sotto un tavolino
+    vicino all\u2019uscita posteriore.+++  \n- La lista degli invitati mostrava un\u2019aggiunta
+    all\u2019ultimo minuto: \u201CS. Linwood\u201D, poi risultata essere un\u2019identit\xE0
+    falsa.+++  \n- I registri elettrici confermarono un\u2019irregolarit\xE0 nel
+    quadro elettrico principale 90 secondi prima del blackout.+++  \n***  \nTestimoni
+    >  \n- Claudia Benton: Curatrice capo del museo, minuziosa e un po\u2019 ansiosa.
+    Racconta di aver visto una figura nell\u2019ombra vicino alla sala elettrica
+    mentre le luci iniziavano a tremolare.+++  \n- Victor Hahn: Esperto d\u2019arte
+    locale, socievole e molto osservatore. Riferisce di aver assistito a una breve
+    ma accesa discussione tra due membri dello staff vicino alla green room pochi
+    minuti prima del blackout.+++  \n- Malik Reyes: Guardia giurata ingaggiata per
+    l\u2019evento, riservato e scrupoloso, afferma che tutte le porte erano chiuse
+    e di aver notato un ospite sospetto vicino alla teca dello zaffiro poco prima
+    del blackout.+++"
 --- !u!4 &1971763134
 Transform:
   m_ObjectHideFlags: 0
@@ -4342,9 +4361,9 @@ SceneRoots:
   - {fileID: 2015159267}
   - {fileID: 1047848255}
   - {fileID: 498662972}
-  - {fileID: 708504566}
   - {fileID: 341419975}
   - {fileID: 1263753840}
   - {fileID: 1421243307}
   - {fileID: 576788992}
+  - {fileID: 708504566}
   - {fileID: 1971763134}
