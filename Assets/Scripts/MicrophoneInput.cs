@@ -35,27 +35,14 @@ public class MicrophoneInput : MonoBehaviour, IPointerEnterHandler, IPointerExit
         microphoneRecord.dropVadPart = false;
     }
 
-    void Update()
+    public void EnableMicInput(bool enable)
     {
-        if (!court.PlayerCanAct)
-        {
-            micButton.interactable = false;
-            micIcon.sprite = micDisabledSprite;
-        }
-        else if (!isRecording)
-        {
-            micButton.interactable = true;
-            micIcon.sprite = micIdleSprite;
-        }
+        micButton.interactable = enable;
+        micIcon.sprite = enable ? micIdleSprite : micDisabledSprite;
     }
 
     void ToggleRecording()
     {
-        if (!court.PlayerCanAct)
-        {
-            Debug.Log("Not player's turn");
-            return;
-        }
 
         if (!isRecording)
         {

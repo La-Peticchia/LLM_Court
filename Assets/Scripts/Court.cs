@@ -21,8 +21,8 @@ public class Court : MonoBehaviour
     private APIInterface apiManager;
     [SerializeField] RunJets runJets;
     [SerializeField] public Button micButton;
-    [SerializeField] public MicrophoneInput micInput;
-    private CharacterAnimator characterAnimator;
+    public MicrophoneInput micInput;
+    [SerializeField] private CharacterAnimator characterAnimator;
 
     //Names
     [SerializeField] private string defenseName = "Defense";
@@ -50,11 +50,12 @@ public class Court : MonoBehaviour
         micButton.interactable = false;
         nextButton.interactable = false;
 
-        characterAnimator = FindFirstObjectByType<CharacterAnimator>(); 
         apiManager = FindFirstObjectByType<APIInterface>();
 
         while (string.IsNullOrWhiteSpace(((_caseDescription, _translatedDescription) = await apiManager.Request())._caseDescription.summary)) ;
-        
+
+        characterAnimator.AssignDynamicPrefabs(_caseDescription.witnesses.Keys.ToList(), attackName);
+
         InitializePrompt();
         InitializeRounds();
         
@@ -154,24 +155,28 @@ public class Court : MonoBehaviour
         if (_roundsTimeline[_round].role == defenseName)
         {
             characterAnimator.HideCurrentCharacter();  // Fa partire animazione di uscita
+
             playerText.interactable = true;
-            micButton.interactable = true;
             playerText.gameObject.SetActive(true);
             playerText.text = "";
             playerText.Select();
 
+            micInput.EnableMicInput(true);
         }
         else
         {
             playerText.interactable = false;
             playerText.gameObject.SetActive(false);
-            micButton.interactable = false;
+
+            micInput.EnableMicInput(false);
+
             aiTitle.text = _roundsTimeline[_round].role;
             string systemMessage = _roundsTimeline[_round].systemMessage;
             if(systemMessage != "")
                 llmCharacter.AddSystemMessage(systemMessage);
             
             string answer = await llmCharacter.ContinueChat(_roundsTimeline[_round].role ,SetAIText, AIReplyComplete);
+
             characterAnimator.ShowCharacter(_roundsTimeline[_round].role, answer);  // Entra con animazione e poi mostra testo
             logText.text += $"<b><color=#550505>{_roundsTimeline[_round].role}</color></b>: {answer}\n\n";
 
