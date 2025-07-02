@@ -1516,15 +1516,10 @@ MonoBehaviour:
   judgeName: Judge
   mainPrompt: 'A court case where the AI takes control of several characters listed
     below. Answers must be less than 100 words. Only one character at a time can
-    answer. Characters can ask for additional case infromation by following format:
+    answer.
 
 
-    character
-    answer *information request*
-
-
-    Answers must be written in italian. Requests
-    must be wirtten in english'
+    Answers must be written in italian.'
   judgePrompt: The goal of Judge is to give the defendant's final sentence by listening
     to the dialogue
   attackPrompt: 'The goal of Attack is proving to the Judge that the defendant is
@@ -2473,7 +2468,7 @@ MonoBehaviour:
   remote: 0
   port: 13333
   numThreads: -1
-  numGPULayers: 25
+  numGPULayers: 50
   debug: 0
   parallelPrompts: -1
   dontDestroyOnLoad: 1
