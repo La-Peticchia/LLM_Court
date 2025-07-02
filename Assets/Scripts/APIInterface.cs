@@ -61,9 +61,17 @@ public class APIInterface : MonoBehaviour
         }
         else
         {
-            Response<ChatCompletions> response = await _client.CompleteAsync(_requestOptions);
-            Debug.Log(response.Value.Content); 
-            descriptions = response.Value.Content.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
+            try
+            {
+                Response<ChatCompletions> response = await _client.CompleteAsync(_requestOptions);
+                Debug.Log(response.Value.Content); 
+                descriptions = response.Value.Content.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
+            }
+            catch 
+            {
+                Debug.LogWarning("Invalid format generated on API call");
+                return (new CaseDescription(), new CaseDescription());
+            }
         }
         
         return (BuildCaseDescription(descriptions[0]), BuildCaseDescription(descriptions[1]));
