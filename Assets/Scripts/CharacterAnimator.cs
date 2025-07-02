@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class CharacterAnimator : MonoBehaviour
 {
-    [Header("Prefabs Fissi")]
+    [Header("Prefab Fisso")]
     public GameObject judgePrefab;
 
     [Header("Roster Random")]
     public List<GameObject> attackPrefabs;
     public List<GameObject> witnessPrefabs;
+
+    [Header("Prefab Player")]
+    public GameObject defensePrefab;
 
     [Header("UI")]
     public Transform parentCanvas;
@@ -28,15 +30,19 @@ public class CharacterAnimator : MonoBehaviour
     {
         roleToPrefab.Clear();
 
-        // Attacco → prefab random
         if (attackPrefabs.Count > 0)
-            roleToPrefab[attackRole] = attackPrefabs[Random.Range(0, attackPrefabs.Count)];
+        {
+            var randomAttack = attackPrefabs[Random.Range(0, attackPrefabs.Count)];
+            roleToPrefab[attackRole] = randomAttack;
+        }
 
-        // Testimoni → prefab random (diversi o ripetuti)
         foreach (var witness in witnesses)
         {
             if (witnessPrefabs.Count > 0)
-                roleToPrefab[witness] = witnessPrefabs[Random.Range(0, witnessPrefabs.Count)];
+            {
+                var randomWitness = witnessPrefabs[Random.Range(0, witnessPrefabs.Count)];
+                roleToPrefab[witness] = randomWitness;
+            }
         }
     }
 
@@ -47,8 +53,17 @@ public class CharacterAnimator : MonoBehaviour
             aiImageObject.SetActive(false);
             aiText.text = "";
 
-            currentAnimator.SetBool("isExiting", true);
-            StartCoroutine(DestroyAfterExit(currentCharacterGO));
+            bool isAttack = IsAttackRole(currentRole);
+            bool isDefense = IsDefenseRole(currentRole);
+
+            if (isAttack)
+                currentAnimator.SetBool("isExitingAttack", true);
+            else if (isDefense)
+                currentAnimator.SetBool("isExitingDefense", true);
+            else
+                currentAnimator.SetBool("isExiting", true);
+
+            StartCoroutine(DestroyAfterExit(currentCharacterGO, isAttack, isDefense));
 
             currentCharacterGO = null;
             currentRole = null;
@@ -65,20 +80,21 @@ public class CharacterAnimator : MonoBehaviour
         }
 
         if (currentCharacterGO != null)
-        {
             HideCurrentCharacter();
-        }
 
         currentRole = role;
 
-        // Seleziona prefab in base al ruolo
         GameObject prefabToUse = null;
-        if (role == "Judge") prefabToUse = judgePrefab;
-        else if (roleToPrefab.ContainsKey(role)) prefabToUse = roleToPrefab[role];
+        if (role == "Judge")
+            prefabToUse = judgePrefab;
+        else if (role == "Defense")
+            prefabToUse = defensePrefab;
+        else if (roleToPrefab.ContainsKey(role))
+            prefabToUse = roleToPrefab[role];
 
         if (prefabToUse == null)
         {
-            Debug.LogWarning($"Nessun prefab assegnato per ruolo: {role}");
+            Debug.LogWarning($"Nessun prefab assegnato per il ruolo: {role}");
             aiImageObject.SetActive(true);
             aiText.text = text;
             return;
@@ -89,8 +105,17 @@ public class CharacterAnimator : MonoBehaviour
 
         if (currentAnimator != null)
         {
-            currentAnimator.SetBool("isEntering", true);
-            StartCoroutine(ShowTextAfterEnter(currentAnimator, text));
+            bool isAttack = IsAttackRole(role);
+            bool isDefense = IsDefenseRole(role);
+
+            if (isAttack)
+                currentAnimator.SetBool("isEnteringAttack", true);
+            else if (isDefense)
+                currentAnimator.SetBool("isEnteringDefense", true);
+            else
+                currentAnimator.SetBool("isEntering", true);
+
+            StartCoroutine(ShowTextAfterEnter(currentAnimator, text, isAttack, isDefense));
         }
         else
         {
@@ -99,57 +124,51 @@ public class CharacterAnimator : MonoBehaviour
         }
     }
 
-    private IEnumerator ShowTextAfterEnter(Animator animator, string text)
+    private bool IsAttackRole(string role) => roleToPrefab.ContainsKey(role) && attackPrefabs.Contains(roleToPrefab[role]);
+    private bool IsDefenseRole(string role) => role == "Defense";
+
+    private IEnumerator ShowTextAfterEnter(Animator animator, string text, bool isAttack, bool isDefense)
     {
-        // Attende che inizi l’animazione "Enter"
+        string animName = isAttack ? "EnterAttack" : isDefense ? "EnterDefense" : "Enter";
         float waitTime = 0f;
-        while (!animator.GetCurrentAnimatorStateInfo(0).IsName("Enter"))
+
+        while (!animator.GetCurrentAnimatorStateInfo(0).IsName(animName) && waitTime < 1f)
         {
             waitTime += Time.deltaTime;
-            if (waitTime > 1f)
-            {
-                Debug.LogWarning("Animazione 'Enter' non è partita entro 1s.");
-                break;
-            }
             yield return null;
         }
 
-        // Attende che termini "Enter"
         waitTime = 0f;
-        while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+        while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f && waitTime < 2f)
         {
             waitTime += Time.deltaTime;
-            if (waitTime > 2f)
-            {
-                Debug.LogWarning("Animazione 'Enter' non è finita entro 2s.");
-                break;
-            }
             yield return null;
         }
 
-        animator.SetBool("isEntering", false);
-        aiImageObject.SetActive(true);
-        aiText.text = "";
+        if (isAttack)
+            animator.SetBool("isEnteringAttack", false);
+        else if (isDefense)
+            animator.SetBool("isEnteringDefense", false);
+        else
+            animator.SetBool("isEntering", false);
 
-        // Effetto digitazione
-        foreach (char c in text)
-        {
-            aiText.text += c;
-            yield return new WaitForSeconds(0.02f);
-        }
+        aiImageObject.SetActive(!isDefense);
+        aiText.text = "";
     }
 
-    private IEnumerator DestroyAfterExit(GameObject obj)
+    private IEnumerator DestroyAfterExit(GameObject obj, bool isAttack, bool isDefense)
     {
         Animator animator = obj.GetComponent<Animator>();
+        string animName = isAttack ? "ExitAttack" : isDefense ? "ExitDefense" : "Exit";
+
         if (animator != null)
         {
-            while (!animator.GetCurrentAnimatorStateInfo(0).IsName("Exit"))
+            while (!animator.GetCurrentAnimatorStateInfo(0).IsName(animName))
                 yield return null;
-
             while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
                 yield return null;
         }
+
         Destroy(obj);
     }
 }

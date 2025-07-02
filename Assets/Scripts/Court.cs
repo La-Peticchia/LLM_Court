@@ -47,7 +47,9 @@ public class Court : MonoBehaviour
         apiManager = FindFirstObjectByType<APIInterface>();
         (_caseDescription, _translatedDescription) = await apiManager.Request();
 
-        characterAnimator.AssignDynamicPrefabs(_caseDescription.witnesses.Keys.ToList(), attackName);
+        characterAnimator.AssignDynamicPrefabs(
+        _caseDescription.witnesses.Keys.ToList(),
+        attackName);
 
         InitializePrompt();
         InitializeRounds();
@@ -122,6 +124,7 @@ public class Court : MonoBehaviour
         aiText.text = "...";
         llmCharacter.AddPlayerMessage(message);
         logText.text += $"<b><color=#550505>{_roundsTimeline[_round].role}</color></b>: {message}\n\n";
+        characterAnimator.HideCurrentCharacter();
         _ = NextRound();
     }
     
@@ -143,7 +146,8 @@ public class Court : MonoBehaviour
 
         if (_roundsTimeline[_round].role == defenseName)
         {
-            characterAnimator.HideCurrentCharacter();  // Fa partire animazione di uscita
+            
+            characterAnimator.ShowCharacter(defenseName, ""); // Entra il player
 
             playerText.interactable = true;
             playerText.gameObject.SetActive(true);
@@ -154,6 +158,7 @@ public class Court : MonoBehaviour
         }
         else
         {
+
             playerText.interactable = false;
             playerText.gameObject.SetActive(false);
 
@@ -163,10 +168,12 @@ public class Court : MonoBehaviour
             string systemMessage = _roundsTimeline[_round].systemMessage;
             if(systemMessage != "")
                 llmCharacter.AddSystemMessage(systemMessage);
+
             
+            characterAnimator.ShowCharacter(_roundsTimeline[_round].role, "");  // Entra con animazione e poi mostra testo
+
             string answer = await llmCharacter.ContinueChat(_roundsTimeline[_round].role ,SetAIText, AIReplyComplete);
 
-            characterAnimator.ShowCharacter(_roundsTimeline[_round].role, answer);  // Entra con animazione e poi mostra testo
 
             logText.text += $"<b><color=#550505>{_roundsTimeline[_round].role}</color></b>: {answer}\n\n";
         }
