@@ -1514,9 +1514,17 @@ MonoBehaviour:
   defenseName: Defense
   attackName: Attack
   judgeName: Judge
-  mainPrompt: A court case where the AI takes control of several characters listed
+  mainPrompt: 'A court case where the AI takes control of several characters listed
     below. Answers must be less than 100 words. Only one character at a time can
-    answer. Answers must be written in italian
+    answer. Characters can ask for additional case infromation by following format:
+
+
+    character
+    answer *information request*
+
+
+    Answers must be written in italian. Requests
+    must be wirtten in english'
   judgePrompt: The goal of Judge is to give the defendant's final sentence by listening
     to the dialogue
   attackPrompt: 'The goal of Attack is proving to the Judge that the defendant is
@@ -1527,16 +1535,10 @@ MonoBehaviour:
     following this format:
 
 
-    (question to the witness)
-
-    >(name of the witness)
-
-
-    of
-    course parenthesis must be omitted
+    question to the witness > name of the witness >
 
 '
-  numOfQuestions: 3
+  numOfQuestions: 2
 --- !u!4 &708504566
 Transform:
   m_ObjectHideFlags: 0
@@ -5111,7 +5113,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -21.305557, y: -246.39566}
+  m_AnchoredPosition: {x: -21.305557, y: -80}
   m_SizeDelta: {x: 952.7734, y: 85.8098}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1966107897
@@ -5220,15 +5222,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: "I need the description of a courtroom case. You decide wether the case
-    is real or fake. The description must include:\r\n- The name of the case\r\n-
-    A summary of the case ranging from 200 to 300 words, I don't need that you specify
-    how the case developed in the courtroom\r\n- Evidence or clues about the case,
-    the number of clues is up to you.\r\n- A list of witnesses paired with a description
-    of who they are, their personality and what they have seen. If the case is fake,
-    you decide the number of witnesses from 1 to 4\r\n\r\nIf you can't gather all
-    the information I asked of a real case just make it up. \r\n\r\nThe description
-    must be formatted like this:\r\n\r\nCase Name >\r\n(here you put the name of
-    the case)\r\n***\r\nSummary >\r\n(here you put the summary)\r\n***\r\nEvidence
+    is real or fake but it must have a defendant. The description must include:\r\n-
+    The name of the case\r\n- A summary of the case ranging from 200 to 300 words,
+    I don't need that you specify how the case developed in the courtroom\r\n- Evidence
+    or clues about the case, the number of clues is up to you and they must not be
+    too evident, add some mistery to them.\r\n- A list of witnesses paired with a
+    description of who they are, their personality and what they have seen. If the
+    case is fake, you decide the number of witnesses from 1 to 4\r\n\r\nIf you can't
+    gather all the information I asked of a real case just make it up. \r\n\r\nThe
+    description must be formatted like this:\r\n\r\nCase Name >\r\n(here you put
+    the name of the case)\r\n***\r\nSummary >\r\n(here you put the summary)\r\n***\r\nEvidence
     >\r\n-(here you put the first clue)+++\r\n-(here you put the second clue)+++\r\n-(here
     you put the third clue)+++\r\n(you decide the number of clues)\r\n***\r\nWitnesses
     >\r\n-(here you put the name of first witness): (here you put the description
@@ -5238,67 +5241,72 @@ MonoBehaviour:
     decide the number of witnesses from 1 to 4)\r\n^^^\r\n(here you put all the case
     description translated in italian with the same specified format)"
   useDebugPrompt: 1
-  dbgCaseDesc: "Case Name >  \nThe Case of the Vanishing Sapphire  \n***  \nSummary
-    >  \nIn the summer of 2019, the illustrious Medici Sapphire disappeared from
-    a gala event hosted at the Hampton House, a historic mansion turned private museum
-    in upstate New York. The sapphire, a rare 60-carat gem, was on display as part
-    of a traveling exhibition of royal jewels. Its sudden disappearance sent shockwaves
-    through the art and jewelry world, prompting a major investigation. Hundreds
-    of guests, including local dignitaries, celebrities, and collectors, attended
-    the gala on the night of the theft. Security footage revealed that the display
-    case had been opened during a two-minute blackout caused by a temporary electrical
-    fault, raising suspicions that the outage was orchestrated by the thief. The
-    sapphire\u2019s empty case was discovered minutes after power was restored, and
-    search dogs were unable to trace any scent beyond the main showroom. Authorities
-    considered possible involvement from the museum\u2019s staff, contractors, and
-    guests. As the investigation unfolded, several clues and witness statements pointed
-    toward a coordinated inside job, but no individual was immediately charged with
-    the theft, leaving the fate of the Medici Sapphire a compelling mystery.  \n*** 
-    \nEvidence >  \n- The display case\u2019s security lock was professionally picked,
-    leaving no visible damage.+++  \n- A single black leather glove, size medium,
-    was found beneath a table near the back exit.+++  \n- A guest list indicated
-    a last-minute addition: \u201CS. Linwood,\u201D later found to be a false identity.+++ 
-    \n- Power logs confirmed an irregularity at the main electrical panel 90 seconds
-    before the outage.+++  \n***  \nWitnesses >  \n- Claudia Benton: The museum\u2019s
-    head curator, meticulous and somewhat anxious. She recounts seeing a shadowy
-    figure by the electrical room just as the lights flickered.+++  \n- Victor Hahn:
-    A local art appraiser, sociable and observant. He reports a brief, hushed argument
-    between two staff members near the green room minutes before the outage.+++ 
-    \n- Malik Reyes: The contracted security guard, reserved and by-the-book, asserts
-    that all doors remained locked and saw a suspicious guest near the sapphire\u2019s
-    display before the blackout.+++  \n^^^  \nNome del Caso >  \nIl Caso dello Zaffiro
-    Svanito  \n***  \nSommario >  \nNell\u2019estate del 2019, il famoso Zaffiro
-    dei Medici scomparve durante un evento di gala presso la Hampton House, una storica
-    villa trasformata in museo privato nello stato di New York. Il prezioso zaffiro,
-    una gemma rara da 60 carati, era esposto come parte di una mostra itinerante
-    di gioielli reali. La sua improvvisa sparizione sconvolse il mondo dell\u2019arte
-    e dei gioielli, dando il via a una vasta indagine. Centinaia di ospiti, tra cui
-    personalit\xE0 locali, celebrit\xE0 e collezionisti, parteciparono al gala nella
-    notte del furto. I filmati di sicurezza mostrarono che la teca era stata aperta
-    durante un blackout di due minuti causato da un guasto elettrico temporaneo,
-    facendo sospettare che l\u2019interruzione fosse stata orchestrata dal ladro.
-    La teca vuota fu scoperta pochi minuti dopo il ripristino della corrente, e i
-    cani da ricerca non riuscirono a seguire alcun odore oltre la sala principale.
-    Le autorit\xE0 presero in considerazione il coinvolgimento di membri dello staff,
-    collaboratori e ospiti. Mentre le indagini proseguivano, diversi indizi e testimonianze
-    suggerirono la possibilit\xE0 di un colpo interno organizzato, ma nessuno fu
-    immediatamente accusato del furto, lasciando il destino dello Zaffiro dei Medici
-    un avvincente mistero.  \n***  \nProve >  \n- La serratura di sicurezza della
-    teca era stata aperta da un professionista, senza segni visibili di forzatura.+++ 
-    \n- Un solo guanto nero di pelle, taglia media, fu trovato sotto un tavolino
-    vicino all\u2019uscita posteriore.+++  \n- La lista degli invitati mostrava un\u2019aggiunta
-    all\u2019ultimo minuto: \u201CS. Linwood\u201D, poi risultata essere un\u2019identit\xE0
-    falsa.+++  \n- I registri elettrici confermarono un\u2019irregolarit\xE0 nel
-    quadro elettrico principale 90 secondi prima del blackout.+++  \n***  \nTestimoni
-    >  \n- Claudia Benton: Curatrice capo del museo, minuziosa e un po\u2019 ansiosa.
-    Racconta di aver visto una figura nell\u2019ombra vicino alla sala elettrica
-    mentre le luci iniziavano a tremolare.+++  \n- Victor Hahn: Esperto d\u2019arte
-    locale, socievole e molto osservatore. Riferisce di aver assistito a una breve
-    ma accesa discussione tra due membri dello staff vicino alla green room pochi
-    minuti prima del blackout.+++  \n- Malik Reyes: Guardia giurata ingaggiata per
-    l\u2019evento, riservato e scrupoloso, afferma che tutte le porte erano chiuse
-    e di aver notato un ospite sospetto vicino alla teca dello zaffiro poco prima
-    del blackout.+++"
+  dbgCaseDesc: "Case Name >  \nState of Illinois vs. Miranda Greene  \n***  \nSummary
+    >  \nMiranda Greene, a prominent antiques dealer in Chicago, stands accused of
+    orchestrating the theft of several rare artifacts from the private collection
+    of local philanthropist Jacob Everett. The theft took place during a high-profile
+    charity gala hosted at Everett\u2019s mansion on April 14, 2022. The missing
+    items, valued at over $1.5 million, include a 17th-century Flemish tapestry,
+    a pair of gilded candelabras, and a Renaissance-era brooch. Greene, who had received
+    invitations to the event due to her philanthropic connections, became a person
+    of interest after security footage revealed she had entered the collection room
+    shortly before the security system was disabled.  \n\nInvestigations uncovered
+    that Greene had recently faced financial difficulties because of a failing side
+    business. Auction house records also showed her inquiring about the valuation
+    of items similar to those stolen. Moreover, fragments of fine fabric discovered
+    on the window frame matched a dress she wore the night of the crime. The prosecution
+    alleges Greene acted out of desperation, exploiting her trusted access to the
+    estate. The defense, however, maintains she is being framed by a rival dealer
+    jealous of her reputation. The case centers on whether the circumstantial evidence,
+    combined with eyewitness accounts, is enough to secure a conviction.  \n*** 
+    \nEvidence >  \n-Security footage of Greene entering the private collection room
+    moments before the alarm system was interrupted.+++  \n-Fragments of green silk
+    fabric caught on the window frame, matching the defendant\u2019s dress.+++  \n-Text
+    messages between Greene and a local auctioneer discussing items nearly identical
+    to those stolen, dated one week before the gala.+++  \n***  \nWitnesses >  \n-Jacob
+    Everett: The victim, a dignified, attentive collector who noticed Greene\u2019s
+    prolonged absence during the gala. He is observant, polite, and insists Greene
+    had no reason to be in the collection room unaccompanied.+++  \n-Elena Marquez:
+    Event caterer, known for her sharp memory and straightforward personality. She
+    witnessed Greene leaving the gallery wing and described her as appearing startled
+    and hurried.+++  \n-Henry Walsh: Greene\u2019s business rival and an antiques
+    dealer. Gregarious but cunning, he testifies to overhearing Greene speak about
+    needing \u201Cone last big break,\u201D although his motives are questioned.+++ 
+    \n***  \n^^^  \nNome del caso >  \nStato dell'Illinois contro Miranda Greene 
+    \n***  \nRiassunto >  \nMiranda Greene, una nota antiquaria di Chicago, \xE8
+    accusata di aver orchestrato il furto di diversi rarissimi artefatti dalla collezione
+    privata del filantropo locale Jacob Everett. Il furto \xE8 avvenuto durante una
+    celebre serata di beneficenza organizzata nella villa di Everett il 14 aprile
+    2022. Gli oggetti scomparsi, dal valore complessivo di oltre 1,5 milioni di dollari,
+    includono un arazzo fiammingo del XVII secolo, una coppia di candelabri dorati
+    e una spilla rinascimentale. La Greene, invitata all\u2019evento per i suoi legami
+    filantropici, \xE8 diventata sospettata dopo che le telecamere di sicurezza l'hanno
+    ripresa entrare nella stanza della collezione poco prima che venisse disattivato
+    il sistema di sicurezza.  \n\nLe indagini hanno rivelato che la Greene si trovava
+    recentemente in difficolt\xE0 finanziarie a causa di un'attivit\xE0 collaterale
+    fallimentare. I registri di una casa d'aste hanno inoltre mostrato che aveva
+    chiesto informazioni sulla valutazione di oggetti simili a quelli rubati. In
+    pi\xF9, frammenti di tessuto pregiato scoperti sulla cornice di una finestra
+    combaciavano con l'abito indossato dalla Greene la sera del crimine. L\u2019accusa
+    sostiene che la Greene abbia agito per disperazione, sfruttando la sua fiducia
+    per accedere alla villa. La difesa invece sostiene che sia stata incastrata da
+    un antiquario rivale invidioso della sua reputazione. Il caso ruota attorno al
+    fatto se le prove circostanziali e le testimonianze siano sufficienti per una
+    condanna.  \n***  \nProve >  \n-Telecamere di sicurezza che riprendono la Greene
+    entrare nella stanza privata della collezione pochi istanti prima che venisse
+    disattivato l'allarme.+++  \n-Frammenti di tessuto di seta verde impigliati sulla
+    cornice della finestra, compatibili con l\u2019abito dell\u2019imputata.+++ 
+    \n-Messaggi tra la Greene e un banditore locale in cui discutono di oggetti quasi
+    identici a quelli rubati, datati una settimana prima dell\u2019evento.+++  \n*** 
+    \nTestimoni >  \n-Jacob Everett: La vittima, collezionista dignitoso e attento
+    che ha notato l\u2019assenza della Greene durante la serata. Osservatore, cortese,
+    insiste che la Greene non avesse motivo di trovarsi nella stanza della collezione
+    senza accompagnamento.+++  \n-Elena Marquez: Catering dell\u2019evento, nota
+    per la sua memoria acuta e la personalit\xE0 schietta. Ha visto la Greene lasciare
+    l\u2019ala della galleria e l\u2019ha descritta come turbata e di fretta.+++ 
+    \n-Henry Walsh: Rivale in affari della Greene e antiquario. Espansivo ma furbo,
+    testimonia di aver sentito la Greene parlare di aver bisogno di \u201Cun ultimo
+    colpo grosso,\u201D bench\xE9 le sue motivazioni siano messe in dubbio.+++"
 --- !u!4 &1971763134
 Transform:
   m_ObjectHideFlags: 0

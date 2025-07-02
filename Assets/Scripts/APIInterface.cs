@@ -16,6 +16,7 @@ public class APIInterface : MonoBehaviour
     private string _model = "openai/gpt-4.1";
     private ChatCompletionsClient _client;
     private ChatCompletionsOptions _requestOptions;
+    private ChatCompletionsOptions _addRequestOptions;
 
     [TextArea(20, 10)] public string prompt;
     
@@ -48,6 +49,11 @@ public class APIInterface : MonoBehaviour
             Model = _model
         };
 
+        
+        
+        
+        
+
     }
 
 
@@ -76,6 +82,29 @@ public class APIInterface : MonoBehaviour
         
         return (BuildCaseDescription(descriptions[0]), BuildCaseDescription(descriptions[1]));
         
+    }
+
+    public async Task<(string,string)> Request(string totalCaseDescription, string addRequest)
+    {
+        _addRequestOptions = new ChatCompletionsOptions()
+        {
+            Messages = 
+            {
+                //new ChatRequestSystemMessage("The user will give you a court case description, you must satisfy the user's needs with a short answer (less than 50 words) and without adding anything else. You must answer both in english and italian and split those answers with these characters: ^^^"),
+                new ChatRequestSystemMessage("I will give you a court case description, the user will ask something not present in the description and you must make things up to satisfy their request. Your answer must include ONLY THE INFORMATION REQUIRED BY THE USER, DO NOT INTERACT WITH HIM IN ANY OTHER WAY. Finally you must answer both in english and italian and split those answers with these characters: ^^^\nCase Description\n" + totalCaseDescription),
+                new ChatRequestUserMessage(addRequest),
+            },
+            Temperature = 1f,
+            NucleusSamplingFactor = 1f,
+            Model = _model
+        };
+        
+        Response<ChatCompletions> response = await _client.CompleteAsync(_addRequestOptions);
+        Debug.Log("Answer:\n" + response.Value.Content);
+        string[] split = response.Value.Content.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
+        
+        
+        return (split[0],split[1]);
     }
 
 

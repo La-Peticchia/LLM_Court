@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LLMUnity;
+using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -18,7 +19,7 @@ public class Court : MonoBehaviour
     [SerializeField] private TextMeshProUGUI systemMessages;
     [SerializeField] private TextMeshProUGUI caseDescriptionText;
     [SerializeField] private Button nextButton;
-    private APIInterface apiManager;
+    private APIInterface _apiManager;
     [SerializeField] RunJets runJets;
     [SerializeField] public Button micButton;
     public MicrophoneInput micInput;
@@ -34,8 +35,12 @@ public class Court : MonoBehaviour
     [TextArea(5, 10)] public string judgePrompt = "The goal of Judge is to give the defendant's final sentence by listening to the dialogue";
     [TextArea(5, 10)] public string attackPrompt = "The goal of Attack is proving to the Judge that the defendant is guilty";
     
+    //Command text
+    private readonly string _questionCharacter = ">";
+    private readonly string _requestCharacter = "*";
+    
     //Gameplay
-    [SerializeField, Range(1,5)] private int numOfQuestions;
+    [SerializeField, UnityEngine.Range(1,5)] private int numOfQuestions;
     public bool PlayerCanAct => _roundsTimeline[_round].role == defenseName;
 
     private List<(string role, string systemMessage)> _roundsTimeline;
@@ -50,9 +55,9 @@ public class Court : MonoBehaviour
         micButton.interactable = false;
         nextButton.interactable = false;
 
-        apiManager = FindFirstObjectByType<APIInterface>();
+        _apiManager = FindFirstObjectByType<APIInterface>();
 
-        while (string.IsNullOrWhiteSpace(((_caseDescription, _translatedDescription) = await apiManager.Request())._caseDescription.summary)) ;
+        while (string.IsNullOrWhiteSpace(((_caseDescription, _translatedDescription) = await _apiManager.Request())._caseDescription.summary)) {Debug.LogWarning("Empty case description");};
 
         characterAnimator.AssignDynamicPrefabs(_caseDescription.witnesses.Keys.ToList(), attackName);
 
@@ -120,30 +125,18 @@ public class Court : MonoBehaviour
         playerText.interactable = false;
         aiText.text = "...";
         llmCharacter.AddPlayerMessage(message);
-        logText.text += $"<b><color=#550505>{_roundsTimeline[_round].role}</color></b>: {message}\n\n";
-        if(message.Contains(">"))
-            try
-            {
-                string questionedWitness = message.Split(">")[1].Replace(" ", "").Replace("\n", "");
-                _roundsTimeline.Insert(_round, (questionedWitness , ""));
-            }
-            catch (IndexOutOfRangeException e)
-            {
-                Debug.LogWarning(e.Message + "\nSplitting by > failed");
-            }
-        
-        
+        CheckSpecialCharacters(message);   
         _ = NextRound();
     }
     
     public void SetAIText(string text)
     {
-        aiText.text = text.Split(">")[0];
+        aiText.text = text.Split(_questionCharacter)[0];
     }
     
     public void AIReplyComplete()
     {
-        nextButton.interactable = true;
+        //nextButton.interactable = true;
         //runJets.TextToSpeech(aiText.text);
     }
 
@@ -176,22 +169,60 @@ public class Court : MonoBehaviour
                 llmCharacter.AddSystemMessage(systemMessage);
             
             string answer = await llmCharacter.ContinueChat(_roundsTimeline[_round].role ,SetAIText, AIReplyComplete);
-
             characterAnimator.ShowCharacter(_roundsTimeline[_round].role, answer);  // Entra con animazione e poi mostra testo
-            logText.text += $"<b><color=#550505>{_roundsTimeline[_round].role}</color></b>: {answer}\n\n";
-
-            if(answer.Contains(">"))
-                try
-                {
-                    string questionedWitness = answer.Split(">")[1].Replace(" ", "").Replace("\n", "");
-                    _roundsTimeline.Insert(_round, (questionedWitness , ""));
-                }
-                catch (IndexOutOfRangeException e)
-                {
-                    Debug.LogWarning(e.Message + "\nSplitting by > failed");
-                }
+            await CheckSpecialCharacters(answer);   
+            
+            nextButton.interactable = true;
         }
 
+    }
+
+    private async Task CheckSpecialCharacters(string text)
+    {
+            
+        logText.text += $"<b><color=#550505>{_roundsTimeline[_round].role}</color></b>: {text.Split(_questionCharacter)[0]}\n\n";
+        if(text.Contains(_questionCharacter))
+            try
+            {
+                string questionedWitness = text.Split(_questionCharacter)[1].Replace(" ", "").Replace("\n", "");
+                _roundsTimeline.Insert(_round + 1, (questionedWitness , ""));
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Debug.LogWarning(e.Message + $"\nSplitting by {_questionCharacter} failed");
+            }
+
+        if (text.Contains(_requestCharacter))
+        {
+            try
+            {
+                string infoRequest = text.Split(_requestCharacter)[1].Replace("\n", "");
+                _ = await _apiManager.Request(_caseDescription.totalDescription, infoRequest);
+                
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Debug.LogWarning(e.Message + $"\nSplitting by {_requestCharacter} failed");
+            }
+            
+        }
+        
+        
+    }
+
+    private string RemoveCommandText(string text)
+    {
+        return text.Split(_questionCharacter)[0].Split(_requestCharacter)[0];
+    }
+
+    private async Task RequestAndUpdateDescriptions(string request)
+    {
+        
+        string text, translated;
+        (text, translated) = await _apiManager.Request(_caseDescription.totalDescription, request);
+        _caseDescription.clues.Add(text);
+        _translatedDescription.clues.Add(translated);
+        
     }
     
     private async void OnNextButtonClick()
@@ -206,7 +237,7 @@ public struct CaseDescription
 {
     public string title;
     public string summary;
-    public string[] clues;
+    public List<string> clues;
     public Dictionary<string, string> witnesses;
     public string totalDescription;
     public string[] sectionTitles;
@@ -215,7 +246,7 @@ public struct CaseDescription
     {
         this.title = title;
         this.summary = summary;
-        this.clues = clues;
+        this.clues = clues.ToList();
         this.witnesses = witnesses;
         this.totalDescription = totalDescription;
         this.sectionTitles = sectionTitles;
