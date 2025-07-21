@@ -13,7 +13,8 @@ public class APIInterface : MonoBehaviour
 {
     private Uri _endpoint;
     private AzureKeyCredential _credential;
-    private string _model = "openai/gpt-4.1";
+    //private string _model = "openai/gpt-4.1";
+    private string _model = "meta/Llama-4-Scout-17B-16E-Instruct";
     private ChatCompletionsClient _client;
 
 

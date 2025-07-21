@@ -22,7 +22,7 @@ public class EndGameUI : MonoBehaviour
     public void Show(string message, Color color)
     {
         Debug.Log($"[VERDETTO] Risultato: {message}");
-        Time.timeScale = 0f; // Pausa gioco
+        //Time.timeScale = 0f; // Pausa gioco
         panel.SetActive(true);
         resultText.text = "";
         resultText.color = color;
@@ -40,7 +40,7 @@ public class EndGameUI : MonoBehaviour
 
     private void RestartGame()
     {
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
