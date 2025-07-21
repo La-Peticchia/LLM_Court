@@ -35,12 +35,22 @@ public class CaseGeneration : MonoBehaviour
         playButton.interactable = false;
         newCaseButton.interactable = false;
         
-        while (string.IsNullOrWhiteSpace(((_caseDescription, _translatedDescription) = await _apiManager.Request())._caseDescription.summary)) {Debug.LogWarning("Empty case description");};
-        casePreviewTextbox.text = _translatedDescription.GetBriefDescription(true);
+        //while (string.IsNullOrWhiteSpace(((_caseDescription, _translatedDescription) = await _apiManager.Request())._caseDescription.summary)) {Debug.LogWarning("Empty case description");};
+        //casePreviewTextbox.text = _translatedDescription.GetBriefDescription(true);
         
-        playButton.interactable = true;
+        CaseDescription tmpDesc1, tmpDesc2;
+        (tmpDesc1, tmpDesc2) = await _apiManager.Request(prefInputField.text);
+        
+        if (!string.IsNullOrWhiteSpace(tmpDesc1.summary))
+        {
+            (_caseDescription, _translatedDescription) = (tmpDesc1, tmpDesc2);
+            casePreviewTextbox.text = _translatedDescription.GetBriefDescription(true);
+            playButton.interactable = true;
+        }
+        else
+            _ = OnError();
+        
         newCaseButton.interactable = true;
-        
     }
 
     private void OnPlayButtonClicked()
@@ -58,22 +68,22 @@ public class CaseGeneration : MonoBehaviour
         CaseDescription tmpDesc1, tmpDesc2;
         (tmpDesc1, tmpDesc2) = await _apiManager.Request(prefInputField.text);
         
-        playButton.interactable = true;
-        newCaseButton.interactable = true;
 
         if (!string.IsNullOrWhiteSpace(tmpDesc1.summary))
         {
             (_caseDescription, _translatedDescription) = (tmpDesc1, tmpDesc2);
             casePreviewTextbox.text = _translatedDescription.GetBriefDescription(true);
+            playButton.interactable = true;
         }
         else
            _ = OnError();
+        
+        newCaseButton.interactable = true;
         
     }
 
     private async Task OnError()
     {
-
         errorTextbox.enabled = true;
         await Task.Delay(5000);
         errorTextbox.enabled = false;
