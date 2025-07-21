@@ -15,13 +15,13 @@ public class APIInterface : MonoBehaviour
     private AzureKeyCredential _credential;
     private string _model = "openai/gpt-4.1";
     private ChatCompletionsClient _client;
-    private ChatCompletionsOptions _requestOptions;
-    private ChatCompletionsOptions _addRequestOptions;
+
 
     [TextArea(20, 10)] public string prompt;
     
     public static string sectionSplitCharacters = "***";
     public static string subsectionSplitCharacters = "+++";
+    static string preferencesReplaceCharacters = "!!!";
 
     [SerializeField] private bool useDebugPrompt = false;
     
@@ -37,29 +37,29 @@ public class APIInterface : MonoBehaviour
         string envVariable = LoadEnv(envPath).Where(x => x.Key == "GITHUB_TOKEN").ToArray()[0].Value;
         _credential = new AzureKeyCredential(envVariable);
         _client = new ChatCompletionsClient(_endpoint, _credential, new AzureAIInferenceClientOptions());
-        _requestOptions = new ChatCompletionsOptions()
-        {
-            Messages =
-            {
-                new ChatRequestSystemMessage("Just answer the user requests, there's no need to add anything else"),
-                new ChatRequestUserMessage(prompt),
-            },
-            Temperature = 1f,
-            NucleusSamplingFactor = 1f,
-            Model = _model
-        };
-
-        
-        
-        
-        
 
     }
 
 
 
-    public async Task<(CaseDescription,CaseDescription)> Request()
+    public async Task<(CaseDescription,CaseDescription)> Request(string preferences = "")
     {
+
+        string currentPrompt = prompt.Replace(preferencesReplaceCharacters,
+            preferences != "" ? "I want you to take into account these preferences/topics: " + preferences : ""); 
+
+        var requestOptions = new ChatCompletionsOptions()
+        {
+            Messages =
+            {
+                new ChatRequestSystemMessage("Just answer the user requests, there's no need to add anything else"),
+                new ChatRequestUserMessage(currentPrompt),
+            },
+            Temperature = 1f,
+            NucleusSamplingFactor = 1f,
+            Model = _model
+        };
+        
         string[] descriptions;
         if (useDebugPrompt)
         {
@@ -69,29 +69,33 @@ public class APIInterface : MonoBehaviour
         {
             try
             {
-                Response<ChatCompletions> response = await _client.CompleteAsync(_requestOptions);
+                Response<ChatCompletions> response = await _client.CompleteAsync(requestOptions);
                 Debug.Log(response.Value.Content); 
                 descriptions = response.Value.Content.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
             }
             catch 
             {
-                Debug.LogWarning("Invalid format generated on API call");
+                Debug.LogWarning("Invalid format generated on API call: \n");
                 return (new CaseDescription(), new CaseDescription());
             }
         }
         
-        return (BuildCaseDescription(descriptions[0]), BuildCaseDescription(descriptions[1]));
+        return (new CaseDescription(descriptions[0], sectionSplitCharacters, subsectionSplitCharacters), new CaseDescription(descriptions[1], sectionSplitCharacters, subsectionSplitCharacters));
         
     }
 
     public async Task<(string,string)> Request(string totalCaseDescription, string addRequest)
     {
-        _addRequestOptions = new ChatCompletionsOptions()
+        var addRequestOptions = new ChatCompletionsOptions()
         {
             Messages = 
             {
                 //new ChatRequestSystemMessage("The user will give you a court case description, you must satisfy the user's needs with a short answer (less than 50 words) and without adding anything else. You must answer both in english and italian and split those answers with these characters: ^^^"),
-                new ChatRequestSystemMessage("I will give you a court case description, the user will ask something not present in the description and you must make things up to satisfy their request. Your answer must include ONLY THE INFORMATION REQUIRED BY THE USER, DO NOT INTERACT WITH HIM IN ANY OTHER WAY. Finally you must answer both in english and italian and split those answers with these characters: ^^^\nCase Description\n" + totalCaseDescription),
+                new ChatRequestSystemMessage("I will give you a court case description, the user will ask something not present in the description and you must make things up to satisfy their request. " +
+                                             "Your answer must include ONLY THE INFORMATION REQUIRED BY THE USER, DO NOT INTERACT WITH THEM IN ANY OTHER WAY. " +
+                                             "The answer must be less than 50 words. " +
+                                             "If the user does not require information just answer back with this word: NULL\n" +
+                                             "Finally you must answer both in english and italian and split those answers with these characters: ^^^\nCase Description\n" + totalCaseDescription),
                 new ChatRequestUserMessage(addRequest),
             },
             Temperature = 1f,
@@ -99,36 +103,13 @@ public class APIInterface : MonoBehaviour
             Model = _model
         };
         
-        Response<ChatCompletions> response = await _client.CompleteAsync(_addRequestOptions);
+        Response<ChatCompletions> response = await _client.CompleteAsync(addRequestOptions);
         Debug.Log("Answer:\n" + response.Value.Content);
+        if (response.Value.Content == "NULL")
+            return ("", "");
+        
         string[] split = response.Value.Content.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
-        
-        
         return (split[0],split[1]);
-    }
-
-
-    CaseDescription BuildCaseDescription(string description)
-    {
-        
-        string[] answer = description.Split(sectionSplitCharacters, StringSplitOptions.RemoveEmptyEntries);
-        Dictionary<string, string> witnessDictionary = new Dictionary<string, string>();
-        string[] witnesses = answer[3].Split(">")[1].Split(subsectionSplitCharacters, StringSplitOptions.RemoveEmptyEntries);
-
-        foreach (var item in witnesses)
-        {
-            if(string.IsNullOrWhiteSpace(item)) continue;
-            string[] itemSplit = item.Split(":");
-            witnessDictionary.Add(itemSplit[0].Replace("-","").Replace("\n",""), itemSplit[1].Replace("\n",""));
-        }
-
-        return new CaseDescription(answer[0].Split(">")[1].Replace("\n",""), 
-            answer[1].Split(">")[1].Replace("\n",""),
-            answer[2].Split(">")[1].Split(subsectionSplitCharacters, StringSplitOptions.RemoveEmptyEntries).Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => x.Replace("-","").Replace("\n","")).ToArray(), 
-            witnessDictionary, 
-            description,
-            answer.Select(x => x.Split(">")[0].Replace("\n", "")).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray());
-        
     }
 
     public static string RemoveSplitters(string inDescription)
