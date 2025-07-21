@@ -27,6 +27,7 @@ public class Court : MonoBehaviour
     [SerializeField] public Button micButton;
     public MicrophoneInput micInput;
     [SerializeField] private CharacterAnimator characterAnimator;
+    [SerializeField] private EndGameUI endGameUI;
 
     //Names
     [SerializeField] private string wildcardCharacterName = "Wildcard";
@@ -53,6 +54,10 @@ public class Court : MonoBehaviour
     private List<(string role, string systemMessage)> _roundsTimeline;
     private CaseDescription _caseDescription, _translatedDescription;
     private int _round;
+
+    private List<string> winKeywords = new List<string> { "non colpevole", "innocente", "assolto" };
+    private List<string> loseKeywords = new List<string> { "colpevole", "condannato", "condanno" };
+    
 
     //Events
     public event Action<bool> GameOverCallback;
@@ -240,8 +245,26 @@ public class Court : MonoBehaviour
 
             string answer = await llmCharacter.ContinueChat(_roundsTimeline[_round].role ,SetAIText, AIReplyComplete);
             
-            await CheckSpecialCharacters(answer);   
-            
+            await CheckSpecialCharacters(answer);
+
+            // Se � l'ultimo round (il giudice emette il verdetto)
+            if (_round == _roundsTimeline.Count - 1)
+            {
+                
+                string verdict = answer.ToLower();
+
+                if (winKeywords.Any(k => verdict.Contains(k)))
+                {
+                    endGameUI.Show("HAI VINTO", Color.green);
+                    nextButton.interactable = false;
+                }
+                else if (loseKeywords.Any(k => verdict.Contains(k)))
+                {
+                    endGameUI.Show("HAI PERSO", Color.red);
+                    nextButton.interactable = false;
+                }
+            }
+
             nextButton.interactable = true;
         }
 
