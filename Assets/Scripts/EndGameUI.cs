@@ -9,14 +9,14 @@ public class EndGameUI : MonoBehaviour
     [SerializeField] private GameObject panel;
     [SerializeField] private TextMeshProUGUI resultText;
     [SerializeField] private Button restartButton;
-    //[SerializeField] private Button mainMenuButton;
+    [SerializeField] private Button mainMenuButton;
     [SerializeField] private float typingSpeed = 0.05f;
 
     private void Start()
     {
         panel.SetActive(false);
         restartButton.onClick.AddListener(RestartGame);
-        //mainMenuButton.onClick.AddListener(GoToMainMenu);
+        mainMenuButton.onClick.AddListener(GoToMainMenu);
     }
 
     public void Show(string message, Color color)
@@ -44,9 +44,9 @@ public class EndGameUI : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    /*private void GoToMainMenu()
+    private void GoToMainMenu()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu"); // Assicurati che esista una scena con questo nome
-    }*/
+        //Time.timeScale = 1f;
+        SceneManager.LoadScene("Menu");
+    }
 }
