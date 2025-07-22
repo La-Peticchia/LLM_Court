@@ -3413,7 +3413,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &983398512
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3440,7 +3440,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 983398511}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -3728,7 +3728,7 @@ MonoBehaviour:
   remote: 0
   port: 13333
   numThreads: -1
-  numGPULayers: 25
+  numGPULayers: 50
   debug: 0
   parallelPrompts: -1
   dontDestroyOnLoad: 1
@@ -7601,7 +7601,9 @@ MonoBehaviour:
     decide the number of witnesses from 1 to 4)\r\n***\r\nAdditional information
     >\r\n(you must leave this section empty for now)\r\n^^^\r\n(here you put all
     the case description translated in italian with the same specified format)"
-  useDebugPrompt: 1
+  mainRequestTimeout: 25000
+  addRequestTimeout: 5000
+  useDebugPrompt: 0
   dbgCaseDesc: "Player Goal>  \nProve the defendant\u2019s innocence and reveal the
     true culprit behind the art gallery theft.  \n***  \nCase Name >  \nThe Midnight
     Canvas Heist  \n***  \nSummary >  \nAt precisely midnight on May 6th, a priceless

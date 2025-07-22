@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using Azure;
@@ -13,7 +14,8 @@ public class APIInterface : MonoBehaviour
 {
     private Uri _endpoint;
     private AzureKeyCredential _credential;
-    private string _model = "openai/gpt-4.1";
+    //private string _model = "openai/gpt-4.1";
+    private string _model = "meta/Llama-4-Scout-17B-16E-Instruct";
     private ChatCompletionsClient _client;
 
 
@@ -23,8 +25,14 @@ public class APIInterface : MonoBehaviour
     public static string subsectionSplitCharacters = "+++";
     static string preferencesReplaceCharacters = "!!!";
 
-    [SerializeField] private bool useDebugPrompt = false;
     
+    //Task cancellation timeouts
+    [SerializeField]
+    private int mainRequestTimeout = 20000;
+    [SerializeField]
+    private int addRequestTimeout = 5000;
+    
+    [SerializeField] private bool useDebugPrompt = false;
     
     //Debug
     [TextArea(20, 10)] public string dbgCaseDesc;
@@ -69,13 +77,17 @@ public class APIInterface : MonoBehaviour
         {
             try
             {
-                Response<ChatCompletions> response = await _client.CompleteAsync(requestOptions);
+                var cts = new CancellationTokenSource();
+                cts.CancelAfter(mainRequestTimeout);
+                
+                Response<ChatCompletions> response = await _client.CompleteAsync(requestOptions, cts.Token);
                 Debug.Log(response.Value.Content); 
                 descriptions = response.Value.Content.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
             }
-            catch 
+            catch(Exception e) 
             {
-                Debug.LogWarning("Invalid format generated on API call: \n");
+                
+                Debug.LogWarning("Error on API call: " + e.Message);
                 return (new CaseDescription(), new CaseDescription());
             }
         }
@@ -102,14 +114,28 @@ public class APIInterface : MonoBehaviour
             NucleusSamplingFactor = 1f,
             Model = _model
         };
-        
-        Response<ChatCompletions> response = await _client.CompleteAsync(addRequestOptions);
-        Debug.Log("Answer:\n" + response.Value.Content);
-        if (response.Value.Content == "NULL")
+
+        try
+        {
+            var cts = new CancellationTokenSource();
+            cts.CancelAfter(addRequestTimeout);
+            
+            Response<ChatCompletions> response = await _client.CompleteAsync(addRequestOptions, cts.Token);
+            
+            Debug.Log("Answer:\n" + response.Value.Content);
+            if (response.Value.Content == "NULL")
+                return ("", "");
+            
+            string[] split = response.Value.Content.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
+            return (split[0],split[1]);
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning("Error on API call: " + e.Message);
             return ("", "");
+        }
         
-        string[] split = response.Value.Content.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
-        return (split[0],split[1]);
+        
     }
 
     public static string RemoveSplitters(string inDescription)
