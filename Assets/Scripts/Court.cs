@@ -140,7 +140,8 @@ public class Court : MonoBehaviour
         {
             (" "," "),
             (judgeName, $"Introduction Round: Now the {judgeName} introduces the court case then passes the word to {attackName}"),
-            (attackName, $"Introduction Round: Now the {attackName} exposes the clues trying to convince the judge"),
+            //(attackName, $"Introduction Round: Now the {attackName} exposes the clues trying to convince the judge"),
+            (attackName, $"Introduction Round: Now the {attackName} tries to convince the judge about the defendant's guilt"),
             (defenseName, $"Introduction Round: Now the {defenseName} dismantle the evidence trying to convince the judge")
         };
 
@@ -250,19 +251,21 @@ public class Court : MonoBehaviour
             // Se � l'ultimo round (il giudice emette il verdetto)
             if (_round == _roundsTimeline.Count - 1)
             {
+                string infoRequest = answer.Split(_gameOverCharacter)[1].Replace("\n", "");
                 
                 string verdict = answer.ToLower();
 
-                if (winKeywords.Any(k => verdict.Contains(k)))
+                if (winKeywords.Any(k => verdict.Contains(k)) || infoRequest.Contains("VITTORIA"))
                 {
                     endGameUI.Show("HAI VINTO", Color.green);
                     nextButton.interactable = false;
                 }
-                else if (loseKeywords.Any(k => verdict.Contains(k)))
+                else if (loseKeywords.Any(k => verdict.Contains(k)) || infoRequest.Contains("SCONFITTA"))
                 {
                     endGameUI.Show("HAI PERSO", Color.red);
                     nextButton.interactable = false;
                 }
+                
             }
 
             nextButton.interactable = true;
@@ -319,7 +322,7 @@ public class Court : MonoBehaviour
             try
             {
                 string infoRequest = text.Split(_gameOverCharacter)[1].Replace("\n", "");
-                GameOverCallback?.Invoke(infoRequest.Contains("WIN"));
+                GameOverCallback?.Invoke(infoRequest.Contains("VITTORIA"));
             }
             catch (IndexOutOfRangeException e)
             {

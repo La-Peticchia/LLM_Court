@@ -1502,7 +1502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f6c87a428fd5d0be9bbc686bdc8c3c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  advancedOptions: 0
+  advancedOptions: 1
   remote: 0
   _llm: {fileID: 1047848254}
   APIKey: 
@@ -1512,6 +1512,7 @@ MonoBehaviour:
   save: 
   saveCache: 0
   debugPrompt: 1
+  dontDestroyOnLoad: 0
   numPredict: -1
   slot: -1
   grammar: 
@@ -2516,17 +2517,24 @@ MonoBehaviour:
     or qho fit the best; in addition, only if there is a WIldcard, you must specify
     the character''s name at the beginning of the sentence in this manner: Name of
     character>'
-  judgePrompt: 'The goal of Judge is to give the defendant''s final sentence by listening
-    to the dialogue. When it''s the time for Judge to give their final sentence,
-    they must also add at the end of the answer:
-
-    #WIN if the player or Defense
-    has fulfilled their goal
-
-    #LOSE if the player or Defense has not reached
-    their goal'
-  attackPrompt: The goal of Attack is proving to the Judge that the defendant is
-    guilty.
+  judgePrompt: "The Judge is responsible for delivering a final, impartial sentence
+    in a courtroom trial by analyzing the entire dialogue that took place during
+    the proceedings.\r\nNo bias or favoritism is allowed. The final decision must
+    be based strictly on logic, internal consistency, and the effectiveness of the
+    arguments made by all parties.\r\nThe Defense (played by the user) is tasked
+    with defending the accused and attempting to secure a favorable verdict through
+    valid, logical, or emotionally persuasive arguments.\n\nIn evaluating the case,
+    the Judge must consider:\r\nThe coherence and persuasiveness of the Defense\u2019s
+    reasoning\r\nThe strength and credibility of opposing witnesses or the Prosecution\r\nWhether
+    the Defense ultimately achieved their stated or implied objective\r\n\r\nThe
+    final sentence must end with one of the following markers:\r\n#VITTORIA if the
+    Defense successfully achieved their goal\r\n#SCONFITTA if the Defense failed
+    to achieve their goal\r\n\r\nThe verdict should be concise, impartial, and clearly
+    derived from the courtroom dialogue. Finally the verdict must be coherent with
+    the markers listed above.\n"
+  attackPrompt: "The goal of Attack is proving to the Judge that the defendant is
+    guilty. \nWhen the Interrogation Round comes, Attack must do anything within
+    his powers to prove the defendant guilt by asking questions to other characters."
   numOfQuestions: 2
 --- !u!4 &708504566
 Transform:
@@ -3942,14 +3950,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a50e3140c3ecaaf1c848dbf141cc2074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  advancedOptions: 0
+  advancedOptions: 1
   remote: 0
   port: 13333
   numThreads: -1
-  numGPULayers: 50
+  numGPULayers: 75
   debug: 0
   parallelPrompts: -1
-  dontDestroyOnLoad: 1
+  dontDestroyOnLoad: 0
   contextSize: 10000
   batchSize: 512
   model: gemma-3-12b-it-Q4_K_M.gguf
@@ -6488,7 +6496,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1631422306
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7449,11 +7457,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53c0915f97aefcb4e808d38c7a802dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prompt: "I need the description of a courtroom case where the player control the
-    defendant attorney. You decide wether the case is real or fake but it must have
-    a defendant. The description must include:\r\n- The goal the player needs to
-    reach\r\n- The name of the case\r\n- A long summary of the case ranging from
-    200 to 300 words, I don't need that you specify how the case developed in the
+  prompt: "Each courtroom case revolves around a defendant accused of a specific
+    crime, and the player takes on the role of the defense attorney. The nature of
+    the case can vary significantly, creating different strategic and emotional challenges.
+    In some trials, the defendant appears to be innocent, but the available evidence
+    is inconclusive, contradictory, or misleading. These are cases where the defense
+    must work diligently to uncover the truth, expose flaws in the prosecution\u2019s
+    narrative, and persuade the court through careful reasoning or emotional insight.
+    Success in these situations depends on the player's ability to piece together
+    subtle clues and guide the trial toward a full acquittal.\r\n\r\nIn other scenarios,
+    the defendant may indeed be guilty, or the evidence against them may be overwhelmingly
+    strong, making innocence nearly impossible to prove. Here, the defense's role
+    shifts toward damage control\u2014seeking to reduce the sentence by presenting
+    mitigating factors, questioning intent or motive, showing remorse, or shifting
+    the focus to extenuating circumstances. In these cases, the goal is not necessarily
+    to prove innocence, but to minimize the consequences for the accused as much
+    as possible.\r\n\r\nThe type of case presented, whether a difficult fight for
+    innocence or a desperate attempt to soften a likely conviction, defines the tone
+    and objective of the defense strategy, creating unique courtroom dynamics for
+    each trial.\r\n\nThe description must include:\r\n- The goal the player needs
+    to reach\r\n- The name of the case\r\n- A long summary of the case ranging from
+    50 to 100 words, I don't need that you specify how the case developed in the
     courtroom, the evidences or the player goal because you arleady write that in
     other sections\r\n- A short summary of the case ranging from 30 to 50 words\r\n-
     Evidence or clues about the case, the number of clues is up to you and they must
@@ -7619,7 +7643,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1986254724
 RectTransform:
   m_ObjectHideFlags: 0

@@ -14,8 +14,9 @@ public class APIInterface : MonoBehaviour
 {
     private Uri _endpoint;
     private AzureKeyCredential _credential;
-    private string _model = "openai/gpt-4.1";
+    //private string _model = "openai/gpt-4.1";
     //private string _model = "meta/Llama-4-Scout-17B-16E-Instruct";
+    private string _model = "deepseek/DeepSeek-V3-0324";
     private ChatCompletionsClient _client;
 
 
@@ -52,7 +53,7 @@ public class APIInterface : MonoBehaviour
 
     public async Task<(CaseDescription,CaseDescription)> Request(string preferences = "")
     {
-
+        
         string currentPrompt = prompt.Replace(preferencesReplaceCharacters,
             preferences != "" ? "I want you to take into account these preferences/topics: " + preferences : ""); 
 
@@ -101,6 +102,8 @@ public class APIInterface : MonoBehaviour
 
     public async Task<(string,string)> Request(string totalCaseDescription, string addRequest)
     {
+        if(useDebugPrompt) return ("","");
+        
         var addRequestOptions = new ChatCompletionsOptions()
         {
             Messages = 

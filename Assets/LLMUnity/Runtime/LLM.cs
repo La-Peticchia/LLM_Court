@@ -107,6 +107,9 @@ namespace LLMUnity
 
         /// \endcond
 
+        //Custom
+        public static LLM Instance = null; 
+        
         public LLM()
         {
             LLMManager.Register(this);
@@ -126,11 +129,18 @@ namespace LLMUnity
         /// </summary>
         public async void Awake()
         {
+            
+            if(!Instance)
+                Instance = this;
+            else
+                Destroy(gameObject);
+            
             if (!enabled) return;
 #if !UNITY_EDITOR
             modelSetupFailed = !await LLMManager.Setup();
 #endif
             modelSetupComplete = true;
+            
             if (modelSetupFailed)
             {
                 failed = true;

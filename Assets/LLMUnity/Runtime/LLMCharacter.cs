@@ -27,6 +27,7 @@ namespace LLMUnity
         /// <summary> log the constructed prompt the Unity Editor. </summary>
         [Tooltip("log the constructed prompt the Unity Editor.")]
         [LLM] public bool debugPrompt = false;
+        [LLM] public bool dontDestroyOnLoad = false;
         /// <summary> maximum number of tokens that the LLM will predict (-1 = infinity). </summary>
         [Tooltip("maximum number of tokens that the LLM will predict (-1 = infinity).")]
         [Model] public int numPredict = -1;
@@ -133,6 +134,10 @@ namespace LLMUnity
         [Tooltip("the grammar to use")]
         public string grammarJSONString;
 
+        
+        //Custom
+        public static LLMCharacter Instance;
+        
         /// \cond HIDE
         protected SemaphoreSlim chatLock = new SemaphoreSlim(1, 1);
         protected string chatTemplate;
@@ -150,6 +155,11 @@ namespace LLMUnity
         /// </summary>
         public override void Awake()
         {
+            if(!Instance)
+                Instance = this;
+            else
+                Destroy(gameObject);
+            
             if (!enabled) return;
             base.Awake();
             if (!remote)
@@ -159,6 +169,13 @@ namespace LLMUnity
             }
             InitGrammar();
             InitHistory();
+            if(dontDestroyOnLoad) DontDestroyOnLoad(transform.root.gameObject);
+        }
+
+        private void Start()
+        {
+
+            
         }
 
         protected override void OnValidate()
@@ -167,6 +184,8 @@ namespace LLMUnity
             if (llm != null && llm.parallelPrompts > -1 && (slot < -1 || slot >= llm.parallelPrompts)) LLMUnitySetup.LogError($"The slot needs to be between 0 and {llm.parallelPrompts-1}, or -1 to be automatically set");
         }
 
+        
+        
         protected override string NotValidLLMError()
         {
             return base.NotValidLLMError() + $", it is an embedding only model";
