@@ -196,7 +196,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.000030517578}
-  m_SizeDelta: {x: 0, y: -380.8}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &72392617
 MonoBehaviour:
@@ -2308,36 +2308,44 @@ MonoBehaviour:
   mainPrompt: 'A court case where the AI takes control of several characters listed
     below while the player takes control of th Defense. Answers must be less than
     100 words. Only one character at a time can answer. The progression towards the
-    final sentence is marked with Rounds. Each round may contain a suggestion to the
-    character of what to write/say.
+    final sentence is marked with Rounds. Each round may contain a suggestion to
+    the character of what to write/say.
 
 
-    Questions can only be asked during the Interrogation Round
+    Questions can only be asked during
+    the Interrogation Round
 
 
-    Each caracter, in addition to their answer or question, can Request additional
-    case information to the system
+    Each caracter, in addition to their answer or question,
+    can Request additional case information to the system
 
 
-    Additional case information requests can be specified at the end of the answer/question
-    with the following format: *Requested information*
+    Additional case information
+    requests can be specified at the end of the answer/question with the following
+    format: *Requested information*
 
-    Requesting additional Information is not mandatory.
+    Requesting additional Information is not
+    mandatory.
 
 
-    Answers must be written in italian. Requests must be written in english'
-  wildcardCharacterPrompt: 'Whenever you encounter the Wildcard name you need to take
-    control of the next character in the dialogue who was asked the question or qho
-    fit the best; in addition, only if there is a WIldcard, you must specify the character''s
-    name at the beginning of the sentence in this manner: Name of character>'
+    Answers must be written in italian. Requests must be written
+    in english'
+  wildcardCharacterPrompt: 'Whenever you encounter the Wildcard name you need to
+    take control of the next character in the dialogue who was asked the question
+    or qho fit the best; in addition, only if there is a WIldcard, you must specify
+    the character''s name at the beginning of the sentence in this manner: Name of
+    character>'
   judgePrompt: 'The goal of Judge is to give the defendant''s final sentence by listening
-    to the dialogue. When it''s the time for Judge to give their final sentence, they
-    must also add at the end of the answer:
+    to the dialogue. When it''s the time for Judge to give their final sentence,
+    they must also add at the end of the answer:
 
-    #WIN if the player or Defense has fulfilled their goal
+    #WIN if the player or Defense
+    has fulfilled their goal
 
-    #LOSE if the player or Defense has not reached their goal'
-  attackPrompt: The goal of Attack is proving to the Judge that the defendant is guilty.
+    #LOSE if the player or Defense has not reached
+    their goal'
+  attackPrompt: The goal of Attack is proving to the Judge that the defendant is
+    guilty.
   numOfQuestions: 2
 --- !u!4 &708504566
 Transform:
@@ -7570,28 +7578,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prompt: "I need the description of a courtroom case where the player control the
     defendant attorney. You decide wether the case is real or fake but it must have
-    a defendant. The description must include:\r\n- The goal the player needs to reach\r\n-
-    The name of the case\r\n- A long summary of the case ranging from 200 to 300 words,
-    I don't need that you specify how the case developed in the courtroom, the evidences
-    or the player goal because you arleady write that in other sections\r\n- A short
-    summary of the case ranging from 30 to 50 words\r\n- Evidence or clues about the
-    case, the number of clues is up to you and they must not be too evident, add some
-    mistery to them.\r\n- A list of witnesses paired with a description of who they
-    are, their personality and what they have seen. If the case is fake, you decide
-    the number of witnesses from 1 to 4\r\n\r\nIf you can't gather all the information
-    I asked of a real case just make it up. \r\n\r\n!!!\r\n\r\nThe description must
-    be formatted like this:\r\n\r\nPlayer Goal>\r\n(here you put the player goal)\n***\r\nCase
-    Name >\r\n(here you put the name of the case)\r\n***\r\nSummary >\r\n(here you
-    put the long summary)\r\n***\r\nShort Summary >\r\n(here you put the short summary)\r\n***\r\nEvidence
-    >\r\n-(here you put the first clue)+++\r\n-(here you put the second clue)+++\r\n-(here
-    you put the third clue)+++\r\n(you decide the number of clues)\r\n***\r\nWitnesses
+    a defendant. The description must include:\r\n- The goal the player needs to
+    reach\r\n- The name of the case\r\n- A long summary of the case ranging from
+    200 to 300 words, I don't need that you specify how the case developed in the
+    courtroom, the evidences or the player goal because you arleady write that in
+    other sections\r\n- A short summary of the case ranging from 30 to 50 words\r\n-
+    Evidence or clues about the case, the number of clues is up to you and they must
+    not be too evident, add some mistery to them.\r\n- A list of witnesses paired
+    with a description of who they are, their personality and what they have seen.
+    If the case is fake, you decide the number of witnesses from 1 to 4\r\n\r\nIf
+    you can't gather all the information I asked of a real case just make it up.
+    \r\n\r\n!!!\r\n\r\nThe description must be formatted like this:\r\n\r\nPlayer
+    Goal>\r\n(here you put the player goal)\n***\r\nCase Name >\r\n(here you put
+    the name of the case)\r\n***\r\nSummary >\r\n(here you put the long summary)\r\n***\r\nShort
+    Summary >\r\n(here you put the short summary)\r\n***\r\nEvidence >\r\n-(here
+    you put the first clue)+++\r\n-(here you put the second clue)+++\r\n-(here you
+    put the third clue)+++\r\n(you decide the number of clues)\r\n***\r\nWitnesses
     >\r\n-(here you put the name of first witness): (here you put the description
     of the first witness)+++\r\n-(here you put the name of second witness): (here
-    you put the description of the second witness)+++\r\n-(here you put the name of
-    third witness): (here you put the description of the third witness)+++\r\n(you
-    decide the number of witnesses from 1 to 4)\r\n***\r\nAdditional information >\r\n(you
-    must leave this section empty for now)\r\n^^^\r\n(here you put all the case description
-    translated in italian with the same specified format)"
+    you put the description of the second witness)+++\r\n-(here you put the name
+    of third witness): (here you put the description of the third witness)+++\r\n(you
+    decide the number of witnesses from 1 to 4)\r\n***\r\nAdditional information
+    >\r\n(you must leave this section empty for now)\r\n^^^\r\n(here you put all
+    the case description translated in italian with the same specified format)"
   useDebugPrompt: 1
   dbgCaseDesc: "Player Goal>  \nProve the defendant\u2019s innocence and reveal the
     true culprit behind the art gallery theft.  \n***  \nCase Name >  \nThe Midnight
@@ -7602,68 +7611,68 @@ MonoBehaviour:
     Security footage shows her entering the exhibition hall shortly before midnight,
     but the tape cuts out for twelve crucial minutes. Isabelle claims she was responding
     to a suspicious noise but has no recollection of the event after she approached
-    the security door. The prosecution argues Isabelle had access, motive due to recent
-    financial distress, and opportunity, pressing for a swift conviction. However,
-    strange inconsistencies emerge: a rare glove fiber at the scene doesn\u2019t match
-    Isabelle or regular staff, and a mysterious anonymous donor recently offered to
-    pay off Isabelle\u2019s debts.  \nAs the defense attorney, you must dismantle
+    the security door. The prosecution argues Isabelle had access, motive due to
+    recent financial distress, and opportunity, pressing for a swift conviction.
+    However, strange inconsistencies emerge: a rare glove fiber at the scene doesn\u2019t
+    match Isabelle or regular staff, and a mysterious anonymous donor recently offered
+    to pay off Isabelle\u2019s debts.  \nAs the defense attorney, you must dismantle
     the prosecution\u2019s theory, cast doubt on Isabelle\u2019s guilt, and piece
     together the tangled web of clues: who tampered with the cameras, what happened
     during the missing twelve minutes, and why Isabelle was targeted. The pressure
-    mounts as public opinion turns against her and the gallery\u2019s reputation hangs
-    in the balance.  \n***  \nShort Summary >  \nIsabelle Fournier is accused of stealing
-    a priceless painting after being discovered unconscious at the scene, but mysterious
-    evidence and outside influences cast doubt on her guilt in this high-profile art
-    theft case.  \n***  \nEvidence >  \n- Security footage cuts out for twelve minutes
-    during the time of the theft+++  \n- Rare glove fiber found at the scene does
-    not match Isabelle or permanent staff+++  \n- Anonymous donor recently offered
-    to pay Isabelle\u2019s debts+++  \n- Gallery floor plan reveals a little-used
-    service entrance was left unlocked+++  \n- A note in Isabelle\u2019s locker warns,
-    \u201CTrust no one after midnight.\u201D+++  \n***  \nWitnesses >  \n- Lucien
-    Leclair: Gallery owner, meticulous and wary, claims he saw Isabelle arguing with
-    a shadowy figure a week prior.+++  \n- Mariana Voss: Security guard, diligent
-    but timid, last saw Isabelle entering hall B and noticed the service entrance
-    unlocked after the theft.+++  \n- Victor Grant: Art critic, flamboyant and observant,
-    attended the event and swears he saw someone in maintenance overalls near the
-    security room around midnight.+++  \n***  \nAdditional information > \n^^^  \nObiettivo
-    del giocatore>  \nDimostrare l\u2019innocenza dell\u2019imputata e svelare il
-    vero colpevole dietro al furto nella galleria d\u2019arte.  \n*** \nNome del caso
-    >  \nIl Colpo della Tela di Mezzanotte  \n***  \nSommario > \nAlla mezzanotte
-    del 6 maggio, un dipinto senza prezzo \xE8 sparito dalla prestigiosa Galleria
-    d\u2019Arte Leclair nel cuore della citt\xE0. L\u2019imputata, Isabelle Fournier,
-    assistente di galleria con una reputazione impeccabile, viene trovata incosciente
-    vicino alla cornice vuota subito dopo la scoperta del delitto. I filmati di sicurezza
-    la ritraggono mentre entra nella sala espositiva poco prima di mezzanotte, ma
-    la registrazione si interrompe per dodici minuti cruciali. Isabelle sostiene di
-    aver sentito uno strano rumore, ma non ricorda nulla dopo essersi avvicinata alla
-    porta di sicurezza. L\u2019accusa sostiene che Isabelle avesse accesso, un movente
-    grazie a recenti difficolt\xE0 economiche e l\u2019opportunit\xE0, richiedendo
-    una condanna rapida. Tuttavia, emergono strane incongruenze: una rara fibra di
-    guanto trovata sulla scena non appartiene a Isabelle n\xE9 al personale, e un
-    misterioso benefattore anonimo ha recentemente offerto di pagare i suoi debiti.
-    \ \nCome avvocato della difesa, devi confutare la teoria dell\u2019accusa, sollevare
-    dubbi sulla colpevolezza di Isabelle e mettere insieme l\u2019intricato intreccio
-    di indizi: chi ha manomesso le telecamere, cosa \xE8 successo nei dodici minuti
-    mancanti e perch\xE9 \xE8 stata presa di mira Isabelle. La pressione aumenta mentre
-    l\u2019opinione pubblica si schiera contro di lei e la reputazione della galleria
-    \xE8 in gioco.  \n***  \nSommario breve >  \nIsabelle Fournier \xE8 accusata di
-    aver rubato un dipinto prezioso dopo essere stata trovata incosciente sulla scena,
-    ma misteriosi indizi e influenze esterne gettano dubbi sulla sua colpevolezza
-    in questo caso di furto d\u2019arte di alto profilo.  \n***  \nProve >  \n- Il
-    filmato di sicurezza si interrompe per dodici minuti durante il furto+++ \n- Fibra
-    di un raro guanto trovata sulla scena, non corrisponde a Isabelle n\xE9 al personale
-    fisso+++  \n- Un benefattore anonimo ha recentemente offerto di saldare i debiti
-    di Isabelle+++  \n- La planimetria della galleria rivela che un ingresso di servizio
-    poco usato era rimasto aperto+++  \n- Un biglietto nell\u2019armadietto di Isabelle
-    la avverte: \u201CNon fidarti di nessuno dopo mezzanotte.\u201D+++ \n***  \nTestimoni
-    >  \n- Lucien Leclair: proprietario della galleria, meticoloso e diffidente, sostiene
-    di aver visto Isabelle litigare con una figura misteriosa una settimana prima.+++
-    \ \n- Mariana Voss: guardia di sicurezza, scrupolosa ma timida, ha visto l\u2019ultima
-    volta Isabelle entrare nella sala B e ha notato l\u2019ingresso di servizio aperto
-    dopo il furto.+++  \n- Victor Grant: critico d\u2019arte, stravagante e osservatore,
-    era presente all\u2019evento e giura di aver visto qualcuno in tuta da manutentore
-    vicino alla sala di sicurezza intorno a mezzanotte.+++  \n***  \nInformazioni
-    aggiuntive >"
+    mounts as public opinion turns against her and the gallery\u2019s reputation
+    hangs in the balance.  \n***  \nShort Summary >  \nIsabelle Fournier is accused
+    of stealing a priceless painting after being discovered unconscious at the scene,
+    but mysterious evidence and outside influences cast doubt on her guilt in this
+    high-profile art theft case.  \n***  \nEvidence >  \n- Security footage cuts
+    out for twelve minutes during the time of the theft+++  \n- Rare glove fiber
+    found at the scene does not match Isabelle or permanent staff+++  \n- Anonymous
+    donor recently offered to pay Isabelle\u2019s debts+++  \n- Gallery floor plan
+    reveals a little-used service entrance was left unlocked+++  \n- A note in Isabelle\u2019s
+    locker warns, \u201CTrust no one after midnight.\u201D+++  \n***  \nWitnesses
+    >  \n- Lucien Leclair: Gallery owner, meticulous and wary, claims he saw Isabelle
+    arguing with a shadowy figure a week prior.+++  \n- Mariana Voss: Security guard,
+    diligent but timid, last saw Isabelle entering hall B and noticed the service
+    entrance unlocked after the theft.+++  \n- Victor Grant: Art critic, flamboyant
+    and observant, attended the event and swears he saw someone in maintenance overalls
+    near the security room around midnight.+++  \n***  \nAdditional information >
+    \n^^^  \nObiettivo del giocatore>  \nDimostrare l\u2019innocenza dell\u2019imputata
+    e svelare il vero colpevole dietro al furto nella galleria d\u2019arte.  \n***
+    \nNome del caso >  \nIl Colpo della Tela di Mezzanotte  \n***  \nSommario > \nAlla
+    mezzanotte del 6 maggio, un dipinto senza prezzo \xE8 sparito dalla prestigiosa
+    Galleria d\u2019Arte Leclair nel cuore della citt\xE0. L\u2019imputata, Isabelle
+    Fournier, assistente di galleria con una reputazione impeccabile, viene trovata
+    incosciente vicino alla cornice vuota subito dopo la scoperta del delitto. I
+    filmati di sicurezza la ritraggono mentre entra nella sala espositiva poco prima
+    di mezzanotte, ma la registrazione si interrompe per dodici minuti cruciali.
+    Isabelle sostiene di aver sentito uno strano rumore, ma non ricorda nulla dopo
+    essersi avvicinata alla porta di sicurezza. L\u2019accusa sostiene che Isabelle
+    avesse accesso, un movente grazie a recenti difficolt\xE0 economiche e l\u2019opportunit\xE0,
+    richiedendo una condanna rapida. Tuttavia, emergono strane incongruenze: una
+    rara fibra di guanto trovata sulla scena non appartiene a Isabelle n\xE9 al personale,
+    e un misterioso benefattore anonimo ha recentemente offerto di pagare i suoi
+    debiti.  \nCome avvocato della difesa, devi confutare la teoria dell\u2019accusa,
+    sollevare dubbi sulla colpevolezza di Isabelle e mettere insieme l\u2019intricato
+    intreccio di indizi: chi ha manomesso le telecamere, cosa \xE8 successo nei dodici
+    minuti mancanti e perch\xE9 \xE8 stata presa di mira Isabelle. La pressione aumenta
+    mentre l\u2019opinione pubblica si schiera contro di lei e la reputazione della
+    galleria \xE8 in gioco.  \n***  \nSommario breve >  \nIsabelle Fournier \xE8
+    accusata di aver rubato un dipinto prezioso dopo essere stata trovata incosciente
+    sulla scena, ma misteriosi indizi e influenze esterne gettano dubbi sulla sua
+    colpevolezza in questo caso di furto d\u2019arte di alto profilo.  \n***  \nProve
+    >  \n- Il filmato di sicurezza si interrompe per dodici minuti durante il furto+++
+    \n- Fibra di un raro guanto trovata sulla scena, non corrisponde a Isabelle n\xE9
+    al personale fisso+++  \n- Un benefattore anonimo ha recentemente offerto di
+    saldare i debiti di Isabelle+++  \n- La planimetria della galleria rivela che
+    un ingresso di servizio poco usato era rimasto aperto+++  \n- Un biglietto nell\u2019armadietto
+    di Isabelle la avverte: \u201CNon fidarti di nessuno dopo mezzanotte.\u201D+++
+    \n***  \nTestimoni >  \n- Lucien Leclair: proprietario della galleria, meticoloso
+    e diffidente, sostiene di aver visto Isabelle litigare con una figura misteriosa
+    una settimana prima.+++  \n- Mariana Voss: guardia di sicurezza, scrupolosa ma
+    timida, ha visto l\u2019ultima volta Isabelle entrare nella sala B e ha notato
+    l\u2019ingresso di servizio aperto dopo il furto.+++  \n- Victor Grant: critico
+    d\u2019arte, stravagante e osservatore, era presente all\u2019evento e giura
+    di aver visto qualcuno in tuta da manutentore vicino alla sala di sicurezza intorno
+    a mezzanotte.+++  \n***  \nInformazioni aggiuntive >"
 --- !u!4 &1971763134
 Transform:
   m_ObjectHideFlags: 0
@@ -7679,6 +7688,45 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1972178866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1972178867}
+  m_Layer: 5
+  m_Name: NewCaseGenerationGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1972178867
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972178866}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1291469002}
+  - {fileID: 654750324}
+  - {fileID: 1091443833}
+  - {fileID: 983398512}
+  m_Father: {fileID: 1962383495}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 264, y: 56}
+  m_SizeDelta: {x: 262.09985, y: 302.3}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1986254723
 GameObject:
   m_ObjectHideFlags: 0
@@ -7755,45 +7803,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1986254723}
   m_CullTransparentMesh: 1
---- !u!1 &1972178866
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1972178867}
-  m_Layer: 5
-  m_Name: NewCaseGenerationGroup
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1972178867
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1972178866}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1291469002}
-  - {fileID: 654750324}
-  - {fileID: 1091443833}
-  - {fileID: 983398512}
-  m_Father: {fileID: 1962383495}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 264, y: 56}
-  m_SizeDelta: {x: 262.09985, y: 302.3}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1988753660
 GameObject:
   m_ObjectHideFlags: 0
