@@ -6513,6 +6513,7 @@ MonoBehaviour:
   panel: {fileID: 1986254723}
   resultText: {fileID: 98929296}
   restartButton: {fileID: 266312926}
+  mainMenuButton: {fileID: 892624827}
   typingSpeed: 0.05
 --- !u!114 &1631422308
 MonoBehaviour:
