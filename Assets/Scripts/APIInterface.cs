@@ -12,11 +12,21 @@ using UnityEngine.UI;
 
 public class APIInterface : MonoBehaviour
 {
+    private enum ModelType
+    {
+        Gpt,
+        Llama,
+        DeepSeek
+    }
+    
     private Uri _endpoint;
     private AzureKeyCredential _credential;
-    //private string _model = "openai/gpt-4.1";
-    //private string _model = "meta/Llama-4-Scout-17B-16E-Instruct";
-    private string _model = "deepseek/DeepSeek-V3-0324";
+    
+    [SerializeField]
+    private ModelType modelType = ModelType.Gpt;
+    private string _model = "";
+    
+    
     private ChatCompletionsClient _client;
 
 
@@ -47,6 +57,15 @@ public class APIInterface : MonoBehaviour
         _credential = new AzureKeyCredential(envVariable);
         _client = new ChatCompletionsClient(_endpoint, _credential, new AzureAIInferenceClientOptions());
 
+        switch (modelType)
+        {
+            case ModelType.Gpt: _model = "openai/gpt-4.1";
+                break;
+            case ModelType.Llama: _model = "meta/Llama-4-Scout-17B-16E-Instruct";
+                break;
+            case ModelType.DeepSeek: _model = "deepseek/DeepSeek-V3-0324";
+                break;
+        }
     }
 
 

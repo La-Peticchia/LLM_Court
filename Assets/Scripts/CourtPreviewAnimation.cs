@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CourtPreviewAnimation : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class CourtPreviewAnimation : MonoBehaviour
     [SerializeField] private float animationDuration;
     
     private Vector3[] _startPositions;
+    private Button _page1Button;
     
     private void Awake()
     {
@@ -19,6 +21,8 @@ public class CourtPreviewAnimation : MonoBehaviour
         _startPositions[0] = wayPoints[0].transform.position;
         _startPositions[1] = pages[1].transform.position;
         _startPositions[2] = pages[2].transform.position;
+
+        _page1Button = pages[0].GetComponentInChildren<Button>();
     }
 
     public async Task PlayAnimation(string newContent)
@@ -57,6 +61,7 @@ public class CourtPreviewAnimation : MonoBehaviour
         }
         else
         {
+            _page1Button.gameObject.SetActive(false);
             while ((currentTime += deltaTimeNorm) < 1f)
             {
                 float curveEvaluation = curve.Evaluate(currentTime);
@@ -67,7 +72,7 @@ public class CourtPreviewAnimation : MonoBehaviour
                 await Task.Yield();
             }
             casePreviewTextboxes[0].text = casePreviewTextboxes[1].text;
-            
+            _page1Button.gameObject.SetActive(true);
         }
         
         pages[0].transform.position = _startPositions[0];

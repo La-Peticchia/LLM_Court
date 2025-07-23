@@ -108,10 +108,9 @@ public class Court : MonoBehaviour
         caseDescriptionText.text = _translatedDescription.GetTotalDescription(true);
         characterAnimator.AssignDynamicPrefabs(_caseDescription.witnesses.Keys.ToList(), attackName);
         
-        nextButton.interactable = false;
         await llmCharacter.llm.WaitUntilReady();
-        nextButton.interactable = true;
         
+        OnNextButtonClick();
     }
 
     private void InitializeChat()
