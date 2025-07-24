@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class CaseGeneration : MonoBehaviour
 {
-    [SerializeField] private Button playButton;
+    [SerializeField] private Button[] playButtons;
     [SerializeField] private Button newCaseButton;
     [SerializeField] private TextMeshProUGUI prefInputField;
     [SerializeField] private TextMeshProUGUI errorTextbox;
@@ -25,7 +25,6 @@ public class CaseGeneration : MonoBehaviour
         _court = FindFirstObjectByType<Court>();
         _courtPreviewAnimation = FindFirstObjectByType<CourtPreviewAnimation>();
         
-        playButton.onClick.AddListener(OnPlayButtonClicked);
         newCaseButton.onClick.AddListener(OnNewCaseButtonClicked);
         
         _caseDescription = new CaseDescription[2];
@@ -38,10 +37,12 @@ public class CaseGeneration : MonoBehaviour
     {
         StoreDescriptions();
     }
-
-    private void OnPlayButtonClicked()
+    
+    public void OnPlayButtonClicked(int buttonID)
     {
-        _court.InitializeCourt(_caseDescription[1], _translatedDescription[1]);
+        ToggleButtons(false);
+
+        _court.InitializeCourt(_caseDescription[buttonID], _translatedDescription[buttonID]);
         courtPreviewCanvas.SetActive(false);
         Destroy(gameObject);
     }
@@ -60,23 +61,34 @@ public class CaseGeneration : MonoBehaviour
 
     private async void StoreDescriptions()
     {
-        playButton.interactable = false;
-        newCaseButton.interactable = false;
-        
+        ToggleButtons(false);
+
         var descriptions = await _apiManager.Request(prefInputField.text);
         if (!string.IsNullOrWhiteSpace(descriptions.Item1.summary))
         {
-            (_caseDescription[0], _translatedDescription[0]) = (_caseDescription[1], _translatedDescription[1]);
-            (_caseDescription[1], _translatedDescription[1]) = descriptions;
-            await _courtPreviewAnimation.PlayAnimation(_translatedDescription[1].GetBriefDescription(true));
+            if(string.IsNullOrWhiteSpace(_caseDescription[0].summary))
+                (_caseDescription[0], _translatedDescription[0]) = descriptions;
+            else if(string.IsNullOrWhiteSpace(_caseDescription[1].summary))
+                (_caseDescription[1], _translatedDescription[1]) = descriptions;
+            else
+            {
+                (_caseDescription[0], _translatedDescription[0]) = (_caseDescription[1], _translatedDescription[1]);
+                (_caseDescription[1], _translatedDescription[1]) = descriptions;
+            }            
+            
+            await _courtPreviewAnimation.PlayAnimation(descriptions.Item2.GetBriefDescription(true));
         }
         else
             _ = OnError();
         
-        if(!string.IsNullOrWhiteSpace(_caseDescription[1].summary))
-            playButton.interactable = true;
-        
-        newCaseButton.interactable = true;
+        ToggleButtons(true);
+    }
+
+    private void ToggleButtons(bool enable)
+    {
+        foreach (var item in playButtons)
+            item.interactable = enable;
+        newCaseButton.interactable = enable;
     }
     
 }
