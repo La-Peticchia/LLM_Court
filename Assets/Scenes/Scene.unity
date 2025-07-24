@@ -703,7 +703,7 @@ GameObject:
   - component: {fileID: 266312926}
   m_Layer: 5
   m_Name: RestartButton
-  m_TagString: Untagged
+  m_TagString: PaperButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1778,7 +1778,6 @@ MonoBehaviour:
   witnessPrefabs:
   - {fileID: 7254194851352301084, guid: 411f11a3f471d0c4ba8c1709ea756062, type: 3}
   - {fileID: 7254194851352301084, guid: 1102ad5ae6a2c7f41b3c082477510fab, type: 3}
-  defensePrefab: {fileID: 7254194851352301084, guid: 91a367bb8b1296743ae9f04f204d319e, type: 3}
   parentCanvas: {fileID: 158550917}
   aiImageObject: {fileID: 2091685446}
   aiText: {fileID: 887085510}
@@ -3292,7 +3291,7 @@ GameObject:
   - component: {fileID: 892624827}
   m_Layer: 5
   m_Name: MainMenuButton
-  m_TagString: Untagged
+  m_TagString: PaperButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3810,7 +3809,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2868133432251807771, guid: 69106cddec5eb874dbc98b73eb234c79, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: -243
       objectReference: {fileID: 0}
     - target: {fileID: 3994438721588116823, guid: 69106cddec5eb874dbc98b73eb234c79, type: 3}
       propertyPath: m_Pivot.x
@@ -3898,23 +3897,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7097785302033717725, guid: 69106cddec5eb874dbc98b73eb234c79, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7097785302033717725, guid: 69106cddec5eb874dbc98b73eb234c79, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7097785302033717725, guid: 69106cddec5eb874dbc98b73eb234c79, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 8974067013190777506, guid: 69106cddec5eb874dbc98b73eb234c79, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8974067013190777506, guid: 69106cddec5eb874dbc98b73eb234c79, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3954,7 +3953,7 @@ MonoBehaviour:
   remote: 0
   port: 13333
   numThreads: -1
-  numGPULayers: 75
+  numGPULayers: 25
   debug: 0
   parallelPrompts: -1
   dontDestroyOnLoad: 0
@@ -6490,6 +6489,7 @@ GameObject:
   - component: {fileID: 1631422309}
   - component: {fileID: 1631422308}
   - component: {fileID: 1631422307}
+  - component: {fileID: 1631422311}
   m_Layer: 5
   m_Name: EndGameCanvas
   m_TagString: Untagged
@@ -6597,6 +6597,23 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
+--- !u!114 &1631422311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631422305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34a0261d77aad7a4e82e9fe309aa012f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightMenuButtonPrefab: {fileID: 0}
+  highlightBackPrefab: {fileID: 0}
+  highlightRomboPrefab: {fileID: 0}
+  highlightMirrorPrefab: {fileID: 0}
+  highlightPaperPrefab: {fileID: 1664074827176146260, guid: 49b37050ba5067644a954ba0c03d22cc, type: 3}
 --- !u!114 &1640969110 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2881579507250742031, guid: 69106cddec5eb874dbc98b73eb234c79, type: 3}
@@ -7290,7 +7307,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1962383495
 RectTransform:
   m_ObjectHideFlags: 0
