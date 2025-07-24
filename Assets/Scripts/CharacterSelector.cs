@@ -1,28 +1,28 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CharacterSelector : MonoBehaviour
 {
-    public List<Sprite> availableSprites;
-    public Image previewImage;
+    [Header("Scelte Personaggio")]
+    public GameObject[] defenseChoices; // I prefab tra cui scegliere
+    public Button[] selectionButtons;   // I bottoni cliccabili
 
-    private int currentIndex = 0;
-
-    public void NextCharacter()
+    private void Start()
     {
-        currentIndex = (currentIndex + 1) % availableSprites.Count;
-        previewImage.sprite = availableSprites[currentIndex];
+        // Associa ogni bottone a una scelta
+        for (int i = 0; i < selectionButtons.Length; i++)
+        {
+            int index = i; // Importante per evitare chiusura errata nella lambda
+            selectionButtons[i].onClick.AddListener(() => SelectCharacter(index));
+        }
     }
 
-    public void PreviousCharacter()
+    private void SelectCharacter(int index)
     {
-        currentIndex = (currentIndex - 1 + availableSprites.Count) % availableSprites.Count;
-        previewImage.sprite = availableSprites[currentIndex];
-    }
+        // Salva il prefab selezionato in PlayerPrefs usando un identificativo univoco (es: il nome)
+        PlayerPrefs.SetString("SelectedDefenseCharacter", defenseChoices[index].name);
+        PlayerPrefs.Save();
 
-    public void ConfirmSelection()
-    {
-        PlayerPrefs.SetInt("SelectedCharacterIndex", currentIndex);
+        Debug.Log("Hai selezionato il personaggio: " + defenseChoices[index].name);
     }
 }

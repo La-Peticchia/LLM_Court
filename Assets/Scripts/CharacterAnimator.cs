@@ -12,8 +12,8 @@ public class CharacterAnimator : MonoBehaviour
     public List<GameObject> attackPrefabs;
     public List<GameObject> witnessPrefabs;
 
-    [Header("Prefab Player")]
-    public GameObject defensePrefab;
+    
+    private GameObject defensePrefab;
 
     [Header("UI")]
     public Transform parentCanvas;
@@ -25,6 +25,20 @@ public class CharacterAnimator : MonoBehaviour
     private string currentRole;
 
     private Dictionary<string, GameObject> roleToPrefab = new();
+
+    private void Awake()
+    {
+        string savedName = PlayerPrefs.GetString("SelectedDefenseCharacter", "");
+        if (!string.IsNullOrEmpty(savedName))
+        {
+            // Carica il prefab dal Resources (o alternativamente da un array)
+            GameObject loadedPrefab = Resources.Load<GameObject>("Prefab/" + savedName);
+            if (loadedPrefab != null)
+                defensePrefab = loadedPrefab;
+            else
+                Debug.LogWarning("Prefab difesa non trovato: " + savedName);
+        }
+    }
 
     public void AssignDynamicPrefabs(List<string> witnesses, string attackRole)
     {

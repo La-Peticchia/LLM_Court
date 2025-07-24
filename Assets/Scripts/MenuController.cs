@@ -13,38 +13,38 @@ public class MenuController : MonoBehaviour
     public Button characterButton;
     public Button leaveGameButton;
     public Button optionsButton;
-
-    private enum OpenPanel
-    {
-        None,
-        Character,
-        Options
-    }
-
-    private OpenPanel currentOpenPanel = OpenPanel.None;
+    public Button backFromCharacterButton;
+    public Button backFromOptionsButton;
 
     private void Start()
     {
+        
         if (characterPanel != null) characterPanel.SetActive(false);
         if (optionsPanel != null) optionsPanel.SetActive(false);
 
+        
         newGameButton.onClick.AddListener(StartNewGame);
         characterButton.onClick.AddListener(OpenCharacterPanel);
+        leaveGameButton.onClick.AddListener(QuitGame);
         optionsButton.onClick.AddListener(OpenOptionsPanel);
-        leaveGameButton.onClick.AddListener(OnLeaveGameClicked);
+
+        
+        backFromCharacterButton.onClick.AddListener(CloseCharacterPanel);
+        backFromOptionsButton.onClick.AddListener(CloseOptionsPanel);
     }
 
     private void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (currentOpenPanel != OpenPanel.None)
+            if (characterPanel.activeSelf)
             {
-                CloseCurrentPanel();
+                CloseCharacterPanel();
             }
-            else
+            else if (optionsPanel.activeSelf)
             {
-                QuitGame();
+                CloseOptionsPanel();
             }
         }
     }
@@ -57,39 +57,21 @@ public class MenuController : MonoBehaviour
     public void OpenCharacterPanel()
     {
         characterPanel.SetActive(true);
-        currentOpenPanel = OpenPanel.Character;
+    }
+
+    public void CloseCharacterPanel()
+    {
+        characterPanel.SetActive(false);
     }
 
     public void OpenOptionsPanel()
     {
         optionsPanel.SetActive(true);
-        currentOpenPanel = OpenPanel.Options;
     }
 
-    private void CloseCurrentPanel()
+    public void CloseOptionsPanel()
     {
-        switch (currentOpenPanel)
-        {
-            case OpenPanel.Character:
-                if (characterPanel != null) characterPanel.SetActive(false);
-                break;
-            case OpenPanel.Options:
-                if (optionsPanel != null) optionsPanel.SetActive(false);
-                break;
-        }
-        currentOpenPanel = OpenPanel.None;
-    }
-
-    private void OnLeaveGameClicked()
-    {
-        if (currentOpenPanel == OpenPanel.None)
-        {
-            QuitGame();
-        }
-        else
-        {
-            CloseCurrentPanel();
-        }
+        optionsPanel.SetActive(false);
     }
 
     public void QuitGame()
