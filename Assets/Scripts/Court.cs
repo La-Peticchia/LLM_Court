@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using LLMUnity;
 using NUnit.Framework;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.Serialization;
@@ -23,6 +24,7 @@ public class Court : MonoBehaviour
     [SerializeField] private TextMeshProUGUI caseDescriptionText;
     [SerializeField] private Button nextButton;
     private APIInterface _apiManager;
+    private SentenceAnalyzer _sentenceAnalyzer;
     [SerializeField] RunJets runJets;
     [SerializeField] public Button micButton;
     public MicrophoneInput micInput;
@@ -65,6 +67,7 @@ public class Court : MonoBehaviour
     private void Awake()
     {
         _apiManager = FindFirstObjectByType<APIInterface>();
+        _sentenceAnalyzer = FindFirstObjectByType<SentenceAnalyzer>();
         
         playerText.onSubmit.AddListener(OnInputFieldSubmit);
         nextButton.onClick.AddListener(OnNextButtonClick);
@@ -107,7 +110,11 @@ public class Court : MonoBehaviour
         
         caseDescriptionText.text = _translatedDescription.GetTotalDescription(true);
         characterAnimator.AssignDynamicPrefabs(_caseDescription.witnesses.Keys.ToList(), attackName);
+
+        string[] characters = new string[] { judgeName, defenseName, attackName };
+        characters.AddRange(caseDescription.witnesses.Keys.ToList());
         
+        _sentenceAnalyzer.InitializeAnalysis(characters);
         await llmCharacter.llm.WaitUntilReady();
         
         OnNextButtonClick();
@@ -123,7 +130,7 @@ public class Court : MonoBehaviour
         //llmCharacter.prompt += $"\n {APIInterface.RemoveSplitters(string.Join("",_caseDescription.totalDescription.Split(APIInterface.sectionSplitCharacters).Take(3).ToArray()))}";
 
         llmCharacter.prompt = BuildPrompt();
-        Debug.Log(llmCharacter.prompt);
+        Debug.Log(llmCharacter.gameObject.name + llmCharacter.prompt);
         llmCharacter.ClearChat();
     }
 
