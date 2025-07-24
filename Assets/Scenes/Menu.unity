@@ -1275,7 +1275,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 0b9b456712b616b4db638c2b3d4eb848, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1283,7 +1283,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.22
 --- !u!222 &560983897
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1825,7 +1825,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &830320860
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2623,6 +2623,7 @@ MonoBehaviour:
   highlightBackPrefab: {fileID: 1664074827176146260, guid: deb1949b256eef5478b2d2e740a20aee, type: 3}
   highlightRomboPrefab: {fileID: 1664074827176146260, guid: c518eb7e8e17d5144b50f0868e486865, type: 3}
   highlightMirrorPrefab: {fileID: 1664074827176146260, guid: 76979604560e4174790e54b75a06bec4, type: 3}
+  highlightPaperPrefab: {fileID: 0}
 --- !u!1 &1532796377
 GameObject:
   m_ObjectHideFlags: 0
@@ -3291,8 +3292,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: LLM Court
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 693b81abf3072a34299de092647ba74c, type: 2}
-  m_sharedMaterial: {fileID: 8876882890896379808, guid: 693b81abf3072a34299de092647ba74c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2f2565e11943c12449a3ab1abf28d3a9, type: 2}
+  m_sharedMaterial: {fileID: 8876882890896379808, guid: 2f2565e11943c12449a3ab1abf28d3a9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

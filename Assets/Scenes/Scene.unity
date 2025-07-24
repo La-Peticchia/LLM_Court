@@ -119,6 +119,83 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &293913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 293914}
+  - component: {fileID: 293916}
+  - component: {fileID: 293915}
+  m_Layer: 5
+  m_Name: AI_ScrollText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &293914
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293913}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2051679803}
+  - {fileID: 784159525}
+  m_Father: {fileID: 2091685447}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -21.39746, y: 3.498436}
+  m_SizeDelta: {x: 954.1, y: 84.8}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &293915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Content: {fileID: 1111332171}
+  m_Horizontal: 0
+  m_Vertical: 1
+  m_MovementType: 1
+  m_Elasticity: 0.1
+  m_Inertia: 1
+  m_DecelerationRate: 0.135
+  m_ScrollSensitivity: 1
+  m_Viewport: {fileID: 2051679803}
+  m_HorizontalScrollbar: {fileID: 0}
+  m_VerticalScrollbar: {fileID: 784159526}
+  m_HorizontalScrollbarVisibility: 2
+  m_VerticalScrollbarVisibility: 2
+  m_HorizontalScrollbarSpacing: -3
+  m_VerticalScrollbarSpacing: -3
+  m_OnValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!222 &293916
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293913}
+  m_CullTransparentMesh: 1
 --- !u!1 &6921021
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,7 +1001,6 @@ MonoBehaviour:
   save: 
   saveCache: 0
   debugPrompt: 1
-  dontDestroyOnLoad: 0
   numPredict: -1
   slot: -1
   grammar: 
@@ -1462,7 +1538,6 @@ MonoBehaviour:
   save: 
   saveCache: 0
   debugPrompt: 1
-  dontDestroyOnLoad: 0
   numPredict: -1
   slot: -1
   grammar: 
@@ -2331,7 +2406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   llmCharacter: {fileID: 498662973}
   playerText: {fileID: 1966107897}
-  aiText: {fileID: 887085510}
+  aiText: {fileID: 1111332168}
   aiTitle: {fileID: 1342801406}
   logText: {fileID: 1177591290}
   systemMessages: {fileID: 1283318607}
@@ -2344,10 +2419,10 @@ MonoBehaviour:
   endGameUI: {fileID: 1631422307}
   wildcardCharacterName: Wildcard
   defenseName: Defense
-  attackName: Attack
+  attackName: Prosecutor
   judgeName: Judge
   mainPrompt: 'A court case where the AI takes control of several characters listed
-    below while the player takes control of th Defense. Answers must be less than
+    below while the player takes control of the Defense. Answers must be less than
     100 words. Only one character at a time can answer. The progression towards the
     final sentence is marked with Rounds. Each round may contain a suggestion to
     the character of what to write/say.
@@ -2365,15 +2440,22 @@ MonoBehaviour:
     requests can be specified at the end of the answer/question with the following
     format: *Requested information*
 
-    Requesting additional Information is not
-    mandatory.
+    If you do not request anything you must
+    write at the end: *NO REQUEST*
 
 
-    Answers must be written in italian. Requests must be written
-    in english'
+    Answers must be written in italian. Requests
+    must be written in english
+
+
+    Witnesses are more likely to give concrete evidence
+    rather than vague answers
+
+
+'
   wildcardCharacterPrompt: 'Whenever you encounter the Wildcard name you need to
     take control of the next character in the dialogue who was asked the question
-    or qho fit the best; in addition, only if there is a WIldcard, you must specify
+    or who fit the best; in addition, only if there is a WIldcard, you must specify
     the character''s name at the beginning of the sentence in this manner: Name of
     character>'
   judgePrompt: "The Judge is responsible for delivering a final, impartial sentence
@@ -2388,12 +2470,15 @@ MonoBehaviour:
     the Defense ultimately achieved their stated or implied objective\r\n\r\nThe
     final sentence must end with one of the following markers:\r\n#VITTORIA if the
     Defense successfully achieved their goal\r\n#SCONFITTA if the Defense failed
-    to achieve their goal\r\n\r\nThe verdict should be concise, impartial, and clearly
-    derived from the courtroom dialogue. Finally the verdict must be coherent with
-    the markers listed above.\n"
-  attackPrompt: "The goal of Attack is proving to the Judge that the defendant is
-    guilty. \nWhen the Interrogation Round comes, Attack must do anything within
-    his powers to prove the defendant guilt by asking questions to other characters."
+    to achieve their goal, Attack has presented more concrete evidence or Defense
+    says somtheing incoherent with the case\r\n\r\nThe verdict should be concise,
+    impartial, and clearly derived from the courtroom dialogue. Finally the verdict
+    must be coherent with the markers listed above.\n"
+  attackPrompt: "The goal of Prosecutor is proving to the Judge that the defendant
+    is guilty. \nWhen the Interrogation Round comes, Prosecutor must ask questions
+    by analyzing the courtroom case while providing valid arguments that actually
+    support their thesis. Finally their arguments must interfere with player's statements
+    to make it more difficult for him to win.\n"
   numOfQuestions: 2
 --- !u!4 &708504566
 Transform:
@@ -2805,6 +2890,132 @@ MonoBehaviour:
   debounceDelay: 0.5
   minDelayAfterEnd: 1
   samplerate: 22050
+--- !u!1 &784159524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 784159525}
+  - component: {fileID: 784159528}
+  - component: {fileID: 784159527}
+  - component: {fileID: 784159526}
+  m_Layer: 5
+  m_Name: Scrollbar Vertical
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &784159525
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784159524}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1090029299}
+  m_Father: {fileID: 293914}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 10.26, y: -17}
+  m_Pivot: {x: 1, y: 1}
+--- !u!114 &784159526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784159524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a4db7a114972834c8e4117be1d82ba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1317443167}
+  m_HandleRect: {fileID: 1317443166}
+  m_Direction: 2
+  m_Value: 0
+  m_Size: 1
+  m_NumberOfSteps: 0
+  m_OnValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &784159527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784159524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &784159528
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784159524}
+  m_CullTransparentMesh: 1
 --- !u!1 &834502316
 GameObject:
   m_ObjectHideFlags: 0
@@ -3078,10 +3289,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2091685447}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -21.39746, y: 3.498436}
-  m_SizeDelta: {x: -327.0105, y: -79.08552}
+  m_SizeDelta: {x: 952.9895, y: 84.91448}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &887085510
 MonoBehaviour:
@@ -3669,7 +3880,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2868133432251807771, guid: 69106cddec5eb874dbc98b73eb234c79, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -243
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3994438721588116823, guid: 69106cddec5eb874dbc98b73eb234c79, type: 3}
       propertyPath: m_Pivot.x
@@ -3757,23 +3968,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7097785302033717725, guid: 69106cddec5eb874dbc98b73eb234c79, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7097785302033717725, guid: 69106cddec5eb874dbc98b73eb234c79, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7097785302033717725, guid: 69106cddec5eb874dbc98b73eb234c79, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8974067013190777506, guid: 69106cddec5eb874dbc98b73eb234c79, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8974067013190777506, guid: 69106cddec5eb874dbc98b73eb234c79, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3813,7 +4024,7 @@ MonoBehaviour:
   remote: 0
   port: 13333
   numThreads: -1
-  numGPULayers: 25
+  numGPULayers: 50
   debug: 0
   parallelPrompts: -1
   dontDestroyOnLoad: 0
@@ -4003,6 +4214,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1080979707}
   m_CullTransparentMesh: 1
+--- !u!1 &1090029298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1090029299}
+  m_Layer: 5
+  m_Name: Sliding Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1090029299
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090029298}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1317443166}
+  m_Father: {fileID: 784159525}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -20, y: -20}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1091443832
 GameObject:
   m_ObjectHideFlags: 0
@@ -4255,6 +4502,157 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1100743624}
   m_CullTransparentMesh: 1
+--- !u!1 &1111332167
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1111332171}
+  - component: {fileID: 1111332170}
+  - component: {fileID: 1111332168}
+  - component: {fileID: 1111332169}
+  m_Layer: 5
+  m_Name: Content
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1111332168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111332167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 15
+  m_fontSizeBase: 15
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 25, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1111332169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111332167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
+--- !u!222 &1111332170
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111332167}
+  m_CullTransparentMesh: 1
+--- !u!224 &1111332171
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111332167}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2051679803}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -11.5, y: 0}
+  m_Pivot: {x: 0, y: 1}
 --- !u!1 &1115460855
 GameObject:
   m_ObjectHideFlags: 0
@@ -4366,7 +4764,7 @@ MonoBehaviour:
     listed below because I want you to get who the sentence is referred to. In addition,
     if there are any requests in the sentence, I want you to rewrite them more explicitly.
 
-    
+
 
     You
     must write what i asked in this manner:
@@ -5408,6 +5806,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1317443165
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1317443166}
+  - component: {fileID: 1317443168}
+  - component: {fileID: 1317443167}
+  m_Layer: 5
+  m_Name: Handle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1317443166
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317443165}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1090029299}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 20, y: 20}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1317443167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317443165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1317443168
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317443165}
+  m_CullTransparentMesh: 1
 --- !u!1 &1323568981
 GameObject:
   m_ObjectHideFlags: 0
@@ -6247,7 +6720,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1779343726}
   m_HandleRect: {fileID: 1779343725}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -7253,7 +7726,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1962383495
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7421,28 +7894,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelType: 0
-  prompt: "Each courtroom case revolves around a defendant accused of a specific
-    crime, and the player takes on the role of the defense attorney. The nature of
-    the case can vary significantly, creating different strategic and emotional challenges.
-    In some trials, the defendant appears to be innocent, but the available evidence
-    is inconclusive, contradictory, or misleading. These are cases where the defense
-    must work diligently to uncover the truth, expose flaws in the prosecution\u2019s
-    narrative, and persuade the court through careful reasoning or emotional insight.
-    Success in these situations depends on the player's ability to piece together
-    subtle clues and guide the trial toward a full acquittal.\r\n\r\nIn other scenarios,
-    the defendant may indeed be guilty, or the evidence against them may be overwhelmingly
-    strong, making innocence nearly impossible to prove. Here, the defense's role
-    shifts toward damage control\u2014seeking to reduce the sentence by presenting
-    mitigating factors, questioning intent or motive, showing remorse, or shifting
-    the focus to extenuating circumstances. In these cases, the goal is not necessarily
-    to prove innocence, but to minimize the consequences for the accused as much
-    as possible.\r\n\r\nThe type of case presented, whether a difficult fight for
-    innocence or a desperate attempt to soften a likely conviction, defines the tone
-    and objective of the defense strategy, creating unique courtroom dynamics for
-    each trial.\r\n\nThe description must include:\r\n- The goal the player needs
-    to reach\r\n- The name of the case\r\n- A long summary of the case ranging from
-    50 to 100 words, I don't need that you specify how the case developed in the
-    courtroom, the evidences or the player goal because you arleady write that in
+  prompt: "I need the description of a courtroom case where the player control the
+    defendant attorney. You decide wether the case is real or fake but it must have
+    a defendant.\nEach courtroom case involves a legal dispute where the player assumes
+    the role of the defense attorney. \n\nIn criminal trials, the defendant may be
+    innocent with unclear evidence, or guilty with overwhelming proof. The defense
+    must either aim for full acquittal or mitigate the sentence through strategic
+    arguments.\n\nCivil cases revolve around economic or personal disputes between
+    private parties, such as unpaid wages or family matters, where the player defends
+    or supports a claim based on testimonies and documents.\r\n\nThe player's strategy
+    must adapt to the type of trial and the legal context, making each courtroom
+    battle unique in tone, complexity, and objective.\r\n\nThe description must include:\r\n-
+    The goal the player needs to reach\r\n- The name of the case\r\n- A long summary
+    of the case ranging from 50 to 100 words, you must not repeat the content in
     other sections\r\n- A short summary of the case ranging from 30 to 50 words\r\n-
     Evidence or clues about the case, the number of clues is up to you and they must
     not be too evident, add some mistery to them.\r\n- A list of witnesses paired
@@ -7465,77 +7929,64 @@ MonoBehaviour:
   mainRequestTimeout: 40000
   addRequestTimeout: 5000
   useDebugPrompt: 1
-  dbgCaseDesc: "Player Goal>  \nProve the defendant\u2019s innocence and reveal the
-    true culprit behind the art gallery theft.  \n***  \nCase Name >  \nThe Midnight
-    Canvas Heist  \n***  \nSummary >  \nAt precisely midnight on May 6th, a priceless
-    painting vanished from the prestigious Leclair Art Gallery in the heart of the
-    city. The defendant, Isabelle Fournier, a gallery assistant with a spotless record,
-    was found unconscious near the empty frame just moments after the crime was discovered.
-    Security footage shows her entering the exhibition hall shortly before midnight,
-    but the tape cuts out for twelve crucial minutes. Isabelle claims she was responding
-    to a suspicious noise but has no recollection of the event after she approached
-    the security door. The prosecution argues Isabelle had access, motive due to
-    recent financial distress, and opportunity, pressing for a swift conviction.
-    However, strange inconsistencies emerge: a rare glove fiber at the scene doesn\u2019t
-    match Isabelle or regular staff, and a mysterious anonymous donor recently offered
-    to pay off Isabelle\u2019s debts.  \nAs the defense attorney, you must dismantle
-    the prosecution\u2019s theory, cast doubt on Isabelle\u2019s guilt, and piece
-    together the tangled web of clues: who tampered with the cameras, what happened
-    during the missing twelve minutes, and why Isabelle was targeted. The pressure
-    mounts as public opinion turns against her and the gallery\u2019s reputation
-    hangs in the balance.  \n***  \nShort Summary >  \nIsabelle Fournier is accused
-    of stealing a priceless painting after being discovered unconscious at the scene,
-    but mysterious evidence and outside influences cast doubt on her guilt in this
-    high-profile art theft case.  \n***  \nEvidence >  \n- Security footage cuts
-    out for twelve minutes during the time of the theft+++  \n- Rare glove fiber
-    found at the scene does not match Isabelle or permanent staff+++  \n- Anonymous
-    donor recently offered to pay Isabelle\u2019s debts+++  \n- Gallery floor plan
-    reveals a little-used service entrance was left unlocked+++  \n- A note in Isabelle\u2019s
-    locker warns, \u201CTrust no one after midnight.\u201D+++  \n***  \nWitnesses
-    >  \n- Lucien Leclair: Gallery owner, meticulous and wary, claims he saw Isabelle
-    arguing with a shadowy figure a week prior.+++  \n- Mariana Voss: Security guard,
-    diligent but timid, last saw Isabelle entering hall B and noticed the service
-    entrance unlocked after the theft.+++  \n- Victor Grant: Art critic, flamboyant
-    and observant, attended the event and swears he saw someone in maintenance overalls
-    near the security room around midnight.+++  \n***  \nAdditional information >
-    \n^^^  \nObiettivo del giocatore>  \nDimostrare l\u2019innocenza dell\u2019imputata
-    e svelare il vero colpevole dietro al furto nella galleria d\u2019arte.  \n***
-    \nNome del caso >  \nIl Colpo della Tela di Mezzanotte  \n***  \nSommario > \nAlla
-    mezzanotte del 6 maggio, un dipinto senza prezzo \xE8 sparito dalla prestigiosa
-    Galleria d\u2019Arte Leclair nel cuore della citt\xE0. L\u2019imputata, Isabelle
-    Fournier, assistente di galleria con una reputazione impeccabile, viene trovata
-    incosciente vicino alla cornice vuota subito dopo la scoperta del delitto. I
-    filmati di sicurezza la ritraggono mentre entra nella sala espositiva poco prima
-    di mezzanotte, ma la registrazione si interrompe per dodici minuti cruciali.
-    Isabelle sostiene di aver sentito uno strano rumore, ma non ricorda nulla dopo
-    essersi avvicinata alla porta di sicurezza. L\u2019accusa sostiene che Isabelle
-    avesse accesso, un movente grazie a recenti difficolt\xE0 economiche e l\u2019opportunit\xE0,
-    richiedendo una condanna rapida. Tuttavia, emergono strane incongruenze: una
-    rara fibra di guanto trovata sulla scena non appartiene a Isabelle n\xE9 al personale,
-    e un misterioso benefattore anonimo ha recentemente offerto di pagare i suoi
-    debiti.  \nCome avvocato della difesa, devi confutare la teoria dell\u2019accusa,
-    sollevare dubbi sulla colpevolezza di Isabelle e mettere insieme l\u2019intricato
-    intreccio di indizi: chi ha manomesso le telecamere, cosa \xE8 successo nei dodici
-    minuti mancanti e perch\xE9 \xE8 stata presa di mira Isabelle. La pressione aumenta
-    mentre l\u2019opinione pubblica si schiera contro di lei e la reputazione della
-    galleria \xE8 in gioco.  \n***  \nSommario breve >  \nIsabelle Fournier \xE8
-    accusata di aver rubato un dipinto prezioso dopo essere stata trovata incosciente
-    sulla scena, ma misteriosi indizi e influenze esterne gettano dubbi sulla sua
-    colpevolezza in questo caso di furto d\u2019arte di alto profilo.  \n***  \nProve
-    >  \n- Il filmato di sicurezza si interrompe per dodici minuti durante il furto+++
-    \n- Fibra di un raro guanto trovata sulla scena, non corrisponde a Isabelle n\xE9
-    al personale fisso+++  \n- Un benefattore anonimo ha recentemente offerto di
-    saldare i debiti di Isabelle+++  \n- La planimetria della galleria rivela che
-    un ingresso di servizio poco usato era rimasto aperto+++  \n- Un biglietto nell\u2019armadietto
-    di Isabelle la avverte: \u201CNon fidarti di nessuno dopo mezzanotte.\u201D+++
-    \n***  \nTestimoni >  \n- Lucien Leclair: proprietario della galleria, meticoloso
-    e diffidente, sostiene di aver visto Isabelle litigare con una figura misteriosa
-    una settimana prima.+++  \n- Mariana Voss: guardia di sicurezza, scrupolosa ma
-    timida, ha visto l\u2019ultima volta Isabelle entrare nella sala B e ha notato
-    l\u2019ingresso di servizio aperto dopo il furto.+++  \n- Victor Grant: critico
-    d\u2019arte, stravagante e osservatore, era presente all\u2019evento e giura
-    di aver visto qualcuno in tuta da manutentore vicino alla sala di sicurezza intorno
-    a mezzanotte.+++  \n***  \nInformazioni aggiuntive >"
+  dbgCaseDesc: "\nPlayer Goal>  \nWin restitution of damages for the defendant, a
+    local coffee shop owner, by refuting a rival\u2019s claim that a banana-related
+    accident in her shop caused injury.\n\n***\nCase Name >  \nCaf\xE9 con Banana
+    S.R.L. vs. Zuccherini Investments\n\n***\nSummary >  \nWhen a prominent financier
+    claimed to have slipped on a banana peel while ordering coffee at Anna Marini\u2019s
+    cozy caf\xE9, he sued for medical costs and emotional distress. Anna insists
+    the accident was staged to sabotage her business, citing rising competitive tensions.
+    The case hinges on conflicting accounts, ambiguous camera footage, and the murky
+    presence\u2014or absence\u2014of the notorious banana. Your challenge: argue
+    Anna\u2019s defense by undermining the plausibility of the sabotage or, at the
+    very least, minimize her liability.\n\n***\nShort Summary >  \nA financier sues
+    a coffee shop after allegedly slipping on a banana peel, but the owner suspects
+    the incident was staged by a competitor. The court must decide liability amid
+    ambiguous evidence.\n\n***\nEvidence >  \n- Security camera footage with a brief
+    unexplained blackout during the incident+++  \n- A receipt for a banana purchased
+    earlier that morning by someone other than the financier+++  \n- Text messages
+    between the financier and a known competitor referencing \"a slippery situation\"
+    a week prior+++  \n- Caf\xE9\u2019s cleaning logs with a missing entry for the
+    hour of the accident+++\n\n***\nWitnesses >  \n- Anna Marini: The defendant and
+    passionate caf\xE9 owner, resilient and well-liked, who swears her shop\u2019s
+    safety protocols are solid. She claims to have seen nothing unusual before the
+    incident.+++  \n- Paolo Bianchi: The plaintiff, a fastidious financier with a
+    competitive streak, whose dramatic retelling is allegedly contradicted by his
+    calm disposition immediately after the fall.+++  \n- Lucia De Santis: Barista
+    on duty, detail-oriented but nervous, who handled the morning banana order and
+    says she saw the financier enter but not the accident.+++  \n- Lorenzo Greco:
+    Street vendor with a jokester's charm who sold a banana nearby that morning;
+    claims he remembers the recipient but can't identify them precisely.+++\n\n***\nAdditional
+    information >  \n \n\n^^^\n\nPlayer Goal>  \nVincere il risarcimento danni per
+    la difesa, rappresentando la titolare di una caffetteria accusata da un concorrente
+    per un presunto incidente con una buccia di banana nel suo locale.\n\n***\nCase
+    Name >  \nCaf\xE9 con Banana S.R.L. contro Zuccherini Investments\n\n***\nSummary
+    >  \nUn noto finanziere afferma di essere scivolato su una buccia di banana mentre
+    ordinava un caff\xE8 nel locale di Anna Marini, e fa causa per lesioni e danni
+    morali. Anna sostiene che l\u2019incidente sia stato inscenato per danneggiare
+    la sua attivit\xE0, dati i recenti attriti con la concorrenza. Il caso ruota
+    attorno a testimonianze contrastanti, riprese di sicurezza poco chiare e alla
+    misteriosa presenza\u2014o assenza\u2014della famigerata banana. La tua sfida:
+    difendere Anna minando la credibilit\xE0 dell\u2019accusa o, almeno, ridurre
+    la sua responsabilit\xE0.\n\n***\nShort Summary >  \nUn finanziere cita in giudizio
+    una caffetteria dopo una presunta caduta su una buccia di banana, ma la proprietaria
+    sospetta che sia stato tutto inscenato dalla concorrenza. Il giudice valuta tra
+    indizi ambigui.\n\n***\nEvidence >  \n- Registrazione di sicurezza con una breve
+    interruzione proprio durante l\u2019incidente+++  \n- Scontrino di una banana
+    venduta quella mattina a una persona diversa dal finanziere+++  \n- Messaggi
+    tra il finanziere e un concorrente che, la settimana precedente, fanno riferimento
+    a \"una situazione scivolosa\"+++  \n- Registro delle pulizie della caffetteria
+    con una voce mancante nell\u2019ora dell\u2019incidente+++\n\n***\nWitnesses
+    >  \n- Anna Marini: La titolare dell\u2019esercizio, appassionata e apprezzata,
+    che sostiene di aver sempre applicato protocolli rigorosi. Dice di non aver notato
+    nulla di strano prima dell\u2019incidente.+++  \n- Paolo Bianchi: Il querelante,
+    finanziere metodico e competitivo, la cui testimonianza drammatica sarebbe in
+    contrasto col suo atteggiamento calmo subito dopo la caduta.+++  \n- Lucia De
+    Santis: Barista scrupolosa ma ansiosa che si \xE8 occupata dell\u2019ordine della
+    banana e dice di aver visto entrare il finanziere, ma non l\u2019incidente stesso.+++ 
+    \n- Lorenzo Greco: Venditore ambulante vicino, spiritoso, che ha venduto una
+    banana quella mattina; ricorda chi l\u2019ha comprata ma non sa identificarlo
+    in modo sicuro.+++\n***\n\nInformazioni Aggiuntive>"
 --- !u!4 &1971763134
 Transform:
   m_ObjectHideFlags: 0
@@ -7892,6 +8343,96 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2051679802
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2051679803}
+  - component: {fileID: 2051679806}
+  - component: {fileID: 2051679805}
+  - component: {fileID: 2051679804}
+  m_Layer: 5
+  m_Name: Viewport
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2051679803
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051679802}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1111332171}
+  m_Father: {fileID: 293914}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &2051679804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051679802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 0
+--- !u!114 &2051679805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051679802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2051679806
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051679802}
+  m_CullTransparentMesh: 1
 --- !u!1 &2091685446
 GameObject:
   m_ObjectHideFlags: 0
@@ -7926,6 +8467,7 @@ RectTransform:
   - {fileID: 1190699303}
   - {fileID: 1080979708}
   - {fileID: 887085509}
+  - {fileID: 293914}
   m_Father: {fileID: 949252858}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

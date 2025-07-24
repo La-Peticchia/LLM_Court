@@ -17,7 +17,7 @@ public class Court : MonoBehaviour
     //References
     [SerializeField] private LLMCharacter llmCharacter;
     [SerializeField] private InputField playerText;
-    [SerializeField] private Text aiText;
+    [SerializeField] private TextMeshProUGUI aiText;
     [SerializeField] private Text aiTitle;
     [SerializeField] private TextMeshProUGUI logText;
     [SerializeField] private TextMeshProUGUI systemMessages;
@@ -34,14 +34,14 @@ public class Court : MonoBehaviour
     //Names
     [SerializeField] private string wildcardCharacterName = "Wildcard";
     [SerializeField] private string defenseName = "Defense";
-    [SerializeField] private string attackName = "Attack";
+    [SerializeField] private string attackName = "Prosecutor";
     [SerializeField] private string judgeName = "Judge";
 
     //Prompts
     [TextArea(5, 10)] public string mainPrompt = "A court case where the AI takes control of several characters listed below";
     [TextArea(5, 10)] public string wildcardCharacterPrompt = "Whenever you encounter the Wildcard name you need to take control of the next character in the dialogue who fit the best; in addition, you must specify the character's name at the beginning of the sentence in this manner: Name of character>";
     [TextArea(5, 10)] public string judgePrompt = "The goal of Judge is to give the defendant's final sentence by listening to the dialogue";
-    [TextArea(5, 10)] public string attackPrompt = "The goal of Attack is proving to the Judge that the defendant is guilty";
+    [TextArea(5, 10)] public string attackPrompt = "The goal of Prosecutor is proving to the Judge that the defendant is guilty";
     
     //Command text
     private readonly string _questionCharacter = ">";
@@ -111,10 +111,10 @@ public class Court : MonoBehaviour
         caseDescriptionText.text = _translatedDescription.GetTotalDescription(true);
         characterAnimator.AssignDynamicPrefabs(_caseDescription.witnesses.Keys.ToList(), attackName);
 
-        string[] characters = new string[] { judgeName, defenseName, attackName };
-        characters.AddRange(caseDescription.witnesses.Keys.ToList());
+        //string[] characters = new string[] { judgeName, defenseName, attackName };
+        //characters.AddRange(caseDescription.witnesses.Keys.ToList());
+        //_sentenceAnalyzer.InitializeAnalysis(characters);
         
-        _sentenceAnalyzer.InitializeAnalysis(characters);
         await llmCharacter.llm.WaitUntilReady();
         
         OnNextButtonClick();
@@ -136,8 +136,9 @@ public class Court : MonoBehaviour
 
     string BuildPrompt()
     {
-        return $"{mainPrompt}\n{wildcardCharacterName} - {wildcardCharacterPrompt}\n{judgeName} - {judgePrompt}\n{attackName} - {attackPrompt}\n\n" +
-               _caseDescription.GetTotalDescription(3,false,true) + _caseDescription.GetTotalDescription(new int[]{0,1,2},false,false) + _caseDescription.GetTotalDescription(4,false,false);
+        return
+            $"{mainPrompt}\n{wildcardCharacterName} - {wildcardCharacterPrompt}\n{judgeName} - {judgePrompt}\n{attackName} - {attackPrompt}\n\n" +
+            _caseDescription.GetTotalDescription(new int[] { 4, 0, 1, 2, 3, 5 });
     }
 
     private void InitializeRounds()
@@ -377,12 +378,13 @@ public struct CaseDescription
     private string[] richArray;
     
     /// <summary> Indexes of section titles:
-    /// 0 - Case Name |
-    /// 1 - Long Summary |
-    /// 2 - Short Summary |
-    /// 3 - Evidence |
-    /// 4 - Witnesses |
-    /// 5 - Additional info 
+    /// 0 - Player Goal |
+    /// 1 - Case Name
+    /// 2 - Long Summary |
+    /// 3 - Short Summary |
+    /// 4 - Evidence |
+    /// 5 - Witnesses |
+    /// 6 - Additional info 
     /// </summary>
     public string[] sectionTitles;
     
@@ -450,8 +452,8 @@ public struct CaseDescription
                        $"{playerGoal}\n\n";
         descArray[1] = $"{sectionTitles[1]}\n" +
                        $"{title}\n\n";
-        descArray[2] = $"{sectionTitles[2]}\n" +
-                       $"{summary}\n\n";
+        descArray[2] = $"{sectionTitles[3]}\n" +
+                       $"{shortSummary}\n\n";
         descArray[3] = $"{sectionTitles[4]}\n" +
                        $"{string.Join("\n", clues.Select(x => "-" + x))}\n\n";
         descArray[4] = $"{sectionTitles[5]}\n" +
@@ -463,8 +465,8 @@ public struct CaseDescription
                        $"{playerGoal}\n\n";
         richArray[1] = $"<b><color=#F64A3E>{sectionTitles[1]}</color></b>\n" +
                        $"{title}\n\n";
-        richArray[2] = $"<b><color=#F64A3E>{sectionTitles[2]}</color></b>\n" +
-                       $"{summary}\n\n";
+        richArray[2] = $"<b><color=#F64A3E>{sectionTitles[3]}</color></b>\n" +
+                       $"{shortSummary}\n\n";
         richArray[3] = $"<b><color=#F64A3E>{sectionTitles[4]}</color></b>\n" +
                        $"{string.Join("\n", clues.Select(x => "-" + x))}\n\n";
         richArray[4] = $"<b><color=#F64A3E>{sectionTitles[5]}</color></b>\n" +

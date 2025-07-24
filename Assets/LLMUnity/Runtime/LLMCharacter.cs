@@ -27,7 +27,6 @@ namespace LLMUnity
         /// <summary> log the constructed prompt the Unity Editor. </summary>
         [Tooltip("log the constructed prompt the Unity Editor.")]
         [LLM] public bool debugPrompt = false;
-        [LLM] public bool dontDestroyOnLoad = false;
         /// <summary> maximum number of tokens that the LLM will predict (-1 = infinity). </summary>
         [Tooltip("maximum number of tokens that the LLM will predict (-1 = infinity).")]
         [Model] public int numPredict = -1;
@@ -155,11 +154,6 @@ namespace LLMUnity
         /// </summary>
         public override void Awake()
         {
-            if(!Instance)
-                Instance = this;
-            else
-                Destroy(gameObject);
-            
             if (!enabled) return;
             base.Awake();
             if (!remote)
@@ -169,7 +163,6 @@ namespace LLMUnity
             }
             InitGrammar();
             InitHistory();
-            if(dontDestroyOnLoad) DontDestroyOnLoad(transform.root.gameObject);
         }
 
         private void Start()
