@@ -492,6 +492,8 @@ namespace LLMUnity
             failed = false;
             bool useGPU = numGPULayers > 0;
 
+           
+
             foreach (string arch in LLMLib.PossibleArchitectures(useGPU))
             {
                 string error;
@@ -500,6 +502,7 @@ namespace LLMUnity
                     InitLib(arch);
                     InitService(arguments);
                     LLMUnitySetup.Log($"Using architecture: {arch}");
+                    
                     break;
                 }
                 catch (LLMException e)
@@ -520,11 +523,13 @@ namespace LLMUnity
             if (llmlib == null)
             {
                 LLMUnitySetup.LogError("LLM service couldn't be created");
+               
                 failed = true;
                 return;
             }
             CallWithLock(StartService);
             LLMUnitySetup.Log("LLM service created");
+            
         }
 
         private void InitLib(string arch)

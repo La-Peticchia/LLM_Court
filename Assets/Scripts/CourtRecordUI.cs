@@ -19,6 +19,17 @@ public class CourtRecordUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     void Update()
     {
+        if (EventSystem.current.currentSelectedGameObject != null &&
+            EventSystem.current.currentSelectedGameObject.GetComponent<InputField>() != null)
+        {
+            return;
+        }
+
+        if (!courtRecordPanel.activeInHierarchy && Input.GetKeyDown(KeyCode.R))
+        {
+            OpenCourtRecord();
+        }
+
         if (courtRecordPanel.activeInHierarchy && Input.GetKeyDown(KeyCode.Escape))
         {
             CloseCourtRecord();

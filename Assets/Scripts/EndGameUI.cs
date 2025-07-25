@@ -8,21 +8,20 @@ public class EndGameUI : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
     [SerializeField] private TextMeshProUGUI resultText;
-    [SerializeField] private Button restartButton;
+    [SerializeField] private Button returnButton;
     [SerializeField] private Button mainMenuButton;
     [SerializeField] private float typingSpeed = 0.05f;
 
     private void Start()
     {
         panel.SetActive(false);
-        restartButton.onClick.AddListener(RestartGame);
+        returnButton.onClick.AddListener(RestartGame);
         mainMenuButton.onClick.AddListener(GoToMainMenu);
     }
 
     public void Show(string message, Color color)
     {
         Debug.Log($"[VERDETTO] Risultato: {message}");
-        //Time.timeScale = 0f; // Pausa gioco
         panel.SetActive(true);
         resultText.text = "";
         resultText.color = color;
@@ -40,13 +39,11 @@ public class EndGameUI : MonoBehaviour
 
     private void RestartGame()
     {
-        //Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void GoToMainMenu()
     {
-        //Time.timeScale = 1f;
         SceneManager.LoadScene("Menu");
     }
 }

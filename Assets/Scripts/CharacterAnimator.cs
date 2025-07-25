@@ -12,7 +12,7 @@ public class CharacterAnimator : MonoBehaviour
     public List<GameObject> attackPrefabs;
     public List<GameObject> witnessPrefabs;
 
-    
+
     private GameObject defensePrefab;
 
     [Header("UI")]
