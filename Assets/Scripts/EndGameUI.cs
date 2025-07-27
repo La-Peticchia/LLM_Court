@@ -11,12 +11,25 @@ public class EndGameUI : MonoBehaviour
     [SerializeField] private Button returnButton;
     [SerializeField] private Button mainMenuButton;
     [SerializeField] private float typingSpeed = 0.05f;
+    [SerializeField] private Button retryButton;
+
+    private string savedCaseDescription;
+    private string savedTranslatedDescription;
+
 
     private void Start()
     {
         panel.SetActive(false);
         returnButton.onClick.AddListener(RestartGame);
         mainMenuButton.onClick.AddListener(GoToMainMenu);
+        retryButton.onClick.AddListener(RetrySameCase);
+        retryButton.gameObject.SetActive(false);
+    }
+
+    public void SaveCase(string original, string translated)
+    {
+        savedCaseDescription = original;
+        savedTranslatedDescription = translated;
     }
 
     public void Show(string message, Color color)
@@ -25,8 +38,24 @@ public class EndGameUI : MonoBehaviour
         panel.SetActive(true);
         resultText.text = "";
         resultText.color = color;
+        //retryButton.gameObject.SetActive(message == "HAI PERSO");
+        retryButton.gameObject.SetActive(true);
         StartCoroutine(TypeText(message));
     }
+
+    private void RetrySameCase()
+    {
+        Court court = Object.FindFirstObjectByType<Court>();
+        if (court != null)
+        {
+            CaseMemory.SavedCase = court.GetCaseDescription();
+            CaseMemory.SavedTranslatedCase = court.GetTranslatedDescription();
+            CaseMemory.RestartingSameCase = true;
+        }
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
 
     private IEnumerator TypeText(string message)
     {

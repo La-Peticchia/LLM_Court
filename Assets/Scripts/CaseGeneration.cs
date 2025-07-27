@@ -18,23 +18,34 @@ public class CaseGeneration : MonoBehaviour
     private CaseDescription[] _caseDescription, _translatedDescription;
     
     private Court _court;
+    private CourtRecordUI _courtRecordUI;
 
     private void Awake()
     {
         _apiManager = FindFirstObjectByType<APIInterface>();
         _court = FindFirstObjectByType<Court>();
         _courtPreviewAnimation = FindFirstObjectByType<CourtPreviewAnimation>();
-        
+        _courtRecordUI = FindFirstObjectByType<CourtRecordUI>();
+
         newCaseButton.onClick.AddListener(OnNewCaseButtonClicked);
         
         _caseDescription = new CaseDescription[2];
         _translatedDescription = new CaseDescription[2];
-        
+        _courtRecordUI.isGameplay = false;
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     async void Start()
     {
+        if (CaseMemory.HasValidSavedCase)
+        {
+            courtPreviewCanvas.SetActive(false); // Nasconde la preview
+            _court.InitializeCourt(CaseMemory.SavedCase.Value, CaseMemory.SavedTranslatedCase.Value);
+            CaseMemory.Clear(); // Pulizia dopo riutilizzo
+            Destroy(gameObject); // Rimuove il canvas preview
+            return;
+        }
         StoreDescriptions();
     }
     

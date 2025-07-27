@@ -32,6 +32,7 @@ public class Court : MonoBehaviour
     [SerializeField] private CharacterAnimator characterAnimator;
     [SerializeField] private EndGameUI endGameUI;
     [SerializeField] private TextMeshProUGUI playerGoalText;
+    private CourtRecordUI _courtRecordUI;
 
     //Names
     [SerializeField] private string wildcardCharacterName = "Wildcard";
@@ -67,6 +68,7 @@ public class Court : MonoBehaviour
     //Events
     public event Action<bool> GameOverCallback;
 
+
     private void Awake()
     {
         _apiManager = FindFirstObjectByType<APIInterface>();
@@ -76,6 +78,9 @@ public class Court : MonoBehaviour
         nextButton.onClick.AddListener(OnNextButtonClick);
 
         llmCharacter.playerName = defenseName;
+
+        _courtRecordUI = FindFirstObjectByType<CourtRecordUI>();
+        
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -132,6 +137,8 @@ public class Court : MonoBehaviour
         //_sentenceAnalyzer.InitializeAnalysis(characters);
 
         await llmCharacter.llm.WaitUntilReady();
+
+        _courtRecordUI.isGameplay = true;
 
         OnNextButtonClick();
     }
@@ -305,6 +312,9 @@ public class Court : MonoBehaviour
                 else if (loseKeywords.Any(k => verdict.Contains(k)) || infoRequest.Contains("SCONFITTA"))
                 {
                     _pendingEndGameMessage = ("HAI PERSO", Color.red);
+
+                    //Salvo il caso per retry
+                    //endGameUI.SaveCase(_caseDescription.GetTotalDescription(false), _translatedDescription.GetTotalDescription(false));
                 }
             }
 
@@ -395,7 +405,9 @@ public class Court : MonoBehaviour
 
     }
 
-
+    //Property Getter per il retry 
+    public CaseDescription GetCaseDescription() => _caseDescription;
+    public CaseDescription GetTranslatedDescription() => _translatedDescription;
 
 }
 

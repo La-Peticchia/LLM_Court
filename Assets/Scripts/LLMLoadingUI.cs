@@ -34,5 +34,6 @@ public class LLMLoadingUI : MonoBehaviour
         {
             loadingText.text = "Errore con l'avvio del servizio LLM";
         }
+     
     }
 }
