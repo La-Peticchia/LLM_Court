@@ -40,10 +40,10 @@ public class CaseGeneration : MonoBehaviour
     {
         if (CaseMemory.HasValidSavedCase)
         {
-            courtPreviewCanvas.SetActive(false); // Nasconde la preview
+            courtPreviewCanvas.SetActive(false);
             _court.InitializeCourt(CaseMemory.SavedCase.Value, CaseMemory.SavedTranslatedCase.Value);
-            CaseMemory.Clear(); // Pulizia dopo riutilizzo
-            Destroy(gameObject); // Rimuove il canvas preview
+            CaseMemory.Clear();
+            Destroy(gameObject);
             return;
         }
         StoreDescriptions();
