@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Azure;
 using Azure.AI.Inference;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class APIInterface : MonoBehaviour
 {
@@ -16,7 +19,8 @@ public class APIInterface : MonoBehaviour
     {
         Gpt,
         Llama,
-        DeepSeek
+        DeepSeek,
+        Grok
     }
     
     private Uri _endpoint;
@@ -31,10 +35,20 @@ public class APIInterface : MonoBehaviour
 
 
     [TextArea(20, 10)] public string prompt;
+    [TextArea(10, 10)] public string witnessPrompt;
+    [TextArea(5, 10)] public string formatToRepeat;
+
+    //Special Characters
+    private const string SectionSplitCharacters = "***";
+    private const string SubsectionSplitCharacters = "+++";
+    private const string ReplaceCharacters = "!!!";
+    private const string FormatRepeatCharacters = "|||";
+    private const string TranslationCharacters = "<trans>";
+    private const string NumReplaceCharacters = "<num>";
     
-    public static string sectionSplitCharacters = "***";
-    public static string subsectionSplitCharacters = "+++";
-    static string preferencesReplaceCharacters = "!!!";
+    
+    [SerializeField]
+    private string[] specialCharactersToRemove;
 
     
     //Task cancellation timeouts
@@ -43,11 +57,13 @@ public class APIInterface : MonoBehaviour
     [SerializeField]
     private int addRequestTimeout = 5000;
     
-    [SerializeField] private bool useDebugPrompt = false;
+    public bool useDebugPrompt = false;
     
     //Debug
     [TextArea(20, 10)] public string dbgCaseDesc;
 
+    ChatCompletionsOptions _chatOptions;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
@@ -62,36 +78,39 @@ public class APIInterface : MonoBehaviour
             case ModelType.Gpt: _model = "openai/gpt-4.1";
                 break;
             case ModelType.Llama: _model = "meta/Llama-4-Scout-17B-16E-Instruct";
+            //case ModelType.Llama: _model = "meta/Meta-Llama-3.1-405B-Instruct";
                 break;
             case ModelType.DeepSeek: _model = "deepseek/DeepSeek-V3-0324";
                 break;
+            case ModelType.Grok: _model = "xai/grok-3";
+                break;
         }
-    }
 
 
-
-    public async Task<(CaseDescription,CaseDescription)> Request(string preferences = "")
-    {
-        
-        string currentPrompt = prompt.Replace(preferencesReplaceCharacters,
-            preferences != "" ? "I want you to take into account these preferences/topics: " + preferences : ""); 
-
-        var requestOptions = new ChatCompletionsOptions()
+        _chatOptions = new ChatCompletionsOptions()
         {
-            Messages =
-            {
-                new ChatRequestSystemMessage("Just answer the user requests, there's no need to add anything else"),
-                new ChatRequestUserMessage(currentPrompt),
-            },
+            ResponseFormat = ChatCompletionsResponseFormat.CreateJsonFormat(),
+            Model = _model,
             Temperature = 1f,
             NucleusSamplingFactor = 1f,
-            Model = _model
+            FrequencyPenalty = 2,
+            PresencePenalty = 1,
+            MaxTokens = 2048
         };
+    }
+
+    
+    public async Task<JSONCaseDescription> RequestCaseDescription(string preferences = "", bool translation = false, int seed = 0)
+    {
         
-        string[] descriptions;
+        JSONCaseDescription tmpDescription;
+        
         if (useDebugPrompt)
         {
-            descriptions = dbgCaseDesc.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
+            string cleanResponse = RemoveSpecialCharacters(dbgCaseDesc);
+
+            JSONCaseDescription[] dbgDescriptions = JsonConvert.DeserializeObject<JSONCaseDescription[]>(cleanResponse);
+            tmpDescription = dbgDescriptions[^1];
         }
         else
         {
@@ -99,56 +118,146 @@ public class APIInterface : MonoBehaviour
             {
                 var cts = new CancellationTokenSource();
                 cts.CancelAfter(mainRequestTimeout);
+
+                #region CallForDescription
+                int rand = Random.Range(2,5);
+                string currentPrompt = 
+                    prompt.Replace(ReplaceCharacters, preferences != "" ? "I want you to take into account these preferences/topics: " + preferences : "")
+                    .Replace(TranslationCharacters, (translation) ? "Write the value of each JSON Key in italian; the language should not interfere with the case generation" : "")
+                    .Replace(NumReplaceCharacters, rand.ToString())
+                    .Replace(FormatRepeatCharacters, GetWitnessesFormat(rand));
+
+                Debug.Log(currentPrompt);
+                
+                Debug.Log("Seed: " + seed);
+                var requestOptions = _chatOptions;
+                requestOptions.Messages = new List<ChatRequestMessage>()
+                {
+                        new ChatRequestSystemMessage("You are a reliable generator of fictional courtroom case data. Always respond with valid JSON following strict formatting rules. Never write any explanation, commentary, or prose outside of JSON. All keys must match exactly. Maintain narrative quality within a rigid structure. You must keep the same JSON structure specified by the user"),
+                        new ChatRequestUserMessage(currentPrompt)
+                };
+                requestOptions.Seed = seed;
+                
+
                 
                 Response<ChatCompletions> response = await _client.CompleteAsync(requestOptions, cts.Token);
                 Debug.Log(response.Value.Content); 
-                descriptions = response.Value.Content.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
                 
-                if (descriptions.Length < 2)
-                    throw new IndexOutOfRangeException();
+                #endregion
+                
+                string cleanResponse = RemoveSpecialCharacters(response.Value.Content);
+                tmpDescription = JsonConvert.DeserializeObject<JSONCaseDescription>(cleanResponse);
+                
+                //TODO
+                //- organize the JSON object creation in 2 phases: the first one you create the case description, the second one you create the witnesses
+                //- Add 2 more names (witnesses + additional information) to the "sectionNames" JSON Key in prompt
+                
             }
             catch(Exception e) 
             {
                 
                 Debug.LogWarning("Error on API call: " + e.Message);
-                return (new CaseDescription(), new CaseDescription());
+                return new JSONCaseDescription();
             }
         }
         
-        return (new CaseDescription(descriptions[0], sectionSplitCharacters, subsectionSplitCharacters), new CaseDescription(descriptions[1], sectionSplitCharacters, subsectionSplitCharacters));
+        return tmpDescription;
         
     }
 
-    public async Task<(string,string)> Request(string totalCaseDescription, string addRequest)
+    public async Task<string> RequestTranslation(string jsonDescription, string language = "english", int seed = 0)
+    {
+        
+        var cts = new CancellationTokenSource();
+        cts.CancelAfter(mainRequestTimeout);
+
+        string currentPrompt = "I want you to translate this JSON object in " + language + ":\n\n" + jsonDescription;
+        Debug.Log("Seed: " + seed);
+        
+        Debug.Log("Translation request: \n" + currentPrompt);
+                
+        var requestOptions = _chatOptions;
+        requestOptions.Messages = new List<ChatRequestMessage>()
+        {
+            new ChatRequestSystemMessage("You are a reliable language translator and your duty is to translate the JSON Keys values in the language specified by the user. Always respond with valid JSON following strict formatting rules. DO NOT INCLUDE any root key like \"translation\". The output must be a single, anonymous JSON object."),
+            new ChatRequestUserMessage(currentPrompt)
+        };
+        requestOptions.Seed = seed;
+        
+        try
+        {
+            Response<ChatCompletions> response = await _client.CompleteAsync(requestOptions, cts.Token);
+            Debug.Log("Translation result: \n" + response.Value.Content);
+            return RemoveSpecialCharacters(response.Value.Content);
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning("Error on API call: " + e.Message);
+            return "";
+        }
+                
+    }
+    
+//    public async Task<Witness[]> RequestWitnesses(string caseDescription, int seed = 0)
+//    {
+//        var cts = new CancellationTokenSource();
+//        cts.CancelAfter(mainRequestTimeout);
+//
+//        int rand = Random.Range(2,5);
+//        string currentPrompt = witnessPrompt.Replace(ReplaceCharacters, caseDescription).Replace(FormatRepeatCharacters, GetWitnessesFormat(rand)).Replace(NumReplaceCharacters, rand.ToString());
+//        Debug.Log("Seed: " + seed);
+//        Debug.Log("Witness request:\n" +currentPrompt); 
+//        
+//        var requestOptions = _chatOptions;
+//        requestOptions.Messages = new List<ChatRequestMessage>()
+//        {
+//            new ChatRequestSystemMessage("You are a reliable generator of fictional courtroom case witnesses data. Always respond with valid JSON following strict formatting rules. Never write any explanation, commentary, or prose outside of JSON. ADD the root key \"witnesses\" to introduce the witnesses array All keys must match exactly. Maintain narrative quality within a rigid structure."),
+//            new ChatRequestUserMessage(currentPrompt)
+//        };
+//        requestOptions.Seed = seed;
+//        
+//        try
+//        {
+//            Response<ChatCompletions> response = await _client.CompleteAsync(requestOptions, cts.Token);
+//            string cleanResponse = RemoveSpecialCharacters(response.Value.Content);
+//            Debug.Log("Witness response:\n" + response.Value.Content); 
+//            
+//            var root = JObject.Parse(cleanResponse);
+//            return root.ContainsKey("witnesses") ? root["witnesses"]?.ToObject<Witness[]>() : JsonConvert.DeserializeObject<Witness[]>(cleanResponse);
+//        }
+//        catch (Exception e)
+//        {
+//            Debug.LogWarning("Error on API call: " + e.Message);
+//            return null;
+//        }
+//    }
+
+    public async Task<(string,string)> RequestAdditionalInfo(string totalCaseDescription, string addRequest)
     {
         if(useDebugPrompt) return ("","");
         
-        var addRequestOptions = new ChatCompletionsOptions()
+        
+        var requestOptions = _chatOptions;
+        requestOptions.Messages = new List<ChatRequestMessage>()
         {
-            Messages = 
-            {
-                //new ChatRequestSystemMessage("The user will give you a court case description, you must satisfy the user's needs with a short answer (less than 50 words) and without adding anything else. You must answer both in english and italian and split those answers with these characters: ^^^"),
-                new ChatRequestSystemMessage("I will give you a court case description, the user will ask something not present in the description and you must make things up to satisfy their request. " +
-                                             "Your answer must include ONLY THE INFORMATION REQUIRED BY THE USER, DO NOT INTERACT WITH THEM IN ANY OTHER WAY. " +
-                                             "The answer must be less than 50 words. " +
-                                             "If the user does not require information just answer back with this word: NULL\n" +
-                                             "Finally you must answer both in english and italian and split those answers with these characters: ^^^\nCase Description\n" + totalCaseDescription),
-                new ChatRequestUserMessage(addRequest),
-            },
-            Temperature = 1f,
-            NucleusSamplingFactor = 1f,
-            Model = _model
+            new ChatRequestSystemMessage("I will give you a court case description, the user will ask something not present in the description and you must make things up to satisfy their request. " +
+                                         "Your answer must include ONLY THE INFORMATION REQUIRED BY THE USER, DO NOT INTERACT WITH THEM IN ANY OTHER WAY. " +
+                                         "The answer must be less than 50 words. " +
+                                         "If the user does not require information just answer back with this word: NULL\n" +
+                                         "Finally you must answer both in english and italian and split those answers with these characters: ^^^\nCase Description\n" + totalCaseDescription),
+            new ChatRequestUserMessage(addRequest)
         };
-
+        requestOptions.ResponseFormat = ChatCompletionsResponseFormat.CreateTextFormat();
+        
         try
         {
             var cts = new CancellationTokenSource();
             cts.CancelAfter(addRequestTimeout);
             
-            Response<ChatCompletions> response = await _client.CompleteAsync(addRequestOptions, cts.Token);
+            Response<ChatCompletions> response = await _client.CompleteAsync(requestOptions, cts.Token);
             
             Debug.Log("Answer:\n" + response.Value.Content);
-            if (response.Value.Content == "NULL")
+            if (response.Value.Content.Contains("NULL"))
                 return ("", "");
             
             string[] split = response.Value.Content.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
@@ -163,11 +272,21 @@ public class APIInterface : MonoBehaviour
         
     }
 
-    public static string RemoveSplitters(string inDescription)
+    private string GetWitnessesFormat(int repeatNum)
     {
-        return inDescription.Replace(sectionSplitCharacters, "").Replace(subsectionSplitCharacters, "");
+        string format = "";
+        for (int i = 0; i < repeatNum; i++)
+        {
+            format += formatToRepeat + "\n";
+        }
+        
+        return format;
     }
-    
+
+    private string RemoveSpecialCharacters(string s)
+    {
+        return specialCharactersToRemove.Aggregate(s, (current, item) => current.Replace(item, ""));
+    }
     
     public static Dictionary<string, string> LoadEnv(string path)
     {

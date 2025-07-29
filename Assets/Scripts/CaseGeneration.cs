@@ -1,59 +1,276 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Azure;
+using Azure.AI.Inference;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
+using UnityEngine.Windows;
+using File = System.IO.File;
+using Random = UnityEngine.Random;
 
 public class CaseGeneration : MonoBehaviour
 {
-    [SerializeField] private Button[] playButtons;
+    [SerializeField] private Button playButton;
     [SerializeField] private Button newCaseButton;
+    [SerializeField] private Button[] arrowButtons;
     [SerializeField] private TextMeshProUGUI prefInputField;
     [SerializeField] private TextMeshProUGUI errorTextbox;
     [SerializeField] private GameObject courtPreviewCanvas;
     
+    private LinkedList<JSONCaseDescription> _translatedDescriptions;
+    
+    //References
     private APIInterface _apiManager;
     private CourtPreviewAnimation _courtPreviewAnimation;
-    
-    private CaseDescription[] _caseDescription, _translatedDescription;
-    
     private Court _court;
+    private SaveSystem _saveManager;
+    
+    [FormerlySerializedAs("_seed")] [SerializeField]
+    private int seed;
+    
 
     private void Awake()
     {
         _apiManager = FindFirstObjectByType<APIInterface>();
+        _saveManager = FindFirstObjectByType<SaveSystem>();
         _court = FindFirstObjectByType<Court>();
         _courtPreviewAnimation = FindFirstObjectByType<CourtPreviewAnimation>();
-        
+        playButton.onClick.AddListener(OnPlayButtonClicked);
         newCaseButton.onClick.AddListener(OnNewCaseButtonClicked);
         
-        _caseDescription = new CaseDescription[2];
-        _translatedDescription = new CaseDescription[2];
+        
+        _translatedDescriptions = new LinkedList<JSONCaseDescription>();
+
+        if (seed == 0)
+            seed = Random.Range(0, int.MaxValue);
         
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    async void Start()
+    void Start()
     {
         StoreDescriptions();
     }
     
-    public void OnPlayButtonClicked(int buttonID)
+    JSONCaseDescription _currentCaseDescription;
+    JSONCaseDescription _currentTranslatedDescription;
+    //private Witness[] _currentWitnesses;
+    private int _currentSeed;
+    
+//    
+//    public async void OnPlayButtonClicked()
+//    {
+//        ToggleButtons(false);
+//
+//        //TODO create another method that outputs a rich text of the case in the new JSONCaseDescription class. In addition, in this method you should call other methods in APIInterface to create the english version of the description and the witnesses
+//        //TODO Add temporary variables so that you can retry without doing all the requests again   
+//
+//        if (Equals(_currentTranslatedDescription, _translatedDescriptions.First.Value))
+//        {
+//            _currentSeed = Random.Range(0, int.MaxValue);
+//            if (!string.IsNullOrWhiteSpace(_currentCaseDescription.summary))
+//            {
+//                if (_currentWitnesses is { Length: > 0 })
+//                    goto Witness1;
+//                else
+//                    goto Witness;
+//            }
+//            else
+//                goto Description;
+//        }
+//        
+//        _currentCaseDescription = new JSONCaseDescription();
+//        _currentTranslatedDescription = new JSONCaseDescription();
+//        _currentWitnesses = new Witness[]{};
+//        _currentTranslatedDescription = _translatedDescriptions.First.Value;
+//        _currentSeed = _seed;
+//        
+//        Description:
+//        
+//        Debug.Log(_currentTranslatedDescription.title);
+//        try
+//        {
+//            JSONCaseDescription translatedDescription1 = _currentTranslatedDescription;
+//            translatedDescription1.sectionNames = new List<string>();
+//
+//            string response =
+//                await _apiManager.RequestTranslation(translatedDescription1.GetJsonDescription(), seed: _currentSeed);
+//            var root = JObject.Parse(response);
+//
+//            if (root.ContainsKey("translation"))
+//                _currentCaseDescription = root["translation"]!.ToObject<JSONCaseDescription>();
+//            else if (root.ContainsKey("translations"))
+//                _currentCaseDescription = root["translations"]!.ToObject<JSONCaseDescription>();
+//            else
+//                _currentCaseDescription = JsonConvert.DeserializeObject<JSONCaseDescription>(response);
+//            
+//        }
+//        catch (Exception e)
+//        {
+//            Debug.LogWarning("JSON object creation failed:" + e.Message);
+//            _ = OnError("Translation error, retry");
+//            return;
+//        }
+//        
+//        
+//        Witness:
+//        
+//        _currentWitnesses = await _apiManager.RequestWitnesses(_currentCaseDescription.GetTotalDescription(new int[]{0,2,3}), _currentSeed);
+//        if (_currentWitnesses == null || _currentWitnesses.Length == 0)
+//        {
+//            _ = OnError("Witness Generation error, retry");
+//            return;
+//        }
+//        
+//        Witness1:
+//        
+//        //TODO you must edit the API Request methods signature to accept a seed so that every step in this method can be retried with a different seed and possibly succeed
+//        
+//        Witness[] transWitnesses;
+//        try
+//        {
+//
+//            string response = await _apiManager.RequestTranslation(JsonConvert.SerializeObject(_currentWitnesses, Formatting.None), "italian", _currentSeed);
+//
+//            var root = JObject.Parse(response);
+//            transWitnesses = root.ContainsKey("witnesses") ? root["translations"]?.ToObject<Witness[]>() : JsonConvert.DeserializeObject<Witness[]>(response);
+//            
+//        }
+//        catch (Exception e)
+//        {
+//            Debug.LogWarning("JSON object creation failed:" + e.Message);
+//            _ = OnError("Witness Translation error, retry");
+//            return;
+//        }
+//
+//        _currentCaseDescription.SetWitnesses(_currentWitnesses);
+//        _currentTranslatedDescription.SetWitnesses(transWitnesses);
+//        
+//        SaveCaseDescription(new []{_currentCaseDescription, _currentTranslatedDescription});
+//        
+//        _court.InitializeCourt(_currentCaseDescription, _currentTranslatedDescription);
+//        courtPreviewCanvas.SetActive(false);
+//        Destroy(gameObject);
+//    }
+//    
+
+    async void OnPlayButtonClicked()
     {
         ToggleButtons(false);
+        
+        JSONCaseDescription transCaseDescription = _translatedDescriptions.First.Value;
+        
+        //TODO implement a new class that manages the save files of cases; implement both saving and loading procedure with some basic UI that shows all the loaded files
 
-        _court.InitializeCourt(_caseDescription[buttonID], _translatedDescription[buttonID]);
+        if (transCaseDescription.IsSaved())
+        {
+            if (_saveManager.CheckForTranslation(transCaseDescription.GetID()))
+            {
+                JSONCaseDescription[] tmpDescriptions = _saveManager.GetSavedDescriptionsByID(transCaseDescription.GetID());
+                _court.InitializeCourt(tmpDescriptions[0], tmpDescriptions[1]);
+            }
+            else
+            {
+                try
+                {
+                    string response = await _apiManager.RequestTranslation(transCaseDescription.GetJsonDescription(), seed: seed);
+                    JSONCaseDescription tmpCaseDescription = JsonConvert.DeserializeObject<JSONCaseDescription>(response);
+                    _saveManager.SaveCaseDescription(new []{tmpCaseDescription, transCaseDescription}, transCaseDescription.GetID());
+                    _court.InitializeCourt(tmpCaseDescription, transCaseDescription);
+                }
+                catch (Exception e)
+                {
+                    _court.InitializeCourt(transCaseDescription, transCaseDescription);
+                    Debug.LogWarning("Translation failed:" + e.Message);
+                }
+            }
+            
+        }
+        else
+        {
+            
+            try
+            {
+                string response = await _apiManager.RequestTranslation(transCaseDescription.GetJsonDescription(), seed: seed);
+                JSONCaseDescription tmpCaseDescription = JsonConvert.DeserializeObject<JSONCaseDescription>(response);
+                _saveManager.SaveCaseDescription(new []{tmpCaseDescription, transCaseDescription});
+                _court.InitializeCourt(tmpCaseDescription, transCaseDescription);
+            }
+            catch (Exception e)
+            {
+                _saveManager.SaveCaseDescription(new []{transCaseDescription});
+                _court.InitializeCourt(transCaseDescription, transCaseDescription);
+                Debug.LogWarning("Translation failed:" + e.Message);
+            }
+            
+        }
+        
+        
         courtPreviewCanvas.SetActive(false);
         Destroy(gameObject);
+        
+        //try
+        //{
+        //    string response = await _apiManager.RequestTranslation(transCaseDescription.GetJsonDescription(), seed: _seed);
+        //    JSONCaseDescription tmpCaseDescription = JsonConvert.DeserializeObject<JSONCaseDescription>(response);
+        //    SaveCaseDescription(new []{tmpCaseDescription, transCaseDescription});
+        //    _court.InitializeCourt(tmpCaseDescription, transCaseDescription);
+        //    courtPreviewCanvas.SetActive(false);
+        //    Destroy(gameObject);
+        //}
+        //catch (Exception e)
+        //{
+        //    ToggleButtons(true);
+        //    _ = OnError("Case Translation failed, retry");
+        //    Debug.LogWarning("Json deserialization failed: " + e.Message);
+        //    _seed = Random.Range(0, int.MaxValue);
+        //}
+        
     }
     
-    private async void OnNewCaseButtonClicked()
+    private void OnNewCaseButtonClicked()
     {
         StoreDescriptions();
     }
 
-    private async Task OnError()
+    public async void OnArrowClicked(int buttonID)
     {
+        ToggleButtons(false);
+        string value;
+
+        switch (buttonID)
+        {
+            case 0 :
+                value = _translatedDescriptions.Last.Value.GetBriefDescription(true);
+                _translatedDescriptions.AddFirst(_translatedDescriptions.Last.Value);
+                _translatedDescriptions.RemoveLast();
+                break;
+            case 1:
+                _translatedDescriptions.AddLast(_translatedDescriptions.First.Value);
+                _translatedDescriptions.RemoveFirst();
+                value = _translatedDescriptions.First.Value.GetBriefDescription(true);
+                break;
+            default:
+                value = "ERROR - Wrong button ID";
+                break;
+        }
+        
+        await _courtPreviewAnimation.PlaySwitchAnimation(buttonID,value);
+        
+        ToggleButtons(true);
+        
+    }
+
+    private async Task OnError(string error)
+    {
+        ToggleButtons(true);
+        errorTextbox.text = error;
         errorTextbox.enabled = true;
         await Task.Delay(5000);
         errorTextbox.enabled = false;
@@ -62,33 +279,33 @@ public class CaseGeneration : MonoBehaviour
     private async void StoreDescriptions()
     {
         ToggleButtons(false);
-
-        var descriptions = await _apiManager.Request(prefInputField.text);
-        if (!string.IsNullOrWhiteSpace(descriptions.Item1.summary))
-        {
-            if(string.IsNullOrWhiteSpace(_caseDescription[0].summary))
-                (_caseDescription[0], _translatedDescription[0]) = descriptions;
-            else if(string.IsNullOrWhiteSpace(_caseDescription[1].summary))
-                (_caseDescription[1], _translatedDescription[1]) = descriptions;
-            else
-            {
-                (_caseDescription[0], _translatedDescription[0]) = (_caseDescription[1], _translatedDescription[1]);
-                (_caseDescription[1], _translatedDescription[1]) = descriptions;
-            }            
-            
-            await _courtPreviewAnimation.PlayAnimation(descriptions.Item2.GetBriefDescription(true));
-        }
+        
+        
+        //Get translated case description
+        var tmpDescription = await _apiManager.RequestCaseDescription(prefInputField.text, true, seed);
+        if (!string.IsNullOrWhiteSpace(tmpDescription.summary))
+            AddDescriptionToList(tmpDescription);
         else
-            _ = OnError();
+        {
+            _ = OnError("Case generation failed, retry");
+            seed = Random.Range(0, int.MaxValue);
+        }
         
         ToggleButtons(true);
     }
 
+    public async void AddDescriptionToList(JSONCaseDescription description)
+    {
+            _translatedDescriptions.AddFirst(description);
+            await _courtPreviewAnimation.PlayAnimation(description.GetBriefDescription(true));
+    }
+
     private void ToggleButtons(bool enable)
     {
-        foreach (var item in playButtons)
-            item.interactable = enable;
+        playButton.interactable = enable;
         newCaseButton.interactable = enable;
+        foreach (var item in arrowButtons)
+            item.enabled = enable;
     }
     
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LLMUnity;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using TMPro;
 using Unity.VisualScripting;
@@ -54,7 +55,7 @@ public class Court : MonoBehaviour
 
     //State track
     private List<(string role, string systemMessage)> _roundsTimeline;
-    private CaseDescription _caseDescription, _translatedDescription;
+    private JSONCaseDescription _caseDescription, _translatedDescription;
     private int _round;
 
     private List<string> winKeywords = new List<string> { "non colpevole", "innocente", "assolto" };
@@ -100,7 +101,7 @@ public class Court : MonoBehaviour
     //    
     //}
 
-    public async void InitializeCourt(CaseDescription caseDescription, CaseDescription translatedDescription)
+    public async void InitializeCourt(JSONCaseDescription caseDescription, JSONCaseDescription translatedDescription)
     {
         _caseDescription = caseDescription;
         _translatedDescription = translatedDescription;
@@ -109,7 +110,7 @@ public class Court : MonoBehaviour
         InitializeRounds();
         
         caseDescriptionText.text = _translatedDescription.GetTotalDescription(true);
-        characterAnimator.AssignDynamicPrefabs(_caseDescription.witnesses.Keys.ToList(), attackName);
+        characterAnimator.AssignDynamicPrefabs(_translatedDescription.witnessNames, attackName);
 
         //string[] characters = new string[] { judgeName, defenseName, attackName };
         //characters.AddRange(caseDescription.witnesses.Keys.ToList());
@@ -304,11 +305,11 @@ public class Court : MonoBehaviour
                 if (!string.IsNullOrWhiteSpace(infoRequest))
                 {
                     string answer, translatedAnswer;
-                    (answer, translatedAnswer) = await _apiManager.Request(_caseDescription.GetTotalDescription(), infoRequest);
+                    (answer, translatedAnswer) = await _apiManager.RequestAdditionalInfo(_caseDescription.GetTotalDescription(), infoRequest);
                     if (!string.IsNullOrWhiteSpace(answer))
                     {
-                        _caseDescription.additionalInfo.Add(answer);
-                        _translatedDescription.additionalInfo.Add(translatedAnswer);
+                        _caseDescription.AddInformation(answer);
+                        _translatedDescription.AddInformation(translatedAnswer);
                         
                         llmCharacter.chat[0] = new ChatMessage(){role = "system", content = BuildPrompt()};
                         caseDescriptionText.text = _translatedDescription.GetTotalDescription(true);
@@ -337,85 +338,107 @@ public class Court : MonoBehaviour
             }
         }
         
-        
-        
-    }
-
-    private void UpdateDescriptions()
-    {
-        
-    }
-
-    private string RemoveCommandText(string text)
-    {
-        return text.Split(_questionCharacter)[0].Split(_requestCharacter)[0];
-    }
-
-    private async Task RequestAndUpdateDescriptions(string request)
-    {
-        
-        string text, translated;
-        (text, translated) = await _apiManager.Request(_caseDescription.GetTotalDescription(), request);
-        _caseDescription.clues.Add(text);
-        _translatedDescription.clues.Add(translated);
-        
     }
     
-
-
 }
 
-public struct CaseDescription
+
+public struct JSONCaseDescription
 {
-    public string playerGoal;
     public string title;
+    public string playerGoal;
     public string summary;
     public string shortSummary;
-    public List<string> clues;
-    public Dictionary<string, string> witnesses;
-    public List<string> additionalInfo;
-    private string[] descArray;
-    private string[] richArray;
+    public List<string> evidence;
+    public List<string> witnessNames;
+    public List<string> witnessDescriptions;
     
-    /// <summary> Indexes of section titles:
+    /// <summary> Indexes of section names:
     /// 0 - Player Goal |
-    /// 1 - Case Name
+    /// 1 - Case Name |
     /// 2 - Long Summary |
     /// 3 - Short Summary |
     /// 4 - Evidence |
     /// 5 - Witnesses |
     /// 6 - Additional info 
     /// </summary>
-    public string[] sectionTitles;
+    private List<string> sectionNames;
+    private List<string> fallbackSectionNames;
     
-    public CaseDescription(string description, string sectionSplitCharacters, string subsectionSplitCharacters)
+
+    private string jsonDescription;
+    private List<string> additionalInfo;
+    private string[] descArray;
+    private string[] richArray;
+    private int fileID;
+
+    
+    //public JSONCaseDescription()
+    //{
+    //    title = "title";
+    //    playerGoal = "playerGoal";
+    //    summary = "summary";
+    //    shortSummary = "shortSummary";
+    //    witnesses = Array.Empty<Witness>();
+    //    evidence = Array.Empty<string>();
+    //    sectionNames = Array.Empty<string>();
+    //    
+    //    descArray = new string[6];
+    //    richArray = new string[6];
+    //    additionalInfo = new List<string>();
+    //    jsonDescription = "";
+    //}
+    
+    
+    [JsonConstructor]
+    public JSONCaseDescription( string title, string playerGoal, string summary, string shortSummary, List<string> evidence, List<string> witnessNames, List<string> witnessDescriptions, List<string> sectionNames)
     {
-        string[] answer = description.Split(sectionSplitCharacters, StringSplitOptions.RemoveEmptyEntries);
-        Dictionary<string, string> witnessDictionary = new Dictionary<string, string>();
-        string[] witnessesArr = answer[5].Split(">")[1].Split(subsectionSplitCharacters, StringSplitOptions.RemoveEmptyEntries);
-
-        foreach (var item in witnessesArr)
-        {
-            if(string.IsNullOrWhiteSpace(item)) continue;
-            string[] itemSplit = item.Split(":");
-            witnessDictionary.Add(itemSplit[0].Replace("-","").Replace("\n",""), itemSplit[1].Replace("\n",""));
-        }
-
-        playerGoal = answer[0].Split(">")[1].Replace("\n", "");
-        title = answer[1].Split(">")[1].Replace("\n", "");
-        summary = answer[2].Split(">")[1].Replace("\n", "");
-        shortSummary = answer[3].Split(">")[1].Replace("\n", "");
-        clues = answer[4].Split(">")[1].Split(subsectionSplitCharacters, StringSplitOptions.RemoveEmptyEntries)
-            .Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => x.Replace("-", "").Replace("\n", "")).ToList();
-        witnesses = witnessDictionary;
-        sectionTitles = answer.Select(x => x.Split(">")[0].Replace("\n", "")).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
-        additionalInfo = new List<string>();
-
-        descArray = new string[sectionTitles.Length - 1];
-        richArray = new string[sectionTitles.Length - 1];
+        this.title = title;
+        this.playerGoal = playerGoal;
+        this.summary = summary;
+        this.shortSummary = shortSummary;
+        this.evidence = evidence.Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+        this.witnessNames = witnessNames.Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+        this.witnessDescriptions = witnessDescriptions.Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
         
+        fallbackSectionNames = new List<string>() { "Title", "Player Goal", "Summary", "Short Summary", "Evidence", "Witnesses", "Additional Info" };
+        if(sectionNames == null)
+            sectionNames = fallbackSectionNames;
+        else
+            sectionNames.AddRange(fallbackSectionNames.TakeLast(fallbackSectionNames.Count - sectionNames.Count));
+    
+        this.sectionNames = sectionNames;
+        
+        descArray = new string[6];
+        richArray = new string[6];
+        additionalInfo = new List<string>();
+        fileID = -1;
+        jsonDescription = "";
         UpdateCaseDescription();
     }
+    
+
+    public string GetJsonDescription()
+    {
+        if (string.IsNullOrWhiteSpace(jsonDescription))
+            jsonDescription = JsonConvert.SerializeObject(this, Formatting.Indented);
+        return jsonDescription;
+    }
+
+    public string GetBriefDescription(bool rich = false)
+    {
+           
+        if (rich)
+            return richArray[0] +
+                   $"<b><color=#F64A3E>{GetSectionName(2)}</color></b>\n" +
+                   shortSummary;
+        
+        return descArray[0] +
+               $"{GetSectionName(2)}\n" +
+               shortSummary;
+        
+    }
+    
     public string GetTotalDescription(bool rich = false, bool update = true)
     {
         if(update) UpdateCaseDescription();
@@ -433,69 +456,83 @@ public struct CaseDescription
         string[] currentDescArr = rich ? richArray : descArray;
         return string.Join("", indexes.Select(x => currentDescArr[Mathf.Clamp(x, 0, currentDescArr.Length - 1)]).ToArray());
     }
-
-    public string GetBriefDescription(bool rich = false)
-    {
-        if (rich)
-            return richArray[1] +
-                   $"<b><color=#F64A3E>{sectionTitles[2]}</color></b>\n" +
-                   shortSummary;
-        else
-            return descArray[1] +
-                   $"{sectionTitles[2]}\n" +
-                   shortSummary;
-    }
-
+    
     private void UpdateCaseDescription()
     {
-        descArray[0] = $"{sectionTitles[0]}\n" +
-                       $"{playerGoal}\n\n";
-        descArray[1] = $"{sectionTitles[1]}\n" +
+        var list = witnessNames;
+        var descriptions = witnessDescriptions;
+        
+        descArray[0] = $"{GetSectionName(0)}\n" +
                        $"{title}\n\n";
-        descArray[2] = $"{sectionTitles[3]}\n" +
-                       $"{shortSummary}\n\n";
-        descArray[3] = $"{sectionTitles[4]}\n" +
-                       $"{string.Join("\n", clues.Select(x => "-" + x))}\n\n";
-        descArray[4] = $"{sectionTitles[5]}\n" +
-                       $"{string.Join("\n", witnesses.Select(x => $"-{x.Key}: {x.Value}").ToArray())}\n\n";
-        descArray[5] = $"{sectionTitles[6]}\n" +
+        descArray[1] = $"{GetSectionName(1)}\n" +
+                       $"{playerGoal}\n\n";
+        descArray[2] = $"{GetSectionName(2)}\n" +
+                       $"{summary}\n\n";
+        descArray[3] = $"{GetSectionName(4)}\n" +
+                       $"{string.Join("\n", evidence.Select(x => "-" + x))}\n\n";
+        descArray[4] = $"{GetSectionName(5)}\n" +
+                       string.Join("\n", witnessNames.Select(x => $"-{x}: {descriptions[list.IndexOf(x)]}").ToArray());
+                       //$"{string.Join("\n", witnesses.Select(x => $"-{x.name}: {x.description}\n{x.personality}\n{x.testimony}").ToArray())}\n\n";
+        descArray[5] = $"{GetSectionName(6)}\n" +
                        $"{string.Join("\n", additionalInfo.Select(x => "-" + x))}\n\n";
 
-        richArray[0] = $"<b><color=#F64A3E>{sectionTitles[0]}</color></b>\n" +
-                       $"{playerGoal}\n\n";
-        richArray[1] = $"<b><color=#F64A3E>{sectionTitles[1]}</color></b>\n" +
+        richArray[0] = $"<b><color=#F64A3E>{GetSectionName(0)}</color></b>\n" +
                        $"{title}\n\n";
-        richArray[2] = $"<b><color=#F64A3E>{sectionTitles[3]}</color></b>\n" +
-                       $"{shortSummary}\n\n";
-        richArray[3] = $"<b><color=#F64A3E>{sectionTitles[4]}</color></b>\n" +
-                       $"{string.Join("\n", clues.Select(x => "-" + x))}\n\n";
-        richArray[4] = $"<b><color=#F64A3E>{sectionTitles[5]}</color></b>\n" +
-                       $"{string.Join("\n", witnesses.Select(x => $"-<i><color=#550505>{x.Key}</color></i>: {x.Value}").ToArray())}\n\n";
-        richArray[5] = $"<b><color=#F64A3E>{sectionTitles[6]}</color></b>\n" +
+        richArray[1] = $"<b><color=#F64A3E>{GetSectionName(1)}</color></b>\n" +
+                       $"{playerGoal}\n\n";
+        richArray[2] = $"<b><color=#F64A3E>{GetSectionName(2)}</color></b>\n" +
+                       $"{summary}\n\n";
+        richArray[3] = $"<b><color=#F64A3E>{GetSectionName(4)}</color></b>\n" +
+                       $"{string.Join("\n", evidence.Select(x => "-" + x))}\n\n";
+        richArray[4] = $"<b><color=#F64A3E>{GetSectionName(5)}</color></b>\n" +
+                       string.Join("\n", witnessNames.Select(x => $"-<i><color=#550505>{x}</color></i>: {descriptions[list.IndexOf(x)]}").ToArray());    
+                       //$"{string.Join("\n", witnesses.Select(x => $"-<i><color=#550505>{x.name}</color></i>: {x.description}\n{x.personality}\n{x.testimony}").ToArray())}\n\n";
+        richArray[5] = $"<b><color=#F64A3E>{GetSectionName(6)}</color></b>\n" +
                        $"{string.Join("\n", additionalInfo.Select(x => "-" + x))}\n\n";
-                    
-        //totalDescription = $"{sectionTitles[0]}\n" +
-        //                                   $"{title}\n\n" +
-        //                                   $"{sectionTitles[1]}\n" +
-        //                                   $"{summary}\n\n" +
-        //                                   $"{sectionTitles[2]}\n" +
-        //                                   $"{string.Join("\n",clues.Select(x => "-" + x))}\n\n" +
-        //                                   $"{sectionTitles[3]}\n" +
-        //                                   $"{string.Join("\n",witnesses.Select(x =>  $"-{x.Key}: {x.Value}").ToArray())}\n\n" +
-        //                                   $"{sectionTitles[4]}\n" +
-        //                                   $"{string.Join("\n",additionalInfo.Select(x => "-" + x))}\n\n";
-        //
-        //richTextDescription = $"<b><color=#F64A3E>{sectionTitles[0]}</color></b>\n" +
-        //                      $"{title}\n\n" +
-        //                      $"<b><color=#F64A3E>{sectionTitles[1]}</color></b>\n" +
-        //                      $"{summary}\n\n" +
-        //                      $"<b><color=#F64A3E>{sectionTitles[2]}</color></b>\n" +
-        //                      $"{string.Join("\n", clues.Select(x => "-" + x))}\n\n" +
-        //                      $"<b><color=#F64A3E>{sectionTitles[3]}</color></b>\n" +
-        //                      $"{string.Join("\n", witnesses.Select(x => $"-<i><color=#550505>{x.Key}</color></i>: {x.Value}").ToArray())}\n\n" +
-        //                      $"<b><color=#F64A3E>{sectionTitles[4]}</color></b>\n" +
-        //                      $"{string.Join("\n", additionalInfo.Select(x => "-" + x))}\n\n";
+    }
+    
+    private string GetSectionName(int index)
+    {
+        if (string.IsNullOrWhiteSpace(sectionNames[index]))
+            sectionNames[index] = fallbackSectionNames[index];
+        
+        return sectionNames[index];
     }
 
+    public void AddInformation(string info)
+    {
+        additionalInfo.Add(info);
+    }
+
+    public void SetID(int ID)
+    {
+        fileID = ID;
+    }
+
+    public int GetID()
+    {
+        return fileID;
+    }
+
+    public bool IsSaved()
+    {
+        return fileID > -1;
+    }
     
 }
+
+//public struct Witness
+//{
+//    public string name;
+//    public string description;
+//    public string personality;
+//    public string testimony;
+//
+//    public Witness(string name, string description, string personality, string testimony)
+//    {
+//        this.name = name;
+//        this.description = description;
+//        this.personality = personality;
+//        this.testimony = testimony;
+//    }
+//}

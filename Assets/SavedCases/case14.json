@@ -1,0 +1,40 @@
+[
+  {
+    "title": "Case against Luca Rossi",
+    "playerGoal": "Reduce the conviction sentence for manslaughter",
+    "summary": "Luca Rossi, a well-known Italian entrepreneur, is accused of manslaughter after one of his business decisions led to the death of an employee. The prosecutor's office claims that Rossi acted with negligence and superficiality in managing workplace safety.",
+    "shortSummary": "Entrepreneur accused of manslaughter due to negligence at the workplace",
+    "evidence": [
+      "Company documents indicating safety deficiencies",
+      "Testimonies from colleagues of the deceased employee",
+      "*Audio recording* of the meeting where safety decisions were made"
+    ],
+    "witnessNames": [
+      "Lara Bianchi",
+      "Marco Ferrari"
+    ],
+    "witnessDescriptions": [
+      "Lara Bianchi, head of the company's human resources department, very stressed and concerned about the work climate in the company but doesn't see anything regarding this event.",
+      "Marco Ferrari ,a colleagueeof te deceised emplyee express represseed anger towards th company's managementand explicitely declares:'I'veseen Luca Rosssi ignore protocosl severa times.' "
+    ]
+  },
+  {
+    "title": "Caso contro Luca Rossi",
+    "playerGoal": "Ridurre la sentenza di condanna per omicidio colposo",
+    "summary": "Luca Rossi, un noto imprenditore italiano, è accusato di omicidio colposo dopo che una sua decisione aziendale ha portato alla morte di un dipendente. La procura sostiene che Rossi abbia agito con negligenza e superficialità nella gestione della sicurezza sul luogo di lavoro.",
+    "shortSummary": "Imprenditore accusato di omicidio colposo per negligenza sul luogo di lavoro",
+    "evidence": [
+      "Documenti aziendali che indicano carenze nella sicurezza",
+      "Testimonianze dei colleghi del dipendente deceduto",
+      "*Registrazione* audio della riunione in cui sono state prese le decisioni sulla sicurezza"
+    ],
+    "witnessNames": [
+      "Lara Bianchi",
+      "Marco Ferrari"
+    ],
+    "witnessDescriptions": [
+      "Lara Bianchi, capo del reparto risorse umane dell'azienda, molto stressata e preoccupata per il clima lavorativo nell'azienda ma non vede niente riguardo all'evento.",
+      "Marco Ferrari ,un collega del dipendente deceduto dimostra rabbia repressa nei confronti della dirigenza aziendale e dichiara esplicitamente: 'Ho visto Luca Rossi ignorare più volte i protocolli.'"
+    ]
+  }
+]

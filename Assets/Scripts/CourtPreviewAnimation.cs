@@ -2,27 +2,30 @@ using System;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class CourtPreviewAnimation : MonoBehaviour
 {
-    [SerializeField] private GameObject[] pages;
+    [SerializeField] private RectTransform[] pages;
     [SerializeField] private TextMeshProUGUI[] casePreviewTextboxes;
-    [SerializeField] private GameObject[] wayPoints;
-    [SerializeField] private AnimationCurve curve;
+    [SerializeField] private RectTransform[] wayPoints;
+    [SerializeField]private AnimationCurve newCaseCurve;
+    [SerializeField]private AnimationCurve switchCaseCurve;
     [SerializeField] private float animationDuration;
+    [SerializeField] private Button playButton;
+    [SerializeField] private Button[] arrowButtons;
     
-    private Vector3[] _startPositions;
-    private Button _page1Button;
+    private Vector2[] _startPositions;
+    private readonly Vector2 _switchOffset = new (200, 0);
     
     private void Awake()
     {
-        _startPositions = new Vector3[pages.Length];
-        _startPositions[0] = wayPoints[0].transform.position;
-        _startPositions[1] = pages[1].transform.position;
-        _startPositions[2] = pages[2].transform.position;
-
-        _page1Button = pages[0].GetComponentInChildren<Button>();
+        _startPositions = new Vector2[pages.Length];
+        _startPositions[0] = pages[0].anchoredPosition;
+        _startPositions[1] = pages[1].anchoredPosition;
+        _startPositions[2] = pages[2].anchoredPosition;
+        
     }
 
     public async Task PlayAnimation(string newContent)
@@ -31,54 +34,75 @@ public class CourtPreviewAnimation : MonoBehaviour
         float currentTime = 0f;
         casePreviewTextboxes[2].text = newContent;
         
-        if (!pages[0].activeInHierarchy)
+        while ((currentTime += deltaTimeNorm) < 1f)
         {
-            Vector3 page1StartPos = pages[0].transform.position;
-            while ((currentTime += deltaTimeNorm) < 1f)
-            {
-                pages[2].transform.position = Vector3.Lerp(_startPositions[2], page1StartPos, curve.Evaluate(currentTime));
-                await Task.Yield();
-            }
-            pages[0].SetActive(true);
-            casePreviewTextboxes[0].text = newContent;
-            pages[2].transform.position = _startPositions[2];
-            return;    
+            pages[2].anchoredPosition = Vector2.Lerp(_startPositions[2], _startPositions[0], newCaseCurve.Evaluate(currentTime));
+            await Task.Yield();
         }
         
-        if (!pages[1].activeInHierarchy)
+        if (!pages[1].gameObject.activeInHierarchy)
         {
-            Vector3 page1StartPos = pages[0].transform.position;
-            while ((currentTime += deltaTimeNorm) < 1f)
-            {
-                float curveEvaluation = curve.Evaluate(currentTime);
-                pages[0].transform.position = Vector3.Lerp(page1StartPos, _startPositions[0], curveEvaluation );
-                pages[2].transform.position = Vector3.Lerp(_startPositions[2], _startPositions[1], curveEvaluation);
-                
-                await Task.Yield();
-            }
-            pages[1].SetActive(true);
-            
-        }
-        else
+            pages[1].gameObject.SetActive(true);
+            playButton.gameObject.SetActive(true);
+        } else if (!pages[0].gameObject.activeInHierarchy)
         {
-            _page1Button.gameObject.SetActive(false);
-            while ((currentTime += deltaTimeNorm) < 1f)
-            {
-                float curveEvaluation = curve.Evaluate(currentTime);
-                pages[0].transform.position = Vector3.Lerp(_startPositions[0], wayPoints[1].transform.position, curveEvaluation);
-                pages[1].transform.position = Vector3.Lerp(_startPositions[1], _startPositions[0], curveEvaluation );
-                pages[2].transform.position = Vector3.Lerp(_startPositions[2], _startPositions[1], curveEvaluation);
-                
-                await Task.Yield();
-            }
-            casePreviewTextboxes[0].text = casePreviewTextboxes[1].text;
-            _page1Button.gameObject.SetActive(true);
+            pages[0].gameObject.SetActive(true);
+            arrowButtons[0].gameObject.SetActive(true);
+            arrowButtons[1].gameObject.SetActive(true);
         }
         
-        pages[0].transform.position = _startPositions[0];
-        pages[1].transform.position = _startPositions[1];
-        pages[2].transform.position = _startPositions[2];
+        pages[2].anchoredPosition = _startPositions[2];
         casePreviewTextboxes[1].text = newContent;
+        
 
     }
+
+    public async Task PlaySwitchAnimation(int arrowButtonIndex, string newContent)
+    {
+        float deltaTimeNorm = Time.deltaTime / animationDuration;
+        float currentTime = 0f;
+
+        switch (arrowButtonIndex)
+        {
+            case 0:
+                casePreviewTextboxes[0].text = newContent;
+                Transform page0Transform = pages[0].transform;
+                while ((currentTime += deltaTimeNorm) < 1f)
+                {
+                    pages[0].anchoredPosition = Vector2.Lerp(_startPositions[0], _startPositions[0] - _switchOffset, switchCaseCurve.Evaluate(currentTime));
+                    pages[1].anchoredPosition = Vector2.Lerp(_startPositions[1], _startPositions[1] + _switchOffset/4, switchCaseCurve.Evaluate(currentTime));
+                    
+                    if(currentTime >= .5f)
+                        page0Transform.SetSiblingIndex(1);
+                        
+                    await Task.Yield();
+                }
+                page0Transform.SetSiblingIndex(0);
+                casePreviewTextboxes[1].text = newContent;
+                
+                break;
+            
+            case 1:
+                casePreviewTextboxes[0].text = newContent;
+                Transform page1Transform = pages[1].transform;
+                while ((currentTime += deltaTimeNorm) < 1f)
+                {
+                    pages[1].anchoredPosition = Vector2.Lerp(_startPositions[1], _startPositions[1] + _switchOffset, switchCaseCurve.Evaluate(currentTime));
+                    pages[0].anchoredPosition = Vector2.Lerp(_startPositions[0], _startPositions[0] - _switchOffset/4, switchCaseCurve.Evaluate(currentTime));
+                    
+                    
+                    if(currentTime >= .5f)
+                        page1Transform.SetSiblingIndex(0);
+                        
+                    await Task.Yield();
+                }
+                page1Transform.SetSiblingIndex(1);
+                casePreviewTextboxes[1].text = newContent;
+                
+                break;
+            
+            
+        }
+    }
+    
 }
