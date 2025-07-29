@@ -8,26 +8,54 @@ public class EndGameUI : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
     [SerializeField] private TextMeshProUGUI resultText;
-    [SerializeField] private Button restartButton;
+    [SerializeField] private Button returnButton;
     [SerializeField] private Button mainMenuButton;
     [SerializeField] private float typingSpeed = 0.05f;
+    [SerializeField] private Button retryButton;
+
+    private string savedCaseDescription;
+    private string savedTranslatedDescription;
+
 
     private void Start()
     {
         panel.SetActive(false);
-        restartButton.onClick.AddListener(RestartGame);
+        returnButton.onClick.AddListener(RestartGame);
         mainMenuButton.onClick.AddListener(GoToMainMenu);
+        retryButton.onClick.AddListener(RetrySameCase);
+        retryButton.gameObject.SetActive(false);
+    }
+
+    public void SaveCase(string original, string translated)
+    {
+        savedCaseDescription = original;
+        savedTranslatedDescription = translated;
     }
 
     public void Show(string message, Color color)
     {
         Debug.Log($"[VERDETTO] Risultato: {message}");
-        //Time.timeScale = 0f; // Pausa gioco
         panel.SetActive(true);
         resultText.text = "";
         resultText.color = color;
+        //retryButton.gameObject.SetActive(message == "HAI PERSO");
+        retryButton.gameObject.SetActive(true);
         StartCoroutine(TypeText(message));
     }
+
+    private void RetrySameCase()
+    {
+        Court court = Object.FindFirstObjectByType<Court>();
+        if (court != null)
+        {
+            CaseMemory.SavedCase = court.GetCaseDescription();
+            CaseMemory.SavedTranslatedCase = court.GetTranslatedDescription();
+            CaseMemory.RestartingSameCase = true;
+        }
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
 
     private IEnumerator TypeText(string message)
     {
@@ -40,13 +68,11 @@ public class EndGameUI : MonoBehaviour
 
     private void RestartGame()
     {
-        //Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void GoToMainMenu()
     {
-        //Time.timeScale = 1f;
         SceneManager.LoadScene("Menu");
     }
 }

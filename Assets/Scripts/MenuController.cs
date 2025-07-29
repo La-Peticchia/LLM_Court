@@ -15,27 +15,29 @@ public class MenuController : MonoBehaviour
     public Button optionsButton;
     public Button backFromCharacterButton;
     public Button backFromOptionsButton;
+    public Button continueButton;
+    public GameObject caseGeneration;
+
 
     private void Start()
     {
-        
         if (characterPanel != null) characterPanel.SetActive(false);
         if (optionsPanel != null) optionsPanel.SetActive(false);
 
-        
         newGameButton.onClick.AddListener(StartNewGame);
         characterButton.onClick.AddListener(OpenCharacterPanel);
         leaveGameButton.onClick.AddListener(QuitGame);
         optionsButton.onClick.AddListener(OpenOptionsPanel);
 
-        
         backFromCharacterButton.onClick.AddListener(CloseCharacterPanel);
         backFromOptionsButton.onClick.AddListener(CloseOptionsPanel);
+
+        continueButton.onClick.AddListener(ContinueGame);
+        continueButton.interactable = GameSaveSystem.HasSavedGame(); // Interagibile solo se ha salvataggio
     }
 
     private void Update()
     {
-        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (characterPanel.activeSelf)
@@ -52,6 +54,17 @@ public class MenuController : MonoBehaviour
     public void StartNewGame()
     {
         SceneManager.LoadScene("Scene");
+    }
+
+    private void ContinueGame()
+    {
+        SaveData data = GameSaveSystem.LoadGame();
+        if (data != null)
+        {
+            GameSaveSystem.IsContinue = true;
+            SceneManager.LoadScene(data.sceneName);
+            
+        }
     }
 
     public void OpenCharacterPanel()

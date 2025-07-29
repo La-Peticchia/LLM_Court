@@ -34,6 +34,7 @@ public class CaseGeneration : MonoBehaviour
     [FormerlySerializedAs("_seed")] [SerializeField]
     private int seed;
     
+    private CourtRecordUI _courtRecordUI;
 
     private void Awake()
     {
@@ -42,6 +43,8 @@ public class CaseGeneration : MonoBehaviour
         _court = FindFirstObjectByType<Court>();
         _courtPreviewAnimation = FindFirstObjectByType<CourtPreviewAnimation>();
         playButton.onClick.AddListener(OnPlayButtonClicked);
+        _courtRecordUI = FindFirstObjectByType<CourtRecordUI>();
+
         newCaseButton.onClick.AddListener(OnNewCaseButtonClicked);
         
         
@@ -50,11 +53,43 @@ public class CaseGeneration : MonoBehaviour
         if (seed == 0)
             seed = Random.Range(0, int.MaxValue);
         
+        _courtRecordUI.isGameplay = false;
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (CaseMemory.HasValidSavedCase)
+        {
+            courtPreviewCanvas.SetActive(false);
+            _court.InitializeCourt(CaseMemory.SavedCase.Value, CaseMemory.SavedTranslatedCase.Value);
+            CaseMemory.Clear();
+            Destroy(gameObject);
+            return;
+        }
+
+        if (GameSaveSystem.IsContinue && GameSaveSystem.HasSavedGame())
+        {
+            var data = GameSaveSystem.LoadGame();
+            courtPreviewCanvas.SetActive(false);
+
+            // Ricostruisce il CaseDescription da JSON salvato
+            CaseDescription savedCase = new CaseDescription(
+                data.caseDescription, sectionSplitCharacters: "\n", subsectionSplitCharacters: "\n"
+            );
+            CaseDescription savedTranslatedCase = new CaseDescription(
+                data.translatedDescription, sectionSplitCharacters: "\n", subsectionSplitCharacters: "\n"
+            );
+
+            // Inizializza court con i dati salvati e mi assicuro che riprenda dal round corretto
+            _court.InitializeCourt(savedCase, savedTranslatedCase);
+            _court.SetCurrentRound(data.round);
+            GameSaveSystem.IsContinue = false;
+            Destroy(gameObject);
+            return;
+        }
+
         StoreDescriptions();
     }
     

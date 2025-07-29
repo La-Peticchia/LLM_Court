@@ -8,6 +8,8 @@ public class CourtRecordUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private Button openCourtRecordButton;
     [SerializeField] private Button exitButton;
     private Vector3 defaultScale;
+    public bool isGameplay = true;
+
 
     private void Start()
     {
@@ -19,6 +21,20 @@ public class CourtRecordUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     void Update()
     {
+        if (!isGameplay) return;
+
+        if (EventSystem.current.currentSelectedGameObject != null &&
+            EventSystem.current.currentSelectedGameObject.GetComponent<InputField>() != null)
+        {
+            return;
+        }
+
+
+        if (!courtRecordPanel.activeInHierarchy && Input.GetKeyDown(KeyCode.R))
+        {
+            OpenCourtRecord();
+        }
+
         if (courtRecordPanel.activeInHierarchy && Input.GetKeyDown(KeyCode.Escape))
         {
             CloseCourtRecord();
