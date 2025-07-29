@@ -11,7 +11,7 @@ public class CaseGeneration : MonoBehaviour
     [SerializeField] private TextMeshProUGUI prefInputField;
     [SerializeField] private TextMeshProUGUI errorTextbox;
     [SerializeField] private GameObject courtPreviewCanvas;
-    
+
     private APIInterface _apiManager;
     private CourtPreviewAnimation _courtPreviewAnimation;
     
@@ -46,6 +46,28 @@ public class CaseGeneration : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        if (GameSaveSystem.IsContinue && GameSaveSystem.HasSavedGame())
+        {
+            var data = GameSaveSystem.LoadGame();
+            courtPreviewCanvas.SetActive(false);
+
+            // Ricostruisce il CaseDescription da JSON salvato
+            CaseDescription savedCase = new CaseDescription(
+                data.caseDescription, sectionSplitCharacters: "\n", subsectionSplitCharacters: "\n"
+            );
+            CaseDescription savedTranslatedCase = new CaseDescription(
+                data.translatedDescription, sectionSplitCharacters: "\n", subsectionSplitCharacters: "\n"
+            );
+
+            // Inizializza court con i dati salvati e mi assicuro che riprenda dal round corretto
+            _court.InitializeCourt(savedCase, savedTranslatedCase);
+            _court.SetCurrentRound(data.round);
+            GameSaveSystem.IsContinue = false;
+            Destroy(gameObject);
+            return;
+        }
+
         StoreDescriptions();
     }
     

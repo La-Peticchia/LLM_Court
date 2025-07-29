@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -67,6 +67,9 @@ public class Court : MonoBehaviour
 
     //Events
     public event Action<bool> GameOverCallback;
+    private bool _finalRoundStepOneDone = false;
+    private string _finalRoundSummary = null;
+
 
 
     private void Awake()
@@ -140,8 +143,12 @@ public class Court : MonoBehaviour
 
         _courtRecordUI.isGameplay = true;
 
+        _finalRoundStepOneDone = false;
+        _finalRoundSummary = null;
+
         OnNextButtonClick();
     }
+
 
     private void InitializeChat()
     {
@@ -235,12 +242,13 @@ public class Court : MonoBehaviour
         if (_pendingEndGameMessage.HasValue)
         {
             endGameUI.Show(_pendingEndGameMessage.Value.message, _pendingEndGameMessage.Value.color);
+
             _pendingEndGameMessage = null;
+           
             nextButton.interactable = false;
             return;
         }
 
-        //forzo il player a scivere qualcosa
         if (_roundsTimeline[_round].role == defenseName)
         {
             if (EventSystem.current.currentSelectedGameObject == playerText.gameObject &&
@@ -299,23 +307,53 @@ public class Court : MonoBehaviour
 
             await CheckSpecialCharacters(answer);
 
+            string caseText = GetCaseDescription().GetTotalDescription(false);
+            string translatedText = GetTranslatedDescription().GetTotalDescription(false);
+
             // Se e' l'ultimo round (il giudice emette il verdetto)
+            // ROUND FINALE - FASE 1 e FASE 2
             if (_round == _roundsTimeline.Count - 1)
             {
-                string infoRequest = answer.Split(_gameOverCharacter)[1].Replace("\n", "");
-                string verdict = answer.ToLower();
+                // --- FASE 1: Sintesi ---
+                if (!_finalRoundStepOneDone)
+                {
+                    _finalRoundSummary = answer.Split(_gameOverCharacter)[0];
+                    logText.text += $"<b><color=#550505>{aiTitle.text}</color></b>: {_finalRoundSummary}\n\n";
 
-                if (winKeywords.Any(k => verdict.Contains(k)) || infoRequest.Contains("VITTORIA"))
+                    string finalVerdictPrompt = $"This is the final summary of the case:\n\n{_finalRoundSummary}\n\n" +
+                            "Now, based only on this summary, decide whether the defendant is GUILTY or NOT GUILTY. " +
+                            "Write only the verdict and end your message with the symbol #VITTORIA or #SCONFITTA.";
+
+                    Debug.Log("[FinalVerdictPrompt]: " + finalVerdictPrompt);
+
+                    llmCharacter.ClearChat(); 
+                    llmCharacter.AddSystemMessage(finalVerdictPrompt);
+                    _finalRoundStepOneDone = true;
+
+                    await NextRound(false);
+                    return;
+                }
+
+                // --- FASE 2: Verdetto ---
+                string verdict = answer.ToLower();
+                string infoRequest = answer.Contains(_gameOverCharacter) ? answer.Split(_gameOverCharacter)[1] : "";
+
+                if (winKeywords.Any(k => verdict.Contains(k)) || infoRequest.Contains("vittoria"))
                 {
                     _pendingEndGameMessage = ("HAI VINTO", Color.green);
                 }
-                else if (loseKeywords.Any(k => verdict.Contains(k)) || infoRequest.Contains("SCONFITTA"))
+                else if (loseKeywords.Any(k => verdict.Contains(k)) || infoRequest.Contains("sconfitta"))
                 {
                     _pendingEndGameMessage = ("HAI PERSO", Color.red);
-
-                    //Salvo il caso per retry
-                    //endGameUI.SaveCase(_caseDescription.GetTotalDescription(false), _translatedDescription.GetTotalDescription(false));
+                    
                 }
+
+                GameSaveSystem.SaveGame("Scene", _round, true, caseText, translatedText);
+            }
+            else
+            {
+
+                GameSaveSystem.SaveGame("Scene", _round, false, caseText, translatedText);
             }
 
 
@@ -385,6 +423,19 @@ public class Court : MonoBehaviour
 
     }
 
+    public void SetCurrentRound(int round)
+    {
+        if (round >= 0 && round < _roundsTimeline.Count)
+        {
+            _round = round;
+            
+            systemMessages.text = _roundsTimeline[_round].systemMessage;
+
+        }
+       
+    }
+
+
     private void UpdateDescriptions()
     {
 
@@ -405,9 +456,11 @@ public class Court : MonoBehaviour
 
     }
 
-    //Property Getter per il retry 
+    //Property Getter per il retry e per il save
     public CaseDescription GetCaseDescription() => _caseDescription;
     public CaseDescription GetTranslatedDescription() => _translatedDescription;
+    public int GetCurrentRound() => _round;
+
 
 }
 
