@@ -19,7 +19,7 @@ public class SaveSystem : MonoBehaviour
     
     
     private string _saveFilesPath;
-    private List<JSONCaseDescription[]> _savedDescriptions;
+    private List<CaseDescription[]> _savedDescriptions;
     private CaseGeneration _generationManager;
     
     private void Awake()
@@ -37,14 +37,14 @@ public class SaveSystem : MonoBehaviour
     }
     
     
-    public void SaveCaseDescription(JSONCaseDescription[] descriptions)
+    public void SaveCaseDescription(CaseDescription[] descriptions)
     {
         int id = PlayerPrefs.GetInt("caseFileID");
         PlayerPrefs.SetInt("caseFileID", id + 1);
         File.WriteAllText(Path.Combine(_saveFilesPath, $"case{id}.json"), JsonConvert.SerializeObject(descriptions, Formatting.Indented));
     }
 
-    public void SaveCaseDescription(JSONCaseDescription[] descriptions, int fileID)
+    public void SaveCaseDescription(CaseDescription[] descriptions, int fileID)
     {
         PlayerPrefs.SetInt("caseFileID", fileID);
         File.WriteAllText(Path.Combine(_saveFilesPath, $"case{fileID}.json"), JsonConvert.SerializeObject(descriptions, Formatting.Indented));
@@ -53,7 +53,7 @@ public class SaveSystem : MonoBehaviour
 
     private void GetSavedDescriptions()
     {
-        _savedDescriptions = new List<JSONCaseDescription[]>();
+        _savedDescriptions = new List<CaseDescription[]>();
         string[] descriptions = Directory.GetFiles(_saveFilesPath, "*.json");
         
         if (descriptions.Length == 0) return;
@@ -63,9 +63,10 @@ public class SaveSystem : MonoBehaviour
         foreach (string description in descriptions)
         {
             
-            JSONCaseDescription[] tmpDescription = JsonConvert.DeserializeObject<JSONCaseDescription[]>(File.ReadAllText(description));
+            CaseDescription[] tmpDescription = JsonConvert.DeserializeObject<CaseDescription[]>(File.ReadAllText(description));
             for (int i = 0; i < tmpDescription.Length; i++)
-                tmpDescription[i].SetID(int.Parse(Regex.Match(description, @"\d+").Value));
+                tmpDescription[i].SetID(int.Parse(Regex.Matches(description, @"\d+")[1].Value));
+            
             _savedDescriptions.Add(tmpDescription);
             
             Button tmpButton = Instantiate(buttonPrefab, buttonContentBox);
@@ -87,7 +88,7 @@ public class SaveSystem : MonoBehaviour
         return _savedDescriptions.Any(x => x.Length == 2 && x[1].GetID() == ID);
     }
 
-    public JSONCaseDescription[] GetSavedDescriptionsByID(int ID)
+    public CaseDescription[] GetSavedDescriptionsByID(int ID)
     {
         return _savedDescriptions.FirstOrDefault(x => x[0].GetID() == ID);
     }

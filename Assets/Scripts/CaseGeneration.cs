@@ -23,7 +23,7 @@ public class CaseGeneration : MonoBehaviour
     [SerializeField] private TextMeshProUGUI errorTextbox;
     [SerializeField] private GameObject courtPreviewCanvas;
     
-    private LinkedList<JSONCaseDescription> _translatedDescriptions;
+    private LinkedList<CaseDescription> _translatedDescriptions;
     
     //References
     private APIInterface _apiManager;
@@ -48,7 +48,7 @@ public class CaseGeneration : MonoBehaviour
         newCaseButton.onClick.AddListener(OnNewCaseButtonClicked);
         
         
-        _translatedDescriptions = new LinkedList<JSONCaseDescription>();
+        _translatedDescriptions = new LinkedList<CaseDescription>();
 
         if (seed == 0)
             seed = Random.Range(0, int.MaxValue);
@@ -69,32 +69,30 @@ public class CaseGeneration : MonoBehaviour
             return;
         }
 
-        if (GameSaveSystem.IsContinue && GameSaveSystem.HasSavedGame())
-        {
-            var data = GameSaveSystem.LoadGame();
-            courtPreviewCanvas.SetActive(false);
-
-            // Ricostruisce il CaseDescription da JSON salvato
-            CaseDescription savedCase = new CaseDescription(
-                data.caseDescription, sectionSplitCharacters: "\n", subsectionSplitCharacters: "\n"
-            );
-            CaseDescription savedTranslatedCase = new CaseDescription(
-                data.translatedDescription, sectionSplitCharacters: "\n", subsectionSplitCharacters: "\n"
-            );
-
-            // Inizializza court con i dati salvati e mi assicuro che riprenda dal round corretto
-            _court.InitializeCourt(savedCase, savedTranslatedCase);
-            _court.SetCurrentRound(data.round);
-            GameSaveSystem.IsContinue = false;
-            Destroy(gameObject);
-            return;
-        }
+        //if (GameSaveSystem.IsContinue && GameSaveSystem.HasSavedGame())
+        //{
+        //    var data = GameSaveSystem.LoadGame();
+        //    courtPreviewCanvas.SetActive(false);
+        //    // Ricostruisce il CaseDescription da JSON salvato
+        //    CaseDescription savedCase = new CaseDescription(
+        //        data.caseDescription, sectionSplitCharacters: "\n", subsectionSplitCharacters: "\n"
+        //    );
+        //    CaseDescription savedTranslatedCase = new CaseDescription(
+        //        data.translatedDescription, sectionSplitCharacters: "\n", subsectionSplitCharacters: "\n"
+        //    );
+        //    // Inizializza court con i dati salvati e mi assicuro che riprenda dal round corretto
+        //    _court.InitializeCourt(savedCase, savedTranslatedCase);
+        //    _court.SetCurrentRound(data.round);
+        //    GameSaveSystem.IsContinue = false;
+        //    Destroy(gameObject);
+        //    return;
+        //}
 
         StoreDescriptions();
     }
     
-    JSONCaseDescription _currentCaseDescription;
-    JSONCaseDescription _currentTranslatedDescription;
+    CaseDescription _currentCaseDescription;
+    CaseDescription _currentTranslatedDescription;
     //private Witness[] _currentWitnesses;
     private int _currentSeed;
     
@@ -199,7 +197,8 @@ public class CaseGeneration : MonoBehaviour
     {
         ToggleButtons(false);
         
-        JSONCaseDescription transCaseDescription = _translatedDescriptions.First.Value;
+        CaseDescription transCaseDescription = _translatedDescriptions.First.Value;
+        
         
         //TODO implement a new class that manages the save files of cases; implement both saving and loading procedure with some basic UI that shows all the loaded files
 
@@ -207,7 +206,8 @@ public class CaseGeneration : MonoBehaviour
         {
             if (_saveManager.CheckForTranslation(transCaseDescription.GetID()))
             {
-                JSONCaseDescription[] tmpDescriptions = _saveManager.GetSavedDescriptionsByID(transCaseDescription.GetID());
+        Debug.Log("First item:" + transCaseDescription.title);
+                CaseDescription[] tmpDescriptions = _saveManager.GetSavedDescriptionsByID(transCaseDescription.GetID());
                 _court.InitializeCourt(tmpDescriptions[0], tmpDescriptions[1]);
             }
             else
@@ -215,7 +215,7 @@ public class CaseGeneration : MonoBehaviour
                 try
                 {
                     string response = await _apiManager.RequestTranslation(transCaseDescription.GetJsonDescription(), seed: seed);
-                    JSONCaseDescription tmpCaseDescription = JsonConvert.DeserializeObject<JSONCaseDescription>(response);
+                    CaseDescription tmpCaseDescription = JsonConvert.DeserializeObject<CaseDescription>(response);
                     _saveManager.SaveCaseDescription(new []{tmpCaseDescription, transCaseDescription}, transCaseDescription.GetID());
                     _court.InitializeCourt(tmpCaseDescription, transCaseDescription);
                 }
@@ -233,7 +233,7 @@ public class CaseGeneration : MonoBehaviour
             try
             {
                 string response = await _apiManager.RequestTranslation(transCaseDescription.GetJsonDescription(), seed: seed);
-                JSONCaseDescription tmpCaseDescription = JsonConvert.DeserializeObject<JSONCaseDescription>(response);
+                CaseDescription tmpCaseDescription = JsonConvert.DeserializeObject<CaseDescription>(response);
                 _saveManager.SaveCaseDescription(new []{tmpCaseDescription, transCaseDescription});
                 _court.InitializeCourt(tmpCaseDescription, transCaseDescription);
             }
@@ -329,7 +329,7 @@ public class CaseGeneration : MonoBehaviour
         ToggleButtons(true);
     }
 
-    public async void AddDescriptionToList(JSONCaseDescription description)
+    public async void AddDescriptionToList(CaseDescription description)
     {
             _translatedDescriptions.AddFirst(description);
             await _courtPreviewAnimation.PlayAnimation(description.GetBriefDescription(true));

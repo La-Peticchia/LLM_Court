@@ -1724,6 +1724,126 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 353649078}
   m_CullTransparentMesh: 1
+--- !u!224 &359842096
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418928925}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1846233976}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &359842097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418928925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: '<size=+10>^</size>
+
+    Play'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 693b81abf3072a34299de092647ba74c, type: 2}
+  m_sharedMaterial: {fileID: 8876882890896379808, guid: 693b81abf3072a34299de092647ba74c, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4281479730
+  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 24
+  m_fontSizeBase: 24
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: -84.48
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &359842098
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418928925}
+  m_CullTransparentMesh: 1
 --- !u!1 &373991685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1863,126 +1983,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &359842096
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359842095}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1846233976}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &359842097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359842095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: '<size=+10>^</size>
-
-    Play'
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 693b81abf3072a34299de092647ba74c, type: 2}
-  m_sharedMaterial: {fileID: 8876882890896379808, guid: 693b81abf3072a34299de092647ba74c, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: -84.48
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_EmojiFallbackSupport: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &359842098
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359842095}
-  m_CullTransparentMesh: 1
 --- !u!1 &420083064
 GameObject:
   m_ObjectHideFlags: 0
@@ -2907,6 +2907,7 @@ RectTransform:
   - {fileID: 1308766010}
   - {fileID: 420083065}
   - {fileID: 1389690737}
+  - {fileID: 1100743625}
   m_Father: {fileID: 158550917}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3364,12 +3365,12 @@ MonoBehaviour:
     100 words. If no Wildcard is present, the system must wait for a direct prompt
     or turn allocation before any character speaks.
 
-    Take into account that the case and the witnesses
-    description could be written in italian
+    Take into account that the
+    case and the witnesses description could be written in italian
 
-    All AI-controlled characters
-    must behave as they would in a real courtroom: respecting turns, only responding
-    when addressed, and maintaining logical consistency in their involvement.'
+    All AI-controlled
+    characters must behave as they would in a real courtroom: respecting turns, only
+    responding when addressed, and maintaining logical consistency in their involvement.'
   judgePrompt: "You are the Judge in a courtroom. Your final verdict must reflect
     a consistent, logical evaluation of the courtroom dialogue and arguments. Avoid
     any arbitrary or contradictory decisions. Even if the language of the verdict
@@ -3885,7 +3886,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1317443167}
   m_HandleRect: {fileID: 1317443166}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -5268,7 +5269,7 @@ MonoBehaviour:
   remote: 0
   port: 13333
   numThreads: -1
-  numGPULayers: 25
+  numGPULayers: 50
   debug: 0
   parallelPrompts: -1
   dontDestroyOnLoad: 0
@@ -10233,34 +10234,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53c0915f97aefcb4e808d38c7a802dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelType: 2
-  prompt: "\nYou are a narrative designer generating courtroom cases for an interactive
-    story-driven game. The player assumes the role of the defense attorney. Create
-    a fictional or real case where the defendant is at the center of a legal dispute.\n\nThe
-    case can be criminal (e.g., theft, assault, murder) or civil (e.g., family disputes,
-    unpaid wages). Criminal cases may involve guilt or innocence with ambiguous or
-    overwhelming evidence. Civil cases should focus on economic or personal disputes.
-    Each case must be rich in character and drama, requiring strategic legal thinking
-    from the player.\n\n!!!\n\nOutput Format:\nReturn the case in valid JSON format
-    with the following structure:\n\n{\n  \"title\": \"string\",           // The
-    name/title of the courtroom case\r\n  \"playerGoal\": \"string\",               
-    // What the player must achieve \r\r\n  \"summary\": \"string\",        // A
-    detailed 50\u2013100 word narrative summary of the case\r\n  \"shortSummary\":
-    \"string\",       // A shorter 30\u201350 word version of the summary\r\n  \"evidence\":
-    [                    // A list of clues, each as a string with some mystery\r\n   
-    \"string\",\r\n    \"string\",\r\n    ...\r\n    ],\n  \"witnessNames\": [ \t\t//
-    A list of <num> witness names\r\n    |||],\n  \"witnessDescriptions\":[\t//A
-    list of <num> witness descriptions\n    |||]\n}\n\nAdditional Notes:\n\n<trans>\n\nEach
-    element in \"witnessDescription\" must contain the role (the background of the
-    witness), personality and testimony (what they claim to know or have seen) and
-    they should ll be put in a whole sentence; in addition it must be related to
-    the corresponding \"witnessNames\" element.\n\nDo not write Markdown (e.g., triple
-    backticks).\n\nIf it's difficult to find real-world data for a real case, create
-    a fictional case that still feels plausible and dramatic.\n\nEnsure that clues
-    and evidence are not too obvious, keep the player guessing.\n\nThe goal should
-    reflect the legal strategy: either total acquittal, sentence reduction, or proving
-    liability.\n\nDo not change or add JSON Keys in the format specified before\n\nGenerate
-    only the JSON output. No additional explanation or commentary."
+  modelType: 1
+  prompt: "Generate a courtroom case where the player assumes the role of the defense
+    attorney. The case may be fictional or based on real events but must include
+    a defendant. The case type may be criminal, civil, or administrative.\r\n\r\nIn
+    criminal trials, the defendant may appear innocent but face ambiguous evidence,
+    or may be clearly guilty with strong proof. The defense must seek either full
+    acquittal or sentence reduction through strategy.\r\n\r\nIn civil cases, the
+    player defends or supports a claim between private parties, often involving compensation,
+    wrongful termination, or family disputes. \n\nThe player\u2019s strategy must
+    align with the legal context and type of trial, making each challenge unique.\n\n!!!\n\nOutput
+    Format:\nReturn the case in valid JSON format with the following structure:\n\n{\n 
+    \"title\": \"string\",           // The name/title of the courtroom case\r\n 
+    \"playerGoal\": \"string\",                // What the player must achieve \r\r\n 
+    \"summary\": \"string\",        // A detailed 50\u2013100 word narrative summary
+    of the case\r\n  \"shortSummary\": \"string\",       // A shorter 30\u201350
+    word version of the summary\r\n  \"evidence\": [                    // A list
+    of clues, each as a string with some mystery\r\n    \"string\",\r\n    \"string\",\r\n   
+    ...\r\n    ],\n  \"witnessNames\": [ \t\t// A list of <num> witness names\r\n   
+    |||],\n  \"witnessDescriptions\":[\t//A list of <num> witness descriptions\n   
+    |||]\n}\n\nAdditional Notes:\n\n<trans>\n\nAll content must be internally consistent
+    and focused on building a compelling, legally grounded mystery or conflict. Avoid
+    making the solution obvious. The challenge for the player should emerge naturally
+    from the facts, contradictions, and character dynamics.\r\n\nEach element in
+    \"witnessDescription\" must contain the role (the background of the witness),
+    personality and testimony (what they claim to know or have seen) and they should
+    ll be put in a whole sentence; in addition it must be related to the corresponding
+    \"witnessNames\" element.\n\nDo not write Markdown (e.g., triple backticks).\n\nIf
+    it's difficult to find real-world data for a real case, create a fictional case
+    that still feels plausible and dramatic.\n\nEnsure that clues and evidence are
+    not too obvious, keep the player guessing.\n\nThe goal should reflect the legal
+    strategy: either total acquittal, sentence reduction, or proving liability.\n\nDo
+    not change or add JSON Keys in the format specified before\n\nGenerate only the
+    JSON output. No additional explanation or commentary."
   witnessPrompt: "I need <num> witnesses for my fictional courtroom case where the
     player assumes the role of the defense attorney; remember to follow this format:\n\n[  
     \t\t\t\t// An array of witnesses\r\n  |||]\n\n\nExample:\n    {\n      \"name\":

@@ -58,7 +58,7 @@ public class Court : MonoBehaviour
 
     //State track
     private List<(string role, string systemMessage)> _roundsTimeline;
-    private JSONCaseDescription _caseDescription, _translatedDescription;
+    private CaseDescription _caseDescription, _translatedDescription;
     private int _round;
 
     //End game message
@@ -122,13 +122,13 @@ public class Court : MonoBehaviour
 
 
   
-    public async void InitializeCourt(JSONCaseDescription caseDescription, JSONCaseDescription translatedDescription)
+    public async void InitializeCourt(CaseDescription caseDescription, CaseDescription translatedDescription)
     {
         _caseDescription = caseDescription;
         _translatedDescription = translatedDescription;
 
         if (playerGoalText != null)
-            playerGoalText.text = $"<b><color=#F64A3E>{_translatedDescription.sectionTitles[0]}</color></b>\n{_translatedDescription.playerGoal}";
+            playerGoalText.text = _translatedDescription.GetTotalDescription(1, true);
 
 
         InitializeChat();
@@ -426,8 +426,6 @@ public class Court : MonoBehaviour
         
     }
     
-}
-
     public void SetCurrentRound(int round)
     {
         if (round >= 0 && round < _roundsTimeline.Count)
@@ -445,8 +443,11 @@ public CaseDescription GetCaseDescription() => _caseDescription;
 public CaseDescription GetTranslatedDescription() => _translatedDescription;
 public int GetCurrentRound() => _round;
 
+}
 
-public struct JSONCaseDescription
+
+
+public struct CaseDescription
 {
     public string title;
     public string playerGoal;
@@ -494,7 +495,7 @@ public struct JSONCaseDescription
     
     
     [JsonConstructor]
-    public JSONCaseDescription( string title, string playerGoal, string summary, string shortSummary, List<string> evidence, List<string> witnessNames, List<string> witnessDescriptions, List<string> sectionNames)
+    public CaseDescription( string title, string playerGoal, string summary, string shortSummary, List<string> evidence, List<string> witnessNames, List<string> witnessDescriptions, List<string> sectionNames)
     {
         this.title = title;
         this.playerGoal = playerGoal;

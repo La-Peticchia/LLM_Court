@@ -100,16 +100,16 @@ public class APIInterface : MonoBehaviour
     }
 
     
-    public async Task<JSONCaseDescription> RequestCaseDescription(string preferences = "", bool translation = false, int seed = 0)
+    public async Task<CaseDescription> RequestCaseDescription(string preferences = "", bool translation = false, int seed = 0)
     {
         
-        JSONCaseDescription tmpDescription;
+        CaseDescription tmpDescription;
         
         if (useDebugPrompt)
         {
             string cleanResponse = RemoveSpecialCharacters(dbgCaseDesc);
 
-            JSONCaseDescription[] dbgDescriptions = JsonConvert.DeserializeObject<JSONCaseDescription[]>(cleanResponse);
+            CaseDescription[] dbgDescriptions = JsonConvert.DeserializeObject<CaseDescription[]>(cleanResponse);
             tmpDescription = dbgDescriptions[^1];
         }
         else
@@ -146,7 +146,7 @@ public class APIInterface : MonoBehaviour
                 #endregion
                 
                 string cleanResponse = RemoveSpecialCharacters(response.Value.Content);
-                tmpDescription = JsonConvert.DeserializeObject<JSONCaseDescription>(cleanResponse);
+                tmpDescription = JsonConvert.DeserializeObject<CaseDescription>(cleanResponse);
                 
                 //TODO
                 //- organize the JSON object creation in 2 phases: the first one you create the case description, the second one you create the witnesses
@@ -157,7 +157,7 @@ public class APIInterface : MonoBehaviour
             {
                 
                 Debug.LogWarning("Error on API call: " + e.Message);
-                return new JSONCaseDescription();
+                return new CaseDescription();
             }
         }
         
