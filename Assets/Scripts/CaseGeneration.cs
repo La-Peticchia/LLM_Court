@@ -206,7 +206,6 @@ public class CaseGeneration : MonoBehaviour
         {
             if (_saveManager.CheckForTranslation(transCaseDescription.GetID()))
             {
-        Debug.Log("First item:" + transCaseDescription.title);
                 CaseDescription[] tmpDescriptions = _saveManager.GetSavedDescriptionsByID(transCaseDescription.GetID());
                 _court.InitializeCourt(tmpDescriptions[0], tmpDescriptions[1]);
             }

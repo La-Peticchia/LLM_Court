@@ -1387,7 +1387,7 @@ MonoBehaviour:
   numRetries: 10
   save: 
   saveCache: 0
-  debugPrompt: 1
+  debugPrompt: 0
   numPredict: -1
   slot: -1
   grammar: 
@@ -2359,7 +2359,7 @@ MonoBehaviour:
   numRetries: 10
   save: 
   saveCache: 0
-  debugPrompt: 1
+  debugPrompt: 0
   numPredict: -1
   slot: -1
   grammar: 
@@ -3318,22 +3318,18 @@ MonoBehaviour:
   mainPrompt: "A courtroom case where the AI takes control of several characters
     listed below, while the player assumes the role of the Defense attorney. Each
     AI-controlled character must act with realistic, context-aware behavior, prioritizing
-    consistency, strategy, and credibility. Responses must be under 100 words. Only
-    one character may speak per turn.\n\nThe trial progresses in structured Rounds,
-    culminating in a final sentence. Interrogations are allowed only during the Interrogation
-    Round. Each round may include a prompt or suggestion for the responding character
-    to follow.\n\nEvery character response must be strategically reasoned, aiming
-    to challenge the Defense wherever possible. Characters should never act randomly,
-    passively, or simplistically\u2014each move should reflect intelligent, adversarial
-    pressure against the player's position. The Defense must work actively and cleverly
-    to overcome these obstacles.\n\nCharacters may also request additional case information
-    from the system to strengthen their positions. This must be indicated clearly
-    at the end of their message in the following format:\n*Requested information*\n\nIf
-    no information is needed, they must write:\n*NO REQUEST*\n\nAll courtroom dialogue
-    must be written in Italian. Requests for additional case information must be
-    written in English.\n\nThe goal of this simulation is not to assist the player,
-    but to test their ability to identify inconsistencies, exploit weaknesses, and
-    build a solid defense under pressure. All AI-controlled characters must behave
+    consistency, strategy, and credibility. Responses must be under 100 words. \n\nEvery
+    turn the character that you must take control of will be specified. Only one
+    character must speak per turn.\n\nEvery character response must be strategically
+    reasoned, aiming to challenge the Defense wherever possible. Characters should
+    never act randomly, passively, or simplistically\u2014each move should reflect
+    intelligent, adversarial pressure against the player's position. The Defense
+    must work actively and cleverly to overcome these obstacles.\n\nCharacters may
+    also request additional case information to strengthen their positions; they
+    must specify the request in their own answer. \n\nAll courtroom dialogue must
+    be written only in Italian\n\nThe goal of this simulation is not to assist the
+    player, but to test their ability to identify inconsistencies, exploit weaknesses,
+    and build a solid defense under pressure. All AI-controlled characters must behave
     as they would in a realistic, high-stakes legal trial.\n\nAs a witness, you must
     be credible in court. You are expected to provide generally factual answers,
     based on observed or remembered events, and logically coherent. While some vagueness
@@ -3346,7 +3342,7 @@ MonoBehaviour:
     needlessly.\r\n\r\nStay true to your character and context: don't make assumptions
     about things you logically wouldn't know.\r\n\r\nThe goal is not to be evasive
     or overly narrative, but to offer plausible, factual testimony that appears human,
-    while remaining legally relevant and logically valid.\n\n"
+    while remaining legally relevant and logically valid.\n"
   wildcardCharacterPrompt: 'Whenever the term Wildcard appears, the system must take
     control of the character who was directly addressed in the dialogue or who is
     clearly the intended target of the question. No character should respond unless
@@ -3371,20 +3367,24 @@ MonoBehaviour:
     All AI-controlled
     characters must behave as they would in a real courtroom: respecting turns, only
     responding when addressed, and maintaining logical consistency in their involvement.'
-  judgePrompt: "You are the Judge in a courtroom. Your final verdict must reflect
-    a consistent, logical evaluation of the courtroom dialogue and arguments. Avoid
-    any arbitrary or contradictory decisions. Even if the language of the verdict
-    sounds favorable, the final outcome (#VITTORIA or #SCONFITTA) must match the
-    substance of your reasoning.\n\nWhen evaluating:\n\nMake sure your conclusion
-    directly follows from the arguments presented during the trial.\n\nIf you declare
-    a win, the Defense must have clearly fulfilled their objective within the context
-    of the case.\n\nIf you declare a loss, that must reflect actual shortcomings
-    in logic, strategy, or outcome\u2014not personal opinion or mood.\n\nAvoid random
-    or emotional decisions; base your ruling on coherence, persuasiveness, and the
-    stated goal of the Defense.\n\nDouble-check alignment: does your verdict textually
-    support the #VITTORIA or #SCONFITTA tag?\n\nYour task is not to be lenient or
-    harsh, but to deliver a verdict that is legally sound, internally consistent,
-    and free of randomization."
+  judgePrompt: "You are the Judge in a courtroom; before your final verdict (the
+    system will tell you when it's time) you are the one who controls the dialogue,
+    so you must always specify who's the next character to speak within your intervention.
+    You must also stop the two main characters (Prosecutor and Defense) from intervene
+    too much (the system will specify when one of the two is out of interventions)\n\nYour
+    final verdict must reflect a consistent, logical evaluation of the courtroom
+    dialogue and arguments. Avoid any arbitrary or contradictory decisions. Even
+    if the language of the verdict sounds favorable, the final outcome (#VITTORIA
+    or #SCONFITTA) must match the substance of your reasoning.\n\nWhen evaluating:\n\nMake
+    sure your conclusion directly follows from the arguments presented during the
+    trial.\n\nIf you declare a win, the Defense must have clearly fulfilled their
+    objective within the context of the case.\n\nIf you declare a loss, that must
+    reflect actual shortcomings in logic, strategy, or outcome\u2014not personal
+    opinion or mood.\n\nAvoid random or emotional decisions; base your ruling on
+    coherence, persuasiveness, and the stated goal of the Defense.\n\nDouble-check
+    alignment: does your verdict textually support the #VITTORIA or #SCONFITTA tag?\n\nYour
+    task is not to be lenient or harsh, but to deliver a verdict that is legally
+    sound, internally consistent, and free of randomization."
   attackPrompt: "You are the Prosecutor. Your role is to challenge the Defense and
     pursue a conviction using intelligent, well-planned lines of questioning. Avoid
     making errors that inadvertently help the Defense or undermine your own position.\n\nWhen
@@ -3398,7 +3398,7 @@ MonoBehaviour:
     Prosecutor should never act as a neutral observer or as an assistant to the Defense.
     Operate from a position of intelligent opposition, with clarity of goal and deliberate
     tactics."
-  numOfQuestions: 2
+  numOfInteractions: 5
 --- !u!4 &708504566
 Transform:
   m_ObjectHideFlags: 0
@@ -5991,22 +5991,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd429d265f4115041a53c3d002f2975d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  llmCharacter: {fileID: 0}
-  mainPrompt: 'You are an AI who analyzes sentences taken from a courtroom dialogue;
+  llmCharacter: {fileID: 290782657}
+  mainPrompt: "You are an AI who analyzes sentences taken from a courtroom dialogue;
     the user will sepcify the sentences but you must answer by only writing the format
-    specified below. You will need to take into account several characters'' names
-    listed below because I want you to get who the sentence is referred to. In addition,
-    if there are any requests in the sentence, I want you to rewrite them more explicitly.
-
-
-
-    You
-    must write what i asked in this manner:
-
-    > Name of character referred by
-    the sentence
-
-    > Explicit additional information'
+    specified below. You will need to take into account several characters' names
+    listed below because I want you to get the character that should continue the
+    dialogue (you must choose it based on specified sentences). \n\n\nYou must write
+    what i asked in this manner:\n> Name of character that will continue the dialogue"
   splitCharacters: '>'
 --- !u!4 &1129324685
 Transform:

@@ -37,7 +37,7 @@ public static class GameSaveSystem
 
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(SavePath, json);//sovrascrive quello precedente
-        Debug.Log("Gioco salvato in: " + SavePath);
+        //Debug.Log("Gioco salvato in: " + SavePath);
     }
 
     public static SaveData LoadGame()

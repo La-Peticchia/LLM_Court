@@ -53,7 +53,10 @@ public class Court : MonoBehaviour
     private readonly string _gameOverCharacter = "#";
 
     //Gameplay
-    [SerializeField, UnityEngine.Range(1, 5)] private int numOfQuestions;
+    [SerializeField, UnityEngine.Range(1, 5)] private int numOfInteractions;
+    private int _defenseInteractions;
+    private int _attackInteractions;
+    
     public bool PlayerCanAct => _roundsTimeline[_round].role == defenseName;
 
     //State track
@@ -75,6 +78,8 @@ public class Court : MonoBehaviour
 
     private void Awake()
     {
+        _defenseInteractions = _attackInteractions = numOfInteractions;
+        
         _apiManager = FindFirstObjectByType<APIInterface>();
         _sentenceAnalyzer = FindFirstObjectByType<SentenceAnalyzer>();
 
@@ -86,38 +91,10 @@ public class Court : MonoBehaviour
         _courtRecordUI = FindFirstObjectByType<CourtRecordUI>();
         
     }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    //async void Start()
-    //{
-    //    playerText.interactable = false;
-    //    playerText.gameObject.SetActive(false);
-    //    micButton.interactable = false;
-    //    nextButton.interactable = false;
-    //    
-    //    while (string.IsNullOrWhiteSpace(((_caseDescription, _translatedDescription) = await _apiManager.Request())._caseDescription.summary)) {Debug.LogWarning("Empty case description");};
-    //
-    //    characterAnimator.AssignDynamicPrefabs(_caseDescription.witnesses.Keys.ToList(), attackName);
-    //
-    //    InitializeChat();
-    //    InitializeRounds();
-    //      
-    //    caseDescriptionText.text = _translatedDescription.GetTotalDescription(true);
-    //    
-    //    
-    //    await llmCharacter.llmCharacter.WaitUntilReady();
-    //    nextButton.interactable = true;
-    //    
-    //
-    //    
-    //}
-
     private void Update()
     {
         if (nextButton.interactable && Input.GetKeyDown(KeyCode.Return))
-        {
             OnNextButtonClick();
-        }
     }
 
 
@@ -127,7 +104,7 @@ public class Court : MonoBehaviour
         _caseDescription = caseDescription;
         _translatedDescription = translatedDescription;
 
-        if (playerGoalText != null)
+        if (playerGoalText)
             playerGoalText.text = _translatedDescription.GetTotalDescription(1, true);
 
 
@@ -136,10 +113,10 @@ public class Court : MonoBehaviour
 
         caseDescriptionText.text = _translatedDescription.GetTotalDescription(true);
         characterAnimator.AssignDynamicPrefabs(_translatedDescription.witnessNames, attackName);
-
-        //string[] characters = new string[] { judgeName, defenseName, attackName };
-        //characters.AddRange(caseDescription.witnesses.Keys.ToList());
-        //_sentenceAnalyzer.InitializeAnalysis(characters);
+        
+        List<string> characters = new List<string>{ judgeName, defenseName, attackName };
+        characters.AddRange(caseDescription.witnessNames);
+        _sentenceAnalyzer.InitializeAnalysis(characters.ToArray());
 
         await llmCharacter.llm.WaitUntilReady();
 
@@ -154,65 +131,59 @@ public class Court : MonoBehaviour
 
     private void InitializeChat()
     {
-        //llmCharacter.prompt = $"{mainPrompt}\n{judgeName} - {judgePrompt}\n{attackName} - {attackPrompt}\n\n";
-        //llmCharacter.prompt += _caseDescription.GetTotalDescription(3) + _caseDescription.GetTotalDescription(new int[]{0,1,2});
-        //foreach (var item in _caseDescription.witnesses)
-        //    llmCharacter.prompt += $"{item.Key} - {item.Value}\n";
-
-        //llmCharacter.prompt += $"\n {APIInterface.RemoveSplitters(string.Join("",_caseDescription.totalDescription.Split(APIInterface.sectionSplitCharacters).Take(3).ToArray()))}";
-
         llmCharacter.prompt = BuildPrompt();
-        Debug.Log(llmCharacter.gameObject.name + llmCharacter.prompt);
         llmCharacter.ClearChat();
     }
 
     string BuildPrompt()
     {
+        //return
+        //    $"{mainPrompt}\n{wildcardCharacterName} - {wildcardCharacterPrompt}\n{judgeName} - {judgePrompt}\n{attackName} - {attackPrompt}\n\n" +
+        //    _caseDescription.GetTotalDescription(new int[] { 4, 0, 1, 2, 3, 5 });
         return
-            $"{mainPrompt}\n{wildcardCharacterName} - {wildcardCharacterPrompt}\n{judgeName} - {judgePrompt}\n{attackName} - {attackPrompt}\n\n" +
+            $"{mainPrompt}\n{judgeName} - {judgePrompt}\n{attackName} - {attackPrompt}\n\n" +
             _caseDescription.GetTotalDescription(new int[] { 4, 0, 1, 2, 3, 5 });
+        
+        
     }
 
+    //private void InitializeRounds()
+    //{
+    //    _roundsTimeline = new List<(string role, string systemMessage)>
+    //    {
+    //        (" "," "),
+    //        (judgeName, $"Introduction Round: Now the {judgeName} introduces the court case then passes the word to {attackName}"),
+    //        (attackName, $"Introduction Round: Now the {attackName} tries to convince the judge about the defendant's guilt"),
+    //        (defenseName, $"Introduction Round: Now the {defenseName} dismantle the evidence trying to convince the judge")
+    //    };
+    //
+    //    for (int i = 0; i < numOfInteractions; i++)
+    //    {
+    //        _roundsTimeline.Add((attackName, $"Interrogation Round: {attackName} should interrogate the witnesses  - Questions remaining: " + (numOfInteractions - i)));
+    //        _roundsTimeline.Add((wildcardCharacterName, $"Interrogation Round: the AI must take control of a character"));
+    //    }
+    //
+    //    for (int i = 0; i < numOfInteractions; i++)
+    //    {
+    //        _roundsTimeline.Add((defenseName, $"Interrogation Round: {defenseName} should interrogate the witnesses - Questions remaining: " + (numOfInteractions - i)));
+    //        _roundsTimeline.Add((wildcardCharacterName, $"Interrogation Round: the AI must take control of a character"));
+    //    }
+    //
+    //    _roundsTimeline.Add((attackName, $"Final Round: Now it's the {attackName} last intervention"));
+    //    _roundsTimeline.Add((defenseName, $"Final Round: Now it's the {defenseName} last intervention"));
+    //    _roundsTimeline.Add((judgeName, $"Final Round: Now the {judgeName} give their final sentence"));
+    //}
     private void InitializeRounds()
     {
         _roundsTimeline = new List<(string role, string systemMessage)>
         {
             (" "," "),
-            (judgeName, $"Introduction Round: Now the {judgeName} introduces the court case then passes the word to {attackName}"),
-            //(attackName, $"Introduction Round: Now the {attackName} exposes the clues trying to convince the judge"),
-            (attackName, $"Introduction Round: Now the {attackName} tries to convince the judge about the defendant's guilt"),
-            (defenseName, $"Introduction Round: Now the {defenseName} dismantle the evidence trying to convince the judge")
+            (judgeName, $"Now the {judgeName} introduces the court case then passes the word to {attackName}"),
+            (judgeName, $"Now the {judgeName} give their final verdict")
         };
 
-        for (int i = 0; i < numOfQuestions; i++)
-        {
-            _roundsTimeline.Add((attackName, $"Interrogation Round: {attackName} should interrogate the witnesses  - Questions remaining: " + (numOfQuestions - i)));
-            _roundsTimeline.Add((wildcardCharacterName, $"Interrogation Round: the AI must take control of a character"));
-        }
-
-        for (int i = 0; i < numOfQuestions; i++)
-        {
-            _roundsTimeline.Add((defenseName, $"Interrogation Round: {defenseName} should interrogate the witnesses - Questions remaining: " + (numOfQuestions - i)));
-            _roundsTimeline.Add((wildcardCharacterName, $"Interrogation Round: the AI must take control of a character"));
-        }
-
-        _roundsTimeline.Add((attackName, $"Final Round: Now it's the {attackName} last intervention"));
-        _roundsTimeline.Add((defenseName, $"Final Round: Now it's the {defenseName} last intervention"));
-        _roundsTimeline.Add((judgeName, $"Final Round: Now the {judgeName} give their final sentence"));
     }
 
-    private async void OnInputFieldSubmit(string message)
-    {
-        playerText.interactable = false;
-        aiText.text = "...";
-        llmCharacter.AddPlayerMessage(message);
-        await CheckSpecialCharacters(message);
-        characterAnimator.HideCurrentCharacter();
-        logText.text += $"<b><color=#550505>{defenseName}</color></b>: {message}\n\n";
-
-        nextButton.interactable = false;
-        await NextRound();
-    }
 
     public void SetAIText(string text)
     {
@@ -234,9 +205,12 @@ public class Court : MonoBehaviour
 
     public void AIReplyComplete()
     {
-        logText.text += $"<b><color=#550505>{aiTitle.text}</color></b>: {aiText.text}\n\n";
-        //nextButton.interactable = true;
+        AddToLog(aiTitle.text, aiText.text);
         //runJets.TextToSpeech(aiText.text);
+    }
+    private void OnInputFieldSubmit(string message)
+    {
+        OnNextButtonClick();
     }
 
     private async void OnNextButtonClick()
@@ -251,23 +225,27 @@ public class Court : MonoBehaviour
             return;
         }
 
-        if (_roundsTimeline[_round].role == defenseName)
+        if (_roundsTimeline[_round].role.ToLower().Contains(defenseName.ToLower()))
         {
-            if (EventSystem.current.currentSelectedGameObject == playerText.gameObject &&
-                string.IsNullOrWhiteSpace(playerText.text))
-            {
+            if (EventSystem.current.currentSelectedGameObject == playerText.gameObject && string.IsNullOrWhiteSpace(playerText.text))
                 return;
-            }
-            OnInputFieldSubmit(playerText.text);
+            _defenseInteractions--;
+            string message = playerText.text;
+            Debug.Log("Message: " + message);
+            llmCharacter.AddPlayerMessage(message);
+            playerText.interactable = false;
+            await CheckSpecialCharacters(message);
+            characterAnimator.HideCurrentCharacter();
+            AddToLog(defenseName, message);
+            (string nextCharacter, string addInfo) = await _sentenceAnalyzer.Analyze(llmCharacter.chat);
+            
+            _roundsTimeline.Insert(_round + 1, (nextCharacter, ""));
             EventSystem.current.SetSelectedGameObject(null);
         }
-        else
-        {
-            nextButton.interactable = false;
-            await NextRound();
-        }
+        
+        nextButton.interactable = false;
+        _ = NextRound();
     }
-
 
 
 
@@ -275,8 +253,10 @@ public class Court : MonoBehaviour
     {
         if (increment) _round++;
         systemMessages.text = _roundsTimeline[_round].systemMessage;
+        
+        CheckForJudgeIntervention();
 
-        if (_roundsTimeline[_round].role == defenseName)
+        if (_roundsTimeline[_round].role.ToLower().Contains(defenseName.ToLower()))
         {
             characterAnimator.ShowCharacter(defenseName, ""); // Entra il player
 
@@ -286,19 +266,14 @@ public class Court : MonoBehaviour
             playerText.Select();
 
             micInput.EnableMicInput(true);
-            nextButton.interactable = true;
         }
         else
         {
             playerText.interactable = false;
             playerText.gameObject.SetActive(false);
             micInput.EnableMicInput(false);
-
-            if (_roundsTimeline[_round].role != wildcardCharacterName)
-                aiTitle.text = _roundsTimeline[_round].role;
-            else
-                aiTitle.text = "";
-
+            
+            aiTitle.text = _roundsTimeline[_round].role;
             string systemMessage = _roundsTimeline[_round].systemMessage;
             if (systemMessage != "")
                 llmCharacter.AddSystemMessage(systemMessage);
@@ -306,9 +281,13 @@ public class Court : MonoBehaviour
             characterAnimator.ShowCharacter(_roundsTimeline[_round].role, "");  // Entra con animazione e poi mostra testo
 
             string answer = await llmCharacter.ContinueChat(_roundsTimeline[_round].role, SetAIText, AIReplyComplete);
-
             await CheckSpecialCharacters(answer);
-
+            
+            (string nextCharacter, string addInfo) = await _sentenceAnalyzer.Analyze(llmCharacter.chat);
+            
+            _roundsTimeline.Insert(_round + 1, (nextCharacter, ""));
+            
+            
             string caseText = GetCaseDescription().GetTotalDescription(false);
             string translatedText = GetTranslatedDescription().GetTotalDescription(false);
 
@@ -320,8 +299,7 @@ public class Court : MonoBehaviour
                 if (!_finalRoundStepOneDone)
                 {
                     _finalRoundSummary = answer.Split(_gameOverCharacter)[0];
-                    logText.text += $"<b><color=#550505>{aiTitle.text}</color></b>: {_finalRoundSummary}\n\n";
-
+                    AddToLog(aiTitle.text, _finalRoundSummary);
                     string finalVerdictPrompt = $"This is the final summary of the case:\n\n{_finalRoundSummary}\n\n" +
                             "Now, based only on this summary, decide whether the defendant is GUILTY or NOT GUILTY. " +
                             "Write only the verdict and end your message with the symbol #VITTORIA or #SCONFITTA.";
@@ -359,27 +337,15 @@ public class Court : MonoBehaviour
             }
 
 
-            nextButton.interactable = true;
         }
+
+        nextButton.interactable = true;
 
     }
 
     private async Task CheckSpecialCharacters(string text)
     {
-
-        //logText.text += $"<b><color=#550505>{_roundsTimeline[_round].role}</color></b>: {text.Split(_questionCharacter)[0]}\n\n";
-
-        //if(text.Contains(_questionCharacter))
-        //    try
-        //    {
-        //        string questionedWitness = text.Split(_questionCharacter)[1].Replace(" ", "").Replace("\n", "");
-        //        _roundsTimeline.Insert(_round + 1, (questionedWitness , ""));
-        //    }
-        //    catch (IndexOutOfRangeException e)
-        //    {
-        //        Debug.LogWarning(e.Message + $"\nSplitting by {_questionCharacter} failed");
-        //    }
-
+        
         if (text.Contains(_requestCharacter))
         {
             try
@@ -420,10 +386,28 @@ public class Court : MonoBehaviour
                 Debug.LogWarning(e.Message + $"\nSplitting by {_gameOverCharacter} failed");
             }
         }
-
-
-
         
+    }
+
+    void CheckForJudgeIntervention()
+    {
+        string name = _roundsTimeline[_round].role;
+        if(name.ToLower().Contains(attackName.ToLower()))
+            if (_attackInteractions <= 0)
+                _roundsTimeline[_round] = (judgeName, $"Last message was addressed to {attackName} but they are out of interventions; the Judge must take care of the situation");
+            else
+                _attackInteractions--;
+        else if(name.ToLower().Contains(defenseName.ToLower()))
+            if (_defenseInteractions <= 0)
+                _roundsTimeline[_round] = (judgeName, $"Last message was addressed to {defenseName} but they are out of interventions; the Judge must take care of the situation");
+            else
+                _defenseInteractions--;
+        
+    }
+
+    void AddToLog(string role, string content, string roleColor = "#550505")
+    {
+        logText.text += $"<b><color={roleColor}>{role}</color></b>: {content}\n\n";
     }
     
     public void SetCurrentRound(int round)
@@ -438,10 +422,12 @@ public class Court : MonoBehaviour
        
     }
     
-//Property Getter per il retry e per il save
-public CaseDescription GetCaseDescription() => _caseDescription;
-public CaseDescription GetTranslatedDescription() => _translatedDescription;
-public int GetCurrentRound() => _round;
+    //TODO create a method to manage the insertion of new turns so that you can easily check if the defense or attack are going to talk and show their corresponding number of remaining interactions
+    
+    //Property Getter per il retry e per il save
+    public CaseDescription GetCaseDescription() => _caseDescription;
+    public CaseDescription GetTranslatedDescription() => _translatedDescription;
+    public int GetCurrentRound() => _round;
 
 }
 
@@ -475,23 +461,6 @@ public struct CaseDescription
     private string[] descArray;
     private string[] richArray;
     private int fileID;
-
-    
-    //public JSONCaseDescription()
-    //{
-    //    title = "title";
-    //    playerGoal = "playerGoal";
-    //    summary = "summary";
-    //    shortSummary = "shortSummary";
-    //    witnesses = Array.Empty<Witness>();
-    //    evidence = Array.Empty<string>();
-    //    sectionNames = Array.Empty<string>();
-    //    
-    //    descArray = new string[6];
-    //    richArray = new string[6];
-    //    additionalInfo = new List<string>();
-    //    jsonDescription = "";
-    //}
     
     
     [JsonConstructor]

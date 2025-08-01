@@ -188,7 +188,7 @@ namespace LLMUnity
         /// <returns>prompt</returns>
         public virtual string ComputePrompt(List<ChatMessage> chatMessages, string playerName, string AIName, bool endWithPrefix = true)
         {
-            Debug.Log(AIName);
+            //Debug.Log(AIName);
             
             List<ChatMessage> messages = chatMessages;
             if (!SystemPromptSupported())
