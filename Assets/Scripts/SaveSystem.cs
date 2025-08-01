@@ -65,7 +65,7 @@ public class SaveSystem : MonoBehaviour
             
             CaseDescription[] tmpDescription = JsonConvert.DeserializeObject<CaseDescription[]>(File.ReadAllText(description));
             for (int i = 0; i < tmpDescription.Length; i++)
-                tmpDescription[i].SetID(int.Parse(Regex.Matches(description, @"\d+")[1].Value));
+                tmpDescription[i].SetID(int.Parse(Regex.Matches(description, @"\d+")[^1].Value));
             
             _savedDescriptions.Add(tmpDescription);
             
