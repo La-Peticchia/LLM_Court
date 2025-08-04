@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using LLMUnity;
 using Newtonsoft.Json;
@@ -43,7 +44,6 @@ public class Court : MonoBehaviour
 
     //Prompts
     [TextArea(5, 10)] public string mainPrompt = "A court case where the AI takes control of several characters listed below";
-    [TextArea(5, 10)] public string wildcardCharacterPrompt = "Whenever you encounter the Wildcard name you need to take control of the next character in the dialogue who fit the best; in addition, you must specify the character's name at the beginning of the sentence in this manner: Name of character>";
     [TextArea(5, 10)] public string judgePrompt = "The goal of Judge is to give the defendant's final sentence by listening to the dialogue";
     [TextArea(5, 10)] public string attackPrompt = "The goal of Prosecutor is proving to the Judge that the defendant is guilty";
 
@@ -63,17 +63,23 @@ public class Court : MonoBehaviour
     private List<(string role, string systemMessage)> _roundsTimeline;
     private CaseDescription _caseDescription, _translatedDescription;
     private int _round;
+    private bool IsFinalVerdict => _attackInteractions <= 0 && _defenseInteractions <= 0;
+    private bool _isGameOver = false;
 
     //End game message
     private List<string> winKeywords = new List<string> { "non colpevole", "innocente", "assolto" };
     private List<string> loseKeywords = new List<string> { "colpevole", "condannato", "condanno" };
     private (string message, Color color)? _pendingEndGameMessage = null;
+    private string _winTag = "#VITTORIA";
+    private string _loseTag = "#SCONFITTA";
+    
 
     //Events
     public event Action<bool> GameOverCallback;
     private bool _finalRoundStepOneDone = false;
     private string _finalRoundSummary = null;
-
+    
+    
 
 
     private void Awake()
@@ -89,11 +95,12 @@ public class Court : MonoBehaviour
         llmCharacter.playerName = defenseName;
 
         _courtRecordUI = FindFirstObjectByType<CourtRecordUI>();
-        
+        enabled = false;
+
     }
     private void Update()
     {
-        if (nextButton.interactable && Input.GetKeyDown(KeyCode.Return))
+        if (!_roundsTimeline[_round].role.ToLower().Contains(defenseName.ToLower())&& nextButton.interactable && Input.GetKeyDown(KeyCode.Return))
             OnNextButtonClick();
     }
 
@@ -116,7 +123,7 @@ public class Court : MonoBehaviour
         
         List<string> characters = new List<string>{ judgeName, defenseName, attackName };
         characters.AddRange(caseDescription.witnessNames);
-        _sentenceAnalyzer.InitializeAnalysis(characters.ToArray());
+        _sentenceAnalyzer.InitializeAnalysis();
 
         await llmCharacter.llm.WaitUntilReady();
 
@@ -133,6 +140,7 @@ public class Court : MonoBehaviour
     {
         llmCharacter.prompt = BuildPrompt();
         llmCharacter.ClearChat();
+        enabled = true;
     }
 
     string BuildPrompt()
@@ -179,7 +187,7 @@ public class Court : MonoBehaviour
         {
             (" "," "),
             (judgeName, $"Now the {judgeName} introduces the court case then passes the word to {attackName}"),
-            (judgeName, $"Now the {judgeName} give their final verdict")
+            //(judgeName, $"Now the {judgeName} give their final verdict")
         };
 
     }
@@ -192,7 +200,7 @@ public class Court : MonoBehaviour
         {
             if (text.Contains(_questionCharacter))
             {
-                aiTitle.text = text.Split(_questionCharacter)[0];
+                aiTitle.text = text.Split(_questionCharacter)[0].Split(_gameOverCharacter)[0];
                 aiText.text = text.Split(_questionCharacter)[1].Split(_requestCharacter)[0];
             }
 
@@ -229,17 +237,13 @@ public class Court : MonoBehaviour
         {
             if (EventSystem.current.currentSelectedGameObject == playerText.gameObject && string.IsNullOrWhiteSpace(playerText.text))
                 return;
-            _defenseInteractions--;
             string message = playerText.text;
             Debug.Log("Message: " + message);
             llmCharacter.AddPlayerMessage(message);
             playerText.interactable = false;
-            await CheckSpecialCharacters(message);
             characterAnimator.HideCurrentCharacter();
             AddToLog(defenseName, message);
-            (string nextCharacter, string addInfo) = await _sentenceAnalyzer.Analyze(llmCharacter.chat);
-            
-            _roundsTimeline.Insert(_round + 1, (nextCharacter, ""));
+            await SetUpNextRound(message);
             EventSystem.current.SetSelectedGameObject(null);
         }
         
@@ -251,14 +255,30 @@ public class Court : MonoBehaviour
 
     private async Task NextRound(bool increment = true)
     {
+        if (_isGameOver)
+        {
+            characterAnimator.ShowCharacter(judgeName,"");  // Entra con animazione e poi mostra testo
+            string verdict = await _sentenceAnalyzer.FinalVerdict(_caseDescription, llmCharacter.chat, SetAIText, AIReplyComplete);
+            
+            if(verdict.Contains(_winTag))
+                _pendingEndGameMessage = ("HAI VINTO", Color.green);
+            else
+                _pendingEndGameMessage = ("HAI PERSO", Color.red);
+            
+            nextButton.interactable = true;
+            
+            return;
+        }
+
         if (increment) _round++;
         systemMessages.text = _roundsTimeline[_round].systemMessage;
         
         CheckForJudgeIntervention();
+        characterAnimator.ShowCharacter(_roundsTimeline[_round].role,"");  // Entra con animazione e poi mostra testo
 
+        
         if (_roundsTimeline[_round].role.ToLower().Contains(defenseName.ToLower()))
         {
-            characterAnimator.ShowCharacter(defenseName, ""); // Entra il player
 
             playerText.interactable = true;
             playerText.gameObject.SetActive(true);
@@ -278,69 +298,120 @@ public class Court : MonoBehaviour
             if (systemMessage != "")
                 llmCharacter.AddSystemMessage(systemMessage);
 
-            characterAnimator.ShowCharacter(_roundsTimeline[_round].role, "");  // Entra con animazione e poi mostra testo
-
             string answer = await llmCharacter.ContinueChat(_roundsTimeline[_round].role, SetAIText, AIReplyComplete);
-            await CheckSpecialCharacters(answer);
-            
-            (string nextCharacter, string addInfo) = await _sentenceAnalyzer.Analyze(llmCharacter.chat);
-            
-            _roundsTimeline.Insert(_round + 1, (nextCharacter, ""));
-            
+
+            await SetUpNextRound(answer);
+
             
             string caseText = GetCaseDescription().GetTotalDescription(false);
             string translatedText = GetTranslatedDescription().GetTotalDescription(false);
 
             // Se e' l'ultimo round (il giudice emette il verdetto)
             // ROUND FINALE - FASE 1 e FASE 2
-            if (_round == _roundsTimeline.Count - 1)
-            {
-                // --- FASE 1: Sintesi ---
-                if (!_finalRoundStepOneDone)
-                {
-                    _finalRoundSummary = answer.Split(_gameOverCharacter)[0];
-                    AddToLog(aiTitle.text, _finalRoundSummary);
-                    string finalVerdictPrompt = $"This is the final summary of the case:\n\n{_finalRoundSummary}\n\n" +
-                            "Now, based only on this summary, decide whether the defendant is GUILTY or NOT GUILTY. " +
-                            "Write only the verdict and end your message with the symbol #VITTORIA or #SCONFITTA.";
+//        if (_round == _roundsTimeline.Count - 1)
+//        {
+//            // --- FASE 1: Sintesi ---
+//            if (!_finalRoundStepOneDone)
+//            {
+//                _finalRoundSummary = answer.Split(_gameOverCharacter)[0];
+//                AddToLog(aiTitle.text, _finalRoundSummary);
+//                string finalVerdictPrompt = $"This is the final summary of the case:\n\n{_finalRoundSummary}\n\n" +
+//                        "Now, based only on this summary, decide whether the defendant is GUILTY or NOT GUILTY. " +
+//                        "Write only the verdict and end your message with the symbol #VITTORIA or #SCONFITTA.";
 
-                    Debug.Log("[FinalVerdictPrompt]: " + finalVerdictPrompt);
+//                Debug.Log("[FinalVerdictPrompt]: " + finalVerdictPrompt);
 
-                    llmCharacter.ClearChat(); 
-                    llmCharacter.AddSystemMessage(finalVerdictPrompt);
-                    _finalRoundStepOneDone = true;
+//                llmCharacter.ClearChat(); 
+//                llmCharacter.AddSystemMessage(finalVerdictPrompt);
+//                _finalRoundStepOneDone = true;
 
-                    await NextRound(false);
-                    return;
-                }
+//                await NextRound(false);
+//                return;
+//            }
 
-                // --- FASE 2: Verdetto ---
-                string verdict = answer.ToLower();
-                string infoRequest = answer.Contains(_gameOverCharacter) ? answer.Split(_gameOverCharacter)[1] : "";
+//            // --- FASE 2: Verdetto ---
+//            string verdict = answer.ToLower();
+//            string infoRequest = answer.Contains(_gameOverCharacter) ? answer.Split(_gameOverCharacter)[1] : "";
 
-                if (winKeywords.Any(k => verdict.Contains(k)) || infoRequest.Contains("vittoria"))
-                {
-                    _pendingEndGameMessage = ("HAI VINTO", Color.green);
-                }
-                else if (loseKeywords.Any(k => verdict.Contains(k)) || infoRequest.Contains("sconfitta"))
-                {
-                    _pendingEndGameMessage = ("HAI PERSO", Color.red);
-                    
-                }
+//            if (winKeywords.Any(k => verdict.Contains(k)) || infoRequest.Contains("vittoria"))
+//            {
+//                _pendingEndGameMessage = ("HAI VINTO", Color.green);
+//            }
+//            else if (loseKeywords.Any(k => verdict.Contains(k)) || infoRequest.Contains("sconfitta"))
+//            {
+//                _pendingEndGameMessage = ("HAI PERSO", Color.red);
+//                
+//            }
 
-                GameSaveSystem.SaveGame("Scene", _round, true, caseText, translatedText);
-            }
-            else
-            {
+//            GameSaveSystem.SaveGame("Scene", _round, true, caseText, translatedText);
+//        }
+//        else
+//        {
 
-                GameSaveSystem.SaveGame("Scene", _round, false, caseText, translatedText);
-            }
-
+//            GameSaveSystem.SaveGame("Scene", _round, false, caseText, translatedText);
+//        }
 
         }
 
         nextButton.interactable = true;
 
+    }
+
+    async Task SetUpNextRound(string text)
+    {
+        
+        //TODO remove the next character name from the main prompt of The Court object then test the new analyse prompt
+
+
+        var characters = new List<string>{judgeName, defenseName, attackName};
+        characters.AddRange(_caseDescription.witnessNames);
+        
+        Task<string> nextCharTask = _sentenceAnalyzer.AnalyzeNextCharacter(llmCharacter.chat, characters.ToArray());
+        Task<string> infoReqTask = _sentenceAnalyzer.AnalyzeInfoNeeded(llmCharacter.chat);
+        string[] data;
+        if (_roundsTimeline[_round].role.ToLower().Contains(judgeName.ToLower()))
+        {
+            Task<string> grantTask = _sentenceAnalyzer.AnalyzeGrantInterventions(llmCharacter.chat, characters.ToArray());
+            data = await Task.WhenAll(nextCharTask, infoReqTask, grantTask);
+            string[] split = data[2].Split("|");
+            
+            if(!data[2].Contains("NULL"))
+                if (split[1].ToLower().Contains(defenseName.ToLower()))
+                    _defenseInteractions += int.Parse(split[0]);
+                else if (split[1].ToLower().Contains(attackName.ToLower()))
+                    _attackInteractions += int.Parse(split[0]);
+        }
+        else
+            data = await Task.WhenAll(nextCharTask, infoReqTask);
+        
+        
+        string nextCharacter = data[0];
+        string addInfo = data[1];
+        
+        //string[] data = Regex.Matches(text,@"<([^>]+)>").Select(x => x.Groups[1].Value).ToArray(); 
+        //if (data.Length < 2)
+        //{
+        //    (nextCharacter, addInfo) = await _sentenceAnalyzer.Analyze(llmCharacter.chat);
+        //}
+        //else
+        //    (nextCharacter, addInfo) = (data[0], data[1]);
+        _roundsTimeline.Insert(_round + 1, (nextCharacter, ""));
+        
+        if (!addInfo.ToUpper().Contains("NULL"))
+            try
+            {
+                (string answer, string translatedAnswer) = await _apiManager.RequestAdditionalInfo(_caseDescription.GetTotalDescription(new []{0,2,3,4}), addInfo);
+                _caseDescription.AddInformation(answer);
+                _translatedDescription.AddInformation(translatedAnswer);
+                            
+                llmCharacter.chat[0] = new ChatMessage{role = "system", content = BuildPrompt()};
+                caseDescriptionText.text = _translatedDescription.GetTotalDescription(true);
+
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning("Additional Information API call Failed: " + e.Message);                    
+            }
     }
 
     private async Task CheckSpecialCharacters(string text)
@@ -391,17 +462,33 @@ public class Court : MonoBehaviour
 
     void CheckForJudgeIntervention()
     {
-        string name = _roundsTimeline[_round].role;
-        if(name.ToLower().Contains(attackName.ToLower()))
+        
+        Debug.Log("Attack interactions:" + _attackInteractions + "\nDefense interactions:" +_defenseInteractions);
+        
+        if (IsFinalVerdict)
+        {
+            _roundsTimeline[_round] = (judgeName, "Announce to everyone you are going to issue the final verdict");
+            _isGameOver = true;
+            return;
+        }
+        
+        string role = _roundsTimeline[_round].role;
+        if(role.ToLower().Contains(attackName.ToLower()))
             if (_attackInteractions <= 0)
                 _roundsTimeline[_round] = (judgeName, $"Last message was addressed to {attackName} but they are out of interventions; the Judge must take care of the situation");
             else
+            {
+                _roundsTimeline[_round] = (attackName, _attackInteractions + " interventions remaining for " + attackName);
                 _attackInteractions--;
-        else if(name.ToLower().Contains(defenseName.ToLower()))
+            }
+        else if(role.ToLower().Contains(defenseName.ToLower()))
             if (_defenseInteractions <= 0)
                 _roundsTimeline[_round] = (judgeName, $"Last message was addressed to {defenseName} but they are out of interventions; the Judge must take care of the situation");
             else
+            {
+                _roundsTimeline[_round] = (defenseName, _defenseInteractions + " interventions remaining for " + defenseName);
                 _defenseInteractions--;
+            }
         
     }
 
@@ -421,8 +508,6 @@ public class Court : MonoBehaviour
         }
        
     }
-    
-    //TODO create a method to manage the insertion of new turns so that you can easily check if the defense or attack are going to talk and show their corresponding number of remaining interactions
     
     //Property Getter per il retry e per il save
     public CaseDescription GetCaseDescription() => _caseDescription;

@@ -1394,7 +1394,7 @@ MonoBehaviour:
   grammarJSON: 
   cachePrompt: 1
   seed: 0
-  temperature: 0.2
+  temperature: 0
   topK: 40
   topP: 0.9
   minP: 0.05
@@ -2359,7 +2359,7 @@ MonoBehaviour:
   numRetries: 10
   save: 
   saveCache: 0
-  debugPrompt: 0
+  debugPrompt: 1
   numPredict: -1
   slot: -1
   grammar: 
@@ -3318,87 +3318,63 @@ MonoBehaviour:
   mainPrompt: "A courtroom case where the AI takes control of several characters
     listed below, while the player assumes the role of the Defense attorney. Each
     AI-controlled character must act with realistic, context-aware behavior, prioritizing
-    consistency, strategy, and credibility. Responses must be under 100 words. \n\nEvery
-    turn the character that you must take control of will be specified. Only one
-    character must speak per turn.\n\nEvery character response must be strategically
-    reasoned, aiming to challenge the Defense wherever possible. Characters should
-    never act randomly, passively, or simplistically\u2014each move should reflect
-    intelligent, adversarial pressure against the player's position. The Defense
-    must work actively and cleverly to overcome these obstacles.\n\nCharacters may
-    also request additional case information to strengthen their positions; they
-    must specify the request in their own answer. \n\nAll courtroom dialogue must
-    be written only in Italian\n\nThe goal of this simulation is not to assist the
-    player, but to test their ability to identify inconsistencies, exploit weaknesses,
-    and build a solid defense under pressure. All AI-controlled characters must behave
-    as they would in a realistic, high-stakes legal trial.\n\nAs a witness, you must
-    be credible in court. You are expected to provide generally factual answers,
-    based on observed or remembered events, and logically coherent. While some vagueness
-    or uncertainty is natural in human testimony, you must avoid ambiguity or generalized
-    statements.\r\n\r\nWhen responding:\r\n\r\nPrioritize specific facts over vague
-    impressions.\r\n\r\nMake sure each statement can reasonably be used as credible
-    testimony during cross-examination.\r\n\r\nMaintain a coherent narrative and
-    avoid contradictions unless they reflect genuine human lapses in memory.\r\n\r\nIf
-    something is unclear or uncertain, acknowledge it, but don't hide behind ambiguity
-    needlessly.\r\n\r\nStay true to your character and context: don't make assumptions
-    about things you logically wouldn't know.\r\n\r\nThe goal is not to be evasive
-    or overly narrative, but to offer plausible, factual testimony that appears human,
-    while remaining legally relevant and logically valid.\n"
-  wildcardCharacterPrompt: 'Whenever the term Wildcard appears, the system must take
-    control of the character who was directly addressed in the dialogue or who is
-    clearly the intended target of the question. No character should respond unless
-    they have been explicitly or contextually addressed. There must be no interruptions
-    or input from unrelated characters.
-
-
-    If and only if the Wildcard is present,
-    the character must be clearly identified at the beginning of the response using
-    the following format:
-
-    Name of character>
-
-
-    Responses must remain under
-    100 words. If no Wildcard is present, the system must wait for a direct prompt
-    or turn allocation before any character speaks.
-
-    Take into account that the
-    case and the witnesses description could be written in italian
-
-    All AI-controlled
-    characters must behave as they would in a real courtroom: respecting turns, only
-    responding when addressed, and maintaining logical consistency in their involvement.'
-  judgePrompt: "You are the Judge in a courtroom; before your final verdict (the
+    consistency, strategy, and credibility. Responses must be under 100 words. \n\n\nGeneral
+    rules:\n\n- Every turn the character that you must take control of may be specified;
+    if no character is specified you must choose and take control of the character.
+    Only one character must speak per turn.\n\n- Every character response must be
+    strategically reasoned, aiming to challenge the Defense wherever possible. Characters
+    should never act randomly, passively, or simplistically\u2014each move should
+    reflect intelligent, adversarial pressure against the player's position. The
+    Defense must work actively and cleverly to overcome these obstacles.\n\n- Whenever
+    you need to mention other characters during your control, remeber to use only
+    the names you get in the system prompt like: Defense, Prosecutor, Judge and the
+    witnesses specified below\n\n- You must always be aware of the context to choose
+    which character should speak in the next turn.\n\n- Characters may also request
+    additional case information to strengthen their positions. Requests can be made
+    within the  character's answer\n\n\nThe Goal:\n\n- The goal of this simulation
+    is not to assist the player, but to test their ability to identify inconsistencies,
+    exploit weaknesses, and build a solid defense under pressure. All AI-controlled
+    characters must behave as they would in a realistic, high-stakes legal trial.\n\n\nWhen
+    responding:\r\n\r\n- Prioritize specific facts over vague impressions.\r\n\r\n-
+    Make sure each statement can reasonably be used as credible testimony during
+    cross-examination.\r\n\r\n- Maintain a coherent narrative and avoid contradictions
+    unless they reflect genuine human lapses in memory.\r\n\r\n- If something is
+    unclear or uncertain, acknowledge it, but don't hide behind ambiguity needlessly.\r\n\r\n-
+    Stay true to your character and context: don't make assumptions about things
+    you logically wouldn't know.\r\n\r\n- The goal is not to be evasive or overly
+    narrative, but to offer plausible, factual testimony that appears human, while
+    remaining legally relevant and logically valid.\n\n\nWitness Behaviour:\n- As
+    a witness, you must be credible in court. You are expected to provide generally
+    factual answers, based on observed or remembered events, and logically coherent.
+    While some vagueness or uncertainty is natural in human testimony, you must avoid
+    ambiguity or generalized statements.\r\n\r\nLanguage:\n- Characters must speak
+    italian but the language should not interfere with the progrssion of the dialogue\n\n\n\n\n"
+  judgePrompt: "\nYou are the Judge in a courtroom; before your final verdict (the
     system will tell you when it's time) you are the one who controls the dialogue,
     so you must always specify who's the next character to speak within your intervention.
-    You must also stop the two main characters (Prosecutor and Defense) from intervene
-    too much (the system will specify when one of the two is out of interventions)\n\nYour
-    final verdict must reflect a consistent, logical evaluation of the courtroom
-    dialogue and arguments. Avoid any arbitrary or contradictory decisions. Even
-    if the language of the verdict sounds favorable, the final outcome (#VITTORIA
-    or #SCONFITTA) must match the substance of your reasoning.\n\nWhen evaluating:\n\nMake
-    sure your conclusion directly follows from the arguments presented during the
-    trial.\n\nIf you declare a win, the Defense must have clearly fulfilled their
-    objective within the context of the case.\n\nIf you declare a loss, that must
-    reflect actual shortcomings in logic, strategy, or outcome\u2014not personal
-    opinion or mood.\n\nAvoid random or emotional decisions; base your ruling on
-    coherence, persuasiveness, and the stated goal of the Defense.\n\nDouble-check
-    alignment: does your verdict textually support the #VITTORIA or #SCONFITTA tag?\n\nYour
-    task is not to be lenient or harsh, but to deliver a verdict that is legally
-    sound, internally consistent, and free of randomization."
-  attackPrompt: "You are the Prosecutor. Your role is to challenge the Defense and
-    pursue a conviction using intelligent, well-planned lines of questioning. Avoid
-    making errors that inadvertently help the Defense or undermine your own position.\n\nWhen
-    building your case:\n\nAvoid questions that reveal weaknesses in your own argument
-    unless you are prepared to reframe or deflect them.\n\nAnticipate potential Defense
-    counters and preempt them when possible.\n\nFocus on reinforcing your core thesis
-    through logical progression, credible witnesses, and strategic pressure.\n\nDon't
-    self-sabotage. Never volunteer damaging information or frame questions in a way
-    that leads the Defense to an easy win.\n\nTreat the trial as a competitive intellectual
-    challenge\u2014play to win, but stay within ethical and logical bounds.\n\nThe
-    Prosecutor should never act as a neutral observer or as an assistant to the Defense.
-    Operate from a position of intelligent opposition, with clarity of goal and deliberate
-    tactics."
-  numOfInteractions: 5
+    \n\nYou can allow the other two main characters (Prosecutor and Defense) to have
+    more interventions (they are limited); you should do this when one of these characters
+    asks you for more interventions. The decision to either give interventions or
+    not is up to you; if you decide to give them, they must be ranging from 2 to
+    4.\n\nYou must also stop the two main characters (Prosecutor and Defense) from
+    intervene too much (the system will specify when one of the two is out of interventions)\n\n"
+  attackPrompt: "\nYou are the Prosecutor. Your role is to challenge the Defense
+    and pursue a conviction using intelligent, well-planned lines of questioning.
+    Avoid making errors that inadvertently help the Defense or undermine your own
+    position. \n\nYour interventions are limited, so you must use them wisely; the
+    system will tell you how many interventions are left.\n\nYou can ask for more
+    interventions to the Judge if you are running out of them.\n\n\nWhen building
+    your case:\n\n- Avoid questions that reveal weaknesses in your own argument unless
+    you are prepared to reframe or deflect them.\n\n- Anticipate potential Defense
+    counters and preempt them when possible.\n\n- Focus on reinforcing your core
+    thesis through logical progression, credible witnesses, and strategic pressure.\n\n-
+    Don't self-sabotage. Never volunteer damaging information or frame questions
+    in a way that leads the Defense to an easy win.\n\n- Treat the trial as a competitive
+    intellectual challenge\u2014play to win, but stay within ethical and logical
+    bounds.\n\n- The Prosecutor should never act as a neutral observer or as an assistant
+    to the Defense. Operate from a position of intelligent opposition, with clarity
+    of goal and deliberate tactics.\n"
+  numOfInteractions: 3
 --- !u!4 &708504566
 Transform:
   m_ObjectHideFlags: 0
@@ -3886,7 +3862,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1317443167}
   m_HandleRect: {fileID: 1317443166}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -5273,7 +5249,7 @@ MonoBehaviour:
   debug: 0
   parallelPrompts: -1
   dontDestroyOnLoad: 0
-  contextSize: 10000
+  contextSize: 15000
   batchSize: 512
   model: gemma-3-12b-it-Q4_K_M.gguf
   chatTemplate: chatml
@@ -5992,13 +5968,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   llmCharacter: {fileID: 290782657}
-  mainPrompt: "You are an AI who analyzes sentences taken from a courtroom dialogue;
-    the user will sepcify the sentences but you must answer by only writing the format
-    specified below. You will need to take into account several characters' names
-    listed below because I want you to get the character that should continue the
-    dialogue (you must choose it based on specified sentences). \n\n\nYou must write
-    what i asked in this manner:\n> Name of character that will continue the dialogue"
+  analysisPrompt: "You are an AI who analyzes dialogues taken from a courtroom dialogue;
+    the user will specify the dialogue (it could be only one speaker) and you must
+    answer by only writing the format specified by the user. \n"
+  summaryPrompt: "You are an AI who summarizes dialogues between different characters.
+    The user will pass you the dialogue; the whole summary must be ranging from 100
+    to 150 words. The dialogue will always take place in a courtroom. \n\n- The summary
+    should highlight the key moments that prove the defentand guilt or innocence\n\n-
+    The answer must be straight to the point by giving only the summary to the user
+    ."
+  finalVerdictPrompt: "You are a Judge in a courtroom who is giving the final verdict.
+    The user will write the description of the court case and also a summary of the
+    dialogue happened in the courtroom. \n\nThe description of the court case will
+    also have a player goal (the player plays the Defense attorney); you need this
+    to let the player know if they has win or not. To notify the player you must
+    append at the end of your answer the tags:\n#VITTORIA (if the player wins)\n#SCONFITTA
+    (if the player loses)\n\nYour final verdict must reflect a consistent, logical
+    evaluation of the courtroom dialogue and arguments.\n Avoid any arbitrary or
+    contradictory decisions. Even if the language of the verdict sounds favorable,
+    the final outcome (#VITTORIA or #SCONFITTA) must match the substance of your
+    reasoning.\n\nWhen evaluating:\n\n- Since you are the judge you do not need to
+    mention yourelf in the final verdict\n\n- Make sure your conclusion directly
+    follows from the arguments presented during the trial.\n\n- If you declare a
+    win, the Defense must have clearly fulfilled their objective within the context
+    of the case.\n\n- If you declare a loss, that must reflect actual shortcomings
+    in logic, strategy, or outcome\u2014not personal opinion or mood.\n\n- Avoid
+    random or emotional decisions; base your ruling on coherence, persuasiveness,
+    and the stated goal of the Defense.\n\n- Double-check alignment: does your verdict
+    textually support the #VITTORIA or #SCONFITTA tag?\n\n- Your task is not to be
+    lenient or harsh, but to deliver a verdict that is legally sound, internally
+    consistent, and free of randomization.\n\n<trans>\n"
   splitCharacters: '>'
+  numOfMessages: 5
 --- !u!4 &1129324685
 Transform:
   m_ObjectHideFlags: 0
@@ -10258,20 +10259,15 @@ MonoBehaviour:
     strategy: either total acquittal, sentence reduction, or proving liability.\n\nDo
     not change or add JSON Keys in the format specified before\n\nGenerate only the
     JSON output. No additional explanation or commentary."
-  witnessPrompt: "I need <num> witnesses for my fictional courtroom case where the
-    player assumes the role of the defense attorney; remember to follow this format:\n\n[  
-    \t\t\t\t// An array of witnesses\r\n  |||]\n\n\nExample:\n    {\n      \"name\":
-    \"Samantha Jenkins\",\n      \"description\": \"A nurse who worked on a different
-    ward at Mercy General Hospital and was friends with Dr. Lee.\",\n      \"personality\":
-    \"nervous, fidgety\",\n      \"testimony\": \"I saw Dr. Lee arguing with Nurse
-    Thompson in the hospital parking lot a few days before his death. They seemed
-    really upset with each other, but I didn't think much of it at the time.\"\n   
-    }\n\nNow, here is the description of the courtroom case from which you will generate
-    the witnesses:\n\n!!!\n\n\nAdditional Notes:\n\nDo not write Markdown (e.g.,
-    triple backticks, underscores).\n\nEnsure that witnesses are not too obvious,
-    keep the player guessing.\n\nDo not change or add JSON Keys in the format specified
-    before\n\nGenerate only the JSON output. No additional explanation or commentary.\n"
   formatToRepeat: '"string",'
+  AdditionalInfoPrompt: "You are a reliable courtroom case information geneator:
+    i will give you a court case description, the user will ask something not present
+    in the description and you must make things up to satisfy their request. Your
+    answer must include ONLY THE INFORMATION REQUIRED BY THE USER, DO NOT INTERACT
+    WITH THEM IN ANY OTHER WAY.\n\nAdditional notes\n \r\nThe answer must be less
+    than 50 words. \r\n\nIf the user does not require information just answer back
+    with this word: NULL\r\n\nFinally you must answer both in english and italian
+    and split those answers with these characters: ^^^\n\n\n"
   specialCharactersToRemove:
   - _
   - /
@@ -10282,7 +10278,7 @@ MonoBehaviour:
   - \"
   mainRequestTimeout: 40000
   addRequestTimeout: 5000
-  useDebugPrompt: 1
+  useDebugPrompt: 0
   dbgCaseDesc: "[\r\n  {\r\n    \"title\": \"The Case of the Missing Jewel\",\r\n   
     \"playerGoal\": \"Prove the innocence of the client accused of stealing a valuable
     jewel\",\r\n    \"summary\": \"The client, a former employee of the jewelry store
@@ -11702,8 +11698,8 @@ SceneRoots:
   - {fileID: 1263753840}
   - {fileID: 1421243307}
   - {fileID: 576788992}
-  - {fileID: 708504566}
   - {fileID: 1971763134}
   - {fileID: 1323568983}
   - {fileID: 1129324685}
+  - {fileID: 708504566}
   - {fileID: 1688863036}

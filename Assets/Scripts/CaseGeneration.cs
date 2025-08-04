@@ -88,7 +88,6 @@ public class CaseGeneration : MonoBehaviour
         //    return;
         //}
 
-        StoreDescriptions();
     }
     
     CaseDescription _currentCaseDescription;

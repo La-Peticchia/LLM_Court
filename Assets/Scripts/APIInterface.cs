@@ -35,9 +35,9 @@ public class APIInterface : MonoBehaviour
 
 
     [TextArea(20, 10)] public string prompt;
-    [TextArea(10, 10)] public string witnessPrompt;
+    //[TextArea(10, 10)] public string witnessPrompt;
     [TextArea(5, 10)] public string formatToRepeat;
-
+    [TextArea(10, 10)] public string AdditionalInfoPrompt;
     //Special Characters
     private const string SectionSplitCharacters = "***";
     private const string SubsectionSplitCharacters = "+++";
@@ -240,11 +240,7 @@ public class APIInterface : MonoBehaviour
         var requestOptions = _chatOptions;
         requestOptions.Messages = new List<ChatRequestMessage>()
         {
-            new ChatRequestSystemMessage("I will give you a court case description, the user will ask something not present in the description and you must make things up to satisfy their request. " +
-                                         "Your answer must include ONLY THE INFORMATION REQUIRED BY THE USER, DO NOT INTERACT WITH THEM IN ANY OTHER WAY. " +
-                                         "The answer must be less than 50 words. " +
-                                         "If the user does not require information just answer back with this word: NULL\n" +
-                                         "Finally you must answer both in english and italian and split those answers with these characters: ^^^\nCase Description\n" + totalCaseDescription),
+            new ChatRequestSystemMessage(AdditionalInfoPrompt + "\n\nCase Description:\n" + totalCaseDescription),
             new ChatRequestUserMessage(addRequest)
         };
         requestOptions.ResponseFormat = ChatCompletionsResponseFormat.CreateTextFormat();
