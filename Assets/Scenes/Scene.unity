@@ -2625,8 +2625,9 @@ MonoBehaviour:
   attackPrefabs:
   - {fileID: 6564444806103842598, guid: bf1b4d376c737434c81baae9cfb3d309, type: 3}
   - {fileID: 6564444806103842598, guid: 99246705b3533a64591e7479889597f4, type: 3}
-  witnessPrefabs:
+  maleWitnessPrefabs:
   - {fileID: 7254194851352301084, guid: 411f11a3f471d0c4ba8c1709ea756062, type: 3}
+  femaleWitnessPrefabs:
   - {fileID: 7254194851352301084, guid: 1102ad5ae6a2c7f41b3c082477510fab, type: 3}
   parentCanvas: {fileID: 158550917}
   aiImageObject: {fileID: 2091685446}
@@ -3862,7 +3863,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1317443167}
   m_HandleRect: {fileID: 1317443166}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -5103,6 +5104,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2868133432251807771, guid: 69106cddec5eb874dbc98b73eb234c79, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.0000076293945
+      objectReference: {fileID: 0}
     - target: {fileID: 3994438721588116823, guid: 69106cddec5eb874dbc98b73eb234c79, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5245,7 +5250,7 @@ MonoBehaviour:
   remote: 0
   port: 13333
   numThreads: -1
-  numGPULayers: 50
+  numGPULayers: 25
   debug: 0
   parallelPrompts: -1
   dontDestroyOnLoad: 0
@@ -5860,7 +5865,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.5, y: 0}
+  m_AnchoredPosition: {x: 1.5, y: 0.000015258789}
   m_SizeDelta: {x: -13, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1115460855
@@ -10245,20 +10250,24 @@ MonoBehaviour:
     of clues, each as a string with some mystery\r\n    \"string\",\r\n    \"string\",\r\n   
     ...\r\n    ],\n  \"witnessNames\": [ \t\t// A list of <num> witness names\r\n   
     |||],\n  \"witnessDescriptions\":[\t//A list of <num> witness descriptions\n   
-    |||]\n}\n\nAdditional Notes:\n\n<trans>\n\nAll content must be internally consistent
-    and focused on building a compelling, legally grounded mystery or conflict. Avoid
-    making the solution obvious. The challenge for the player should emerge naturally
-    from the facts, contradictions, and character dynamics.\r\n\nEach element in
-    \"witnessDescription\" must contain the role (the background of the witness),
-    personality and testimony (what they claim to know or have seen) and they should
-    ll be put in a whole sentence; in addition it must be related to the corresponding
-    \"witnessNames\" element.\n\nDo not write Markdown (e.g., triple backticks).\n\nIf
-    it's difficult to find real-world data for a real case, create a fictional case
-    that still feels plausible and dramatic.\n\nEnsure that clues and evidence are
-    not too obvious, keep the player guessing.\n\nThe goal should reflect the legal
-    strategy: either total acquittal, sentence reduction, or proving liability.\n\nDo
-    not change or add JSON Keys in the format specified before\n\nGenerate only the
-    JSON output. No additional explanation or commentary."
+    |||]\n  \"witnessGenders\": [ // A list of strings: \"M\" for male, \"F\" for
+    female\n    |||]\n}\n\nAdditional Notes:\n\n<trans>\n\nAll content must be internally
+    consistent and focused on building a compelling, legally grounded mystery or
+    conflict. Avoid making the solution obvious. The challenge for the player should
+    emerge naturally from the facts, contradictions, and character dynamics.\r\n\nEach
+    element in \"witnessDescription\" must contain the role (the background of the
+    witness), personality and testimony (what they claim to know or have seen) and
+    they should ll be put in a whole sentence; in addition it must be related to
+    the corresponding \"witnessNames\" element.\n\nThe \"witnessGenders\" list must
+    match the order and length of \"witnessNames\" and use only \"M\" for male and
+    \"F\" for female. This field is required and used to assign appropriate character
+    prefabs in Unity.\n\nDo not write Markdown (e.g., triple backticks).\n\nIf it's
+    difficult to find real-world data for a real case, create a fictional case that
+    still feels plausible and dramatic.\n\nEnsure that clues and evidence are not
+    too obvious, keep the player guessing.\n\nThe goal should reflect the legal strategy:
+    either total acquittal, sentence reduction, or proving liability.\n\nDo not change
+    or add JSON Keys in the format specified before\n\nGenerate only the JSON output.
+    No additional explanation or commentary."
   formatToRepeat: '"string",'
   AdditionalInfoPrompt: "You are a reliable courtroom case information geneator:
     i will give you a court case description, the user will ask something not present
@@ -10278,7 +10287,7 @@ MonoBehaviour:
   - \"
   mainRequestTimeout: 40000
   addRequestTimeout: 5000
-  useDebugPrompt: 0
+  useDebugPrompt: 1
   dbgCaseDesc: "[\r\n  {\r\n    \"title\": \"The Case of the Missing Jewel\",\r\n   
     \"playerGoal\": \"Prove the innocence of the client accused of stealing a valuable
     jewel\",\r\n    \"summary\": \"The client, a former employee of the jewelry store
@@ -10299,8 +10308,9 @@ MonoBehaviour:
     the theft.\",\r\n      \"Giovanni Verdi is the night watchman; elderly and absent-minded,
     he swears he saw nothing but heard voices that evening.\",\r\n      \"Elena Neri
     is the ex-girlfriend of the accused; bitter and emotional, she insinuates that
-    he often talked about diamonds.\"\r\n    ]\r\n  },\r\n  {\r\n    \"title\": \"Il
-    Caso del Gioiello Scomparso\",\r\n    \"playerGoal\": \"Dimostrare l'innocenza
+    he often talked about diamonds.\"\r\n    ],\n    \"witnessGenders\": [\n     
+    \"M\",\n      \"F\",\n      \"M\",\n      \"F\"\n]\r\n  },\r\n  {\r\n    \"title\":
+    \"Il Caso del Gioiello Scomparso\",\r\n    \"playerGoal\": \"Dimostrare l'innocenza
     del cliente accusato di furto di un prezioso gioiello\",\r\n    \"summary\":
     \"Il cliente, un ex dipendente della gioielleria 'Luce Eterna', \xE8 accusato
     di aver rubato un diamante valutato 500.000 euro durante una mostra privata.
@@ -10321,7 +10331,8 @@ MonoBehaviour:
     \"Giovanni Verdi \xE8 il custode notturno; anziano e distratto, giura di non
     aver visto nulla ma ha sentito voci quella sera.\",\r\n      \"Elena Neri \xE8
     l'ex fidanzata dell'accusato; rancorosa ed emotiva, insinua che lui parlava spesso
-    dei diamanti.\"\r\n    ]\r\n  }\r\n]"
+    dei diamanti.\"\r\n    ],\n    \"witnessGenders\": [\n      \"M\",\n      \"F\",\n     
+    \"M\",\n      \"F\"\n]\r\n  }\r\n]"
 --- !u!4 &1971763134
 Transform:
   m_ObjectHideFlags: 0

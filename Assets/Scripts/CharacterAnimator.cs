@@ -8,9 +8,13 @@ public class CharacterAnimator : MonoBehaviour
     [Header("Prefab Fisso")]
     public GameObject judgePrefab;
 
-    [Header("Roster Random")]
+    [Header("Roster Random - Prosecutor")]
     public List<GameObject> attackPrefabs;
-    public List<GameObject> witnessPrefabs;
+    //public List<GameObject> witnessPrefabs;
+
+    [Header("Witness Prefabs - Gendered")]
+    public List<GameObject> maleWitnessPrefabs;
+    public List<GameObject> femaleWitnessPrefabs;
 
 
     private GameObject defensePrefab;
@@ -40,7 +44,7 @@ public class CharacterAnimator : MonoBehaviour
         }
     }
 
-    public void AssignDynamicPrefabs(List<string> witnesses, string attackRole)
+    public void AssignDynamicPrefabs(List<string> witnessNames, List<string> witnessGenders, string attackRole)
     {
         roleToPrefab.Clear();
 
@@ -50,12 +54,26 @@ public class CharacterAnimator : MonoBehaviour
             roleToPrefab[attackRole] = randomAttack;
         }
 
-        foreach (var witness in witnesses)
+        // Assegna i testimoni basandosi sul genere
+        for (int i = 0; i < witnessNames.Count; i++)
         {
-            if (witnessPrefabs.Count > 0)
+            string witnessName = witnessNames[i];
+
+            // Se non abbiamo abbastanza dati gender, assegna maschio per default
+            string gender = i < witnessGenders.Count ? witnessGenders[i].Trim().ToUpper() : "M";
+            List<GameObject> availablePrefabs = gender == "M" ? maleWitnessPrefabs : femaleWitnessPrefabs;
+
+
+            if (availablePrefabs.Count > 0)
             {
-                var randomWitness = witnessPrefabs[Random.Range(0, witnessPrefabs.Count)];
-                roleToPrefab[witness] = randomWitness;
+                var randomWitness = availablePrefabs[Random.Range(0, availablePrefabs.Count)];
+                roleToPrefab[witnessName] = randomWitness;
+
+                Debug.Log($"Assegnato testimone {witnessName} ({gender}) -> {randomWitness.name}");
+            }
+            else
+            {
+                Debug.LogWarning($"Nessun prefab disponibile per testimoni {gender}");
             }
         }
     }

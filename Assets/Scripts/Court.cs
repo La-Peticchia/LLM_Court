@@ -119,7 +119,7 @@ public class Court : MonoBehaviour
         InitializeRounds();
 
         caseDescriptionText.text = _translatedDescription.GetTotalDescription(true);
-        characterAnimator.AssignDynamicPrefabs(_translatedDescription.witnessNames, attackName);
+        characterAnimator.AssignDynamicPrefabs(_translatedDescription.witnessNames, _translatedDescription.witnessGenders, attackName);
         
         List<string> characters = new List<string>{ judgeName, defenseName, attackName };
         characters.AddRange(caseDescription.witnessNames);
@@ -527,7 +527,10 @@ public struct CaseDescription
     public List<string> evidence;
     public List<string> witnessNames;
     public List<string> witnessDescriptions;
-    
+    public List<string> witnessGenders;
+
+
+
     /// <summary> Indexes of section names:
     /// 0 - Player Goal |
     /// 1 - Case Name |
@@ -549,7 +552,7 @@ public struct CaseDescription
     
     
     [JsonConstructor]
-    public CaseDescription( string title, string playerGoal, string summary, string shortSummary, List<string> evidence, List<string> witnessNames, List<string> witnessDescriptions, List<string> sectionNames)
+    public CaseDescription( string title, string playerGoal, string summary, string shortSummary, List<string> evidence, List<string> witnessNames, List<string> witnessDescriptions, List<string> sectionNames, List<string> witnessGenders = null)
     {
         this.title = title;
         this.playerGoal = playerGoal;
@@ -566,7 +569,21 @@ public struct CaseDescription
             sectionNames.AddRange(fallbackSectionNames.TakeLast(fallbackSectionNames.Count - sectionNames.Count));
     
         this.sectionNames = sectionNames;
-        
+
+        // Gestione retrocompatibilità
+        if (witnessGenders == null || witnessGenders.Count != witnessNames.Count)
+        {
+            // fallback: genera "M" o "F" casuali
+            this.witnessGenders = witnessNames.Select(name => UnityEngine.Random.Range(0, 2) == 0 ? "M" : "F").ToList();
+            Debug.Log("Case caricato senza gender info - assegnati generi casuali");
+        }
+        else
+        {
+            // validazione e normalizzazione
+            this.witnessGenders = witnessGenders.Select(g => g.Trim().ToUpper() == "M" ? "M" : "F").ToList();
+        }
+
+
         descArray = new string[6];
         richArray = new string[6];
         additionalInfo = new List<string>();
