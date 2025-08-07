@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -303,8 +304,8 @@ public class Court : MonoBehaviour
             await SetUpNextRound(answer);
 
             
-            string caseText = GetCaseDescription().GetTotalDescription(false);
-            string translatedText = GetTranslatedDescription().GetTotalDescription(false);
+            //string caseText = GetCaseDescription().GetTotalDescription(false);
+            //string translatedText = GetTranslatedDescription().GetTotalDescription(false);
 
             // Se e' l'ultimo round (il giudice emette il verdetto)
             // ROUND FINALE - FASE 1 e FASE 2
@@ -496,8 +497,8 @@ public class Court : MonoBehaviour
     {
         logText.text += $"<b><color={roleColor}>{role}</color></b>: {content}\n\n";
     }
-    
-    public void SetCurrentRound(int round)
+
+    /*public void SetCurrentRound(int round)
     {
         if (round >= 0 && round < _roundsTimeline.Count)
         {
@@ -507,12 +508,12 @@ public class Court : MonoBehaviour
 
         }
        
-    }
-    
+    }*/
+
     //Property Getter per il retry e per il save
     public CaseDescription GetCaseDescription() => _caseDescription;
     public CaseDescription GetTranslatedDescription() => _translatedDescription;
-    public int GetCurrentRound() => _round;
+    //public int GetCurrentRound() => _round;
 
 }
 
@@ -570,16 +571,15 @@ public struct CaseDescription
     
         this.sectionNames = sectionNames;
 
-        // Gestione retrocompatibilità
+        // Gestione retrocompatibilità utile solo in debug per casi precedenti dove non erano presenti i generi dei testimoni
         if (witnessGenders == null || witnessGenders.Count != witnessNames.Count)
         {
-            // fallback: genera "M" o "F" casuali
             this.witnessGenders = witnessNames.Select(name => UnityEngine.Random.Range(0, 2) == 0 ? "M" : "F").ToList();
             Debug.Log("Case caricato senza gender info - assegnati generi casuali");
         }
         else
         {
-            // validazione e normalizzazione
+
             this.witnessGenders = witnessGenders.Select(g => g.Trim().ToUpper() == "M" ? "M" : "F").ToList();
         }
 

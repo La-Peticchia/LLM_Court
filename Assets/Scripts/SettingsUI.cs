@@ -37,33 +37,20 @@ public class SettingsUI : MonoBehaviour
 
     private void ReturnToMainMenu()
     {
-        StartCoroutine(SaveAndReturn());
-    }
-
-    private IEnumerator SaveAndReturn()
-    {
-        if (court == null)
-            court = FindFirstObjectByType<Court>();
-
         if (court != null)
         {
-            GameSaveSystem.SaveGame(
-                sceneName: SceneManager.GetActiveScene().name,
-                round: court.GetCurrentRound(),
-                finished: false,
-                caseDescription: court.GetCaseDescription().GetTotalDescription(false),
-                translatedDescription: court.GetTranslatedDescription().GetTotalDescription(false)
-            );
-        }
-        else
-        {
-            Debug.LogWarning("Court non trovato per salvare il gioco.");
-        }
+            CaseDescription original = court.GetCaseDescription();
+            CaseDescription translated = court.GetTranslatedDescription();
 
-        // Aspetta un frame per garantire che il salvataggio vada a buon fine
-        yield return null;
+            SaveSystem saveSystem = FindFirstObjectByType<SaveSystem>();
+            if (saveSystem != null)
+            {
+                saveSystem.SaveCaseDescription(new CaseDescription[] { original, translated });
+            }
+        }
 
         SceneManager.LoadScene("Menu");
     }
+
 
 }

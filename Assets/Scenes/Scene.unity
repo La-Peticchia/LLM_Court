@@ -5250,7 +5250,7 @@ MonoBehaviour:
   remote: 0
   port: 13333
   numThreads: -1
-  numGPULayers: 25
+  numGPULayers: 15
   debug: 0
   parallelPrompts: -1
   dontDestroyOnLoad: 0

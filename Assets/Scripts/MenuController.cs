@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class MenuController : MonoBehaviour
 {
@@ -33,7 +34,9 @@ public class MenuController : MonoBehaviour
         backFromOptionsButton.onClick.AddListener(CloseOptionsPanel);
 
         continueButton.onClick.AddListener(ContinueGame);
-        continueButton.interactable = GameSaveSystem.HasSavedGame(); // Interagibile solo se ha salvataggio
+
+        CheckContinueButtonAvailability();
+
     }
 
     private void Update()
@@ -56,15 +59,21 @@ public class MenuController : MonoBehaviour
         SceneManager.LoadScene("Scene");
     }
 
+    private void CheckContinueButtonAvailability()
+    {
+        string lastCasePath = Path.Combine(Application.dataPath, "SavedCases", "lastCase.json");
+        bool hasLastCase = File.Exists(lastCasePath);
+
+        continueButton.interactable = hasLastCase;
+        continueButton.gameObject.SetActive(hasLastCase);
+    }
+
     private void ContinueGame()
     {
-        SaveData data = GameSaveSystem.LoadGame();
-        if (data != null)
-        {
-            GameSaveSystem.IsContinue = true;
-            SceneManager.LoadScene(data.sceneName);
-            
-        }
+        PlayerPrefs.SetInt("UseLastSavedCase", 1);
+        PlayerPrefs.Save();
+
+        SceneManager.LoadScene("Scene");
     }
 
     public void OpenCharacterPanel()

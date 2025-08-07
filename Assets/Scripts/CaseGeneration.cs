@@ -60,6 +60,31 @@ public class CaseGeneration : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // se l'utente clicca contine ed ha un salvataggio parte direttamente il gameplay senza passare per court preview canvas
+        if (PlayerPrefs.GetInt("UseLastSavedCase", 0) == 1)
+        {
+            PlayerPrefs.SetInt("UseLastSavedCase", 0);
+            PlayerPrefs.Save();
+
+            SaveSystem saveSystem = FindFirstObjectByType<SaveSystem>();
+            var lastCase = saveSystem?.GetLastSavedCase();
+
+            if (lastCase != null && lastCase.Length > 0)
+            {
+                courtPreviewCanvas.SetActive(false);
+
+                // Passa la traduzione se esiste, altrimenti usa la descrizione originale come fallback
+                if (lastCase.Length > 1)
+                    _court.InitializeCourt(lastCase[0], lastCase[1]);
+                else
+                    _court.InitializeCourt(lastCase[0], lastCase[0]);
+
+                Destroy(gameObject);
+                return;
+            }
+        }
+
+
         if (CaseMemory.HasValidSavedCase)
         {
             courtPreviewCanvas.SetActive(false);
