@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -118,7 +119,7 @@ public class Court : MonoBehaviour
         InitializeRounds();
 
         caseDescriptionText.text = _translatedDescription.GetTotalDescription(true);
-        characterAnimator.AssignDynamicPrefabs(_translatedDescription.witnessNames, attackName);
+        characterAnimator.AssignDynamicPrefabs(_translatedDescription.witnessNames, _translatedDescription.witnessGenders, attackName);
         
         List<string> characters = new List<string>{ judgeName, defenseName, attackName };
         characters.AddRange(caseDescription.witnessNames);
@@ -302,8 +303,8 @@ public class Court : MonoBehaviour
             await SetUpNextRound(answer);
 
             
-            string caseText = GetCaseDescription().GetTotalDescription(false);
-            string translatedText = GetTranslatedDescription().GetTotalDescription(false);
+            //string caseText = GetCaseDescription().GetTotalDescription(false);
+            //string translatedText = GetTranslatedDescription().GetTotalDescription(false);
 
             // Se e' l'ultimo round (il giudice emette il verdetto)
             // ROUND FINALE - FASE 1 e FASE 2
@@ -499,8 +500,8 @@ public class Court : MonoBehaviour
     {
         logText.text += $"<b><color={roleColor}>{role}</color></b>: {content}\n\n";
     }
-    
-    public void SetCurrentRound(int round)
+
+    /*public void SetCurrentRound(int round)
     {
         if (round >= 0 && round < _roundsTimeline.Count)
         {
@@ -510,12 +511,12 @@ public class Court : MonoBehaviour
 
         }
        
-    }
-    
+    }*/
+
     //Property Getter per il retry e per il save
     public CaseDescription GetCaseDescription() => _caseDescription;
     public CaseDescription GetTranslatedDescription() => _translatedDescription;
-    public int GetCurrentRound() => _round;
+    //public int GetCurrentRound() => _round;
 
 }
 
@@ -530,7 +531,10 @@ public struct CaseDescription
     public List<string> evidence;
     public List<string> witnessNames;
     public List<string> witnessDescriptions;
-    
+    public List<string> witnessGenders;
+
+
+
     /// <summary> Indexes of section names:
     /// 0 - Player Goal |
     /// 1 - Case Name |
@@ -552,7 +556,7 @@ public struct CaseDescription
     
     
     [JsonConstructor]
-    public CaseDescription( string title, string playerGoal, string summary, string shortSummary, List<string> evidence, List<string> witnessNames, List<string> witnessDescriptions, List<string> sectionNames)
+    public CaseDescription( string title, string playerGoal, string summary, string shortSummary, List<string> evidence, List<string> witnessNames, List<string> witnessDescriptions, List<string> sectionNames, List<string> witnessGenders = null)
     {
         this.title = title;
         this.playerGoal = playerGoal;
@@ -569,7 +573,20 @@ public struct CaseDescription
             sectionNames.AddRange(fallbackSectionNames.TakeLast(fallbackSectionNames.Count - sectionNames.Count));
     
         this.sectionNames = sectionNames;
-        
+
+        // Gestione retrocompatibilità utile solo in debug per casi precedenti dove non erano presenti i generi dei testimoni
+        if (witnessGenders == null || witnessGenders.Count != witnessNames.Count)
+        {
+            this.witnessGenders = witnessNames.Select(name => UnityEngine.Random.Range(0, 2) == 0 ? "M" : "F").ToList();
+            Debug.Log("Case caricato senza gender info - assegnati generi casuali");
+        }
+        else
+        {
+
+            this.witnessGenders = witnessGenders.Select(g => g.Trim().ToUpper() == "M" ? "M" : "F").ToList();
+        }
+
+
         descArray = new string[6];
         richArray = new string[6];
         additionalInfo = new List<string>();

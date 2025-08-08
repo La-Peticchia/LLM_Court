@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Il Caso del Gioiello Scomparso",
+    "playerGoal": "Dimostrare l'innocenza del cliente accusato di furto di un prezioso gioiello",
+    "summary": "Il cliente, un ex dipendente della gioielleria 'Luce Eterna', è accusato di aver rubato un diamante valutato 500.000 euro durante una mostra privata. Le prove circostanziali lo collocano sulla scena del crimine, ma il cliente sostiene di essere stato incastrato dal proprietario per coprire un'insolvenza finanziaria. Il caso si complica con testimonianze contrastanti e la mancanza di prove dirette.",
+    "shortSummary": "Un ex dipendente è accusato di furto in una gioielleria, ma afferma di essere stato incastrato.",
+    "evidence": [
+      "Impronte digitali trovate sulla teca vuota",
+      "Una mail anonima che accusa il proprietario della gioielleria",
+      "Un orologio rotto trovato vicino alla scena del crimine",
+      "Transazioni sospette sul conto bancario del proprietario"
+    ],
+    "witnessNames": [
+      "Marco Bianchi",
+      "Laura Rossi",
+      "Giovanni Verdi",
+      "Elena Neri"
+    ],
+    "witnessDescriptions": [
+      "Marco Bianchi è il proprietario della gioielleria; arrogante e impaziente, sostiene che solo il cliente avesse accesso alla teca.",
+      "Laura Rossi è una collega dell'accusato; timida ma onesta, ricorda che Marco era nervoso il giorno del furto.",
+      "Giovanni Verdi è il custode notturno; anziano e distratto, giura di non aver visto nulla ma ha sentito voci quella sera.",
+      "Elena Neri è l'ex fidanzata dell'accusato; rancorosa ed emotiva, insinua che lui parlava spesso dei diamanti."
+    ],
+    "witnessGenders": [
+      "M",
+      "F",
+      "M",
+      "F"
+    ]
+  },
+  {
+    "title": "Il Caso del Gioiello Scomparso",
+    "playerGoal": "Dimostrare l'innocenza del cliente accusato di furto di un prezioso gioiello",
+    "summary": "Il cliente, un ex dipendente della gioielleria 'Luce Eterna', è accusato di aver rubato un diamante valutato 500.000 euro durante una mostra privata. Le prove circostanziali lo collocano sulla scena del crimine, ma il cliente sostiene di essere stato incastrato dal proprietario per coprire un'insolvenza finanziaria. Il caso si complica con testimonianze contrastanti e la mancanza di prove dirette.",
+    "shortSummary": "Un ex dipendente è accusato di furto in una gioielleria, ma afferma di essere stato incastrato.",
+    "evidence": [
+      "Impronte digitali trovate sulla teca vuota",
+      "Una mail anonima che accusa il proprietario della gioielleria",
+      "Un orologio rotto trovato vicino alla scena del crimine",
+      "Transazioni sospette sul conto bancario del proprietario"
+    ],
+    "witnessNames": [
+      "Marco Bianchi",
+      "Laura Rossi",
+      "Giovanni Verdi",
+      "Elena Neri"
+    ],
+    "witnessDescriptions": [
+      "Marco Bianchi è il proprietario della gioielleria; arrogante e impaziente, sostiene che solo il cliente avesse accesso alla teca.",
+      "Laura Rossi è una collega dell'accusato; timida ma onesta, ricorda che Marco era nervoso il giorno del furto.",
+      "Giovanni Verdi è il custode notturno; anziano e distratto, giura di non aver visto nulla ma ha sentito voci quella sera.",
+      "Elena Neri è l'ex fidanzata dell'accusato; rancorosa ed emotiva, insinua che lui parlava spesso dei diamanti."
+    ],
+    "witnessGenders": [
+      "M",
+      "F",
+      "M",
+      "F"
+    ]
+  }
+]

@@ -6,11 +6,15 @@ public class LLMLoadingUI : MonoBehaviour
 {
     [SerializeField] private LLMUnity.LLM llm;
     [SerializeField] private TMP_Text loadingText;
+    [SerializeField] private GameObject loadingCanvas;
 
     private Coroutine pollingCoroutine;
 
     private void Start()
     {
+        if (loadingCanvas != null)
+            loadingCanvas.SetActive(true);
+
         pollingCoroutine = StartCoroutine(UpdateStatusText());
     }
 
@@ -28,11 +32,15 @@ public class LLMLoadingUI : MonoBehaviour
 
         if (llm.started)
         {
-            loadingText.text = "LLM avviato con successo!";
+            loadingText.text = "LLM successfully started!";
+
+            if (loadingCanvas != null)
+                loadingCanvas.SetActive(false);
+
         }
         else if (llm.failed)
         {
-            loadingText.text = "Errore con l'avvio del servizio LLM";
+            loadingText.text = "Error starting LLM service";
         }
      
     }
