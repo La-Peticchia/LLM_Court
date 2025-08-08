@@ -99,11 +99,11 @@ public class SentenceAnalyzer : MonoBehaviour
     public async Task<string> AnalyzeInfoNeeded(List<ChatMessage> chatMessages)
     {
         SwitchMode(Mode.Analyze);
-        List<ChatMessage> tmpMessages = chatMessages.Where(x => x.role != "system").TakeLast(numOfMessages).ToList();
+        List<ChatMessage> tmpMessages = chatMessages.Where(x => x.role != "system" && x.role != "Case Description").TakeLast(numOfMessages).ToList();
         string lastCharacter = tmpMessages[^1].role;
 
         string userPrompt =
-            $"Can you extract from the following text:\n{lastCharacter}: {tmpMessages[^1].content}\n\n" +
+            $"Can you extract from the following text:\n{lastCharacter}: {tmpMessages[^1].content.Split("*")[0].Split("<")[0]}\n\n" +
             $"what specific piece of factual courtroom-relevant information the {lastCharacter} is requesting?\n\n" +
             $"Follow these steps:\n" +
             $"1 - Determine if the speaker is requesting factual, case-relevant information. If not, return < NULL >\n" +
@@ -112,18 +112,18 @@ public class SentenceAnalyzer : MonoBehaviour
             $"3 - Output only in the format: < answer >\n\n";
         
         if (tmpMessages.Count > 1)
-            userPrompt += $"Additional context to consider (prior dialogue):\n{string.Join("\n\n", tmpMessages.SkipLast(1).Select(x => $"{x.role}: {x.content}."))}";
+            userPrompt += $"Additional context to consider (prior dialogue):\n{string.Join("\n\n", tmpMessages.SkipLast(1).Select(x => $"{x.role}: {x.content.Split("*")[0].Split("<")[0]}."))}";
                           
-        userPrompt += $"Important filtering rules:\n" +
+        userPrompt += $"\n\nImportant filtering rules:\n" +
                       $"- Do not extract questions that are rhetorical, procedural, or unrelated to courtroom facts" +
                       $"- Only include requests that could provide specific details or clues to support or refute the case (e.g., times, actions, observations, locations, sounds ...)" +
                       $"- If there’s no factual request, return < NULL >";
 
-        userPrompt += $"Good example\n" +
+        userPrompt += $"\n\nGood example\n" +
                       $"- Input:\nProsecutor: \"Signorina Flameheart, ha visto se Alaric Shadowwind tracciava dei simboli sul terreno prima dell’arrivo del drago? Se sì, può descriverli?\"\n" +
                       $"- Output: < A description of any symbols Alaric Shadowwind drew on the ground before the dragon arrived >";
         
-        userPrompt += $"Examples of what not to extract:\n" +
+        userPrompt += $"\n\nExamples of what not to extract:\n" +
                       $"- \"Richiedo il permesso di interrogare la signorina Flameheart.\" → < NULL >\n(this is procedural)" +
                       $"- \"Signor giudice, membri della giuria...\" → < NULL >\n(Opening statement, not an info request)";
         
@@ -142,20 +142,22 @@ public class SentenceAnalyzer : MonoBehaviour
     public async Task<string> AnalyzeGrantInterventions(List<ChatMessage> chatMessages, string[] mainCharacters)
     {
         SwitchMode(Mode.Analyze);
-        List<ChatMessage> tmpMessages = chatMessages.Where(x => x.role != "system").TakeLast(numOfMessages).ToList();
+        List<ChatMessage> tmpMessages = chatMessages.Where(x => x.role != "system" && x.role != "Case Description").TakeLast(numOfMessages).ToList();
         string lastCharacter = tmpMessages[^1].role;
         string userPrompt =
-            $"Can you extract from the following text:\n{lastCharacter}: {tmpMessages[^1].content}\n\n" +
+            $"Can you extract from the following text:\n{lastCharacter}: {tmpMessages[^1].content.Split("*")[0].Split("<")[0]}\n\n" +
             $"how many interventions {lastCharacter} is granting and who they are giving interventions to?\n\n" +
             $"Follow these steps:\n" +
-            $"1 - Determine if the speaker is giving additional interventions. If not, return < NULL >\n" +
+            $"1 - Determine if the speaker is giving additional interventions. If not, return < 0 | NULL >\n" +
             $"2 - If yes, extract the number of granted interventions\n" +
-            $"3 - Determine whom character the speaker is talking to; they can be only one of them: {string.Join(" or ", mainCharacters)}" +
+            $"3 - Determine whom character the speaker is talking to; they can be only one of them: {string.Join(" or ", mainCharacters)} or NULL" +
             $"4 - Output your answer in the following format: <here you put the number | here you put the character> ";
         
         if (tmpMessages.Count > 1)
-            userPrompt += $"Additional context to consider (prior dialogue):\n{string.Join("\n\n", tmpMessages.SkipLast(1).Select(x => $"{x.role}: {x.content}."))}";
+            userPrompt += $"Additional context to consider (prior dialogue):\n{string.Join("\n\n", tmpMessages.SkipLast(1).Select(x => $"{x.content.Split("*")[0].Split("<")[0]}."))}";
 
+        userPrompt += "\n\nImportant notes:\n- Remember to look for numbers, they could be associated with the granted interventions";
+        
         Debug.Log("Analyze grant user prompt:\n" + userPrompt);
         
         string answer = await llmCharacter.Chat(userPrompt);
@@ -195,11 +197,28 @@ public class SentenceAnalyzer : MonoBehaviour
 
         Debug.Log("Final verdict prompt:\n" + llmCharacter.prompt);
         string dialogueSummary = await Summarize(chatMessages);
-        string currentPrompt = $"Case Description:\n{caseDescription.GetTotalDescription(new []{0,2,3,4,5})}\n\nDialogue summary:\n{dialogueSummary}";
-        
-        Debug.Log("Final verdict user prompt:\n" + currentPrompt);
 
-        string answer = await llmCharacter.Chat(currentPrompt, callback, completionCallback);
+        string userPrompt = "To write your final verdict I will give you the court case description and a summary of the dialogue happened in the courtroom so you can understand the context:\n\n" +
+                            $"Case Description:\n{caseDescription.GetTotalDescription(new []{0,2,3,4,5})}\n\nDialogue summary:\n{dialogueSummary}\n\n" +
+                            $"Declaring a Win:\nIn the case description there will be also a section containing the player (or the Defense Attorney) goal; you must take that and compare it to the dialogue to determine a win or a loss for the player." +
+                            $"When evaluating:\n" +
+                            $"- Make sure your conclusion directly follows from the arguments presented during the trial.\n" +
+                            $"- If you declare a win, the Defense must have clearly fulfilled their objective within the context of the case.\n" +
+                            $"- If you declare a loss, that must reflect actual shortcomings in logic, strategy, or outcome—not personal opinion or mood.\n" +
+                            $"- Avoid random or emotional decisions; base your ruling on coherence, persuasiveness, and the stated goal of the Defense.\n" +
+                            $"- Your task is not to be lenient or harsh, but to deliver a verdict that is legally sound, internally consistent, and free of randomization.\n\n" +
+                            $"Important notes:\n- your final verdict should not present only a summary of the dialogue happened in the courtroom \n" +
+                            $"- You must also say whether the defendant is guilty or not or how many years is their sentence \n" +
+                            $"- You must also say the reason of the your final choice \n\n" +
+                            $"Formatting:\n- To declare a win you must write this tag: #WIN.\n" +
+                            $"- To declare a loss you must write this tag: #LOSS.\n" +
+                            $"- You can put the chosen tag at the end of your answer \n\n";
+
+        userPrompt += TranslationSentence;
+        
+        Debug.Log("Final verdict user prompt:\n" + userPrompt);
+
+        string answer = await llmCharacter.Chat(userPrompt, callback, completionCallback);
         
         Debug.Log("Final verdict answer:\n" + answer);
         

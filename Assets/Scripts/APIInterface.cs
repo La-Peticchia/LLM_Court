@@ -8,9 +8,7 @@ using UnityEngine;
 using Azure;
 using Azure.AI.Inference;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using UnityEngine.Serialization;
-using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class APIInterface : MonoBehaviour
@@ -26,10 +24,8 @@ public class APIInterface : MonoBehaviour
     private Uri _endpoint;
     private AzureKeyCredential _credential;
     
-    [SerializeField]
-    private ModelType modelType = ModelType.Gpt;
-    private string _model = "";
-    
+    [SerializeField]private ModelType caseGenerationModel = ModelType.Gpt;
+    [SerializeField]private ModelType additionalInfoModel = ModelType.Llama;
     
     private ChatCompletionsClient _client;
 
@@ -73,24 +69,13 @@ public class APIInterface : MonoBehaviour
         _credential = new AzureKeyCredential(envVariable);
         _client = new ChatCompletionsClient(_endpoint, _credential, new AzureAIInferenceClientOptions());
 
-        switch (modelType)
-        {
-            case ModelType.Gpt: _model = "openai/gpt-4.1";
-                break;
-            case ModelType.Llama: _model = "meta/Llama-4-Scout-17B-16E-Instruct";
-            //case ModelType.Llama: _model = "meta/Meta-Llama-3.1-405B-Instruct";
-                break;
-            case ModelType.DeepSeek: _model = "deepseek/DeepSeek-V3-0324";
-                break;
-            case ModelType.Grok: _model = "xai/grok-3";
-                break;
-        }
+
 
 
         _chatOptions = new ChatCompletionsOptions()
         {
             ResponseFormat = ChatCompletionsResponseFormat.CreateJsonFormat(),
-            Model = _model,
+            Model = GetModel(caseGenerationModel),
             Temperature = 1f,
             NucleusSamplingFactor = 1f,
             FrequencyPenalty = 2,
@@ -99,6 +84,18 @@ public class APIInterface : MonoBehaviour
         };
     }
 
+    private string GetModel(ModelType type)
+    {
+        return type switch
+        {
+            ModelType.Gpt => "openai/gpt-4.1",
+            ModelType.Llama => "meta/Llama-4-Scout-17B-16E-Instruct",
+            //ModelType.Llama => "meta/Meta-Llama-3.1-405B-Instruct";
+            ModelType.DeepSeek => "deepseek/DeepSeek-V3-0324",
+            ModelType.Grok => "xai/grok-3",
+            _ => "openai/gpt-4.1"
+        };
+    }
     
     public async Task<CaseDescription> RequestCaseDescription(string preferences = "", bool translation = false, int seed = 0)
     {
@@ -244,6 +241,7 @@ public class APIInterface : MonoBehaviour
             new ChatRequestUserMessage(addRequest)
         };
         requestOptions.ResponseFormat = ChatCompletionsResponseFormat.CreateTextFormat();
+        requestOptions.Model = GetModel(additionalInfoModel);
         
         try
         {

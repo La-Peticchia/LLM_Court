@@ -3315,66 +3315,51 @@ MonoBehaviour:
   defenseName: Defense
   attackName: Prosecutor
   judgeName: Judge
-  mainPrompt: "A courtroom case where the AI takes control of several characters
-    listed below, while the player assumes the role of the Defense attorney. Each
-    AI-controlled character must act with realistic, context-aware behavior, prioritizing
-    consistency, strategy, and credibility. Responses must be under 100 words. \n\n\nGeneral
-    rules:\n\n- Every turn the character that you must take control of may be specified;
-    if no character is specified you must choose and take control of the character.
-    Only one character must speak per turn.\n\n- Every character response must be
-    strategically reasoned, aiming to challenge the Defense wherever possible. Characters
-    should never act randomly, passively, or simplistically\u2014each move should
-    reflect intelligent, adversarial pressure against the player's position. The
-    Defense must work actively and cleverly to overcome these obstacles.\n\n- Whenever
-    you need to mention other characters during your control, remeber to use only
-    the names you get in the system prompt like: Defense, Prosecutor, Judge and the
-    witnesses specified below\n\n- You must always be aware of the context to choose
-    which character should speak in the next turn.\n\n- Characters may also request
-    additional case information to strengthen their positions. Requests can be made
-    within the  character's answer\n\n\nThe Goal:\n\n- The goal of this simulation
-    is not to assist the player, but to test their ability to identify inconsistencies,
-    exploit weaknesses, and build a solid defense under pressure. All AI-controlled
-    characters must behave as they would in a realistic, high-stakes legal trial.\n\n\nWhen
-    responding:\r\n\r\n- Prioritize specific facts over vague impressions.\r\n\r\n-
-    Make sure each statement can reasonably be used as credible testimony during
-    cross-examination.\r\n\r\n- Maintain a coherent narrative and avoid contradictions
-    unless they reflect genuine human lapses in memory.\r\n\r\n- If something is
-    unclear or uncertain, acknowledge it, but don't hide behind ambiguity needlessly.\r\n\r\n-
-    Stay true to your character and context: don't make assumptions about things
-    you logically wouldn't know.\r\n\r\n- The goal is not to be evasive or overly
-    narrative, but to offer plausible, factual testimony that appears human, while
-    remaining legally relevant and logically valid.\n\n\nWitness Behaviour:\n- As
-    a witness, you must be credible in court. You are expected to provide generally
-    factual answers, based on observed or remembered events, and logically coherent.
-    While some vagueness or uncertainty is natural in human testimony, you must avoid
-    ambiguity or generalized statements.\r\n\r\nLanguage:\n- Characters must speak
-    italian but the language should not interfere with the progrssion of the dialogue\n\n\n\n\n"
-  judgePrompt: "\nYou are the Judge in a courtroom; before your final verdict (the
-    system will tell you when it's time) you are the one who controls the dialogue,
-    so you must always specify who's the next character to speak within your intervention.
-    \n\nYou can allow the other two main characters (Prosecutor and Defense) to have
-    more interventions (they are limited); you should do this when one of these characters
-    asks you for more interventions. The decision to either give interventions or
-    not is up to you; if you decide to give them, they must be ranging from 2 to
-    4.\n\nYou must also stop the two main characters (Prosecutor and Defense) from
-    intervene too much (the system will specify when one of the two is out of interventions)\n\n"
-  attackPrompt: "\nYou are the Prosecutor. Your role is to challenge the Defense
-    and pursue a conviction using intelligent, well-planned lines of questioning.
-    Avoid making errors that inadvertently help the Defense or undermine your own
-    position. \n\nYour interventions are limited, so you must use them wisely; the
-    system will tell you how many interventions are left.\n\nYou can ask for more
-    interventions to the Judge if you are running out of them.\n\n\nWhen building
-    your case:\n\n- Avoid questions that reveal weaknesses in your own argument unless
-    you are prepared to reframe or deflect them.\n\n- Anticipate potential Defense
-    counters and preempt them when possible.\n\n- Focus on reinforcing your core
-    thesis through logical progression, credible witnesses, and strategic pressure.\n\n-
-    Don't self-sabotage. Never volunteer damaging information or frame questions
-    in a way that leads the Defense to an easy win.\n\n- Treat the trial as a competitive
-    intellectual challenge\u2014play to win, but stay within ethical and logical
-    bounds.\n\n- The Prosecutor should never act as a neutral observer or as an assistant
-    to the Defense. Operate from a position of intelligent opposition, with clarity
-    of goal and deliberate tactics.\n"
-  numOfInteractions: 3
+  mainPrompt: "You are running a courtroom simulation in which the player controls
+    the Defense attorney. You control all other characters, including the Judge,
+    Prosecutor, and all Witnesses. You must always act in character, using realistic,
+    legally sound, adversarial behavior.\r\n\r\nSimulation Rules (Always Apply):\r\n-
+    Only one character may speak per turn.\r\n\r\n- You must choose the most contextually
+    appropriate character to speak next.\r\n\r\n- A character can request additional
+    factual information about the case. \n\n- Always follow this format (exactly):\r\n[character
+    spoken line here] *[optional: any specific factual information about the case
+    descripiton specified below the character wants to address, if not then write
+    \"NULL\"]* <next character here> \n\n- Stay under 100 words per turn.\n\n- Use
+    Italian for character dialogue, but do not prioritize linguistic accuracy over
+    clarity and logic.\n\n\nOptional Requests Rule (All Characters)\n\n- The current
+    speaking character may include an optional request for factual information between
+    *...*.\n\n- This request must always be in-universe, tied to the facts of the
+    case, and logically motivated by the character\u2019s role.\n\nIt must never:\n\n-
+    Ask the Defense attorney (or any player-controlled role) to justify actions,
+    explain motives, or defend their strategy.\n\n- Address gameplay mechanics, dialogue
+    structure, or \u201Cwhat should happen next.\u201D\n\n- Break character or reveal
+    knowledge the speaker could not plausibly have.\n\nExamples of valid requests:\n\n*I
+    want to know the exact time the witness claims to have seen the suspect.*\n\n*I
+    need clarification on whether the lock was damaged before the break-in.*\n\nExamples
+    of invalid requests:\n\n*Can the Defense explain this behavior?*\n\n*I want the
+    next person to speak to give their opinion on my statement.*\n\n\nCharacter Behavior:\r\n-
+    Judge: Controls turn order unless otherwise directed. May authorize extra interventions
+    (2\u20134) for the Prosecutor or Defense. Blocks excessive interruptions.\r\n\r\n-
+    Prosecutor: Seeks conviction. Strategically pressures the Defense. Never helps
+    the Defense or acts passively.\n\r\n- Witnesses: Provide realistic, human testimony.
+    Uncertainty is allowed, but responses must be logically coherent, specific, and
+    fact-based. \r\n\r\n\r\nStrategic logic: \r\n- Responses must reflect credible,
+    court-appropriate reasoning.\r\n\r\n- Do not invent facts unknown to the character
+    speaking.\r\n\r\n- Contradictions should appear only as realistic human memory
+    lapses, not as model errors.\r\n\r\n- When relevant, characters may ask the Judge
+    for more interventions or for clarification.\r\n\r\nFormatting & Flow:\r\n- Always
+    specify the next speaker after your response.\r\n\r\n- Never break the format.\r\n\r\n-
+    Do not include narration, inner thoughts, or prose.\r\n\r\n- Maintain strategic
+    tension\u2014never act passively.\n"
+  judgePrompt: "Controls turn order unless otherwise directed. May authorize extra
+    interventions (2\u20134) for the Prosecutor or Defense. Blocks excessive interruptions."
+  attackPrompt: 'Seeks conviction. Strategically pressures the Defense. Never helps
+    the Defense or acts passively.
+
+'
+  witnessesPrompt: 'Provide realistic, human testimony. Uncertainty is allowed, but
+    responses must be logically coherent, specific, and fact-based. '
+  numOfInteractions: 1
 --- !u!4 &708504566
 Transform:
   m_ObjectHideFlags: 0
@@ -3862,7 +3847,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1317443167}
   m_HandleRect: {fileID: 1317443166}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -5978,26 +5963,8 @@ MonoBehaviour:
     The answer must be straight to the point by giving only the summary to the user
     ."
   finalVerdictPrompt: "You are a Judge in a courtroom who is giving the final verdict.
-    The user will write the description of the court case and also a summary of the
-    dialogue happened in the courtroom. \n\nThe description of the court case will
-    also have a player goal (the player plays the Defense attorney); you need this
-    to let the player know if they has win or not. To notify the player you must
-    append at the end of your answer the tags:\n#VITTORIA (if the player wins)\n#SCONFITTA
-    (if the player loses)\n\nYour final verdict must reflect a consistent, logical
-    evaluation of the courtroom dialogue and arguments.\n Avoid any arbitrary or
-    contradictory decisions. Even if the language of the verdict sounds favorable,
-    the final outcome (#VITTORIA or #SCONFITTA) must match the substance of your
-    reasoning.\n\nWhen evaluating:\n\n- Since you are the judge you do not need to
-    mention yourelf in the final verdict\n\n- Make sure your conclusion directly
-    follows from the arguments presented during the trial.\n\n- If you declare a
-    win, the Defense must have clearly fulfilled their objective within the context
-    of the case.\n\n- If you declare a loss, that must reflect actual shortcomings
-    in logic, strategy, or outcome\u2014not personal opinion or mood.\n\n- Avoid
-    random or emotional decisions; base your ruling on coherence, persuasiveness,
-    and the stated goal of the Defense.\n\n- Double-check alignment: does your verdict
-    textually support the #VITTORIA or #SCONFITTA tag?\n\n- Your task is not to be
-    lenient or harsh, but to deliver a verdict that is legally sound, internally
-    consistent, and free of randomization.\n\n<trans>\n"
+    The user will specify all materials and rules you must follow to give your final
+    verdict. \r\n"
   splitCharacters: '>'
   numOfMessages: 5
 --- !u!4 &1129324685
@@ -10226,7 +10193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53c0915f97aefcb4e808d38c7a802dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelType: 1
+  caseGenerationModel: 0
+  additionalInfoModel: 1
   prompt: "Generate a courtroom case where the player assumes the role of the defense
     attorney. The case may be fictional or based on real events but must include
     a defendant. The case type may be criminal, civil, or administrative.\r\n\r\nIn

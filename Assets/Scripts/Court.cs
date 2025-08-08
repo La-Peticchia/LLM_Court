@@ -5,15 +5,10 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using LLMUnity;
 using Newtonsoft.Json;
-using NUnit.Framework;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.Controls;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
-using NotImplementedException = System.NotImplementedException;
 
 public class Court : MonoBehaviour
 {
@@ -46,11 +41,16 @@ public class Court : MonoBehaviour
     [TextArea(5, 10)] public string mainPrompt = "A court case where the AI takes control of several characters listed below";
     [TextArea(5, 10)] public string judgePrompt = "The goal of Judge is to give the defendant's final sentence by listening to the dialogue";
     [TextArea(5, 10)] public string attackPrompt = "The goal of Prosecutor is proving to the Judge that the defendant is guilty";
+    [TextArea(5, 10)] public string witnessesPrompt = "Witnesses";
 
     //Command text
-    private readonly string _questionCharacter = ">";
+    private readonly string _questionCharacter = "<";
     private readonly string _requestCharacter = "*";
     private readonly string _gameOverCharacter = "#";
+    private readonly string _judgePlaceholder = "<Judge>";
+    private readonly string _prosecutorPlaceholder = "<Prosecutor>";
+    private readonly string _witnessesPlaceholder = "<Witnesses>";
+    
 
     //Gameplay
     [SerializeField, UnityEngine.Range(1, 5)] private int numOfInteractions;
@@ -64,14 +64,12 @@ public class Court : MonoBehaviour
     private CaseDescription _caseDescription, _translatedDescription;
     private int _round;
     private bool IsFinalVerdict => _attackInteractions <= 0 && _defenseInteractions <= 0;
-    private bool _isGameOver = false;
+    private bool _isGameOver;
 
     //End game message
-    private List<string> winKeywords = new List<string> { "non colpevole", "innocente", "assolto" };
-    private List<string> loseKeywords = new List<string> { "colpevole", "condannato", "condanno" };
     private (string message, Color color)? _pendingEndGameMessage = null;
-    private string _winTag = "#VITTORIA";
-    private string _loseTag = "#SCONFITTA";
+    private readonly string _winTag = "#WIN";
+    private readonly string _lossTag = "#LOSS";
     
 
     //Events
@@ -114,6 +112,7 @@ public class Court : MonoBehaviour
         if (playerGoalText)
             playerGoalText.text = _translatedDescription.GetTotalDescription(1, true);
 
+        mainPrompt = mainPrompt.Replace(_judgePlaceholder, judgePrompt).Replace(_prosecutorPlaceholder, attackPrompt).Replace(_witnessesPlaceholder, witnessesPrompt);
 
         InitializeChat();
         InitializeRounds();
@@ -134,12 +133,12 @@ public class Court : MonoBehaviour
 
         OnNextButtonClick();
     }
-
-
+    
     private void InitializeChat()
     {
-        llmCharacter.prompt = BuildPrompt();
+        llmCharacter.prompt = mainPrompt;
         llmCharacter.ClearChat();
+        llmCharacter.AddMessage("Case Description", "The following is the case file for today's simulation, provided in JSON format. Use this only as factual reference during the trial. Do not repeat or explain it:\n" +  _caseDescription.GetJsonDescription());
         enabled = true;
     }
 
@@ -150,7 +149,7 @@ public class Court : MonoBehaviour
         //    _caseDescription.GetTotalDescription(new int[] { 4, 0, 1, 2, 3, 5 });
         return
             $"{mainPrompt}\n{judgeName} - {judgePrompt}\n{attackName} - {attackPrompt}\n\n" +
-            _caseDescription.GetTotalDescription(new int[] { 4, 0, 1, 2, 3, 5 });
+            _caseDescription.GetTotalDescription(new int[] { 4, 0, 1, 2, 3 });
         
         
     }
@@ -200,14 +199,14 @@ public class Court : MonoBehaviour
         {
             if (text.Contains(_questionCharacter))
             {
-                aiTitle.text = text.Split(_questionCharacter)[0].Split(_gameOverCharacter)[0];
+                aiTitle.text = text.Split(_questionCharacter)[0];
                 aiText.text = text.Split(_questionCharacter)[1].Split(_requestCharacter)[0];
             }
 
             return;
         }
 
-        aiText.text = text.Split(_requestCharacter)[0];
+        aiText.text = text.Split(_questionCharacter)[0].Split(_gameOverCharacter)[0].Split(_requestCharacter)[0];
 
     }
 
@@ -361,52 +360,56 @@ public class Court : MonoBehaviour
     {
         
         //TODO remove the next character name from the main prompt of The Court object then test the new analyse prompt
-
-
+        
         var characters = new List<string>{judgeName, defenseName, attackName};
+        string[] data = new string[2];
         characters.AddRange(_caseDescription.witnessNames);
         
-        Task<string> nextCharTask = _sentenceAnalyzer.AnalyzeNextCharacter(llmCharacter.chat, characters.ToArray());
-        Task<string> infoReqTask = _sentenceAnalyzer.AnalyzeInfoNeeded(llmCharacter.chat);
-        string[] data;
-        if (_roundsTimeline[_round].role.ToLower().Contains(judgeName.ToLower()))
+        if (_roundsTimeline[_round].role.ToLower().Contains(defenseName.ToLower()))
         {
-            Task<string> grantTask = _sentenceAnalyzer.AnalyzeGrantInterventions(llmCharacter.chat, characters.ToArray());
-            data = await Task.WhenAll(nextCharTask, infoReqTask, grantTask);
-            string[] split = data[2].Split("|");
-            
-            if(!data[2].Contains("NULL"))
-                if (split[1].ToLower().Contains(defenseName.ToLower()))
-                    _defenseInteractions += int.Parse(split[0]);
-                else if (split[1].ToLower().Contains(attackName.ToLower()))
-                    _attackInteractions += int.Parse(split[0]);
+            var infoReqTask = _sentenceAnalyzer.AnalyzeInfoNeeded(llmCharacter.chat);
+            var nextCharTask = _sentenceAnalyzer.AnalyzeNextCharacter(llmCharacter.chat, characters.ToArray());
+            data = await Task.WhenAll(nextCharTask, infoReqTask);
         }
         else
-            data = await Task.WhenAll(nextCharTask, infoReqTask);
+        {
+            if (_roundsTimeline[_round].role.ToLower().Contains(judgeName.ToLower()))
+            {
+                string answer = await _sentenceAnalyzer.AnalyzeGrantInterventions(llmCharacter.chat, characters.ToArray());
+                string[] split = answer.Split("|");
+                
+                if(!answer.Contains("NULL"))
+                    if (split[1].ToLower().Contains(defenseName.ToLower()))
+                        _defenseInteractions += int.Parse(split[0]);
+                    else if (split[1].ToLower().Contains(attackName.ToLower()))
+                        _attackInteractions += int.Parse(split[0]);
+            }
+            else
+                data[1] = Regex.Match(text, @"\*(.*?)\*").Groups[1].Value;
+            
+            Debug.Log(_roundsTimeline[_round].role + ": " + text);
+            data[0] = Regex.Match(text, @"<([^>]+)>").Groups[1].Value;
+
+        }
         
+        //TODO fix the additional information requests and the logic of choosing the next character
         
-        string nextCharacter = data[0];
-        string addInfo = data[1];
+        _roundsTimeline.Insert(_round + 1, (data[0], ""));
         
-        //string[] data = Regex.Matches(text,@"<([^>]+)>").Select(x => x.Groups[1].Value).ToArray(); 
-        //if (data.Length < 2)
-        //{
-        //    (nextCharacter, addInfo) = await _sentenceAnalyzer.Analyze(llmCharacter.chat);
-        //}
-        //else
-        //    (nextCharacter, addInfo) = (data[0], data[1]);
-        _roundsTimeline.Insert(_round + 1, (nextCharacter, ""));
-        
-        if (!addInfo.ToUpper().Contains("NULL"))
+        if (!string.IsNullOrWhiteSpace(data[1]) && !data[1].ToUpper().Contains("NULL"))
             try
             {
-                (string answer, string translatedAnswer) = await _apiManager.RequestAdditionalInfo(_caseDescription.GetTotalDescription(new []{0,2,3,4}), addInfo);
-                _caseDescription.AddInformation(answer);
-                _translatedDescription.AddInformation(translatedAnswer);
-                            
+                (string answer, string translatedAnswer) = await _apiManager.RequestAdditionalInfo(_caseDescription.GetTotalDescription(new []{0,2,3,4}), data[1]);
+                if (!string.IsNullOrWhiteSpace(answer))
+                {
+                    _caseDescription.AddInformation(answer);
+                    _translatedDescription.AddInformation(translatedAnswer);
+                }
+                
                 llmCharacter.chat[0] = new ChatMessage{role = "system", content = BuildPrompt()};
                 caseDescriptionText.text = _translatedDescription.GetTotalDescription(true);
-
+                
+                
             }
             catch (Exception e)
             {
@@ -631,7 +634,7 @@ public struct CaseDescription
         descArray[4] = $"{GetSectionName(5)}\n" +
                        string.Join("\n", witnessNames.Select(x => $"-{x}: {descriptions[list.IndexOf(x)]}").ToArray());
                        //$"{string.Join("\n", witnesses.Select(x => $"-{x.name}: {x.description}\n{x.personality}\n{x.testimony}").ToArray())}\n\n";
-        descArray[5] = $"{GetSectionName(6)}\n" +
+        descArray[5] = $"\n\n{GetSectionName(6)}\n" +
                        $"{string.Join("\n", additionalInfo.Select(x => "-" + x))}\n\n";
 
         richArray[0] = $"<b><color=#F64A3E>{GetSectionName(0)}</color></b>\n" +
@@ -645,7 +648,7 @@ public struct CaseDescription
         richArray[4] = $"<b><color=#F64A3E>{GetSectionName(5)}</color></b>\n" +
                        string.Join("\n", witnessNames.Select(x => $"-<i><color=#550505>{x}</color></i>: {descriptions[list.IndexOf(x)]}").ToArray());    
                        //$"{string.Join("\n", witnesses.Select(x => $"-<i><color=#550505>{x.name}</color></i>: {x.description}\n{x.personality}\n{x.testimony}").ToArray())}\n\n";
-        richArray[5] = $"<b><color=#F64A3E>{GetSectionName(6)}</color></b>\n" +
+        richArray[5] = $"\n\n<b><color=#F64A3E>{GetSectionName(6)}</color></b>\n" +
                        $"{string.Join("\n", additionalInfo.Select(x => "-" + x))}\n\n";
     }
     
