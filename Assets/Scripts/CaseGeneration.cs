@@ -22,7 +22,8 @@ public class CaseGeneration : MonoBehaviour
     [SerializeField] private TextMeshProUGUI prefInputField;
     [SerializeField] private TextMeshProUGUI errorTextbox;
     [SerializeField] private GameObject courtPreviewCanvas;
-    
+    [SerializeField] private GameObject loadingCanvas;
+
     private LinkedList<CaseDescription> _translatedDescriptions;
     
     //References
@@ -72,6 +73,7 @@ public class CaseGeneration : MonoBehaviour
             if (lastCase != null && lastCase.Length > 0)
             {
                 courtPreviewCanvas.SetActive(false);
+                loadingCanvas.SetActive(true);
 
                 // Passa la traduzione se esiste, altrimenti usa la descrizione originale come fallback
                 if (lastCase.Length > 1)
