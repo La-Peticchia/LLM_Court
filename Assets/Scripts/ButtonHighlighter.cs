@@ -13,11 +13,13 @@ public class ButtonHighlighter : MonoBehaviour
     public GameObject highlightMirrorPrefab;
     public GameObject highlightPaperPrefab;
 
+    [Header("Audio Settings")]
+    [SerializeField] private bool enableAudioFeedback = true;
+
     private Dictionary<string, GameObject> tagToHighlight;
 
     private void Awake()
     {
-        
         tagToHighlight = new Dictionary<string, GameObject>
         {
             { "MenuButton", highlightMenuButtonPrefab },
@@ -57,12 +59,43 @@ public class ButtonHighlighter : MonoBehaviour
 
             HighlightHandler handler = btn.gameObject.AddComponent<HighlightHandler>();
             handler.highlightImage = highlight;
+            handler.buttonHighlighter = this;
+        }
+    }
+
+    // Metodi per riprodurre i suoni
+    public void PlayHoverSound(string buttonTag)
+    {
+        if (AudioManager.instance == null || !enableAudioFeedback) return;
+
+        if (buttonTag == "PaperButton")
+        {
+            AudioManager.instance.PlaySFXOneShot("paper_hover");
+        }
+        else
+        {
+            AudioManager.instance.PlaySFXOneShot("button_hover");
+        }
+    }
+
+    public void PlayClickSound(string buttonTag)
+    {
+        if (AudioManager.instance == null || !enableAudioFeedback) return;
+
+        if (buttonTag == "PaperButton")
+        {
+            AudioManager.instance.PlaySFXOneShot("paper_click");
+        }
+        else
+        {
+            AudioManager.instance.PlaySFXOneShot("button_click");
         }
     }
 
     private class HighlightHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         public GameObject highlightImage;
+        public ButtonHighlighter buttonHighlighter;
 
         private bool isSelected = false;
         private Coroutine blinkCoroutine;
@@ -80,8 +113,6 @@ public class ButtonHighlighter : MonoBehaviour
                 {
                     currentSelectedMirror = this;
                     isSelected = true;
-
-                    
                     SetHighlightStatic(true);
                 }
                 else
@@ -94,6 +125,11 @@ public class ButtonHighlighter : MonoBehaviour
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            if (buttonHighlighter != null)
+            {
+                buttonHighlighter.PlayHoverSound(gameObject.tag);
+            }
+
             if (highlightImage != null && !isSelected)
                 highlightImage.SetActive(true);
         }
@@ -106,12 +142,16 @@ public class ButtonHighlighter : MonoBehaviour
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (buttonHighlighter != null)
+            {
+                buttonHighlighter.PlayClickSound(gameObject.tag);
+            }
+
             if (!gameObject.CompareTag("MirrorButton"))
                 return;
 
             if (currentSelectedMirror != this)
             {
-              
                 if (currentSelectedMirror != null)
                     currentSelectedMirror.Deselect();
 
@@ -121,13 +161,12 @@ public class ButtonHighlighter : MonoBehaviour
                 PlayerPrefs.SetString(PREFS_KEY, gameObject.name);
                 PlayerPrefs.Save();
             }
-            
         }
 
         private void Select()
         {
             isSelected = true;
-            
+
             if (blinkCoroutine == null)
                 blinkCoroutine = StartCoroutine(BlinkHighlight());
         }
@@ -144,7 +183,6 @@ public class ButtonHighlighter : MonoBehaviour
 
             SetHighlightStatic(false);
 
-            
             if (currentSelectedMirror == this)
             {
                 PlayerPrefs.DeleteKey(PREFS_KEY);
@@ -166,16 +204,13 @@ public class ButtonHighlighter : MonoBehaviour
 
         private void SetHighlightStatic(bool on)
         {
-            
             if (blinkCoroutine != null)
             {
                 StopCoroutine(blinkCoroutine);
                 blinkCoroutine = null;
             }
 
-           
             highlightImage.SetActive(on);
         }
     }
-
 }

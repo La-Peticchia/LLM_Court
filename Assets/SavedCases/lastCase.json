@@ -1,32 +1,32 @@
 [
   {
-    "title": "Il Caso del Gioiello Scomparso",
-    "playerGoal": "Dimostrare l'innocenza del cliente accusato di furto di un prezioso gioiello",
-    "summary": "Il cliente, un ex dipendente della gioielleria 'Luce Eterna', è accusato di aver rubato un diamante valutato 500.000 euro durante una mostra privata. Le prove circostanziali lo collocano sulla scena del crimine, ma il cliente sostiene di essere stato incastrato dal proprietario per coprire un'insolvenza finanziaria. Il caso si complica con testimonianze contrastanti e la mancanza di prove dirette.",
-    "shortSummary": "Un ex dipendente è accusato di furto in una gioielleria, ma afferma di essere stato incastrato.",
+    "title": "The Case of the Missing Jewel",
+    "playerGoal": "Prove the innocence of the client accused of stealing a valuable jewel",
+    "summary": "The client, a former employee at 'Eternal Light' jewelry store, is accused of stealing a diamond valued at €500,000 during a private exhibition. Circumstantial evidence places him at the scene, but he claims to have been framed by the owner to cover up financial insolvency. The case becomes complicated due to conflicting testimonies and lack of direct evidence.",
+    "shortSummary": "A former employee is accused of theft in a jewelry store but claims he was framed.",
     "evidence": [
-      "Impronte digitali trovate sulla teca vuota",
-      "Una mail anonima che accusa il proprietario della gioielleria",
-      "Un orologio rotto trovato vicino alla scena del crimine",
-      "Transazioni sospette sul conto bancario del proprietario"
+      "Fingerprints found on the empty display case",
+      "An anonymous email accusing the jewelry store's owner",
+      "A broken watch found near the crime scene",
+      "Suspicious transactions in owner's bank account"
     ],
     "witnessNames": [
-      "Marco Bianchi",
-      "Laura Rossi",
-      "Giovanni Verdi",
-      "Elena Neri"
+      "...Marco Bianchi...",
+      "...Laura Rossi...",
+      "...Giovanni Verdi... ",
+      "...Elena Neri..."
     ],
     "witnessDescriptions": [
-      "Marco Bianchi è il proprietario della gioielleria; arrogante e impaziente, sostiene che solo il cliente avesse accesso alla teca.",
-      "Laura Rossi è una collega dell'accusato; timida ma onesta, ricorda che Marco era nervoso il giorno del furto.",
-      "Giovanni Verdi è il custode notturno; anziano e distratto, giura di non aver visto nulla ma ha sentito voci quella sera.",
-      "Elena Neri è l'ex fidanzata dell'accusato; rancorosa ed emotiva, insinua che lui parlava spesso dei diamanti."
+      "Marco Bianchi is the owner of the Jewelry Store; arrogant and impatient, asserts that onlythe clienthad accesstothe displaycase.",
+      "Laura Rossiisacolleagueofaccused;shybut honest,she recallsthat Marcowasnervousondayof robbery.",
+      "Giovanni Verdiisnightguardian;elderlyand absent-minded,swearshe saw nothingbut heard voicesthat night.",
+      "We can eliminate this line in translations"
     ],
     "witnessGenders": [
-      "M",
       "F",
-      "M",
-      "F"
+      "F",
+      "F",
+      "M"
     ]
   },
   {

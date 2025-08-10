@@ -15,7 +15,7 @@ public class CourtRecordUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         defaultScale = openCourtRecordButton.transform.localScale;
         courtRecordPanel.SetActive(false);
-        openCourtRecordButton.onClick.AddListener(OpenCourtRecord);
+        openCourtRecordButton.onClick.AddListener(OpenCourtRecord);  
         exitButton.onClick.AddListener(CloseCourtRecord);
     }
 
