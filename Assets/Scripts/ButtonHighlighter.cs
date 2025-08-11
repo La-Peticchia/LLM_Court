@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using System.Collections;
+using System.Threading.Tasks;
 
 public class ButtonHighlighter : MonoBehaviour
 {
@@ -30,8 +31,9 @@ public class ButtonHighlighter : MonoBehaviour
         };
     }
 
-    private void Start()
+    private async void Start()
     {
+        await Task.Delay(100);
         Button[] allButtons = FindObjectsByType<Button>(FindObjectsInactive.Include, FindObjectsSortMode.None);
 
         foreach (Button btn in allButtons)

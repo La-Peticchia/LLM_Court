@@ -148,12 +148,19 @@ public class Court : MonoBehaviour
         return $"The following is the case file for today's simulation, provided in JSON format. Use this only as factual reference during the trial. Do not repeat or explain it:\n{_caseDescription.GetJsonDescription()}";
     }
     
+    
+    //TODO modificare il prmpt del giudice per renderlo meno generoso
     private void InitializeRounds()
     {
         _roundsTimeline = new List<(string role, string systemMessage)>
         {
             (" "," "),
             (judgeName, $"Now the {judgeName} introduces the court case then passes the word to {attackName}"),
+            (attackName,$"Now the {attackName} introduces their case thesis then asks {judgeName} the amount of questions they want to deliver to the witnesses"),
+            (judgeName, $"Now the {judgeName} grants a specific number of questions to {attackName} based on the previous spoken line"),
+            (defenseName,$"Now the {defenseName} introduces their case thesis then asks {judgeName} the amount of questions they want to deliver to the witnesses"),
+            (judgeName, $"Now the {judgeName} grants a specific number of questions to {defenseName} based on the previous spoken line"),
+            
             //(judgeName, $"Now the {judgeName} give their final verdict")
         };
 
@@ -376,7 +383,11 @@ public class Court : MonoBehaviour
         
         //TODO fix the additional information requests and the logic of choosing the next character
         
-        _roundsTimeline.Insert(_round + 1, (data[0], ""));
+        
+        if(_roundsTimeline.Count <= _round + 1 )
+            _roundsTimeline.Insert(_round + 1, (data[0], ""));
+        else if(_roundsTimeline[_round + 1] == ("", ""))
+            _roundsTimeline[_round + 1] = (data[0], "");
         
         if (!string.IsNullOrWhiteSpace(data[1]) && !data[1].ToUpper().Contains("NULL"))
             try

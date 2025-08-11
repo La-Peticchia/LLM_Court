@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3863293376376735550}
   m_Layer: 5
   m_Name: SavedCaseButton
-  m_TagString: Untagged
+  m_TagString: PaperButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -1,25 +1,66 @@
 [
   {
-    "title": "Il Ladro di Note: Il Caso della Chitarra Perduta",
-    "playerGoal": "Dimostrare l'innocenza completa del cliente, accusato ingiustamente di furto.",
-    "summary": "Francesco Ricci, un giovane musicista squattrinato, viene arrestato con l'accusa di aver rubato una preziosa chitarra vintage dal negozio in cui lavora part-time. Testimoni sostengono d'averlo visto vicino alla vetrina la sera prima della sparizione dell’oggetto. Tuttavia permangono dubbi sulle motivazioni personali attorno ai reali responsabili e su misteriosi movimenti notturni nel negozio che il sistema d'allarme non ha registrato completamente.",
-    "shortSummary": "Un giovane impiegato è accusato del furto di una costosa chitarra dal luogo dove lavora; dettagli discordanti sugli eventi pongono seri dubbi sulla sua colpevolezza effettiva.",
+    "title": "The Case of the Night at the Museum",
+    "playerGoal": "Obtain full acquittal for the client accused of art theft.",
+    "summary": "On a stormy night, an ancient Etruscan vase disappears from the city museum; security accuses Martina Rossetti, a restorer present at the scene. Although found near the scene with dirty gloves and lacking exhaustive explanations, Michelle asserts her innocence. The real thief may have manipulated evidence or exploited surveillance flaws during a partial blackout caused by the storm.",
+    "shortSummary": "Martina Rossetti is suspected of stealing a valuable vase amidst total blackout; players must prove she was not responsible for what happened on that mysterious night.",
     "evidence": [
-      "\"La serratura principale appare forzata dall’interno.\"",
-      "\"Le videocamere hanno alcune ore mancanti dalle registrazioni notturne.\"",
-      "\"Una ricevuta anonima mostra uno strano pagamento poco dopo il furto.\""
+      "Restoration gloves found close to the empty pedestal but without complete fingerprints belonging to presumed culprit.",
+      "'Half-broken' footage resulting from electrical outages between nine pm and eleven am next day showing some confusing movements among shadows in main corridors.",
+      "Secondary electronic key missing, unrecognized by digital access terminal throughout evening shift per IT logs reported by technicians."
     ],
     "witnessNames": [
-      "Giada Benigni",
-      "Vittorio Corsi"
+      "Ettore Vismara",
+      "Giulia De Santis"
     ],
     "witnessDescriptions": [
-      "Responsabile amministrativa del negozio da dieci anni; persona precisa ma ansiosa sotto pressione. Afferma che Francesco era sconvolto per questioni economiche e lo avrebbe udito discutere animatamente al telefono riguardo debiti la settimana precedente al furto.",
-      "Tecnico audio freelance ed ex collega licenziatosi mesi fa; carattere impulsivo ma molto brillante nei dettagli tecnici. Racconta di aver vista luce accesa all’alba usando scorci sotterranei tra i magazzini collegati — sostiene però fermamente la buona fede dell'imputatо."
+      "Ettore Vismara works as an experienced guard in this same museum and is known for being methodical yet suspicious towards new hires: he testifies that during storms he often checks different areas than usual shifts do—and claims to have encountered Martina out-of-schedule near Egyptian halls right after sudden emergency lights went off.",
+      "Giulia De Santis provides seasonal service as volunteer in historical archives and is described as cheerful yet keenly observant: she declares before judge having heard unusual metallic noises while organizing old documents just prior to general power loss—then only saw indistinct shapes which could not be clearly identified due to nearly complete darkness."
     ],
     "witnessGenders": [
       "M",
-      "F"
+      "M"
+    ],
+    "additionalInfo": [
+      "The judge grants permission for in-depth questioning of Ettore Vismara and Giulia De Santis to clarify Martina Rossetti's whereabouts. Additionally, high-resolution security camera footage from adjacent buildings is authorized for examination to supplement the 'half-broken' footage.\n\n",
+      "Martina Rossetti was wearing a black sweater and dark jeans. Her expression appeared nervous and worried, with a hint of frustration in her eyes as she insisted on her innocence.",
+      "Ettore Vismara encountered Martina Rossetti at 10:47 PM, 23 feet from the Egyptian hall. Security logs show Ettore Vismara's swipe at 10:45 PM near the security room during the blackout, but his location wasn't GPS-tracked.\n\n",
+      "Ettore Vismara was searching for a misplaced security manual and deviated from his route to investigate a reported issue with the museum's audio system, which had been malfunctioning earlier that evening. ",
+      "The audio system had an intermittent feedback issue. Ettore Vismara last noticed it during the morning security briefing, about 5 hours before the storm hit, when static noise briefly disrupted the communication feed from the control room to his radio. \n\n",
+      "Martina Rossetti was found with a small, hidden pocket in her restorer's uniform containing a faintly Etruscan-style design etched onto a silver pendant; she claimed it was an inherited family heirloom. ",
+      "Ecco due possibili interventi per interrogare i testimoni al fine di stabilire la responsabilità di Martina Rossetti:\n\n1. **Interrogatorio di Ettore Vismara**: \"Signor Vismara, può descrivere esattamente cosa ha visto quando ha incontrato Martina Rossetti vicino alle sale egizie durante l'interruzione della corrente? Ha notato se indossava qualcosa di diverso o aveva atteggiamenti sospetti?\"\n \n2. **Interrogatorio di Giulia De Santis**: \"Signora De Santis, può specificare se i rumori metallici che ha sentito erano provenienti dalle aree vicine a dove si trovava Martina Rossetti? Ha idea se quei rumori potrebbero essere collegati al furto del vaso etrusco?\" \n\n"
+    ]
+  },
+  {
+    "title": "Il Caso della Notte al Museo",
+    "playerGoal": "Ottenere l'assoluzione totale per il cliente accusato di furto d'arte.",
+    "summary": "Durante una notte tempestosa, un antico vaso etrusco scompare dal museo civico; la sicurezza accusa Martina Rossetti, restauratrice presente sul luogo. Sebbene trovata vicino alla scena con guanti sporchi e priva di giustificazioni esaurienti, Michelle sostiene la sua innocenza. Il vero ladro potrebbe aver manipolato le prove o sfruttato falle nella sorveglianza notturna rimasta inattiva per blackout parziale causato dalla tempesta.",
+    "shortSummary": "Martina Rossetti è sospettata del furto di un prezioso vaso in pieno blackout; il giocatore deve provare che non sia responsabile degli eventi avvenuti quella notte misteriosa.",
+    "evidence": [
+      "Guanti da restauro ritrovati a pochi passi dal piedistallo vuoto ma privi dell'impronta completa della presunta colpevole.",
+      "Registrazione cammezze spezzate dovute ad interruzioni elettriche dalle ore ventuno alle undici del mattino successivo mostrando alcuni movimenti confusi tra ombre nei corridoi principali.",
+      "Chiave elettronica secondaria mancante, risultante irriconoscibile nel terminale di accesso digitale durante tutto il turno serale secondo i log informatici segnalati dai tecnici."
+    ],
+    "witnessNames": [
+      "Ettore Vismara",
+      "Giulia De Santis"
+    ],
+    "witnessDescriptions": [
+      "Ettore Vismara lavora come guardiano esperto presso lo stesso museo ed è conosciuto per essere metodico ma diffidente verso nuovi assunti: testimonia che durante i temporali va spesso controllando aree diverse rispetto ai turni standard e afferma di avere incrociato Martina fuori dall'orario previsto nei pressi delle sale egizie subito dopo uno stacco improvviso nelle luci emergenti.",
+      "Giulia De Santis presta servizio stagionale come volontaria agli archivi storici ed è descritta allegra ma osservatrice scrupolosa: dichiata davanti al giudice d’aver udito rumori metallici anomali mentre sistemava documentazione antica poco prima dello scalo generale—seguito però solo da alcune sagome indistinte senza poterle identificare chiaramente nel buio quasi completo."
+    ],
+    "witnessGenders": [
+      "M",
+      "M"
+    ],
+    "additionalInfo": [
+      "\nIl giudice concede il permesso per interrogare approfonditamente Ettore Vismara e Giulia De Santis per chiarire gli spostamenti di Martina Rossetti. Inoltre, viene autorizzata l'esame delle riprese di sicurezza ad alta risoluzione da edifici adiacenti per integrare le registrazione \"parzialmente danneggiate\".",
+      "\nMartina Rossetti indossava un maglione nero e jeans scuri. La sua espressione sembrava nervosa e preoccupata, con un accenno di frustrazione negli occhi mentre insisteva sulla sua innocenza.",
+      "\nEttore Vismara incontrò Martina Rossetti alle 22:47, a 7 metri dalla sala egizia. I registri di sicurezza mostrano il suo passaggio vicino alla stanza di sicurezza alle 22:45 durante il blackout, ma la sua posizione non è stata rilevata via GPS.",
+      " Ettore Vismara stava cercando un manuale di sicurezza smarrito e si è discostato dal suo percorso per indagare su un problema segnalato con il sistema audio del museo, che aveva funzionato male quella sera stessa.",
+      " \nIl sistema audio aveva un problema di retroazione intermittente. Ettore Vismara l'ha notato l'ultima volta durante la riunione di sicurezza mattutina, circa 5 ore prima dell'arrivo della tempesta, quando il rumore statico ha brevemente interrotto la trasmissione dal centro di controllo alla sua radio.",
+      "\nMartina Rossetti aveva una piccola tasca nascosta nella sua uniforme da restauratrice contenente un pendente d'argento con un disegno etrusco inciso; sosteneva fosse un cimelio di famiglia ereditato.",
+      "\n \n1. **Questioning Ettore Vismara**: \"Mr. Vismara, can you exactly describe what you saw when you met Martina Rossetti near the Egyptian halls during the power outage? Did you notice if she was wearing something different or had suspicious behavior?\"\n\n2. **Questioning Giulia De Santis**: \"Ms. De Santis, can you specify if the metallic noises she heard were coming from areas near where Martina Rossetti was? Do you think those noises could be related to the theft of the Etruscan vase?\""
     ]
   }
 ]

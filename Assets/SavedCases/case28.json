@@ -1,31 +1,50 @@
 [
   {
-    "title": "Il caso della pizza all'ananas gelata",
-    "playerGoal": "Ottenere l'assoluzione completa del cliente, accusato ingiustamente di omicidio.",
-    "summary": "Davide Ferraro è stato arrestato per il presunto omicidio dello chef locale Enrico Basile, trovato morto dopo una discussa cena a base di pizza all’ananas servita su ghiaccio. Le opinioni contrastanti sulla ricetta hanno causato forti tensioni tra i convitati e ora Davide – appassionato difensore dell’innovativa combinazione – si trova al centro delle indagini per prove ambigue e testimonianze contraddittorie che suggeriscono motivazioni personali quanto gastronomiche. Il mistero ruota attorno agli avvenimenti confusi della serata: inviti segreti, litigi sul menù e la sparizione improvvisa di un coltello da cucina.",
-    "shortSummary": "Un giovane pizzaiolo viene accusato dell'omicidio dello chef durante una controversa festa in cui veniva servita pizza all’ananas su ghiaccio; prove vaghe mettono alla prova le sue possibilità d’assoluzione.",
+    "title": "The Case of the Theft of the Blooming Madonna",
+    "playerGoal": "Obtain complete acquittal for your client by demonstrating that the evidence against him is circumstantial and points to another suspect.",
+    "summary": "In the heart of Florence, a precious Renaissance painting called 'Blooming Madonna' mysteriously disappears from Corsini Gallery during a private exhibition. Your client, Paolo Mancini – a young restorer responsible for final checks on the artwork – is arrested after police find his gloves near the forced display case. However, conflicting testimonies and unexplained elements suggest either an unknown accomplice or even an investigative error.",
+    "shortSummary": "'Blooming Madonna', historic Florentine painting, vanishes from Corsini museum. Restorer Paolo Mancini is accused because his items are found at scene; yet some details remain unclear.",
     "evidence": [
-      "Una macchia sospetta trovata sotto la scultura di ghiaccio.",
-      "La lama più affilata manca dal set dei coltelli professionali usati quella sera.",
-      "Messaggi anonimi ricevuti dalla vittima riguardanti minacce sulla purezza tradizionale della pizza napoletana.",
-      "Residui organici insoliti nella massa semiliquida vicino al bancone dove sono state preparate le pizze speciali."
+      "A pair of latex gloves with partial fingerprints belonging to the suspect found inside empty exhibit space.",
+      "'Visitor badge' not returned by last person left in room before evening closure.",
+      "'Handwritten note,' discovered among art materials: contains notes about malfunctioning cameras that night in outer corridor.",
+      "Incomplete video testimonial coming only from two active cameras while three others were strangely turned off during crucial minutes."
     ],
     "witnessNames": [
-      "Marta Pagani",
-      "Riccardo Donati",
-      "'Chef' Olivia Rizzi",
-      "Stefano Corvi"
+      "Livia Sartori",
+      "Giacomo Benedetti"
     ],
     "witnessDescriptions": [
-      "Marta Pagani lavora come cameriera nel ristorante ed è molto precisa ma timida; racconta nervosamente che ha visto Davide aggirarsi vicino ai frigoriferi proprio prima del blackout elettrico senza sapere cosa stesse facendo esattamente.",
-      "Riccardo Donati é il sommelier estroverso con fama da pettegolo; sostiene fermamente d’aver sentito voci accese fra lo chef Enrico e qualcuno con accentuate preferenze culinarie nei pressi del tavolo principale, anche se non distingue dettagli cruciali.",
-      "'Chef' Olivia Rizzi era assistente personale della vittima quellaseera—testarda ma rispettosa delle innovazioni—ispetta dichiarando apertamento che lei stessa aveva proposto l’esperimento ‘pizza fredda’; conferma inoltre aver notatocome alcuni ingredientipossero essere stati manipolatie offerti separatamente.",
-      "Stefano Corvi frequenta regolarmente il locale come critico culinario famoso per giudizi severissimi sulle contaminazioni alimentari - ammette genericamentedi aver notatonervosismo diffuso compreso quello tra Marta PagerniDavidee Chefall’arrivo degli ospitia causa dibattitidensi sull’utilizzodi ananassoghiaccio nelle ricette original."
+      "Livia Sartori is chief curator at Corsini Gallery: she has reserved and meticulous character; testifies under oath to having seen Paolo Mancini unusually nervous just before theft alarm but also admits major tensions with technical staff in previous weeks.",
+      "Giacomo Benedetti works as night guard at museum and known for being blunt though distracted due to long shifts; he categorically states hearing metallic noise behind storage twenty-five minutes after time officially recorded by security system."
     ],
     "witnessGenders": [
       "F",
-      "M",
-      "M",
+      "M"
+    ],
+    "additionalInfo": []
+  },
+  {
+    "title": "Il Caso del Furto della Madonna Fiorita",
+    "playerGoal": "Ottenere l'assoluzione completa per il cliente dimostrando che le prove contro di lui sono circumspette e puntano a un altro sospetto.",
+    "summary": "Nel cuore di Firenze, una preziosa pittura rinascimentale denominata 'Madonna Fiorita' sparisce misteriosamente dalla galleria Corsini durante una mostra privata. Il tuo assistito, Paolo Mancini – giovane restauratore incaricato delle ultime verifiche sull'opera – viene arrestato dopo che la polizia trova dei suoi guanti vicino alla teca forzata. Tuttavia, testimonianze contrastanti ed elementi inspiegabili suggeriscono la presenza d’un complice ignoto o addirittura un errore investigativo.",
+    "shortSummary": "'Madonna Fiorita', quadro storico fiorentino, scompare dal museo Corsini. Il restauratore Paolo Mancini è accusato poiché vengono ritrovati suoi oggetti sulla scena; ma alcuni dettagli restano oscuri.",
+    "evidence": [
+      "Un paio di guanti in lattice con tracce parziali dell’impronta digitale del sospettato trovati all’interno dello spazio espositivo vuoto.",
+      "'Badge visitatori' non restituito dall’ultima persona rimasta nella sala prima della chiusura serale.",
+      "'Nota scritta a mano,' scoperta tra i materiali artistici: indica appunti su telecamere malfunzionanti quella notte sul corridoio esterno.",
+      "Testimonianza video incompleta proveniente da sole due telecamere attive mentre altre tre risultavano stranamente spente nei minuti cruciali."
+    ],
+    "witnessNames": [
+      "Livia Sartori",
+      "Giacomo Benedetti"
+    ],
+    "witnessDescriptions": [
+      "Livia Sartori è la curatrice principale della Galleria Corsini: ha carattere riservato e meticoloso; dichiara sotto giuramento d’aver visto Paolo Mancini aggirarsi insolitamente nervoso poco prima dell’allarme furto ma ammette anche grandi tensioni col personale tecnico nelle settimane precedenti.",
+      "Giacomo Benedetti svolge servizio come guardiano notturno nel museo ed è noto per essere schietto seppure distratto dai turni prolungati; afferma categoricamente di aver sentito rumore metallico dietro al magazzino venticinque minuti dopo l’orario ufficialmente riportato dal sistema antifurto."
+    ],
+    "witnessGenders": [
+      "F",
       "M"
     ],
     "additionalInfo": []

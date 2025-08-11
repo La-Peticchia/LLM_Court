@@ -1,64 +1,49 @@
 [
   {
-    "title": "The Chandelier Theft at the Art Gallery",
-    "playerGoal": "Obtain full acquittal for the client accused of theft.",
-    "summary": "Alessandro Ricci, a young night janitor at the prestigious Nuova Art Gallery, is arrested after one of its valuable art chandeliers goes missing. Security cameras capture unusual movement around the time of the alleged crime and conflicting testimonies complicate matters further. The case pivots on ambiguous evidence: no one saw Alessandro clearly stealing the chandelier, but strange flashes and shadows were detected in side corridors during dark hours.",
-    "shortSummary": "An employee is accused of having stolen an expensive artistic chandelier from a famous gallery; evidence remains unclear amidst incomplete video recordings and contrasting statements.",
+    "title": "The Case of the Theft of the Blooming Madonna",
+    "playerGoal": "Obtain complete acquittal for your client by demonstrating that the evidence against him is circumstantial and points to another suspect.",
+    "summary": "In the heart of Florence, a precious Renaissance painting called 'Blooming Madonna' mysteriously disappears from Corsini Gallery during a private exhibition. Your client, Paolo Mancini – a young restorer responsible for final checks on the artwork – is arrested after police find his gloves near the forced display case. However, conflicting testimonies and unexplained elements suggest either an unknown accomplice or even an investigative error.",
+    "shortSummary": "'Blooming Madonna', historic Florentine painting, vanishes from Corsini museum. Restorer Paolo Mancini is accused because his items are found at scene; yet some details remain unclear.",
     "evidence": [
-      "A partial recording shows a figure near where the missing chandelier was located.",
-      "Hairs found on glass shards under where it originally hung do not match defendant's DNA.",
-      "The back door was ajar at four AM with no clear signs of break-in or lock damage.",
-      "Two lights flicker irregularly in an adjacent area while electronic logs indicated everything had been off since three."
+      "A pair of latex gloves with partial fingerprints belonging to the suspect found inside empty exhibit space.",
+      "'Visitor badge' not returned by last person left in room before evening closure.",
+      "'Handwritten note,' discovered among art materials: contains notes about malfunctioning cameras that night in outer corridor.",
+      "Incomplete video testimonial coming only from two active cameras while three others were strangely turned off during crucial minutes."
     ],
     "witnessNames": [
-      "'Marta' Benassi",
-      "'Luca' Farnese",
-      "Mrs. Olivia Rizzi",
-      "'Stefano' Corvi"
+      "Livia Sartori",
+      "Giacomo Benedetti"
     ],
     "witnessDescriptions": [
-      "Marta Benassi works as chief curator for exhibitions; precise person demanding about daily procedures. Firmly states she saw a male silhouette moving between her favorite paintings just as fire alarm went off that night.",
-      "Luca Farnese is maintenance technician responsible for electric systems—known to be blunt yet absent-minded outside work—claims automatic lighting has failed several times lately due to frayed wires behind panels by rear entry.",
-      "Mrs. Olivia Rizzi manages evening events: kind and outgoing toward staff—even forming friendships with new hires—but recalls confusion stating loud metallic noises woke her coming from main hall just before five o'clock.",
-      "Stefano Corvi—a discreet gallery guard—noted nothing out-of-the-ordinary earlier but admits certain security camera angles have persistent blind spots late-night."
+      "Livia Sartori is chief curator at Corsini Gallery: she has reserved and meticulous character; testifies under oath to having seen Paolo Mancini unusually nervous just before theft alarm but also admits major tensions with technical staff in previous weeks.",
+      "Giacomo Benedetti works as night guard at museum and known for being blunt though distracted due to long shifts; he categorically states hearing metallic noise behind storage twenty-five minutes after time officially recorded by security system."
     ],
     "witnessGenders": [
       "F",
-      "M",
-      "F",
-      "F"
+      "M"
     ],
     "additionalInfo": []
   },
   {
-    "title": "Il furto del lampadario nella Galleria D’Arte",
-    "playerGoal": "Ottenere l'assoluzione completa per il cliente accusato di furto.",
-    "summary": "Alessandro Ricci, un giovane operaio delle pulizie notturne presso la prestigiosa Galleria D’Arte Nuova, viene arrestato dopo che uno dei preziosi lampadari d’arte risulta mancante. Le telecamere mostrano movimenti insoliti intorno all’orario del presunto reato e testimonianze discordanti complicano la situazione. Il caso ruota attorno a prove ambigue: nessuno ha visto chiaramente Alessandro trafugare il lampadario, ma strani bagliori e ombre sono stati rilevati nei corridoi laterali della galleria durante le ore buie.",
-    "shortSummary": "Un dipendente è accusato di aver rubato un costoso lampadario artistico dalla famosa galleria; le evidenze restano poco chiare tra registrazioni video incomplete e depositi contrastanti.",
+    "title": "Il Caso del Furto della Madonna Fiorita",
+    "playerGoal": "Ottenere l'assoluzione completa per il cliente dimostrando che le prove contro di lui sono circumspette e puntano a un altro sospetto.",
+    "summary": "Nel cuore di Firenze, una preziosa pittura rinascimentale denominata 'Madonna Fiorita' sparisce misteriosamente dalla galleria Corsini durante una mostra privata. Il tuo assistito, Paolo Mancini – giovane restauratore incaricato delle ultime verifiche sull'opera – viene arrestato dopo che la polizia trova dei suoi guanti vicino alla teca forzata. Tuttavia, testimonianze contrastanti ed elementi inspiegabili suggeriscono la presenza d’un complice ignoto o addirittura un errore investigativo.",
+    "shortSummary": "'Madonna Fiorita', quadro storico fiorentino, scompare dal museo Corsini. Il restauratore Paolo Mancini è accusato poiché vengono ritrovati suoi oggetti sulla scena; ma alcuni dettagli restano oscuri.",
     "evidence": [
-      "Una ripresa parziale mostra una figura vicina al luogo dove manca il lampadario.",
-      "Capelli trovati su frammenti di vetro sotto alla posizione originale dell’oggetto scomparso non corrispondono al DNA dell'imputato.",
-      "La porta sul retro era socchiusa alle quattro del mattino senza segni chiari di effrazione o danneggiamento sulle serrature.",
-      "Due luci si accendono in modo irregolare nella zona adiacente, mentre nel registro elettronico risultava tutto spento dalle tre in poi."
+      "Un paio di guanti in lattice con tracce parziali dell’impronta digitale del sospettato trovati all’interno dello spazio espositivo vuoto.",
+      "'Badge visitatori' non restituito dall’ultima persona rimasta nella sala prima della chiusura serale.",
+      "'Nota scritta a mano,' scoperta tra i materiali artistici: indica appunti su telecamere malfunzionanti quella notte sul corridoio esterno.",
+      "Testimonianza video incompleta proveniente da sole due telecamere attive mentre altre tre risultavano stranamente spente nei minuti cruciali."
     ],
     "witnessNames": [
-      "Marta Benassi",
-      "Luca Farnese",
-      "'Signora' Olivia Rizzi",
-      "Stefano Corvi"
+      "Livia Sartori",
+      "Giacomo Benedetti"
     ],
     "witnessDescriptions": [
-      "Marta Benassi lavora come curatrice principale della mostra; persona precisa ed esigente nelle procedure quotidiane. Afferma con certezza che quella notte vide una silhouette maschile muoversi tra i quadri suoi preferiti proprio quando scattò l'allarme antincendio.",
-      "Luca Farnese è tecnico manutentore responsabile degli impianti elettrici e noto per essere schietto ma distratto fuori dal lavoro; sostiene che più volte negli ultimi mesi le luci automatiche hanno avuto guasti intermittenti dovuti a fili consumati dietro ai pannelli vicino all’ingresso posteriore.",
-      "'Signora' Olivia Rizzi dirige gli eventi serali: gentile ed espansiva con lo staff sino ad avere relazioni amichevoli anche coi nuovi assunti; racconta però confusione poiché afferma sia stata svegliata da fortissimi rumori metallicci provenienti dal salone centrale pochi minuti prima delle cinque.",
-      "M",
-      "M",
-      "F",
-      "M"
+      "Livia Sartori è la curatrice principale della Galleria Corsini: ha carattere riservato e meticoloso; dichiara sotto giuramento d’aver visto Paolo Mancini aggirarsi insolitamente nervoso poco prima dell’allarme furto ma ammette anche grandi tensioni col personale tecnico nelle settimane precedenti.",
+      "Giacomo Benedetti svolge servizio come guardiano notturno nel museo ed è noto per essere schietto seppure distratto dai turni prolungati; afferma categoricamente di aver sentito rumore metallico dietro al magazzino venticinque minuti dopo l’orario ufficialmente riportato dal sistema antifurto."
     ],
     "witnessGenders": [
-      "F",
-      "F",
       "F",
       "M"
     ],

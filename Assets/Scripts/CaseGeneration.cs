@@ -88,7 +88,7 @@ public class CaseGeneration : MonoBehaviour
                 if (lastCase.Length > 1)
                     _court.InitializeCourt(lastCase[0], lastCase[1]);
                 else
-                    _court.InitializeCourt(lastCase[0], lastCase[0]);
+                    _court.InitializeCourt(JsonConvert.DeserializeObject<CaseDescription>(JsonConvert.SerializeObject(lastCase[0])), lastCase[0]);
 
                 Destroy(gameObject);
                 return;
@@ -169,8 +169,8 @@ public class CaseGeneration : MonoBehaviour
             }
         
         }
-        
-        _court.InitializeCourt(tmpCaseDescription ?? transCaseDescription, transCaseDescription);
+
+        _court.InitializeCourt(tmpCaseDescription ?? JsonConvert.DeserializeObject<CaseDescription>(JsonConvert.SerializeObject(transCaseDescription)), transCaseDescription);
         _saveManager.SaveAsLastCase(tmpCaseDescription != null ? new[]{tmpCaseDescription, transCaseDescription} : new []{transCaseDescription});
         
         

@@ -1,5 +1,32 @@
 [
   {
+    "title": "The Case of the Golden Arrows",
+    "playerGoal": "Obtain the defendant's complete acquittal from the charge of murder.",
+    "summary": "Riccardo Bellini, a renowned local archer and semi-professional miner, is accused of murdering wealthy merchant Giulio Ferri. The victim was found in the forest with a golden arrow lodged in his heart during the night of the annual miners' festival. The motive appears to be gold stolen from a new secret tunnel discovered by Riccardo just days before; however, evidence is circumstantial and several contradictory testimonies complicate the case.",
+    "shortSummary": "A famous archer-miner stands trial for killing a merchant after making a mysterious gold discovery: it’s up to defense to uncover lies among slim clues and suspicious witnesses at odds with each other.",
+    "evidence": [
+      "Unique golden arrow found on Giulio Ferri's body—said that only Riccardo possessed these rare arrows.",
+      "Ancient coins stained with earth were found near the crime scene belonging neither to Riccardo nor confirmed as property of the victim according to local historians.",
+      "Torn anonymous letter recovered from fireplace in tavern frequented by both Riccardo and widow Ferri; refers vaguely to 'broken deals over gold'."
+    ],
+    "witnessNames": [
+      "Elena Sandri",
+      "Carlo Ventura"
+    ],
+    "witnessDescriptions": [
+      "Elena Sandri is an experienced but extremely reserved innkeeper at Mine Tavern; she has a reputation for always knowing what's happening around her establishment and being protective toward trusted customers. However, she testifies unusually insecurely about where exactly Riccardo went that night stating only ‘she saw him drinking nervously close by clock’, suggesting there was something going on without specifying further details.",
+      "Carlo Ventura works as an apprentice miner under direct supervision by none other than the defendant himself. Among colleagues he's known for talking too much—and easily changing opinions if pressured by superiors. In court he initially says ''he heard screams'' coming precisely out of depths near newly sealed shaft then recants claiming ‘maybe it was wind ... or nocturnal animals', raising doubts over credibility."
+    ],
+    "witnessGenders": [
+      "F",
+      "F"
+    ],
+    "additionalInfo": [
+      "Elena Sandri testified that Riccardo Bellini arrived at the Mine Tavern around 9 PM, ordering a whiskey which he consumed quickly. He then paced back and forth near the clock, glancing at it repeatedly, before leaving about 15 minutes later. She couldn't recall where he went afterward.",
+      "Riccardo Bellini appeared agitated, frequently glancing at his watch and whispering to the bartender. He ordered a double drink, which he quickly downed, then paced near the fireplace before leaving abruptly around midnight. "
+    ]
+  },
+  {
     "title": "Il Caso delle Frecce d'Oro",
     "playerGoal": "Ottenere l'assoluzione completa dell'imputato dall'accusa di omicidio.",
     "summary": "Riccardo Bellini, un rinomato arciere locale e minatore semi-professionista, viene accusato dell'omicidio del ricco mercante Giulio Ferri. La vittima è stata trovata nella foresta con una freccia dorata conficcata nel cuore durante la notte della festa annuale dei minatori. Il movente sembra essere oro rubato dalla nuova galleria segreta scoperta da Riccardo pochi giorni prima; tuttavia, le prove sono circostanziali e diverse testimonianze contraddittorie complicano il caso.",
@@ -20,6 +47,10 @@
     "witnessGenders": [
       "F",
       "F"
+    ],
+    "additionalInfo": [
+      "\nElena Sandri ha testimoniato che Riccardo Bellini è arrivato al Mine Tavern intorno alle 21:00, ordinando un whisky che ha consumato velocemente. Poi ha camminato avanti e indietro vicino all'orologio, guardandolo ripetutamente, prima di partire circa 15 minuti dopo. Non riusciva a ricordare dove fosse andato dopo.",
+      "\nRiccardo Bellini sembrava agitato, lanciava frequenti occhiate all'orologio e sussurrava al barista. Ordinò un doppio drink che trangugiò velocemente per poi passeggiare vicino al camino prima di uscire bruscamente a mezzanotte."
     ]
   }
 ]
