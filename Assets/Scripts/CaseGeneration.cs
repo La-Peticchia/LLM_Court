@@ -7,7 +7,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityEngine.Windows;
@@ -24,6 +26,7 @@ public class CaseGeneration : MonoBehaviour
     [SerializeField] private TextMeshProUGUI errorTextbox;
     [SerializeField] private GameObject courtPreviewCanvas;
     [SerializeField] private GameObject loadingCanvas;
+    [SerializeField] private Button returnToMenuButton;
 
     private LinkedList<CaseDescription> _translatedDescriptions;
     
@@ -51,12 +54,16 @@ public class CaseGeneration : MonoBehaviour
         saveButton.onClick.AddListener(OnSaveButtonClicked);
         
         
+        returnToMenuButton.onClick.AddListener(ReturnToMainMenu);
+
+
         _translatedDescriptions = new LinkedList<CaseDescription>();
 
         if (seed == 0)
             seed = Random.Range(0, int.MaxValue);
         
         _courtRecordUI.isGameplay = false;
+
 
     }
 
@@ -125,6 +132,11 @@ public class CaseGeneration : MonoBehaviour
     private int _currentSeed;
 
 
+    private void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
     async void OnPlayButtonClicked()
     {
         ToggleButtons(false);
@@ -164,7 +176,7 @@ public class CaseGeneration : MonoBehaviour
         
         courtPreviewCanvas.SetActive(false);
         Destroy(gameObject);
-        
+        AudioManager.instance.PlayMusicForScene("Gameplay");
     }
     
     private void OnNewCaseButtonClicked()

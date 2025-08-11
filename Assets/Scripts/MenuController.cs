@@ -19,6 +19,8 @@ public class MenuController : MonoBehaviour
     public Button continueButton;
     public GameObject caseGeneration;
 
+    private OptionsUI optionsUI;
+
 
     private void Start()
     {
@@ -36,6 +38,8 @@ public class MenuController : MonoBehaviour
         continueButton.onClick.AddListener(ContinueGame);
 
         CheckContinueButtonAvailability();
+
+        AudioManager.instance.PlayMusicForScene("Menu");
 
     }
 
@@ -74,6 +78,7 @@ public class MenuController : MonoBehaviour
         PlayerPrefs.Save();
 
         SceneManager.LoadScene("Scene");
+        AudioManager.instance.PlayMusicForScene("Gameplay");
     }
 
     public void OpenCharacterPanel()
@@ -95,6 +100,7 @@ public class MenuController : MonoBehaviour
     {
         optionsPanel.SetActive(false);
     }
+
 
     public void QuitGame()
     {
