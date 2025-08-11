@@ -1,0 +1,25 @@
+[
+  {
+    "title": "Il Caso delle Frecce d'Oro",
+    "playerGoal": "Ottenere l'assoluzione completa dell'imputato dall'accusa di omicidio.",
+    "summary": "Riccardo Bellini, un rinomato arciere locale e minatore semi-professionista, viene accusato dell'omicidio del ricco mercante Giulio Ferri. La vittima è stata trovata nella foresta con una freccia dorata conficcata nel cuore durante la notte della festa annuale dei minatori. Il movente sembra essere oro rubato dalla nuova galleria segreta scoperta da Riccardo pochi giorni prima; tuttavia, le prove sono circostanziali e diverse testimonianze contraddittorie complicano il caso.",
+    "shortSummary": "Un famoso arciere-minatore viene incriminato per aver ucciso un mercante dopo una misteriosa scoperta d’oro: toccherà alla difesa smascherare menzogne tra flebili indizi e sospetti testimoni in conflitto.",
+    "evidence": [
+      "Freccia dorata unica ritrovata sul corpo di Giulio Ferri—si dice che solo Riccardo possedesse queste frecce rare.",
+      "Monete antiche macchiate di terra trovate vicino al luogo del delitto non appartenenti né a Riccardo né alla vittima confermata dagli storici locali.",
+      "Lettera anonima strappata recuperata dal camino nella taverna frequentata sia da Riccardo che dalla vedova Ferri; vi si fa riferimento ad 'accordi spezzati sull'oro'."
+    ],
+    "witnessNames": [
+      "Elena Sandri",
+      "Carlo Ventura"
+    ],
+    "witnessDescriptions": [
+      "Elena Sandri è la locandiera esperta ma riservatissima della Taverna delle Miniere; ha fama d'essere sempre informata su ciò che accade ed è protettiva verso i suoi clienti fidati. Testimonia però insolitamente poco sicura sugli spostamenti effettivi di Riccardo quella notte sostenendo soltanto ‘di averlo visto bere nervosamente vicino all’orologio’, lasciando intendere ci fosse qualcosa nell’aria senza specificare altro.",
+      "Carlo Ventura lavora come apprendista nelle miniere sotto supervisione diretta dello stesso imputato ed è noto fra i colleghi per parlare troppo e cambiare facilmente opinione se pressioni subite dai superiori. In aula racconta inizialmente «di aver sentito urla» provenire proprio dalle profondità vicine allo scavo nuovo ormai chiuso ma poi corregge dichiarando ‘forse era vento… o animali notturnì', suscitando diffidenza sulla sua coerenza."
+    ],
+    "witnessGenders": [
+      "F",
+      "F"
+    ]
+  }
+]

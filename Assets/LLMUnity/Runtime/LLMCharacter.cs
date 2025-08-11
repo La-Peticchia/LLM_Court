@@ -679,7 +679,6 @@ namespace LLMUnity
                 await chatLock.WaitAsync();
                 try
                 {
-                    
                     AddMessage(role, result);
                 }
                 finally
