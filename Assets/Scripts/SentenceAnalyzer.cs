@@ -48,12 +48,6 @@ public class SentenceAnalyzer : MonoBehaviour
         {
             case Mode.Analyze:
                 return analysisPrompt;
-            //return $"{analysisPrompt}\n\n" +
-                //       $"Here all the speakers of the courtroom...\n" +
-                //       $"Main Speakers:\n-" +
-                //       string.Join("\n-", _characters.Take(3).ToArray()) +
-                //       $"\nWitness Speakers:\n-" +
-                //       string.Join("\n-", _characters.Skip(3).ToArray());
             case Mode.Summary:
                 return summaryPrompt;
             case Mode.FinalVerdict:
@@ -96,7 +90,7 @@ public class SentenceAnalyzer : MonoBehaviour
         
     }
 
-    public async Task<string> AnalyzeInfoNeeded(List<ChatMessage> chatMessages)
+    public async Task<string> AnalyzeInfoNeeded(List<ChatMessage> chatMessages, CaseDescription caseDescription)
     {
         SwitchMode(Mode.Analyze);
         List<ChatMessage> tmpMessages = chatMessages.Where(x => x.role != "system" && x.role != "Case Description").TakeLast(numOfMessages).ToList();
@@ -104,15 +98,17 @@ public class SentenceAnalyzer : MonoBehaviour
 
         string userPrompt =
             $"Can you extract from the following text:\n{lastCharacter}: {tmpMessages[^1].content.Split("*")[0].Split("<")[0]}\n\n" +
-            $"what specific piece of factual courtroom-relevant information the {lastCharacter} is requesting?\n\n" +
+            $"what specific piece information related to the case description and witnesses specified below the {lastCharacter} is requesting?\n\n" +
             $"Follow these steps:\n" +
             $"1 - Determine if the speaker is requesting factual, case-relevant information. If not, return < NULL >\n" +
             $"2 - If yes, extract the information request(s) they are making, ignoring rhetorical or procedural content\n" +
             $"2.5 - If the information request refers to a character (e.g., what someone saw, heard, or did), specify that character’s name in your answer." +
             $"3 - Output only in the format: < answer >\n\n";
         
+        userPrompt += $"Additional context to consider (case description):\n{caseDescription.GetTotalDescription(new []{0,2,3,4})}";
+        
         if (tmpMessages.Count > 1)
-            userPrompt += $"Additional context to consider (prior dialogue):\n{string.Join("\n\n", tmpMessages.SkipLast(1).Select(x => $"{x.role}: {x.content.Split("*")[0].Split("<")[0]}."))}";
+            userPrompt += $"\n\nAdditional context to consider (prior dialogue):\n{string.Join("\n\n", tmpMessages.SkipLast(1).Select(x => $"{x.role}: {x.content.Split("*")[0].Split("<")[0]}."))}";
                           
         userPrompt += $"\n\nImportant filtering rules:\n" +
                       $"- Do not extract questions that are rhetorical, procedural, or unrelated to courtroom facts" +
@@ -139,7 +135,7 @@ public class SentenceAnalyzer : MonoBehaviour
         return answer;
     }
 
-    public async Task<string> AnalyzeGrantInterventions(List<ChatMessage> chatMessages, string[] mainCharacters)
+    public async Task<(int, string)> AnalyzeGrantInterventions(List<ChatMessage> chatMessages, string[] mainCharacters)
     {
         SwitchMode(Mode.Analyze);
         List<ChatMessage> tmpMessages = chatMessages.Where(x => x.role != "system" && x.role != "Case Description").TakeLast(numOfMessages).ToList();
@@ -148,26 +144,22 @@ public class SentenceAnalyzer : MonoBehaviour
             $"Can you extract from the following text:\n{lastCharacter}: {tmpMessages[^1].content.Split("*")[0].Split("<")[0]}\n\n" +
             $"how many interventions {lastCharacter} is granting and who they are giving interventions to?\n\n" +
             $"Follow these steps:\n" +
-            $"1 - Determine if the speaker is giving additional interventions. If not, return < 0 | NULL >\n" +
+            $"1 - Determine if the speaker is giving additional interventions. \n" +
             $"2 - If yes, extract the number of granted interventions\n" +
             $"3 - Determine whom character the speaker is talking to; they can be only one of them: {string.Join(" or ", mainCharacters)} or NULL" +
-            $"4 - Output your answer in the following format: <here you put the number | here you put the character> ";
+            $"4 - Output your answer in the following format: [here you put the number (put 0 if no interventions are granted) | here you put the character name (put NULL if no interventions are granted)] ";
         
         if (tmpMessages.Count > 1)
             userPrompt += $"Additional context to consider (prior dialogue):\n{string.Join("\n\n", tmpMessages.SkipLast(1).Select(x => $"{x.content.Split("*")[0].Split("<")[0]}."))}";
 
-        userPrompt += "\n\nImportant notes:\n- Remember to look for numbers, they could be associated with the granted interventions";
+        //userPrompt += "\n\nImportant notes:\n- Remember to look for numbers, they could be associated with the granted interventions";
         
         Debug.Log("Analyze grant user prompt:\n" + userPrompt);
         
-        string answer = await llmCharacter.Chat(userPrompt);
-        Debug.Log("Analyze grant answer: " + answer);
+        string[] answer = (await llmCharacter.Chat(userPrompt)).Replace("[", "").Replace("]","").Split("|");
+        Debug.Log($"Analyze grant answer: {answer[0]} | {answer[1]}" );
         
-        var match = Regex.Match(answer,@"<([^>]+)>");
-        if (match.Success)
-            return match.Groups[1].Value;
-        return "NULL";
-
+        return (int.Parse(answer[0]), answer[1]);
     }
     
     public async Task<string> Summarize(List<ChatMessage> chatMessages)

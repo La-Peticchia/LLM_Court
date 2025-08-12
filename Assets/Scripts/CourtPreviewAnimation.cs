@@ -14,6 +14,7 @@ public class CourtPreviewAnimation : MonoBehaviour
     [SerializeField]private AnimationCurve switchCaseCurve;
     [SerializeField] private float animationDuration;
     [SerializeField] private Button playButton;
+    [SerializeField] private Button saveButton;
     [SerializeField] private Button[] arrowButtons;
     
     private Vector2[] _startPositions;
@@ -44,6 +45,7 @@ public class CourtPreviewAnimation : MonoBehaviour
         {
             pages[1].gameObject.SetActive(true);
             playButton.gameObject.SetActive(true);
+            saveButton.gameObject.SetActive(true);
         } else if (!pages[0].gameObject.activeInHierarchy)
         {
             pages[0].gameObject.SetActive(true);

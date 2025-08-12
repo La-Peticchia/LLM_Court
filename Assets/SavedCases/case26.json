@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Il Processo della Torre dei Maghi",
+    "playerGoal": "Ottenere l'assoluzione completa per il mago Arven, accusato di omicidio e distruzione con magia esplosiva.",
+    "summary": "Durante un duello rituale nella prestigiosa Accademia della Torre dei Maghi, una potente esplosione ha causato la morte misteriosa del rivale Lothar. Il tuo cliente, Arven Lumis, è stato trovato vicino al luogo dell'esplosione con residui arcani sulle mani. Tuttavia i dettagli sono confusi: le testimonianze divergono riguardo ai movimenti delle persone presenti e alcuni elementi lasciano sospettare alterazione deliberata degli indizi o coinvolgimento terzo sconosciuto. Starà a te scoprire se davvero vi fu dolo oppure solo uno sfortunato incidente fra maghi talentuosi ma avversari accaniti.",
+    "shortSummary": "Un’esplosione letale scuote la torre centrale durante un duello tra maghi; il tuo assistito viene incriminato mentre prove ed alibi si contraddicono.",
+    "evidence": [
+      "Le tracce di polvere cinerea trovate sulla veste che non corrispondono alla firma energetica standard incantesimi d'Arven",
+      "Una lettera minatoria anonima indirizzata a Lothar apparsa nel suo libro privato proprio pochi giorni prima dello scontro",
+      "L'orologio da tasca rotto segnava le ore ventuno esatte – discordanti dalle dichiarazioni ufficiali sul momento preciso dell'incidente",
+      "Residui luminosi viola scoperti sotto alcune assi vicine all'arena mai utilizzati normalmente nei riti autorizzati dalla scuola"
+    ],
+    "witnessNames": [
+      "Therin Valostril",
+      "Elyra Fendrel"
+    ],
+    "witnessDescriptions": [
+      "Therin Valostril è docente anziano presso l’Accademia famosa per scrupolo procedurale ed atteggiamento autoritario; sostiene fermamente di aver visto Arven agitarsi in modo sospetto subito dopo lo scoppio ma ammette anche che suoi tentativi d’intervento furono ostacolati dal caos generale.",
+      "Italyra Fendrel ricopre ruolo bibliotecaria esperta negli archivi storici; incline alla calma lucida pronuncia invece dubbi sull’effettiva colpevolezza poiché riferisce rumori insoliti provenienti dai sotterranei poco prima dell’incanto finale oltre ad intravedere una figura incappucciata non appartenente agli studenti canonici."
+    ],
+    "witnessGenders": [
+      "F",
+      "F"
+    ]
+  }
+]

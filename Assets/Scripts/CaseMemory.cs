@@ -12,5 +12,5 @@ public static class CaseMemory
     }
 
     public static bool HasValidSavedCase =>
-        SavedCase.HasValue && SavedTranslatedCase.HasValue && RestartingSameCase;
+        SavedCase != null && SavedTranslatedCase != null && RestartingSameCase;
 }

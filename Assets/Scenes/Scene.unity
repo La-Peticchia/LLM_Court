@@ -1227,6 +1227,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   animationDuration: 0.5
   playButton: {fileID: 1846233973}
+  saveButton: {fileID: 1746658709}
   arrowButtons:
   - {fileID: 1927894446}
   - {fileID: 1667491618}
@@ -2106,6 +2107,180 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373991685}
   m_CullTransparentMesh: 1
+--- !u!1 &403254079
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 403254080}
+  m_Layer: 5
+  m_Name: Handle Slide Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &403254080
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403254079}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 641396701}
+  m_Father: {fileID: 1755034980}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -20, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &414352882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 414352883}
+  - component: {fileID: 414352885}
+  - component: {fileID: 414352884}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &414352883
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414352882}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1746658712}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &414352884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414352882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: '
+
+    save'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 693b81abf3072a34299de092647ba74c, type: 2}
+  m_sharedMaterial: {fileID: 8876882890896379808, guid: 693b81abf3072a34299de092647ba74c, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4281479730
+  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 24
+  m_fontSizeBase: 24
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: -84.48
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &414352885
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414352882}
+  m_CullTransparentMesh: 1
 --- !u!1 &418928925
 GameObject:
   m_ObjectHideFlags: 0
@@ -2982,6 +3157,7 @@ RectTransform:
   - {fileID: 175244647}
   - {fileID: 834502317}
   - {fileID: 1846233976}
+  - {fileID: 1746658712}
   - {fileID: 1667491621}
   - {fileID: 1927894449}
   - {fileID: 725302606}
@@ -4247,46 +4423,41 @@ MonoBehaviour:
     Prosecutor, and all Witnesses. You must always act in character, using realistic,
     legally sound, adversarial behavior.\r\n\r\nSimulation Rules (Always Apply):\r\n-
     Only one character may speak per turn.\r\n\r\n- You must choose the most contextually
-    appropriate character to speak next.\r\n\r\n- A character can request additional
-    factual information about the case. \n\n- Always follow this format (exactly):\r\n[character
-    spoken line here] *[optional: any specific factual information about the case
-    descripiton specified below the character wants to address, if not then write
-    \"NULL\"]* <next character here> \n\n- Stay under 100 words per turn.\n\n- Use
-    Italian for character dialogue, but do not prioritize linguistic accuracy over
-    clarity and logic.\n\n\nOptional Requests Rule (All Characters)\n\n- The current
-    speaking character may include an optional request for factual information between
-    *...*.\n\n- This request must always be in-universe, tied to the facts of the
-    case, and logically motivated by the character\u2019s role.\n\nIt must never:\n\n-
-    Ask the Defense attorney (or any player-controlled role) to justify actions,
-    explain motives, or defend their strategy.\n\n- Address gameplay mechanics, dialogue
-    structure, or \u201Cwhat should happen next.\u201D\n\n- Break character or reveal
-    knowledge the speaker could not plausibly have.\n\nExamples of valid requests:\n\n*I
-    want to know the exact time the witness claims to have seen the suspect.*\n\n*I
-    need clarification on whether the lock was damaged before the break-in.*\n\nExamples
-    of invalid requests:\n\n*Can the Defense explain this behavior?*\n\n*I want the
-    next person to speak to give their opinion on my statement.*\n\n\nCharacter Behavior:\r\n-
-    Judge: Controls turn order unless otherwise directed. May authorize extra interventions
-    (2\u20134) for the Prosecutor or Defense. Blocks excessive interruptions.\r\n\r\n-
-    Prosecutor: Seeks conviction. Strategically pressures the Defense. Never helps
-    the Defense or acts passively.\n\r\n- Witnesses: Provide realistic, human testimony.
-    Uncertainty is allowed, but responses must be logically coherent, specific, and
-    fact-based. \r\n\r\n\r\nStrategic logic: \r\n- Responses must reflect credible,
-    court-appropriate reasoning.\r\n\r\n- Do not invent facts unknown to the character
-    speaking.\r\n\r\n- Contradictions should appear only as realistic human memory
-    lapses, not as model errors.\r\n\r\n- When relevant, characters may ask the Judge
-    for more interventions or for clarification.\r\n\r\nFormatting & Flow:\r\n- Always
-    specify the next speaker after your response.\r\n\r\n- Never break the format.\r\n\r\n-
-    Do not include narration, inner thoughts, or prose.\r\n\r\n- Maintain strategic
-    tension\u2014never act passively.\n"
+    appropriate character to speak next.\r\n\r\n- Always follow this format (exactly):\r\n[character
+    spoken line here]  <next character here> \n\n- Stay under 100 words per turn.\n\n-
+    Use Italian for character dialogue but do not translate character names nor create
+    new ones.\n\n\nCharacter Behavior:\r\n- Judge: <Judge>\n\n- Prosecutor: <Prosecutor>\n\n-
+    Witnesses: <Witnesses>\n\n- Defense: The character controlled by the player;
+    they would do anything to prove the defendant's innocence\n\r\nStrategic logic:
+    \r\n- Responses must reflect credible, court-appropriate reasoning.\r\n\r\n-
+    Do not invent facts unknown to the character speaking.\r\n\r\n- Contradictions
+    should appear only as realistic human memory lapses, not as model errors.\r\n\r\n-
+    When relevant, characters may ask the Judge for more interventions or for clarification.\r\n\r\nFormatting
+    & Flow:\r\n- Always specify the next speaker after your response.\r\n\r\n- Never
+    break the format.\r\n\r\n- Do not include narration, inner thoughts, or prose.\r\n\r\n-
+    Maintain strategic tension\u2014never act passively.\n"
   judgePrompt: "Controls turn order unless otherwise directed. May authorize extra
     interventions (2\u20134) for the Prosecutor or Defense. Blocks excessive interruptions."
-  attackPrompt: 'Seeks conviction. Strategically pressures the Defense. Never helps
-    the Defense or acts passively.
-
-'
+  attackPrompt: "On their first intervention they must introduce their thesis and
+    request more questions for witnesses to the Judge.\n\nYour role is to challenge
+    the Defense and pursue a conviction using intelligent, well-planned lines of
+    questioning. Avoid making errors that inadvertently help the Defense or undermine
+    your own position.\r\n\r\nWhen building your case:\r\n\r\n- Avoid questions that
+    reveal weaknesses in your own argument unless you are prepared to reframe or
+    deflect them.\r\n\r\n- Anticipate potential Defense counters and preempt them
+    when possible.\r\n\r\n- Focus on reinforcing your core thesis through logical
+    progression, credible witnesses, and strategic pressure.\r\n\r\n- Don't self-sabotage.
+    Never volunteer damaging information or frame questions in a way that leads the
+    Defense to an easy win.\r\n\r\n- Treat the trial as a competitive intellectual
+    challenge\u2014play to win, but stay within ethical and logical bounds.\r\n\r\n-
+    The Prosecutor should never act as a neutral observer or as an assistant to the
+    Defense. Operate from a position of intelligent opposition, with clarity of goal
+    and deliberate tactics. \n\n- To strengthen their position, the Prosecutor can
+    request additional factual information about the case or witnesses both specified
+    below. The request must be placed within the spoken line."
   witnessesPrompt: 'Provide realistic, human testimony. Uncertainty is allowed, but
     responses must be logically coherent, specific, and fact-based. '
-  numOfInteractions: 1
+  numOfInteractions: 2
 --- !u!4 &708504566
 Transform:
   m_ObjectHideFlags: 0
@@ -6477,7 +6648,7 @@ MonoBehaviour:
   remote: 0
   port: 13333
   numThreads: -1
-  numGPULayers: 15
+  numGPULayers: 50
   debug: 0
   parallelPrompts: -1
   dontDestroyOnLoad: 0
@@ -7302,8 +7473,11 @@ MonoBehaviour:
     The answer must be straight to the point by giving only the summary to the user
     ."
   finalVerdictPrompt: "You are a Judge in a courtroom who is giving the final verdict.
-    The user will specify all materials and rules you must follow to give your final
-    verdict. \r\n"
+    Your final verdict must reflect a consistent, logical evaluation of the courtroom
+    dialogue and arguments. Avoid any arbitrary or contradictory decisions. Even
+    if the language of the verdict sounds favorable, the final outcome must match
+    the substance of your reasoning. The user will specify all materials and rules
+    you must follow to give your final verdict. \r\n"
   splitCharacters: '>'
   numOfMessages: 5
 --- !u!4 &1129324685
@@ -8815,6 +8989,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playButton: {fileID: 1846233973}
+  saveButton: {fileID: 1746658709}
   newCaseButton: {fileID: 1091443834}
   arrowButtons:
   - {fileID: 1927894446}
@@ -10637,6 +10812,464 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1715952293}
   m_CullTransparentMesh: 1
+--- !u!1 &1723465325
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1723465326}
+  - component: {fileID: 1723465328}
+  - component: {fileID: 1723465327}
+  m_Layer: 5
+  m_Name: Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1723465326
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723465325}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 71028566}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.25}
+  m_AnchorMax: {x: 1, y: 0.75}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1723465327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723465325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1723465328
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723465325}
+  m_CullTransparentMesh: 1
+--- !u!1 &1742108122
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1742108123}
+  - component: {fileID: 1742108125}
+  - component: {fileID: 1742108124}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1742108123
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742108122}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 98086070}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1742108124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742108122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "\u200B"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4281479730
+  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 14
+  m_fontSizeBase: 14
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 3
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 1
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1742108125
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742108122}
+  m_CullTransparentMesh: 1
+--- !u!1 &1742620814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1742620815}
+  m_Layer: 5
+  m_Name: Fill Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1742620815
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742620814}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1436585254}
+  m_Father: {fileID: 71028566}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.25}
+  m_AnchorMax: {x: 1, y: 0.75}
+  m_AnchoredPosition: {x: -5, y: 0}
+  m_SizeDelta: {x: -20, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1746658708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1746658712}
+  - component: {fileID: 1746658711}
+  - component: {fileID: 1746658710}
+  - component: {fileID: 1746658709}
+  m_Layer: 5
+  m_Name: SaveButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1746658709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746658708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1746658710}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1746658710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746658708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.80982465, g: 1, b: 0.7028302, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 223483082, guid: c754b2bb7a05734459cb8a9f6947a26b, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1746658711
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746658708}
+  m_CullTransparentMesh: 1
+--- !u!224 &1746658712
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746658708}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.1346443, y: 1.1346443, z: 1.1346443}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 414352883}
+  m_Father: {fileID: 574756881}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -260.2}
+  m_SizeDelta: {x: 160, y: 50.63}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1755034979
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1755034980}
+  - component: {fileID: 1755034981}
+  m_Layer: 5
+  m_Name: SliderSFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1755034980
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755034979}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 958013869}
+  - {fileID: 1211069307}
+  - {fileID: 403254080}
+  m_Father: {fileID: 1775226799}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.0000038147, y: -131.8}
+  m_SizeDelta: {x: 200.204, y: 23.866}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1755034981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755034979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 641396702}
+  m_FillRect: {fileID: 350322994}
+  m_HandleRect: {fileID: 641396701}
+  m_Direction: 0
+  m_MinValue: 0
+  m_MaxValue: 1
+  m_WholeNumbers: 0
+  m_Value: 0
+  m_OnValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1767510448
 GameObject:
   m_ObjectHideFlags: 0
@@ -12229,15 +12862,15 @@ MonoBehaviour:
     player defends or supports a claim between private parties, often involving compensation,
     wrongful termination, or family disputes. \n\nThe player\u2019s strategy must
     align with the legal context and type of trial, making each challenge unique.\n\n!!!\n\nOutput
-    Format:\nReturn the case in valid JSON format with the following structure:\n\n{\n 
-    \"title\": \"string\",           // The name/title of the courtroom case\r\n 
-    \"playerGoal\": \"string\",                // What the player must achieve \r\r\n 
+    Format:\nReturn the case in valid JSON format with the following structure:\n\n{\n
+    \"title\": \"string\",           // The name/title of the courtroom case\r\n
+    \"playerGoal\": \"string\",                // What the player must achieve \r\r\n
     \"summary\": \"string\",        // A detailed 50\u2013100 word narrative summary
     of the case\r\n  \"shortSummary\": \"string\",       // A shorter 30\u201350
     word version of the summary\r\n  \"evidence\": [                    // A list
-    of clues, each as a string with some mystery\r\n    \"string\",\r\n    \"string\",\r\n   
-    ...\r\n    ],\n  \"witnessNames\": [ \t\t// A list of <num> witness names\r\n   
-    |||],\n  \"witnessDescriptions\":[\t//A list of <num> witness descriptions\n   
+    of clues, each as a string with some mystery\r\n    \"string\",\r\n    \"string\",\r\n
+    ...\r\n    ],\n  \"witnessNames\": [ \t\t// A list of <num> witness names\r\n
+    |||],\n  \"witnessDescriptions\":[\t//A list of <num> witness descriptions\n
     |||]\n  \"witnessGenders\": [ // A list of strings: \"M\" for male, \"F\" for
     female\n    |||]\n}\n\nAdditional Notes:\n\n<trans>\n\nAll content must be internally
     consistent and focused on building a compelling, legally grounded mystery or
@@ -12275,20 +12908,20 @@ MonoBehaviour:
   - \"
   mainRequestTimeout: 40000
   addRequestTimeout: 5000
-  useDebugPrompt: 1
-  dbgCaseDesc: "[\r\n  {\r\n    \"title\": \"The Case of the Missing Jewel\",\r\n   
+  useDebugPrompt: 0
+  dbgCaseDesc: "[\r\n  {\r\n    \"title\": \"The Case of the Missing Jewel\",\r\n
     \"playerGoal\": \"Prove the innocence of the client accused of stealing a valuable
     jewel\",\r\n    \"summary\": \"The client, a former employee of the jewelry store
     'Eternal Light', is accused of stealing a diamond worth 500,000 euros during
     a private exhibition. Circumstantial evidence places them at the crime scene,
     but the client claims they were framed by the owner to cover up a financial insolvency.
-    The case is complicated by conflicting testimonies and a lack of direct evidence.\",\r\n   
+    The case is complicated by conflicting testimonies and a lack of direct evidence.\",\r\n
     \"shortSummary\": \"A former employee is accused of theft at a jewelry store
     but claims to have been framed.\",\r\n    \"evidence\": [\r\n      \"Fingerprints
     found on the empty display case\",\r\n      \"An anonymous email accusing the
-    jewelry store owner\",\r\n      \"A broken watch found near the crime scene\",\r\n     
+    jewelry store owner\",\r\n      \"A broken watch found near the crime scene\",\r\n
     \"Suspicious transactions in the owner's bank account\"\r\n    ],\r\n    \"witnessNames\":
-    [\r\n      \"Marco Bianchi\",\r\n      \"Laura Rossi\",\r\n      \"Giovanni Verdi\",\r\n     
+    [\r\n      \"Marco Bianchi\",\r\n      \"Laura Rossi\",\r\n      \"Giovanni Verdi\",\r\n
     \"Elena Neri\"\r\n    ],\r\n    \"witnessDescriptions\": [\r\n      \"Marco Bianchi
     is the owner of the jewelry store; arrogant and impatient, he claims only the
     client had access to the display case.\",\r\n      \"Laura Rossi is a colleague
@@ -12296,31 +12929,31 @@ MonoBehaviour:
     the theft.\",\r\n      \"Giovanni Verdi is the night watchman; elderly and absent-minded,
     he swears he saw nothing but heard voices that evening.\",\r\n      \"Elena Neri
     is the ex-girlfriend of the accused; bitter and emotional, she insinuates that
-    he often talked about diamonds.\"\r\n    ],\n    \"witnessGenders\": [\n     
-    \"M\",\n      \"F\",\n      \"M\",\n      \"F\"\n]\r\n  },\r\n  {\r\n    \"title\":
-    \"Il Caso del Gioiello Scomparso\",\r\n    \"playerGoal\": \"Dimostrare l'innocenza
-    del cliente accusato di furto di un prezioso gioiello\",\r\n    \"summary\":
-    \"Il cliente, un ex dipendente della gioielleria 'Luce Eterna', \xE8 accusato
-    di aver rubato un diamante valutato 500.000 euro durante una mostra privata.
-    Le prove circostanziali lo collocano sulla scena del crimine, ma il cliente sostiene
-    di essere stato incastrato dal proprietario per coprire un'insolvenza finanziaria.
-    Il caso si complica con testimonianze contrastanti e la mancanza di prove dirette.\",\r\n   
+    he often talked about diamonds.\"\r\n    ],\n    \"witnessGenders\": [\n \"M\",\n     
+    \"F\",\n      \"M\",\n      \"F\"\n]\r\n  },\r\n  {\r\n    \"title\": \"Il Caso
+    del Gioiello Scomparso\",\r\n    \"playerGoal\": \"Dimostrare l'innocenza del
+    cliente accusato di furto di un prezioso gioiello\",\r\n    \"summary\": \"Il
+    cliente, un ex dipendente della gioielleria 'Luce Eterna', \xE8 accusato di aver
+    rubato un diamante valutato 500.000 euro durante una mostra privata. Le prove
+    circostanziali lo collocano sulla scena del crimine, ma il cliente sostiene di
+    essere stato incastrato dal proprietario per coprire un'insolvenza finanziaria.
+    Il caso si complica con testimonianze contrastanti e la mancanza di prove dirette.\",\r\n
     \"shortSummary\": \"Un ex dipendente \xE8 accusato di furto in una gioielleria,
     ma afferma di essere stato incastrato.\",\r\n    \"evidence\": [\r\n      \"Impronte
     digitali trovate sulla teca vuota\",\r\n      \"Una mail anonima che accusa il
     proprietario della gioielleria\",\r\n      \"Un orologio rotto trovato vicino
     alla scena del crimine\",\r\n      \"Transazioni sospette sul conto bancario
-    del proprietario\"\r\n    ],\r\n    \"witnessNames\": [\r\n      \"Marco Bianchi\",\r\n     
-    \"Laura Rossi\",\r\n      \"Giovanni Verdi\",\r\n      \"Elena Neri\"\r\n   
-    ],\r\n    \"witnessDescriptions\": [\r\n      \"Marco Bianchi \xE8 il proprietario
-    della gioielleria; arrogante e impaziente, sostiene che solo il cliente avesse
-    accesso alla teca.\",\r\n      \"Laura Rossi \xE8 una collega dell'accusato;
-    timida ma onesta, ricorda che Marco era nervoso il giorno del furto.\",\r\n     
-    \"Giovanni Verdi \xE8 il custode notturno; anziano e distratto, giura di non
-    aver visto nulla ma ha sentito voci quella sera.\",\r\n      \"Elena Neri \xE8
-    l'ex fidanzata dell'accusato; rancorosa ed emotiva, insinua che lui parlava spesso
-    dei diamanti.\"\r\n    ],\n    \"witnessGenders\": [\n      \"M\",\n      \"F\",\n     
-    \"M\",\n      \"F\"\n]\r\n  }\r\n]"
+    del proprietario\"\r\n    ],\r\n    \"witnessNames\": [\r\n      \"Marco Bianchi\",\r\n
+    \"Laura Rossi\",\r\n      \"Giovanni Verdi\",\r\n      \"Elena Neri\"\r\n ],\r\n   
+    \"witnessDescriptions\": [\r\n      \"Marco Bianchi \xE8 il proprietario della
+    gioielleria; arrogante e impaziente, sostiene che solo il cliente avesse accesso
+    alla teca.\",\r\n      \"Laura Rossi \xE8 una collega dell'accusato; timida ma
+    onesta, ricorda che Marco era nervoso il giorno del furto.\",\r\n \"Giovanni
+    Verdi \xE8 il custode notturno; anziano e distratto, giura di non aver visto
+    nulla ma ha sentito voci quella sera.\",\r\n      \"Elena Neri \xE8 l'ex fidanzata
+    dell'accusato; rancorosa ed emotiva, insinua che lui parlava spesso dei diamanti.\"\r\n   
+    ],\n    \"witnessGenders\": [\n      \"M\",\n      \"F\",\n \"M\",\n      \"F\"\n]\r\n 
+    }\r\n]"
 --- !u!4 &1971763134
 Transform:
   m_ObjectHideFlags: 0

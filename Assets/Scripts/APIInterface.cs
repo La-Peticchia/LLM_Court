@@ -89,6 +89,7 @@ public class APIInterface : MonoBehaviour
         return type switch
         {
             ModelType.Gpt => "openai/gpt-4.1",
+            //ModelType.Gpt => "openai/gpt-5",
             ModelType.Llama => "meta/Llama-4-Scout-17B-16E-Instruct",
             //ModelType.Llama => "meta/Meta-Llama-3.1-405B-Instruct";
             ModelType.DeepSeek => "deepseek/DeepSeek-V3-0324",
@@ -120,7 +121,7 @@ public class APIInterface : MonoBehaviour
                 int rand = Random.Range(2,5);
                 string currentPrompt = 
                     prompt.Replace(ReplaceCharacters, preferences != "" ? "I want you to take into account these preferences/topics: " + preferences : "")
-                    .Replace(TranslationCharacters, (translation) ? "Write the value of each JSON Key in italian; the language should not interfere with the case generation" : "")
+                    .Replace(TranslationCharacters, (translation) ? "Write the value of each JSON Key in italian; the language should not interfere with the case generation, so proper names are not affected by the language" : "")
                     .Replace(NumReplaceCharacters, rand.ToString())
                     .Replace(FormatRepeatCharacters, GetWitnessesFormat(rand));
 
@@ -154,7 +155,7 @@ public class APIInterface : MonoBehaviour
             {
                 
                 Debug.LogWarning("Error on API call: " + e.Message);
-                return new CaseDescription();
+                return null;
             }
         }
         
