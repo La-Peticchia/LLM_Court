@@ -65,8 +65,8 @@ public class Court : MonoBehaviour
     private List<(string role, string systemMessage)> _roundsTimeline;
     private CaseDescription _caseDescription, _translatedDescription;
     private int _round;
-    private bool IsFinalVerdict => _attackInteractions <= 0 && _defenseInteractions <= 0;
-    private bool _isGameOver;
+    private bool IsOutOfQuestions => _attackInteractions <= 0 && _defenseInteractions <= 0;
+    private bool _lastPhase;
 
     //End game message
     private (string message, Color color)? _pendingEndGameMessage = null;
@@ -108,6 +108,7 @@ public class Court : MonoBehaviour
     }
 
 
+    //TODO Il prosecutor deve generare il quantitativo di domande che effettivamente gli servono
   
     public async void InitializeCourt(CaseDescription caseDescription, CaseDescription translatedDescription)
     {
@@ -153,7 +154,7 @@ public class Court : MonoBehaviour
     }
     
     
-    //TODO modificare il prmpt del giudice per renderlo meno generoso
+    //TODO modificare il prompt del giudice per renderlo meno generoso, e aggiungere le fasi finali all'interno del metodo InitializeRounds
     private void InitializeRounds()
     {
         _roundsTimeline = new List<(string role, string systemMessage)>
@@ -161,11 +162,10 @@ public class Court : MonoBehaviour
             (" "," "),
             (judgeName, $"Now the {judgeName} introduces the court case then passes the word to {attackName}"),
             (attackName,$"Now the {attackName} introduces their case thesis then asks {judgeName} the amount of questions they want to deliver to the witnesses"),
-            (judgeName, $"Now the {judgeName} grants a specific number of questions to {attackName} based on the previous spoken line"),
+            (judgeName, $"Now the {judgeName} grants a specific number of questions to {attackName} based on the previous spoken line then passes the word to {defenseName}"),
             (defenseName,$"Now the {defenseName} introduces their case thesis then asks {judgeName} the amount of questions they want to deliver to the witnesses"),
             (judgeName, $"Now the {judgeName} grants a specific number of questions to {defenseName} based on the previous spoken line"),
             
-            //(judgeName, $"Now the {judgeName} give their final verdict")
         };
 
     }
@@ -235,10 +235,10 @@ public class Court : MonoBehaviour
 
     private async Task NextRound(bool increment = true)
     {
-        if (!IsFinalVerdict)
-            _isGameOver = false;
+        playerText.text = "...";
+        aiText.text = "...";
         
-        if (_isGameOver)
+        if (_lastPhase && _round >= _roundsTimeline.Count - 1)
         {
             characterAnimator.ShowCharacter(judgeName,"");  // Entra con animazione e poi mostra testo
             string verdict = await _sentenceAnalyzer.FinalVerdict(_caseDescription, llmCharacter.chat, SetAIText, AIReplyComplete);
@@ -254,9 +254,10 @@ public class Court : MonoBehaviour
         }
 
         if (increment) _round++;
-        systemMessages.text = _roundsTimeline[_round].systemMessage;
         
-        CheckForJudgeIntervention();
+        if(!_lastPhase) CheckForJudgeIntervention();
+        
+        systemMessages.text = _roundsTimeline[_round].systemMessage;
         characterAnimator.ShowCharacter(_roundsTimeline[_round].role,"");  // Entra con animazione e poi mostra testo
 
         
@@ -283,7 +284,7 @@ public class Court : MonoBehaviour
 
             string answer = await llmCharacter.ContinueChat(_roundsTimeline[_round].role, SetAIText, AIReplyComplete);
 
-            await SetUpNextRound(answer);
+            if(!_lastPhase) await SetUpNextRound(answer);
 
             
             //string caseText = GetCaseDescription().GetTotalDescription(false);
@@ -418,10 +419,14 @@ public class Court : MonoBehaviour
         
         Debug.Log("Attack interactions:" + _attackInteractions + "\nDefense interactions:" +_defenseInteractions);
          
-        if (IsFinalVerdict)
+        if (IsOutOfQuestions && _roundsTimeline[_round].role.ToLower().Contains(judgeName.ToLower()))
         {
-            _roundsTimeline[_round] = (judgeName, "Announce to everyone you are going to issue the final verdict");
-            _isGameOver = true;
+            _roundsTimeline[_round] = (judgeName, $"Now the {judgeName} requests the final thesis of the {attackName} and {defenseName}");
+            _roundsTimeline.Add((attackName, $"Now the {attackName} shows their final thesis"));
+            _roundsTimeline.Add((defenseName, $"Now the {defenseName} shows their final thesis"));
+            _roundsTimeline.Add((judgeName, $"Now the {judgeName} announces to everyone they are going to issue the final verdict"));
+            
+            _lastPhase = true;
             return;
         }
         
@@ -431,7 +436,8 @@ public class Court : MonoBehaviour
                 _roundsTimeline[_round] = (judgeName, $"Last message was addressed to {attackName} but they are out of interventions; the Judge must take care of the situation");
             else
             {
-                _roundsTimeline[_round] = (attackName, _attackInteractions + " interventions remaining for " + attackName);
+                if(string.IsNullOrWhiteSpace(_roundsTimeline[_round].systemMessage))
+                    _roundsTimeline[_round] = (attackName, _attackInteractions + " interventions remaining for " + attackName);
                 _attackInteractions--;
             }
         else if(role.ToLower().Contains(defenseName.ToLower()))
@@ -439,7 +445,8 @@ public class Court : MonoBehaviour
                 _roundsTimeline[_round] = (judgeName, $"Last message was addressed to {defenseName} but they are out of interventions; the Judge must take care of the situation");
             else
             {
-                _roundsTimeline[_round] = (defenseName, _defenseInteractions + " interventions remaining for " + defenseName);
+                if(string.IsNullOrWhiteSpace(_roundsTimeline[_round].systemMessage))
+                    _roundsTimeline[_round] = (defenseName, _defenseInteractions + " interventions remaining for " + defenseName);
                 _defenseInteractions--;
             }
         

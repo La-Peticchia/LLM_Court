@@ -152,7 +152,8 @@ public class SentenceAnalyzer : MonoBehaviour
         if (tmpMessages.Count > 1)
             userPrompt += $"Additional context to consider (prior dialogue):\n{string.Join("\n\n", tmpMessages.SkipLast(1).Select(x => $"{x.content.Split("*")[0].Split("<")[0]}."))}";
 
-        //userPrompt += "\n\nImportant notes:\n- Remember to look for numbers, they could be associated with the granted interventions";
+        userPrompt += $"\n\nImportant notes:\n- Remember that {lastCharacter} must explicitly grant a specific number of intervention or accept additional interventions requests.\n" +
+                      $"- If the request or grant is not explicit you must give 0 additional interventions";
         
         Debug.Log("Analyze grant user prompt:\n" + userPrompt);
         

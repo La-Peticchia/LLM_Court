@@ -1,49 +1,28 @@
 [
   {
-    "title": "The Case of the Theft of the Blooming Madonna",
-    "playerGoal": "Obtain complete acquittal for your client by demonstrating that the evidence against him is circumstantial and points to another suspect.",
-    "summary": "In the heart of Florence, a precious Renaissance painting called 'Blooming Madonna' mysteriously disappears from Corsini Gallery during a private exhibition. Your client, Paolo Mancini – a young restorer responsible for final checks on the artwork – is arrested after police find his gloves near the forced display case. However, conflicting testimonies and unexplained elements suggest either an unknown accomplice or even an investigative error.",
-    "shortSummary": "'Blooming Madonna', historic Florentine painting, vanishes from Corsini museum. Restorer Paolo Mancini is accused because his items are found at scene; yet some details remain unclear.",
+    "title": "Processo della Pizza Affilata",
+    "playerGoal": "Ottenere l'assoluzione completa per il cliente accusato di omicidio mediante un'arma insolita.",
+    "summary": "Marco Bellini è stato arrestato dopo che la vittima, suo ex socio in affari, è stata trovata morta nel ristorante 'La Forchetta Proibita', apparentemente con una ferita fatale causata da una pizza tagliatissima. La polizia ha rinvenuto le impronte digitali di Marco su uno degli spicchi e si dice che i due avessero litigato poco prima del crimine. Il caso ruota attorno alla scoperta se davvero può essere stata usata una pizza così affilata come arma contundente oppure se sono coinvolte altre mani o motivazioni nascoste.",
+    "shortSummary": "Un pizzaiolo viene accusato di aver ucciso il proprio ex socio usando una fetta di pizza sorprendentemente tagliente; indizi ambigui e testimoni dubbi rendono difficile scoprire cosa sia davvero accaduto.",
     "evidence": [
-      "A pair of latex gloves with partial fingerprints belonging to the suspect found inside empty exhibit space.",
-      "'Visitor badge' not returned by last person left in room before evening closure.",
-      "'Handwritten note,' discovered among art materials: contains notes about malfunctioning cameras that night in outer corridor.",
-      "Incomplete video testimonial coming only from two active cameras while three others were strangely turned off during crucial minutes."
+      "La lama seghettata ritrovata vicino al forno non presenta tracce evidenti d’uso recente.",
+      "La registrazione delle telecamere mostra solo parzialmente la scena dell’aggressione a causa dello specchio rovesciato.",
+      "Sullo scontrino elettronico si legge fra gli ultimi ordini: 'pizza extra croccante – super sottile'",
+      "I guanti insanguinati appartengono ad un dipendente diverso dal presunto colpevole.",
+      "Andrea Martini testimonia che nessuno avrebbe potuto maneggiare la speciale ‘pizza affilatrice’ senza rischiare gravi lesioni personali."
     ],
     "witnessNames": [
-      "Livia Sartori",
-      "Giacomo Benedetti"
+      "Luca Ferraro",
+      "Andreea Vasile",
+      "Pietro Bianchi"
     ],
     "witnessDescriptions": [
-      "Livia Sartori is chief curator at Corsini Gallery: she has reserved and meticulous character; testifies under oath to having seen Paolo Mancini unusually nervous just before theft alarm but also admits major tensions with technical staff in previous weeks.",
-      "Giacomo Benedetti works as night guard at museum and known for being blunt though distracted due to long shifts; he categorically states hearing metallic noise behind storage twenty-five minutes after time officially recorded by security system."
+      "Luca Ferraro, cameriere veterano sorridente ma riservatamente nervoso: sostiene nella sua deposizione di aver visto Marco discutere animatamente con la vittima circa mezz'ora prima della tragedia, aggiungendo però che Marco sembrava dispiaciuto piuttosto che minaccioso secondo lui stesso;",
+      "Andreea Vasile lavora come chef specializzata nei condimenti innovativi ed eccentrica dalla personalità schietta: dichiara in aula d'aver notato movimenti strani dai clienti seduti vicino all’ingresso mentre era impegnatissima coi suoi esperimenti culinari — suggerisce indirettamente possibili intrusi esterni;",
+      "Pietro Bianchi fa consegne alimentari locali ed è sempre sulle sue difese: racconta ai giudici d’essersi imbattuto casualmente nell’orario incriminatorio vedendo correre fuori qualcuno trafelato vestito da rider appena pochi secondi dopo lo spargersi del trambusto dentro al locale."
     ],
     "witnessGenders": [
-      "F",
-      "M"
-    ],
-    "additionalInfo": []
-  },
-  {
-    "title": "Il Caso del Furto della Madonna Fiorita",
-    "playerGoal": "Ottenere l'assoluzione completa per il cliente dimostrando che le prove contro di lui sono circumspette e puntano a un altro sospetto.",
-    "summary": "Nel cuore di Firenze, una preziosa pittura rinascimentale denominata 'Madonna Fiorita' sparisce misteriosamente dalla galleria Corsini durante una mostra privata. Il tuo assistito, Paolo Mancini – giovane restauratore incaricato delle ultime verifiche sull'opera – viene arrestato dopo che la polizia trova dei suoi guanti vicino alla teca forzata. Tuttavia, testimonianze contrastanti ed elementi inspiegabili suggeriscono la presenza d’un complice ignoto o addirittura un errore investigativo.",
-    "shortSummary": "'Madonna Fiorita', quadro storico fiorentino, scompare dal museo Corsini. Il restauratore Paolo Mancini è accusato poiché vengono ritrovati suoi oggetti sulla scena; ma alcuni dettagli restano oscuri.",
-    "evidence": [
-      "Un paio di guanti in lattice con tracce parziali dell’impronta digitale del sospettato trovati all’interno dello spazio espositivo vuoto.",
-      "'Badge visitatori' non restituito dall’ultima persona rimasta nella sala prima della chiusura serale.",
-      "'Nota scritta a mano,' scoperta tra i materiali artistici: indica appunti su telecamere malfunzionanti quella notte sul corridoio esterno.",
-      "Testimonianza video incompleta proveniente da sole due telecamere attive mentre altre tre risultavano stranamente spente nei minuti cruciali."
-    ],
-    "witnessNames": [
-      "Livia Sartori",
-      "Giacomo Benedetti"
-    ],
-    "witnessDescriptions": [
-      "Livia Sartori è la curatrice principale della Galleria Corsini: ha carattere riservato e meticoloso; dichiara sotto giuramento d’aver visto Paolo Mancini aggirarsi insolitamente nervoso poco prima dell’allarme furto ma ammette anche grandi tensioni col personale tecnico nelle settimane precedenti.",
-      "Giacomo Benedetti svolge servizio come guardiano notturno nel museo ed è noto per essere schietto seppure distratto dai turni prolungati; afferma categoricamente di aver sentito rumore metallico dietro al magazzino venticinque minuti dopo l’orario ufficialmente riportato dal sistema antifurto."
-    ],
-    "witnessGenders": [
+      "M",
       "F",
       "M"
     ],

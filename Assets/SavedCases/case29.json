@@ -1,62 +1,65 @@
 [
   {
-    "title": "The Case of the Frozen Pineapple Pizza",
-    "playerGoal": "Achieve full acquittal for the client, who has been unjustly accused of murder.",
-    "summary": "Davide Ferraro was arrested for allegedly murdering local chef Enrico Basile, who was found dead after a controversial dinner featuring pineapple pizza served on ice. Strongly divided opinions about the recipe led to intense tensions among guests and now Davide—a passionate defender of this innovative combination—finds himself at the center of an investigation marked by ambiguous evidence and contradictory testimonies suggesting motives both personal and gastronomic. The mystery revolves around that evening’s confused events: secret invitations, menu arguments, and a sudden disappearance involving a kitchen knife.",
-    "shortSummary": "A young pizzaiolo is accused of killing the chef during a contentious party where pineapple pizza on ice was served; vague evidence challenges his chances for acquittal.",
+    "title": "The Donut Bank Heist",
+    "playerGoal": "Prove the innocence of the client accused of participating armed in a bank robbery.",
+    "summary": "Luca Pastori, a young pastry chef passionate about donuts, is arrested after a mysterious nighttime heist at the Central Branch of Banca Popolare. CCTV footage shows someone wandering around with something resembling but not identifiable as a firearm at the entrance and numerous boxes of donuts left on scene raise suspicions. However, the stolen money is missing and key testimony seems to contradict itself regarding what part exactly was played by the defendant that night. The defender must expose inconsistencies in evidence to secure total acquittal.",
+    "shortSummary": "A pastry chef unjustly faces armed complicity charges over an enigmatic robbery: evidence is ambiguous and only careful legal analysis can clear him from heavy accusations.",
     "evidence": [
-      "A suspicious stain found beneath the ice sculpture.",
-      "The sharpest blade is missing from that night’s professional knife set.",
-      "Anonymous messages received by the victim threatening traditional Neapolitan pizza purity.",
-      "'Unusual organic residue' in semi-liquid material near counter used to prepare specialty pizzas."
+      "Surveillance camera partially captures only part of man's face entering brandishing something similar yet unidentifiable as firearm.",
+      "Pink sugar found on cash register often used for donut batch prepared by victim that evening; however it also belongs to products sold next door shop nearby.",
+      "'No witness clearly states hearing gunshots or directly seeing alleged weapon being used for threats near counter.'",
+      "'Abandoned backpack under front desk contains gloves stained both with icing and faint traces black banking ink.'"
     ],
     "witnessNames": [
-      "Marta Pagani",
-      "Riccardo Donati",
-      "'Chef' Olivia Rizzi",
-      "Stefano Corvi"
+      "Ettore Gallo",
+      "Ludovica Spada",
+      "Marta Pisoni",
+      "Davide Rossetti"
     ],
     "witnessDescriptions": [
-      "Marta Pagani works as waitress in the restaurant—she's precise but shy; nervously recounts seeing Davide lurking close to fridges just before blackout without knowing what he was actually doing.",
-      "Riccardo Donati is an outgoing sommelier notorious for gossiping; adamantly claims hearing heated voices between Chef Enrico and someone with strong culinary preferences at main table—but couldn’t distinguish any crucial details.",
-      "'Chef' Olivia Rizzi acted as personal assistant to victim that night – she's stubborn yet respects innovation—and openly states she herself proposed ‘cold pizza’ experiment; also confirms having noticed certain ingredients being manipulated or offered separately.",
-      "\t2"
+      "Ettore Gallo works as security guard at branch; very reserved but scrupulous character affirms—without absolute certainty—that amidst chaos seemed glimpsing Luca where mistiming main event hours between robber entries—but admits neither face nor object wielded actually recognized accurately.",
+      "Ludovica Spada runs adjacent kiosk specializing specifically morning donut sales; always cheerful if gossip-prone she told authorities just muffled noises from backroom before break-in highlighting odd conversations involving unknown customers rarely seen there normally those early hour",
+      "Marta Pisoni heads internal accounting precise yet emotional attitude daily insists colleagues heard differing rumors possibly concerning external involvement via mobile phones later found switched off—generally acknowledges widespread stress among staff post burglary masking fuzzy recollections core incident details ",
+      "Davide Rossetti regularly visits both bank-donut store since he's curious university student describing himself neutral raises chilling doubts surrounding confusing ‘hooded men fleeing’ scenario expressing growing worry toward easy identity manipulations when discovering bizarre sweet clues-crime scene combo"
     ],
     "witnessGenders": [
+      "F",
       "F",
       "M",
       "M",
       "M"
     ],
-    "additionalInfo": [
-      "Marta Pagani initially omitted mentioning a brief conversation with Davide about pineapple pizza recipe hours before incident. She recalled him being extremely agitated. "
-    ]
+    "additionalInfo": []
   },
   {
-    "title": "Il Caso del Furto della Madonna Fiorita",
-    "playerGoal": "Ottenere l'assoluzione completa per il cliente dimostrando che le prove contro di lui sono circumspette e puntano a un altro sospetto.",
-    "summary": "Nel cuore di Firenze, una preziosa pittura rinascimentale denominata 'Madonna Fiorita' sparisce misteriosamente dalla galleria Corsini durante una mostra privata. Il tuo assistito, Paolo Mancini – giovane restauratore incaricato delle ultime verifiche sull'opera – viene arrestato dopo che la polizia trova dei suoi guanti vicino alla teca forzata. Tuttavia, testimonianze contrastanti ed elementi inspiegabili suggeriscono la presenza d’un complice ignoto o addirittura un errore investigativo.",
-    "shortSummary": "'Madonna Fiorita', quadro storico fiorentino, scompare dal museo Corsini. Il restauratore Paolo Mancini è accusato poiché vengono ritrovati suoi oggetti sulla scena; ma alcuni dettagli restano oscuri.",
+    "title": "La rapina alla Banca dei Donuts",
+    "playerGoal": "Dimostrare l'innocenza del cliente accusato di aver partecipato armato a una rapina in banca.",
+    "summary": "Luca Pastori, un giovane pasticcere appassionato di donuts, viene arrestato dopo una misteriosa rapina notturna alla Filiale Centrale della Banca Popolare. Le telecamere mostrano qualcuno aggirarsi con una pistola all'ingresso e numerose confezioni di ciambelle lasciate sulla scena alimentano sospetti. Tuttavia, manca il denaro rubato e la testimonianza chiave sembra contraddirsi sul ruolo effettivo dell'imputato nella notte del crimine. Il difensore dovrà smascherare le incongruenze delle prove per ottenere l'assoluzione totale.",
+    "shortSummary": "Un pasticcere è accusato ingiustamente della complicità armata in una misteriosa rapina: le evidenze sono ambigue e solo distinguendo i dettagli legali si può scagionarlo dalle accuse pesanti contro lui.",
     "evidence": [
-      "Un paio di guanti in lattice con tracce parziali dell’impronta digitale del sospettato trovati all’interno dello spazio espositivo vuoto.",
-      "'Badge visitatori' non restituito dall’ultima persona rimasta nella sala prima della chiusura serale.",
-      "'Nota scritta a mano,' scoperta tra i materiali artistici: indica appunti su telecamere malfunzionanti quella notte sul corridoio esterno.",
-      "Testimonianza video incompleta proveniente da sole due telecamere attive mentre altre tre risultavano stranamente spente nei minuti cruciali."
+      "La videocamera mostra solo parzialmente il volto dell'uomo che entra brandendo qualcosa simile ma non identificabile come arma da fuoco.",
+      "Sulla cassa compare zucchero rosa spesso usata nei donut preparati dalla vittima stessa quella sera; tuttavia appartiene anche ai prodotti venduti accanto al negozio vicino.",
+      "Nessun testimone dichiara chiaramente d’aver sentito spari né visto direttamente la presunta arma usare minacce presso lo sportello.",
+      "In uno zaino abbandonato sotto il bancone vengono ritrovati guanti intrisi sia di glassa che tracce leggere d’inchiostro bancario nero."
     ],
     "witnessNames": [
-      "Livia Sartori",
-      "Giacomo Benedetti"
+      "Ettore Gallo",
+      "Ludovica Spada",
+      "Marta Pisoni",
+      "Davide Rossetti"
     ],
     "witnessDescriptions": [
-      "Livia Sartori è la curatrice principale della Galleria Corsini: ha carattere riservato e meticoloso; dichiara sotto giuramento d’aver visto Paolo Mancini aggirarsi insolitamente nervoso poco prima dell’allarme furto ma ammette anche grandi tensioni col personale tecnico nelle settimane precedenti.",
-      "Giacomo Benedetti svolge servizio come guardiano notturno nel museo ed è noto per essere schietto seppure distratto dai turni prolungati; afferma categoricamente di aver sentito rumore metallico dietro al magazzino venticinque minuti dopo l’orario ufficialmente riportato dal sistema antifurto."
+      "Ettore Gallo lavora come guardia giurata per la filiale; ha carattere riservatissimo ma scrupoloso ed afferma senza certezza assoluta che durante la confusione sembrava vedere Luca nel punto sbagliando però sull'orario preciso degli eventi salienti tra ingresso malviventi — asserisce inoltre non aver riconosciuto bene né volto né oggetto impugnavano realmente all'inizio.",
+      "Ludovica Spada gestisce un chiosco adiacente specializzato proprio nella vendita mattutina dei donuts; sempre allegra quanto pettegola riferisce alle autorità soltanto rumori ovattati dal retrobottega poco prima dell’irruzione sottolineando strane discussioni fra clienti ignoti mai visti lì normalmente quell’ora",
+      "Marta Pisoni è responsabile contabilità interna precisa ed emotiva negli atteggiamenti lavorativi quotidiani insiste su voci discordanti percepite dagli altri dipendenti riguardo possibile coinvolgimento esterno tramite telefoni cellulari trovati spento - ammette genericamente stress diffuso fra colleghi doppo furto mascherandosi dietro poca chiarezza memorialistica avvenimenti principali ",
+      "Davide Rossetti frequenta abitualmente entrambe locali bancodonuteria poiché studente universitario curioso dichiaratosì neutrale espone dubbi raggelante sulle circostanze insolite ‘fuga indistinta uomini col cappuccio’, mostrando preoccupazione crescente verso facilità manipolazioni identitarie quando apprende presenza strana combinazione dolciaria-scena crimine"
     ],
     "witnessGenders": [
+      "M",
+      "F",
       "F",
       "M"
     ],
-    "additionalInfo": [
-      " Marta Pagani ha inizialmente omesso di menzionare una breve conversazione con Davide riguardo alla ricetta della pizza con ananas ore prima dell'incidente. Ricordava che era estremamente agitato.\n\nThe anonymous threats were sent by Stefano Corvi, a traditional Neapolitan pizza enthusiast and former business rival of Enrico Basile. "
-    ]
+    "additionalInfo": []
   }
 ]

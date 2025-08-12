@@ -4389,11 +4389,11 @@ MonoBehaviour:
     Only one character may speak per turn.\r\n\r\n- You must choose the most contextually
     appropriate character to speak next.\r\n\r\n- Always follow this format (exactly):\r\n[character
     spoken line here]  <next character here> \n\n- Stay under 100 words per turn.\n\n-
-    Use Italian for character dialogue but do not translate character names nor create
-    new ones.\n\n\nCharacter Behavior:\r\n- Judge: <Judge>\n\n- Prosecutor: <Prosecutor>\n\n-
-    Witnesses: <Witnesses>\n\n- Defense: The character controlled by the player;
-    they would do anything to prove the defendant's innocence\n\r\nStrategic logic:
-    \r\n- Responses must reflect credible, court-appropriate reasoning.\r\n\r\n-
+    All characters in this courtroom speak italian but do not translate their names
+    nor create new ones.\n\n\nCharacter Behavior:\r\n- Judge: <Judge>\n\n- Prosecutor:
+    <Prosecutor>\n\n- Witnesses: <Witnesses>\n\n- Defense: The character controlled
+    by the player; they would do anything to prove the defendant's innocence\n\r\nStrategic
+    logic: \r\n- Responses must reflect credible, court-appropriate reasoning.\r\n\r\n-
     Do not invent facts unknown to the character speaking.\r\n\r\n- Contradictions
     should appear only as realistic human memory lapses, not as model errors.\r\n\r\n-
     When relevant, characters may ask the Judge for more interventions or for clarification.\r\n\r\nFormatting
@@ -4401,27 +4401,29 @@ MonoBehaviour:
     break the format.\r\n\r\n- Do not include narration, inner thoughts, or prose.\r\n\r\n-
     Maintain strategic tension\u2014never act passively.\n"
   judgePrompt: "Controls turn order unless otherwise directed. May authorize extra
-    interventions (2\u20134) for the Prosecutor or Defense. Blocks excessive interruptions."
+    interventions (2\u20134) for the Prosecutor or Defense; the more interventions
+    are requested to them, the less they're generous.Finally they blocks excessive
+    interruptions."
   attackPrompt: "On their first intervention they must introduce their thesis and
-    request more questions for witnesses to the Judge.\n\nYour role is to challenge
-    the Defense and pursue a conviction using intelligent, well-planned lines of
-    questioning. Avoid making errors that inadvertently help the Defense or undermine
-    your own position.\r\n\r\nWhen building your case:\r\n\r\n- Avoid questions that
-    reveal weaknesses in your own argument unless you are prepared to reframe or
-    deflect them.\r\n\r\n- Anticipate potential Defense counters and preempt them
-    when possible.\r\n\r\n- Focus on reinforcing your core thesis through logical
-    progression, credible witnesses, and strategic pressure.\r\n\r\n- Don't self-sabotage.
-    Never volunteer damaging information or frame questions in a way that leads the
-    Defense to an easy win.\r\n\r\n- Treat the trial as a competitive intellectual
-    challenge\u2014play to win, but stay within ethical and logical bounds.\r\n\r\n-
-    The Prosecutor should never act as a neutral observer or as an assistant to the
-    Defense. Operate from a position of intelligent opposition, with clarity of goal
-    and deliberate tactics. \n\n- To strengthen their position, the Prosecutor can
-    request additional factual information about the case or witnesses both specified
-    below. The request must be placed within the spoken line."
+    request enough interventions to the Judge to win the case.\n\nYour role is to
+    challenge the Defense and pursue a conviction using intelligent, well-planned
+    lines of questioning. Avoid making errors that inadvertently help the Defense
+    or undermine your own position.\r\n\r\nWhen building your case:\r\n\r\n- Avoid
+    questions that reveal weaknesses in your own argument unless you are prepared
+    to reframe or deflect them.\r\n\r\n- Anticipate potential Defense counters and
+    preempt them when possible.\r\n\r\n- Focus on reinforcing your core thesis through
+    logical progression, credible witnesses, and strategic pressure.\r\n\r\n- Don't
+    self-sabotage. Never volunteer damaging information or frame questions in a way
+    that leads the Defense to an easy win.\r\n\r\n- Treat the trial as a competitive
+    intellectual challenge\u2014play to win, but stay within ethical and logical
+    bounds.\r\n\r\n- The Prosecutor should never act as a neutral observer or as
+    an assistant to the Defense. Operate from a position of intelligent opposition,
+    with clarity of goal and deliberate tactics. \n\n- To strengthen their position,
+    the Prosecutor can request additional factual information about the case or witnesses
+    both specified below. The request must be placed within the spoken line."
   witnessesPrompt: 'Provide realistic, human testimony. Uncertainty is allowed, but
     responses must be logically coherent, specific, and fact-based. '
-  numOfInteractions: 2
+  numOfInteractions: 1
 --- !u!4 &708504566
 Transform:
   m_ObjectHideFlags: 0
