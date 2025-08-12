@@ -79,6 +79,7 @@ public class AudioManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            LoadSavedVolumes();
             DontDestroyOnLoad(gameObject);
             InitializeAudioManager();
         }
@@ -90,6 +91,7 @@ public class AudioManager : MonoBehaviour
 
     void InitializeAudioManager()
     {
+
         // Crea dizionari per accesso rapido
         soundDictionary = new Dictionary<string, Sound>();
         musicDictionary = new Dictionary<string, SceneMusic>();
@@ -262,20 +264,27 @@ public class AudioManager : MonoBehaviour
     public void SetMasterVolume(float volume)
     {
         masterVolume = Mathf.Clamp01(volume);
+        PlayerPrefs.SetFloat("MasterVolume", masterVolume);
+        PlayerPrefs.Save();
         UpdateVolumes();
     }
 
     public void SetMusicVolume(float volume)
     {
         musicVolume = Mathf.Clamp01(volume);
+        PlayerPrefs.SetFloat("MusicVolume", musicVolume);
+        PlayerPrefs.Save();
         UpdateVolumes();
     }
 
     public void SetSFXVolume(float volume)
     {
         sfxVolume = Mathf.Clamp01(volume);
+        PlayerPrefs.SetFloat("SFXVolume", sfxVolume);
+        PlayerPrefs.Save();
         UpdateVolumes();
     }
+
 
     void UpdateVolumes()
     {
@@ -298,6 +307,18 @@ public class AudioManager : MonoBehaviour
                 sound.source.volume = sound.volume * sfxVolume * masterVolume;
             }
         }
+    }
+
+    private void LoadSavedVolumes()
+    {
+        if (PlayerPrefs.HasKey("MasterVolume"))
+            masterVolume = PlayerPrefs.GetFloat("MasterVolume");
+
+        if (PlayerPrefs.HasKey("MusicVolume"))
+            musicVolume = PlayerPrefs.GetFloat("MusicVolume");
+
+        if (PlayerPrefs.HasKey("SFXVolume"))
+            sfxVolume = PlayerPrefs.GetFloat("SFXVolume");
     }
 
     #endregion

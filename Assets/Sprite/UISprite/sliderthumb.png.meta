@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d7e37aa807d25a14b93d214e6a4ffba3
+guid: 2fcf7fa83c2a8f14eb10f9d4a0dc7e84
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 20250425leftArrow-Sheet_0
+      name: 20250423emptyFrame-Sheet_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 0
-        width: 19
-        height: 14
+        x: 1
+        y: 1
+        width: 30
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a52003d7bc8f1c34280d76ba39dd1ba2
-      internalID: -238643768
+      spriteID: cf5153f549d0a6e429192bfd38f6a210
+      internalID: -1694312863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20250423emptyFrame-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 1
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c99310c623799f94cb2c9b3638e52c63
+      internalID: 950886449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20250423emptyFrame-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 1
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce918c9d6224e9741827750446ca22da
+      internalID: 542785427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20250423emptyFrame-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 1
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b66dd73ad91d6b9488f1551a684c9a1a
+      internalID: -1194253348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20250423emptyFrame-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 1
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0502d94c66c87f429f0bbe9f5391d17
+      internalID: 1402273704
       vertices: []
       indices: 
       edges: []
@@ -122,7 +210,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1086ff40170fae64da4ad9e0305601b5
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -131,12 +219,16 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries:
+      - key: SpriteEditor.SliceOnImport
+        value: False
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      20250425leftArrow-Sheet_0: -238643768
-      20250425leftArrow-Sheet_1: -1036744563
-      20250425leftArrow-Sheet_2: 939872250
+      20250423emptyFrame-Sheet_0: -1694312863
+      20250423emptyFrame-Sheet_1: 950886449
+      20250423emptyFrame-Sheet_2: 542785427
+      20250423emptyFrame-Sheet_3: -1194253348
+      20250423emptyFrame-Sheet_4: 1402273704
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

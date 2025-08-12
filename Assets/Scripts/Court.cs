@@ -31,6 +31,7 @@ public class Court : MonoBehaviour
     [SerializeField] private EndGameUI endGameUI;
     [SerializeField] private TextMeshProUGUI playerGoalText;
     private CourtRecordUI _courtRecordUI;
+    private SettingsUI _settingsUI;
 
     //Names
     [SerializeField] private string wildcardCharacterName = "Wildcard";
@@ -95,6 +96,9 @@ public class Court : MonoBehaviour
 
         _courtRecordUI = FindFirstObjectByType<CourtRecordUI>();
         enabled = false;
+
+        _settingsUI = FindFirstObjectByType<SettingsUI>();
+        _settingsUI.isSettings = false;
 
     }
     private void Update()

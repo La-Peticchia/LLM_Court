@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
+using UnityEngine.EventSystems;
 
 public class SettingsUI : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class SettingsUI : MonoBehaviour
     private const float DEFAULT_MASTER_VOLUME = 80f;
     private const float DEFAULT_MUSIC_VOLUME = 70f;
     private const float DEFAULT_SFX_VOLUME = 85f;
+
+    public bool isSettings = true;
 
     private void Start()
     {
@@ -159,6 +162,17 @@ public class SettingsUI : MonoBehaviour
 
     private void Update()
     {
+        if (settingsUI.activeInHierarchy && Input.GetKeyDown(KeyCode.Return))
+        {
+            var selected = EventSystem.current.currentSelectedGameObject;
+            if (selected != null && selected.TryGetComponent<TMP_InputField>(out TMP_InputField inputField))
+            {
+                inputField.onEndEdit.Invoke(inputField.text);
+                EventSystem.current.SetSelectedGameObject(null);
+                return;
+            }
+        }
+
         if (settingsUI.activeInHierarchy && Input.GetKeyDown(KeyCode.Escape))
         {
             if (audioSettingsPanel.activeInHierarchy)
