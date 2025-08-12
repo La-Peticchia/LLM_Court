@@ -48,18 +48,29 @@ public class AudioManager : MonoBehaviour
     [Header("Background Music")]
     public SceneMusic[] sceneMusics;
 
-    [Header("Settings")]
+    [Header("Default Settings (Inspector)")]
     [Range(0f, 1f)]
-    public float masterVolume = 1f;
+    public float defaultMasterVolume = 1f;
 
     [Range(0f, 1f)]
-    public float musicVolume = 0.7f;
+    public float defaultMusicVolume = 0.7f;
 
     [Range(0f, 1f)]
-    public float sfxVolume = 1f;
+    public float defaultSfxVolume = 1f;
 
     [Header("Fade Settings")]
     public float fadeTime = 1f;
+
+    [System.NonSerialized]
+    public float masterVolume = 1f;
+    [System.NonSerialized]
+    public float musicVolume = 0.7f;
+    [System.NonSerialized]
+    public float sfxVolume = 1f;
+
+    private const string MASTER_VOLUME_KEY = "MasterVolume";
+    private const string MUSIC_VOLUME_KEY = "MusicVolume";
+    private const string SFX_VOLUME_KEY = "SFXVolume";
 
     // Audio Sources per la musica
     private AudioSource musicSource;
@@ -79,7 +90,6 @@ public class AudioManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            LoadSavedVolumes();
             DontDestroyOnLoad(gameObject);
             InitializeAudioManager();
         }
@@ -91,6 +101,7 @@ public class AudioManager : MonoBehaviour
 
     void InitializeAudioManager()
     {
+        LoadSavedVolumes();
 
         // Crea dizionari per accesso rapido
         soundDictionary = new Dictionary<string, Sound>();
@@ -123,6 +134,26 @@ public class AudioManager : MonoBehaviour
 
         // Applica volumi iniziali
         UpdateVolumes();
+
+        Debug.Log($"AudioManager inizializzato con volumi: Master={masterVolume:F2}, Music={musicVolume:F2}, SFX={sfxVolume:F2}");
+    }
+
+    private void LoadSavedVolumes()
+    {
+
+        float defaultMasterPercent = defaultMasterVolume * 100f;
+        float defaultMusicPercent = defaultMusicVolume * 100f;
+        float defaultSfxPercent = defaultSfxVolume * 100f;
+
+        masterVolume = PlayerPrefs.GetFloat(MASTER_VOLUME_KEY, defaultMasterPercent) / 100f;
+        musicVolume = PlayerPrefs.GetFloat(MUSIC_VOLUME_KEY, defaultMusicPercent) / 100f;
+        sfxVolume = PlayerPrefs.GetFloat(SFX_VOLUME_KEY, defaultSfxPercent) / 100f;
+
+        masterVolume = Mathf.Clamp01(masterVolume);
+        musicVolume = Mathf.Clamp01(musicVolume);
+        sfxVolume = Mathf.Clamp01(sfxVolume);
+
+        Debug.Log($"Volumi caricati da PlayerPrefs: Master={masterVolume:F2} ({masterVolume * 100:F0}%), Music={musicVolume:F2} ({musicVolume * 100:F0}%), SFX={sfxVolume:F2} ({sfxVolume * 100:F0}%)");
     }
 
     void CreateMusicSources()
@@ -225,7 +256,7 @@ public class AudioManager : MonoBehaviour
         else
         {
             musicSource.clip = musicClip;
-            musicSource.volume = volume * musicVolume;
+            musicSource.volume = volume * musicVolume * masterVolume;
             musicSource.Play();
             currentMusicName = musicName;
         }
@@ -264,27 +295,23 @@ public class AudioManager : MonoBehaviour
     public void SetMasterVolume(float volume)
     {
         masterVolume = Mathf.Clamp01(volume);
-        PlayerPrefs.SetFloat("MasterVolume", masterVolume);
-        PlayerPrefs.Save();
         UpdateVolumes();
+        Debug.Log($"Master Volume impostato a: {masterVolume:F2} ({masterVolume * 100:F0}%)");
     }
 
     public void SetMusicVolume(float volume)
     {
         musicVolume = Mathf.Clamp01(volume);
-        PlayerPrefs.SetFloat("MusicVolume", musicVolume);
-        PlayerPrefs.Save();
         UpdateVolumes();
+        Debug.Log($"Music Volume impostato a: {musicVolume:F2} ({musicVolume * 100:F0}%)");
     }
 
     public void SetSFXVolume(float volume)
     {
         sfxVolume = Mathf.Clamp01(volume);
-        PlayerPrefs.SetFloat("SFXVolume", sfxVolume);
-        PlayerPrefs.Save();
         UpdateVolumes();
+        Debug.Log($"SFX Volume impostato a: {sfxVolume:F2} ({sfxVolume * 100:F0}%)");
     }
-
 
     void UpdateVolumes()
     {
@@ -299,6 +326,17 @@ public class AudioManager : MonoBehaviour
             musicSource.volume = currentMusicVolume * musicVolume * masterVolume;
         }
 
+        // Aggiorna volume secondary music source
+        if (musicSourceSecondary != null && musicSourceSecondary.isPlaying)
+        {
+            float currentMusicVolume = 0.7f;
+            if (!string.IsNullOrEmpty(currentMusicName) && musicDictionary.ContainsKey(currentMusicName))
+            {
+                currentMusicVolume = musicDictionary[currentMusicName].volume;
+            }
+            musicSourceSecondary.volume = currentMusicVolume * musicVolume * masterVolume;
+        }
+
         // Aggiorna volume SFX
         foreach (Sound sound in soundEffects)
         {
@@ -307,18 +345,6 @@ public class AudioManager : MonoBehaviour
                 sound.source.volume = sound.volume * sfxVolume * masterVolume;
             }
         }
-    }
-
-    private void LoadSavedVolumes()
-    {
-        if (PlayerPrefs.HasKey("MasterVolume"))
-            masterVolume = PlayerPrefs.GetFloat("MasterVolume");
-
-        if (PlayerPrefs.HasKey("MusicVolume"))
-            musicVolume = PlayerPrefs.GetFloat("MusicVolume");
-
-        if (PlayerPrefs.HasKey("SFXVolume"))
-            sfxVolume = PlayerPrefs.GetFloat("SFXVolume");
     }
 
     #endregion
@@ -410,12 +436,27 @@ public class AudioManager : MonoBehaviour
 
     public bool IsMusicPlaying()
     {
-        return musicSource.isPlaying;
+        return musicSource != null && musicSource.isPlaying;
     }
 
     public string GetCurrentMusicName()
     {
         return currentMusicName;
+    }
+
+    public float GetMasterVolume()
+    {
+        return masterVolume;
+    }
+
+    public float GetMusicVolume()
+    {
+        return musicVolume;
+    }
+
+    public float GetSFXVolume()
+    {
+        return sfxVolume;
     }
 
     public void AddSoundEffect(string name, AudioClip clip, float volume = 1f, float pitch = 1f, bool loop = false)
