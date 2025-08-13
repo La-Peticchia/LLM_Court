@@ -1,5 +1,30 @@
 [
   {
+    "title": "The Trial of the Wizard's Tower",
+    "playerGoal": "Obtain full acquittal for the wizard Arven, accused of murder and destruction by explosive magic.",
+    "summary": "During a ritual duel at the prestigious Academy of the Wizard’s Tower, a powerful explosion caused the mysterious death of rival Lothar. Your client, Arven Lumis, was found near the site with arcane residue on his hands. However, details are confusing: witnesses disagree about people's movements and some clues suggest deliberate alteration or unknown third-party involvement. It will be up to you to discover whether there was truly malice or simply an unfortunate accident between talented but fiercely competitive wizards.",
+    "shortSummary": "A deadly explosion shakes central tower during a duel between mages; your client is charged while evidence and alibis contradict each other.",
+    "evidence": [
+      "Ashy powder traces found on robes that do not match standard energy signature from Arven's spells",
+      "An anonymous threatening letter addressed to Lothar appeared in his private book just days before clash",
+      "Broken pocket watch showed exactly nine o’clock – conflicting with official statements about precise time ",
+      "Violet glowing residues discovered under planks near arena never normally used in authorized school rituals"
+    ],
+    "witnessNames": [
+      "Therin Valostril",
+      "Elyra Fendrel"
+    ],
+    "witnessDescriptions": [
+      "...Senior professor at academy known for procedural rigor & authoritarian demeanor; insists he saw Arven behaving suspiciously right after blast yet admits interventions were hindered by general chaos.",
+      "...Expert librarian specializing historical archives; calmly casts doubt on actual culpability noting unusual noises coming from basement shortly before final spell as well as glimpsing hooded figure not belonging among regular students."
+    ],
+    "witnessGenders": [
+      "F",
+      "F"
+    ],
+    "additionalInfo": []
+  },
+  {
     "title": "Il Processo della Torre dei Maghi",
     "playerGoal": "Ottenere l'assoluzione completa per il mago Arven, accusato di omicidio e distruzione con magia esplosiva.",
     "summary": "Durante un duello rituale nella prestigiosa Accademia della Torre dei Maghi, una potente esplosione ha causato la morte misteriosa del rivale Lothar. Il tuo cliente, Arven Lumis, è stato trovato vicino al luogo dell'esplosione con residui arcani sulle mani. Tuttavia i dettagli sono confusi: le testimonianze divergono riguardo ai movimenti delle persone presenti e alcuni elementi lasciano sospettare alterazione deliberata degli indizi o coinvolgimento terzo sconosciuto. Starà a te scoprire se davvero vi fu dolo oppure solo uno sfortunato incidente fra maghi talentuosi ma avversari accaniti.",
@@ -21,6 +46,7 @@
     "witnessGenders": [
       "F",
       "F"
-    ]
+    ],
+    "additionalInfo": []
   }
 ]

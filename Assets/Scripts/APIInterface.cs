@@ -98,6 +98,8 @@ public class APIInterface : MonoBehaviour
         };
     }
     
+    //TODO rivedere il prompt principale per poter generare dei casi un po' meno misteriosi
+    
     public async Task<CaseDescription> RequestCaseDescription(string preferences = "", bool translation = false, int seed = 0)
     {
         
