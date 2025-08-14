@@ -102,7 +102,7 @@ public class SentenceAnalyzer : MonoBehaviour
             $"Follow these steps:\n" +
             $"1 - Determine if the speaker is requesting factual, case-relevant information. If not, return < NULL >\n" +
             $"2 - If yes, extract the information request(s) they are making, ignoring rhetorical or procedural content\n" +
-            $"2.5 - If the information request refers to a character (e.g., what someone saw, heard, or did), specify that character’s name in your answer." +
+            $"2.5 - If the information request refers to a character (e.g., what someone saw, heard, or did), specify that character’s name in your answer; you MUST NOT use pronouns." +
             $"3 - Output only in the format: < answer >\n\n";
         
         userPrompt += $"Additional context to consider (case description):\n{caseDescription.GetTotalDescription(new []{0,2,3,4})}";
@@ -111,6 +111,8 @@ public class SentenceAnalyzer : MonoBehaviour
             userPrompt += $"\n\nAdditional context to consider (prior dialogue):\n{string.Join("\n\n", tmpMessages.SkipLast(1).Select(x => $"{x.role}: {x.content.Split("*")[0].Split("<")[0]}."))}";
                           
         userPrompt += $"\n\nImportant filtering rules:\n" +
+                      $"- Do not extract requests that are too generic (e.g. \"More information\")" +
+                      $"- Do not extract request(s) of additional interventions or questions " +
                       $"- Do not extract questions that are rhetorical, procedural, or unrelated to courtroom facts" +
                       $"- Only include requests that could provide specific details or clues to support or refute the case (e.g., times, actions, observations, locations, sounds ...)" +
                       $"- If there’s no factual request, return < NULL >";
@@ -148,11 +150,22 @@ public class SentenceAnalyzer : MonoBehaviour
             $"2 - If yes, extract the number of granted interventions\n" +
             $"3 - Determine whom character the speaker is talking to; they can be only one of them: {string.Join(" or ", mainCharacters)} or NULL" +
             $"4 - Output your answer in the following format: [here you put the number (put 0 if no interventions are granted) | here you put the character name (put NULL if no interventions are granted)] ";
+
+        //string userPrompt =
+        //    $"Can you extract from the following text:\n{lastCharacter}: {tmpMessages[^1].content.Split("*")[0].Split("<")[0]}\n\n" +
+        //    $"Your task is to determine if {lastCharacter} the speaker is explicitly granting additional interventions, and if so, to whom.\n\n" +
+        //    $"Follow these steps strictly:\n" +
+        //    $"1 - First, check if the speaker is granting any interventions (do not confuse with requests for interventions; only granting counts).\n" +
+        //    $"2 - If yes, extract the exact number of interventions granted (as an integer).\n" +
+        //    $"3 - Identify the single character to whom the interventions are granted; this character can only be one of: {string.Join(" or ", mainCharacters)}. If no interventions are granted, set this to NULL.\n" +
+        //    $"4 - Always output in this exact format (no extra spaces or text): [number_of_interventions | character_name]. Use 0 and NULL if no interventions are granted.\n" +
+        //    $"5 - If the text is ambiguous, default to 0 | NULL.\n";
         
         if (tmpMessages.Count > 1)
-            userPrompt += $"Additional context to consider (prior dialogue):\n{string.Join("\n\n", tmpMessages.SkipLast(1).Select(x => $"{x.content.Split("*")[0].Split("<")[0]}."))}";
+            userPrompt += $"\n\nAdditional context to consider (prior dialogue):\n{string.Join("\n\n", tmpMessages.SkipLast(1).Select(x => $"{x.role}: {x.content.Split("*")[0].Split("<")[0]}."))}";
 
-        userPrompt += $"\n\nImportant notes:\n- Remember that {lastCharacter} must explicitly grant a specific number of intervention or accept additional interventions requests.\n" +
+        userPrompt += $"\n\nImportant notes:\n" +
+                      $"- Remember that {lastCharacter} must explicitly grant a specific number of intervention or accept additional interventions requests.\n" +
                       $"- If the request or grant is not explicit you must give 0 additional interventions";
         
         Debug.Log("Analyze grant user prompt:\n" + userPrompt);

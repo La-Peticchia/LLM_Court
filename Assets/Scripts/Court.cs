@@ -10,6 +10,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Court : MonoBehaviour
 {
@@ -47,6 +48,7 @@ public class Court : MonoBehaviour
 
     //Command text
     private readonly string _questionCharacter = "<";
+    private readonly string _interventionGrantCharacter = "[";
     private readonly string _requestCharacter = "*";
     private readonly string _gameOverCharacter = "#";
     private readonly string _judgePlaceholder = "<Judge>";
@@ -124,9 +126,6 @@ public class Court : MonoBehaviour
     }
 
 
-
-    //TODO Il prosecutor deve generare il quantitativo di domande che effettivamente gli servono
-
     public async void InitializeCourt(CaseDescription caseDescription, CaseDescription translatedDescription)
     {
         _caseDescription = caseDescription;
@@ -170,8 +169,10 @@ public class Court : MonoBehaviour
         return $"The following is the case file for today's simulation, provided in JSON format. Use this only as factual reference during the trial. Do not repeat or explain it:\n{_caseDescription.GetJsonDescription()}";
     }
     
-    
-    //TODO modificare il prompt del giudice per renderlo meno generoso, e aggiungere le fasi finali all'interno del metodo InitializeRounds
+    //TODO rimuovi l'analisi del testo del giudice per garantire interventi aggiuntivi e utilizzare il formato: [number of question]
+    //fixare anche il salvataggio
+    //Il passaggio di parola è ancora un po' rotto: da fixare
+    //Generare altri casi e testare 
     private void InitializeRounds()
     {
         _roundsTimeline = new List<(string role, string systemMessage)>
@@ -179,9 +180,11 @@ public class Court : MonoBehaviour
             (" "," "),
             (judgeName, $"Now the {judgeName} introduces the court case then passes the word to {attackName}"),
             (attackName,$"Now the {attackName} introduces their case thesis then asks {judgeName} the amount of questions they want to deliver to the witnesses"),
-            (judgeName, $"Now the {judgeName} grants a specific number of questions to {attackName} based on the previous spoken line then passes the word to {defenseName}"),
+            (judgeName, $"Now the {judgeName} grants a specific number of questions to {attackName} based on the previous spoken line. They can specify the total number of granted questions by appending it at the end of the answer in this manner: [number of question]"),
+            //(judgeName, $"Now the {judgeName} grants a specific number of questions to {attackName} based on the previous spoken line then passes the word to {defenseName}"),
+            //(judgeName, $"Now the {judgeName} passes the word to {defenseName}"),
             (defenseName,$"Now the {defenseName} introduces their case thesis then asks {judgeName} the amount of questions they want to deliver to the witnesses"),
-            (judgeName, $"Now the {judgeName} grants a specific number of questions to {defenseName} based on the previous spoken line"),
+            (judgeName, $"Now the {judgeName} grants a specific number of questions to {defenseName} based on the previous spoken line. They can specify the total number of granted questions by appending it at the end of the answer in this manner: [number of question]"),
             
         };
 
@@ -191,18 +194,18 @@ public class Court : MonoBehaviour
     public void SetAIText(string text)
     {
 
-        if (_roundsTimeline[_round].role == wildcardCharacterName)
-        {
-            if (text.Contains(_questionCharacter))
-            {
-                aiTitle.text = text.Split(_questionCharacter)[0];
-                aiText.text = text.Split(_questionCharacter)[1].Split(_requestCharacter)[0];
-            }
+        //if (_roundsTimeline[_round].role == wildcardCharacterName)
+        //{
+        //    if (text.Contains(_questionCharacter))
+        //    {
+        //        aiTitle.text = text.Split(_questionCharacter)[0];
+        //        aiText.text = text.Split(_questionCharacter)[1].Split(_requestCharacter)[0];
+        //    }
+        //
+        //    return;
+        //}
 
-            return;
-        }
-
-        aiText.text = text.Split(_questionCharacter)[0].Split(_gameOverCharacter)[0].Split(_requestCharacter)[0];
+        aiText.text = text.Split(_questionCharacter)[0].Split(_gameOverCharacter)[0].Split(_requestCharacter)[0].Split(_interventionGrantCharacter)[0];
 
     }
 
@@ -247,8 +250,6 @@ public class Court : MonoBehaviour
         nextButton.interactable = false;
         _ = NextRound();
     }
-
-    //TODO fix the dialogue language problem and do some tests
 
     private async Task NextRound(bool increment = true)
     {
@@ -376,22 +377,38 @@ public class Court : MonoBehaviour
         else
         {
             
-            
-            if (_roundsTimeline[_round].role.ToLower().Contains(judgeName.ToLower()))
+            if (_roundsTimeline[_round].role.ToLower().Contains(judgeName.ToLower()) && _round > 0)
             {
-                (int number, string character) = await _sentenceAnalyzer.AnalyzeGrantInterventions(llmCharacter.chat, characters.ToArray());
+                Match grantMatch = Regex.Match(text, @"\[(.*?)\]");
+                string prevCharacter = _roundsTimeline[_round - 1].role;
 
-                if(!character.Contains("NULL") && number > 0)
-                    if (character.ToLower().Contains(defenseName.ToLower()))
+                if(grantMatch.Success && int.TryParse(grantMatch.Groups[1].Value, out var grantNum))
+                {   
+                    if (prevCharacter.ToLower().Contains(defenseName.ToLower()))
                     {
                         Debug.Log("incremented defense");
-                        _defenseInteractions += number;
+                        _defenseInteractions += grantNum;
                     }
-                    else if (character.ToLower().Contains(attackName.ToLower()))
+                    else if (prevCharacter.ToLower().Contains(attackName.ToLower()))
                     {
                         Debug.Log("incremented attack");
-                        _attackInteractions += number;
-                    }
+                        _attackInteractions += grantNum;
+                    }                    
+                }
+                    
+                //(int number, string character) = await _sentenceAnalyzer.AnalyzeGrantInterventions(llmCharacter.chat, new[]{attackName, defenseName});
+//
+//                if(!character.Contains("NULL") && number > 0)
+//                    if (character.ToLower().Contains(defenseName.ToLower()))
+//                    {
+//                        Debug.Log("incremented defense");
+//                        _defenseInteractions += number;
+//                    }
+//                    else if (character.ToLower().Contains(attackName.ToLower()))
+//                    {
+//                        Debug.Log("incremented attack");
+//                        _attackInteractions += number;
+//                    }
             }
             else if(_roundsTimeline[_round].role.ToLower().Contains(attackName.ToLower()))
                 data[1] = await _sentenceAnalyzer.AnalyzeInfoNeeded(llmCharacter.chat, _caseDescription);
@@ -405,6 +422,8 @@ public class Court : MonoBehaviour
         
         //TODO fix the additional information requests and the logic of choosing the next character
         
+        if(data[0].ToLower().Contains("null"))
+            data[0] = _caseDescription.witnessNames[Random.Range(0, _caseDescription.witnessNames.Count)];
         
         if(_roundsTimeline.Count <= _round + 1 )
             _roundsTimeline.Insert(_round + 1, (data[0], ""));
@@ -431,21 +450,13 @@ public class Court : MonoBehaviour
                 Debug.LogWarning("Additional Information API call Failed: " + e.Message);                    
             }
     }
+    
+    //TODO rendere la tesi finale del Prosecutor più coerente con quanto successo in aula; il Prosecutor dovrebbe fare domande distribuite tra i vari testimoni
     void CheckForJudgeIntervention()
     {
         
         Debug.Log("Attack interactions:" + _attackInteractions + "\nDefense interactions:" +_defenseInteractions);
          
-        if (IsOutOfQuestions && _roundsTimeline[_round].role.ToLower().Contains(judgeName.ToLower()))
-        {
-            _roundsTimeline[_round] = (judgeName, $"Now the {judgeName} requests the final thesis of the {attackName} and {defenseName}");
-            _roundsTimeline.Add((attackName, $"Now the {attackName} shows their final thesis"));
-            _roundsTimeline.Add((defenseName, $"Now the {defenseName} shows their final thesis"));
-            _roundsTimeline.Add((judgeName, $"Now the {judgeName} announces to everyone they are going to issue the final verdict"));
-            
-            _lastPhase = true;
-            return;
-        }
         
         string role = _roundsTimeline[_round].role;
         if(role.ToLower().Contains(attackName.ToLower()))
@@ -466,6 +477,16 @@ public class Court : MonoBehaviour
                     _roundsTimeline[_round] = (defenseName, _defenseInteractions + " interventions remaining for " + defenseName);
                 _defenseInteractions--;
             }
+
+        if (IsOutOfQuestions && _roundsTimeline[_round].role.ToLower().Contains(judgeName.ToLower()))
+        {
+            _roundsTimeline[_round] = (judgeName, $"Now the {judgeName} requests the final thesis of the {attackName} and {defenseName}");
+            _roundsTimeline.Add((attackName, $"Now the {attackName} shows their final thesis based on what happened in the courtroom"));
+            _roundsTimeline.Add((defenseName, $"Now the {defenseName} shows their final thesis"));
+            _roundsTimeline.Add((judgeName, $"Now the {judgeName} announces to everyone they are going to issue the final verdict"));
+            
+            _lastPhase = true;
+        }
         
     }
 

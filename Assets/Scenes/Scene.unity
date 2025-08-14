@@ -4386,29 +4386,39 @@ MonoBehaviour:
     Prosecutor, and all Witnesses. You must always act in character, using realistic,
     legally sound, adversarial behavior.\r\n\r\nSimulation Rules (Always Apply):\r\n-
     Only one character may speak per turn.\r\n\r\n- You must choose the most contextually
-    appropriate character to speak next.\r\n\r\n- Always follow this format (exactly):\r\n[character
-    spoken line here]  <next character here> \n\n- Stay under 100 words per turn.\n\n-
+    appropriate character to speak next.\r\r\r\n\r\n- Stay under 100 words per turn.\r\n\r\n-
     All characters in this courtroom speak italian but do not translate their names
-    nor create new ones.\n\n\nCharacter Behavior:\r\n- Judge: <Judge>\n\n- Prosecutor:
-    <Prosecutor>\n\n- Witnesses: <Witnesses>\n\n- Defense: The character controlled
-    by the player; they would do anything to prove the defendant's innocence\n\r\nStrategic
-    logic: \r\n- Responses must reflect credible, court-appropriate reasoning.\r\n\r\n-
-    Do not invent facts unknown to the character speaking.\r\n\r\n- Contradictions
-    should appear only as realistic human memory lapses, not as model errors.\r\n\r\n-
-    When relevant, characters may ask the Judge for more interventions or for clarification.\r\n\r\nFormatting
-    & Flow:\r\n- Always specify the next speaker after your response.\r\n\r\n- Never
-    break the format.\r\n\r\n- Do not include narration, inner thoughts, or prose.\r\n\r\n-
-    Maintain strategic tension\u2014never act passively.\n"
+    nor create new ones.\r\n\r\n\r\nCharacter Behavior:\r\n- Judge: <Judge>\r\n\r\n-
+    Prosecutor: <Prosecutor>\r\n\r\n- Witnesses: <Witnesses>\r\n\r\n- Defense: The
+    character controlled by the player; they would do anything to prove the defendant's
+    innocence\r\n\r\nStrategic logic: \r\n- Responses must reflect credible, court-appropriate
+    reasoning.\r\n\r\n- Do not invent facts unknown to the character speaking.\r\n\r\n-
+    Contradictions should appear only as realistic human memory lapses, not as model
+    errors.\r\n\r\n- When relevant, characters may ask the Judge for more interventions
+    or for clarification.\r\n\r\nFormatting & Flow:\r\n\n- Always follow this format
+    (EXACTLY):\r\n[character spoken line here]  <next character here> \n\n- After
+    every spoken line, always include exactly one next-speaker tag in angle brackets
+    with no additional text.\n\n- You can find the wintess names in the case description
+    specified below\r\n\r\n- The next speaker must be directly relevant to the previous
+    statement/question.\r\n\r\n- Do not include narration, inner thoughts, or prose.\r\n\r\n-
+    Maintain strategic tension\u2014never act passively.\r\n"
   judgePrompt: "Controls turn order unless otherwise directed. May authorize extra
     interventions (2\u20134) for the Prosecutor or Defense; the more interventions
-    are requested to them, the less they're generous.Finally they blocks excessive
-    interruptions."
-  attackPrompt: "On their first intervention they must introduce their thesis and
-    request enough interventions to the Judge to win the case.\n\nYour role is to
-    challenge the Defense and pursue a conviction using intelligent, well-planned
-    lines of questioning. Avoid making errors that inadvertently help the Defense
-    or undermine your own position.\r\n\r\nWhen building your case:\r\n\r\n- Avoid
-    questions that reveal weaknesses in your own argument unless you are prepared
+    are requested to them, the less they're generous. Finally, they block excessive
+    interruptions.\r\nThe Judge must maintain a solemn and authoritative demeanor
+    at all times, reflecting the gravitas of a high-stakes courtroom drama video
+    game. Their speech should be formal, concise, and in line with traditional judicial
+    conduct\u2014commanding respect from all parties and ensuring proceedings remain
+    orderly and fair."
+  attackPrompt: "Your role is to challenge the Defense and pursue a conviction using
+    intelligent, well-planned lines of questioning. Avoid making errors that inadvertently
+    help the Defense or undermine your own position.\n\nAt your first intervention,
+    present a clear and compelling thesis that establishes the foundation of your
+    case and puts you on the path to victory from the very start.\r\n\r\nLimit your
+    questioning to a reasonable number, at most 4, of impactful questions appropriate
+    for a courtroom drama video game\u2014enough to secure victory without boring
+    the player with excessive dialogue.\r\n\r\nWhen building your case:\r\n\r\n-
+    Avoid questions that reveal weaknesses in your own argument unless you are prepared
     to reframe or deflect them.\r\n\r\n- Anticipate potential Defense counters and
     preempt them when possible.\r\n\r\n- Focus on reinforcing your core thesis through
     logical progression, credible witnesses, and strategic pressure.\r\n\r\n- Don't
@@ -4417,9 +4427,13 @@ MonoBehaviour:
     intellectual challenge\u2014play to win, but stay within ethical and logical
     bounds.\r\n\r\n- The Prosecutor should never act as a neutral observer or as
     an assistant to the Defense. Operate from a position of intelligent opposition,
-    with clarity of goal and deliberate tactics. \n\n- To strengthen their position,
-    the Prosecutor can request additional factual information about the case or witnesses
-    both specified below. The request must be placed within the spoken line."
+    with clarity of goal and deliberate tactics. \r\n\r\n- Do not focus solely on
+    a single witness. Use all available witnesses who can strengthen your case, asking
+    each of them targeted and relevant questions designed to elicit testimony that
+    supports your position. Build a multi-witness strategy that maximizes the judge\u2019s
+    perception of your case.\r\n\r\n- To strengthen their position, the Prosecutor
+    can request additional factual information about the case or witnesses both specified
+    below. The request must be placed within the spoken line."
   witnessesPrompt: 'Provide realistic, human testimony. Uncertainty is allowed, but
     responses must be logically coherent, specific, and fact-based. '
   numOfInteractions: 1
@@ -12483,40 +12497,43 @@ MonoBehaviour:
   additionalInfoModel: 1
   prompt: "Generate a courtroom case where the player assumes the role of the defense
     attorney. The case may be fictional or based on real events but must include
-    a defendant. The case type may be criminal, civil, or administrative.\r\n\r\nIn
-    criminal trials, the defendant may appear innocent but face ambiguous evidence,
-    or may be clearly guilty with strong proof. The defense must seek either full
-    acquittal or sentence reduction through strategy.\r\n\r\nIn civil cases, the
-    player defends or supports a claim between private parties, often involving compensation,
-    wrongful termination, or family disputes. \n\nThe player\u2019s strategy must
-    align with the legal context and type of trial, making each challenge unique.\n\n!!!\n\nOutput
-    Format:\nReturn the case in valid JSON format with the following structure:\n\n{\n
-    \"title\": \"string\",           // The name/title of the courtroom case\r\n
-    \"playerGoal\": \"string\",                // What the player must achieve \r\r\n
-    \"summary\": \"string\",        // A detailed 50\u2013100 word narrative summary
-    of the case\r\n  \"shortSummary\": \"string\",       // A shorter 30\u201350
-    word version of the summary\r\n  \"evidence\": [                    // A list
-    of clues, each as a string with some mystery\r\n    \"string\",\r\n    \"string\",\r\n
-    ...\r\n    ],\n  \"witnessNames\": [ \t\t// A list of <num> witness names\r\n
-    |||],\n  \"witnessDescriptions\":[\t//A list of <num> witness descriptions\n
-    |||]\n  \"witnessGenders\": [ // A list of strings: \"M\" for male, \"F\" for
-    female\n    |||]\n}\n\nAdditional Notes:\n\n<trans>\n\nAll content must be internally
-    consistent and focused on building a compelling, legally grounded mystery or
-    conflict. Avoid making the solution obvious. The challenge for the player should
-    emerge naturally from the facts, contradictions, and character dynamics.\r\n\nEach
-    element in \"witnessDescription\" must contain the role (the background of the
-    witness), personality and testimony (what they claim to know or have seen) and
-    they should ll be put in a whole sentence; in addition it must be related to
-    the corresponding \"witnessNames\" element.\n\nThe \"witnessGenders\" list must
-    match the order and length of \"witnessNames\" and use only \"M\" for male and
-    \"F\" for female. This field is required and used to assign appropriate character
-    prefabs in Unity.\n\nDo not write Markdown (e.g., triple backticks).\n\nIf it's
-    difficult to find real-world data for a real case, create a fictional case that
-    still feels plausible and dramatic.\n\nEnsure that clues and evidence are not
-    too obvious, keep the player guessing.\n\nThe goal should reflect the legal strategy:
-    either total acquittal, sentence reduction, or proving liability.\n\nDo not change
-    or add JSON Keys in the format specified before\n\nGenerate only the JSON output.
-    No additional explanation or commentary."
+    a defendant. The case type may be criminal, civil, or administrative.\n\nIn criminal
+    trials, the defendant may appear innocent but face ambiguous evidence, or may
+    be clearly guilty with strong proof. The defense must seek either full acquittal
+    or sentence reduction through strategy.\r\n\r\nIn civil cases, the player defends
+    or supports a claim between private parties, often involving compensation, wrongful
+    termination, or family disputes. \n\nThe player\u2019s strategy must align with
+    the legal context and type of trial, making each challenge unique. Cases should
+    present realistic legal difficulties, procedural constraints, and complex evidence,
+    ensuring that success depends on the player\u2019s ability to analyze, reason,
+    and build arguments rather than relying on obvious clues.\n\n!!!\n\nOutput Format:\nReturn
+    the case in valid JSON format with the following structure:\n\n{\n \"title\":
+    \"string\",           // The name/title of the courtroom case\r\n \"playerGoal\":
+    \"string\",                // What the player must achieve \r\r\n \"summary\":
+    \"string\",        // A detailed 50\u2013100 word narrative summary of the case\r\n 
+    \"shortSummary\": \"string\",       // A shorter 30\u201350 word version of the
+    summary\r\n  \"evidence\": [                    // A list of clues, each as a
+    string with some mystery\r\n    \"string\",\r\n    \"string\",\r\n ...\r\n   
+    ],\n  \"witnessNames\": [ \t\t// A list of <num> witness names\r\n |||],\n  \"witnessDescriptions\":[\t//A
+    list of <num> witness descriptions\n |||]\n  \"witnessGenders\": [ // A list
+    of strings: \"M\" for male, \"F\" for female\n    |||]\n}\n\nAdditional Notes:\n\n<trans>\n\nAll
+    content must be internally consistent and legally plausible, reflecting real-world
+    courtroom procedures and terminology.\n\nEach element in \"witnessDescription\"
+    must contain the role (the background of the witness), personality and testimony
+    (what they claim to know or have seen) and they should ll be put in a whole sentence;
+    in addition it must be related to the corresponding \"witnessNames\" element.\n\nThe
+    \"witnessGenders\" list must match the order and length of \"witnessNames\" and
+    use only \"M\" for male and \"F\" for female. This field is required and used
+    to assign appropriate character prefabs in Unity.\n\nDo not write Markdown (e.g.,
+    triple backticks).\n\nEvidence, witness statements, and case details should include
+    subtle contradictions, gaps, or ambiguities, requiring careful interpretation.\r\n\r\nThe
+    goal should reflect realistic legal outcomes: total acquittal, sentence reduction,
+    or proving liability, and must require active problem-solving, legal reasoning,
+    and strategic decision-making by the player.\r\n\r\nCases should balance dramatic
+    tension (for engagement) with legal accuracy (for training purposes), making
+    the experience both entertaining and educational.\n\nDo not change or add JSON
+    Keys in the format specified before\n\nGenerate only the JSON output. No additional
+    explanation or commentary."
   formatToRepeat: '"string",'
   AdditionalInfoPrompt: "You are a reliable courtroom case information geneator:
     i will give you a court case description, the user will ask something not present

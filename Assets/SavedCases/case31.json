@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Il Caso della Fotocamera Scomparsa",
+    "playerGoal": "Dimostrare l'innocenza dell'imputato e ottenere un'assoluzione completa dalle accuse di furto aggravato.",
+    "summary": "Matteo Bianchi, tecnico informatico in una società di eventi, è accusato del furto aggravato di una costosa fotocamera reflex scomparsa allestendo uno stand in fiera. Le telecamere mostrano Matteo vicino al luogo del reato ma non nel momento esatto dello sparizione; ci sono impronte digitali parziali sulla borsa della fotocamera riconducibili a lui e molteplici testimoni con versioni leggermente discordanti sugli orari degli avvistamenti. Il difensore dovrà sfruttare elementi tecnici contraddittori ed errori procedurali nella catena delle prove per convincere la corte.",
+    "shortSummary": "Un tecnico viene sospettato d’aver rubato una costosa fotocamera durante un evento fieristico: le evidenze lo collocano nei pressi ma il quadro probatorio presenta ambiguità temporali e testimonianze discordanti che consentono spazio alla difesa.",
+    "evidence": [
+      "Registrazione video incompleta che mostra Matteo nelle vicinanze pochi minuti prima del presunto furto senza catturare il momento stesso dello sparizione.",
+      "Impronta digitale parziale trovata sulla maniglia della borsa contenente la camera, compatibile con quella dell’imputato ma facilmente spiegabile dal lavoro svolto da lui nello stand poco prima.",
+      "Lista inventario compilata solo dopo l’arrivo dei primi agenti sul posto — gap potenziale nella custodia delle prove iniziali fra scoperta e formalizzazione.del verbale",
+      "Chat Whatsapp tra dipendenti dove si cita brevemente un movimento anomalo dietro lo stand nell’orario incriminante senza identificare persone specifiche."
+    ],
+    "witnessNames": [
+      "Giulia Ferrero",
+      "Sandro Montini"
+    ],
+    "witnessDescriptions": [
+      "L’assistente logistica Giulia Ferrero ha lavoricato fianco a fianco con Matteo gran parte dell’allestimento; persona meticolosa quanto ansiosa, sostiene fermamente d’aver visto entrare nel magazzino solo impreparati fornitori esterni oltre ai colleghi interni intorno alle ore critiche pur ammettendo confusione su precisi movimenti individuale data la frenetica organizzazione quell’attimo—testimonia quindi sia sull'accessibilità limitata agli spazi sia sui ritmi concitati generando però dubbi sulle proprie stesse certezze visive.",
+      "Sandro Montini è responsabile sicurezza negli eventi – calmo osservatore abitué delle emergenze – riferisce cautamente che 'diversi addetti erano presenti attorno allo storage benché nessuno abbia notificatospecificatamente comportamenti strani'; aggiunge inoltre come talvolta alcune zone restassero momentaneamente incustodite quando i turnisti cambiavano mansione improvvisando."
+    ],
+    "witnessGenders": [
+      "F",
+      "M"
+    ],
+    "additionalInfo": []
+  }
+]

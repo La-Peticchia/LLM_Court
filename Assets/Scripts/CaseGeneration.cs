@@ -161,7 +161,7 @@ public class CaseGeneration : MonoBehaviour
                 tmpCaseDescription = JsonConvert.DeserializeObject<CaseDescription>(response);
                 
                 if(transCaseDescription.IsSaved())
-                    _saveManager.SaveCaseDescription(new []{tmpCaseDescription, transCaseDescription}, transCaseDescription.GetID());
+                    await _saveManager.SaveCaseDescription(new []{tmpCaseDescription, transCaseDescription}, transCaseDescription.GetID());
             }
             catch (Exception e)
             {
@@ -171,7 +171,7 @@ public class CaseGeneration : MonoBehaviour
         }
 
         _court.InitializeCourt(tmpCaseDescription ?? JsonConvert.DeserializeObject<CaseDescription>(JsonConvert.SerializeObject(transCaseDescription)), transCaseDescription);
-        _saveManager.SaveAsLastCase(tmpCaseDescription != null ? new[]{tmpCaseDescription, transCaseDescription} : new []{transCaseDescription});
+        await _saveManager.SaveAsLastCase(tmpCaseDescription != null ? new[]{tmpCaseDescription, transCaseDescription} : new []{transCaseDescription});
         
         
         courtPreviewCanvas.SetActive(false);
@@ -227,8 +227,9 @@ public class CaseGeneration : MonoBehaviour
         
     }
 
-    void OnSaveButtonClicked()
+    async void OnSaveButtonClicked()
     {
+        ToggleButtons(false);
         var firstDes = _translatedDescriptions.First.Value;
         if (firstDes.IsSaved())
         {
@@ -236,9 +237,10 @@ public class CaseGeneration : MonoBehaviour
             firstDes.SetID(-1);
         }
         else
-            firstDes.SetID(_saveManager.SaveCaseDescription(new []{firstDes}));
+            firstDes.SetID(await _saveManager.SaveCaseDescription(new []{firstDes}));
         
         ToggleSaveButton();
+        ToggleButtons(true);
     }
 
     private async Task OnError(string error)
