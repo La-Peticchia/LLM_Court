@@ -388,9 +388,9 @@ public class Court : MonoBehaviour
             {
                 Match grantMatch = Regex.Match(text, @"\[(.*?)\]");
                 string prevCharacter = _roundsTimeline[_round - 1].role;
-
-                if(grantMatch.Success && int.TryParse(grantMatch.Groups[1].Value, out var grantNum))
-                {   
+                if(!(grantMatch.Success && int.TryParse(grantMatch.Groups[1].Value, out var grantNum)))
+                    (grantNum, _) = await _sentenceAnalyzer.AnalyzeGrantInterventions(llmCharacter.chat, new[]{attackName, defenseName});
+                if(!prevCharacter.Contains("NULL") && grantNum > 0)
                     if (prevCharacter.ToLower().Contains(defenseName.ToLower()))
                     {
                         Debug.Log("incremented defense");
@@ -401,21 +401,7 @@ public class Court : MonoBehaviour
                         Debug.Log("incremented attack");
                         _attackInteractions += grantNum;
                     }                    
-                }
-                    
-                //(int number, string character) = await _sentenceAnalyzer.AnalyzeGrantInterventions(llmCharacter.chat, new[]{attackName, defenseName});
-//
-//                if(!character.Contains("NULL") && number > 0)
-//                    if (character.ToLower().Contains(defenseName.ToLower()))
-//                    {
-//                        Debug.Log("incremented defense");
-//                        _defenseInteractions += number;
-//                    }
-//                    else if (character.ToLower().Contains(attackName.ToLower()))
-//                    {
-//                        Debug.Log("incremented attack");
-//                        _attackInteractions += number;
-//                    }
+
             }
             else if(enableAnalyzeInfo && _roundsTimeline[_round].role.ToLower().Contains(attackName.ToLower()))
                 data[1] = await _sentenceAnalyzer.AnalyzeInfoNeeded(llmCharacter.chat, _caseDescription);
