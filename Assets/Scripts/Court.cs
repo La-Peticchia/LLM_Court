@@ -175,7 +175,8 @@ public class Court : MonoBehaviour
     //Il passaggio di parola è ancora un po' rotto: da fixare
     //Generare altri casi e testare 
     //Modificare il prompt per far adattare il giudice alla situazione
-    //Aggiungere la possibilità di cambiare seed o cambiarlo randomicamente 
+    //Aggiungere la possibilità di cambiare seed o cambiarlo randomicamente
+    //Il prosecutor non deve essere cordiale
     private void InitializeRounds()
     {
         _roundsTimeline = new List<(string role, string systemMessage)>
@@ -183,11 +184,11 @@ public class Court : MonoBehaviour
             (" "," "),
             (judgeName, $"Now the {judgeName} introduces the court case then passes the word to {attackName}"),
             (attackName,$"Now the {attackName} introduces their case thesis then asks {judgeName} the amount of questions they want to deliver to the witnesses"),
-            (judgeName, $"Now the {judgeName} grants a specific number of questions to {attackName} based on the previous spoken line. They must specify the total number of granted questions by appending it at the end of the answer in this manner: [number of questions]"),
+            (judgeName, $"Now the {judgeName} grants a specific number of questions to {attackName} based on the previous spoken line."),
             //(judgeName, $"Now the {judgeName} grants a specific number of questions to {attackName} based on the previous spoken line then passes the word to {defenseName}"),
             //(judgeName, $"Now the {judgeName} passes the word to {defenseName}"),
             (defenseName,$"Now the {defenseName} introduces their case thesis then asks {judgeName} the amount of questions they want to deliver to the witnesses"),
-            (judgeName, $"Now the {judgeName} grants a specific number of questions to {defenseName} based on the previous spoken line. They must specify the total number of granted questions by appending it at the end of the answer in this manner: [number of questions]"),
+            (judgeName, $"Now the {judgeName} grants a specific number of questions to {defenseName} based on the previous spoken line."),
             
         };
 

@@ -4436,7 +4436,9 @@ MonoBehaviour:
     supports your position. Build a multi-witness strategy that maximizes the judge\u2019s
     perception of your case.\r\n\r\n- To strengthen their position, the Prosecutor
     can request additional factual information about the case or witnesses both specified
-    below. The request must be placed within the spoken line."
+    below. The request must be placed within the spoken line.\n\n- They must prioritize
+    gathering useful information to strengthen their position over being friendly
+    to other characters"
   witnessesPrompt: 'Provide realistic, human testimony. Uncertainty is allowed, but
     responses must be logically coherent, specific, and fact-based. '
   numOfInteractions: 1

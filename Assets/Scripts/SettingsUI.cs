@@ -209,17 +209,6 @@ public class SettingsUI : MonoBehaviour
 
     private void ReturnToMainMenu()
     {
-        if (court != null)
-        {
-            CaseDescription original = court.GetCaseDescription();
-            CaseDescription translated = court.GetTranslatedDescription();
-            SaveSystem saveSystem = FindFirstObjectByType<SaveSystem>();
-            if (saveSystem != null)
-            {
-                saveSystem.SaveCaseDescription(new CaseDescription[] { original, translated });
-            }
-        }
-
         SaveVolumeSettings();
         SceneManager.LoadScene("Menu");
     }
