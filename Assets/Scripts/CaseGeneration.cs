@@ -26,7 +26,7 @@ public class CaseGeneration : MonoBehaviour
     [SerializeField] private TextMeshProUGUI errorTextbox;
     [SerializeField] private GameObject courtPreviewCanvas;
     [SerializeField] private GameObject loadingCanvas;
-    [SerializeField] private Button returnToMenuButton;
+    [SerializeField] public Button returnToMenuButton;
 
     private LinkedList<CaseDescription> _translatedDescriptions;
     

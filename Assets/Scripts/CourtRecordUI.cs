@@ -44,13 +44,12 @@ public class CourtRecordUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     void OpenCourtRecord()
     {
         courtRecordPanel.SetActive(true);
-        Time.timeScale = 0f;
+        AudioManager.instance.PlaySFXOneShot("paper_hover");
     }
 
     void CloseCourtRecord()
     {
         courtRecordPanel.SetActive(false);
-        Time.timeScale = 1f;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

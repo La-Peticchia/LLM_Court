@@ -21,7 +21,7 @@ public class Court : MonoBehaviour
     [SerializeField] private TextMeshProUGUI logText;
     [SerializeField] private TextMeshProUGUI systemMessages;
     [SerializeField] private TextMeshProUGUI caseDescriptionText;
-    [SerializeField] private Button nextButton;
+    [SerializeField] public Button nextButton;
     private APIInterface _apiManager;
     private SentenceAnalyzer _sentenceAnalyzer;
     [SerializeField] RunJets runJets;
@@ -97,19 +97,36 @@ public class Court : MonoBehaviour
         _courtRecordUI = FindFirstObjectByType<CourtRecordUI>();
         enabled = false;
 
-        _settingsUI = FindFirstObjectByType<SettingsUI>();
-        _settingsUI.isSettings = false;
+        if (_settingsUI == null)
+            _settingsUI = FindFirstObjectByType<SettingsUI>();
 
     }
     private void Update()
     {
-        if (!_roundsTimeline[_round].role.ToLower().Contains(defenseName.ToLower())&& nextButton.interactable && Input.GetKeyDown(KeyCode.Return))
-            OnNextButtonClick();
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            if (IsAnyInputFieldFocused()) return;
+            if (_settingsUI != null && _settingsUI.IsOpen) return;
+
+            if (!_roundsTimeline[_round].role.ToLower().Contains(defenseName.ToLower()) && nextButton != null && nextButton.interactable)
+            {
+                OnNextButtonClick();
+            }
+        }
+    }
+
+    private static bool IsAnyInputFieldFocused()
+    {
+        if (EventSystem.current == null) return false;
+        var go = EventSystem.current.currentSelectedGameObject;
+        if (go == null) return false;
+        return go.GetComponent<TMP_InputField>() != null || go.GetComponent<InputField>() != null;
     }
 
 
+
     //TODO Il prosecutor deve generare il quantitativo di domande che effettivamente gli servono
-  
+
     public async void InitializeCourt(CaseDescription caseDescription, CaseDescription translatedDescription)
     {
         _caseDescription = caseDescription;

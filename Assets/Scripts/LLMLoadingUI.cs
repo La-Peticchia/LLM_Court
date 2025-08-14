@@ -9,9 +9,11 @@ public class LLMLoadingUI : MonoBehaviour
     [SerializeField] private GameObject loadingCanvas;
 
     private Coroutine pollingCoroutine;
+    private CaseGeneration caseGeneration;
 
     private void Start()
     {
+        caseGeneration = FindFirstObjectByType<CaseGeneration>();
         if (loadingCanvas != null)
             loadingCanvas.SetActive(true);
 
@@ -28,6 +30,10 @@ public class LLMLoadingUI : MonoBehaviour
             loadingText.text = baseText + new string('.', dotCount % 4);
             dotCount++;
             yield return new WaitForSeconds(0.5f);
+            if (caseGeneration != null)
+            {
+                caseGeneration.returnToMenuButton.interactable = false;
+            }
         }
 
         if (llm.started)
@@ -36,6 +42,9 @@ public class LLMLoadingUI : MonoBehaviour
 
             if (loadingCanvas != null)
                 loadingCanvas.SetActive(false);
+
+            caseGeneration.returnToMenuButton.interactable = true;
+
 
         }
         else if (llm.failed)

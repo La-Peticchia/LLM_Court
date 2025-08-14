@@ -37,7 +37,7 @@ public class SettingsUI : MonoBehaviour
     private const float DEFAULT_MUSIC_VOLUME = 70f;
     private const float DEFAULT_SFX_VOLUME = 85f;
 
-    public bool isSettings = true;
+    public bool IsOpen => settingsUI != null && settingsUI.activeInHierarchy;
 
     private void Start()
     {
@@ -162,17 +162,6 @@ public class SettingsUI : MonoBehaviour
 
     private void Update()
     {
-        if (settingsUI.activeInHierarchy && Input.GetKeyDown(KeyCode.Return))
-        {
-            var selected = EventSystem.current.currentSelectedGameObject;
-            if (selected != null && selected.TryGetComponent<TMP_InputField>(out TMP_InputField inputField))
-            {
-                inputField.onEndEdit.Invoke(inputField.text);
-                EventSystem.current.SetSelectedGameObject(null);
-                return;
-            }
-        }
-
         if (settingsUI.activeInHierarchy && Input.GetKeyDown(KeyCode.Escape))
         {
             if (audioSettingsPanel.activeInHierarchy)
@@ -191,12 +180,14 @@ public class SettingsUI : MonoBehaviour
         settingsUI.SetActive(true);
         mainSettingsPanel.SetActive(true);
         audioSettingsPanel.SetActive(false);
+
         LoadVolumeSettings();
     }
 
     public void CloseSettings()
     {
         settingsUI.SetActive(false);
+ 
         SaveVolumeSettings();
     }
 
@@ -204,6 +195,7 @@ public class SettingsUI : MonoBehaviour
     {
         mainSettingsPanel.SetActive(false);
         audioSettingsPanel.SetActive(true);
+
         LoadVolumeSettings();
     }
 
@@ -211,6 +203,7 @@ public class SettingsUI : MonoBehaviour
     {
         audioSettingsPanel.SetActive(false);
         mainSettingsPanel.SetActive(true);
+
         SaveVolumeSettings();
     }
 
