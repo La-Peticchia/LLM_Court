@@ -6626,7 +6626,7 @@ MonoBehaviour:
   advancedOptions: 1
   remote: 0
   port: 13333
-  numThreads: -1
+  numThreads: 8
   numGPULayers: 50
   debug: 0
   parallelPrompts: -1
