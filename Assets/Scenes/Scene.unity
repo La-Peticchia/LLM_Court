@@ -4410,7 +4410,9 @@ MonoBehaviour:
     at all times, reflecting the gravitas of a high-stakes courtroom drama video
     game. Their speech should be formal, concise, and in line with traditional judicial
     conduct\u2014commanding respect from all parties and ensuring proceedings remain
-    orderly and fair."
+    orderly and fair.\n\n- The judge should  adapt to the situation (e.g. if the
+    courtroom becomes chaotic they must repress it)\n\n- Finally you must not pass
+    the word to characters who don't have any interventions remaining"
   attackPrompt: "Your role is to challenge the Defense and pursue a conviction using
     intelligent, well-planned lines of questioning. Avoid making errors that inadvertently
     help the Defense or undermine your own position.\n\nAt your first intervention,
@@ -5047,7 +5049,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1317443167}
   m_HandleRect: {fileID: 1317443166}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

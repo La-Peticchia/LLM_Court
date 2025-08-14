@@ -174,6 +174,8 @@ public class Court : MonoBehaviour
     //fixare anche il salvataggio
     //Il passaggio di parola è ancora un po' rotto: da fixare
     //Generare altri casi e testare 
+    //Modificare il prompt per far adattare il giudice alla situazione
+    //Aggiungere la possibilità di cambiare seed o cambiarlo randomicamente 
     private void InitializeRounds()
     {
         _roundsTimeline = new List<(string role, string systemMessage)>
