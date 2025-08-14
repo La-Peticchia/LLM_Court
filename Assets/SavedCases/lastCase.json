@@ -1,58 +1,58 @@
 [
   {
-    "title": "The Case of the Blood Moon",
-    "playerGoal": "Obtain the complete acquittal of the defendant accused of murder during a full moon night.",
-    "summary": "During the annual Moon Festival, Lucio Romano is found dead in a forest near town. The young Giuliano Ferri is arrested after witnesses saw him nearby at the crime scene with bloodstained clothes and strange marks on his arms. However, the autopsy reveals ambiguous details: death appears to have occurred hours before Giuliano was spotted and there are scratches consistent with animal claws on Lucio. During trial, conflicting testimonies about event sequences emerge and some ancient local legends seem to influence townsfolk perceptions.",
-    "shortSummary": "Giuliano Ferri is charged with murder after an unusual death at the lunar festival; contradictory physical evidence and superstitious elements severely test efforts to uncover truth.",
+    "title": "Sharp Pizza Trial",
+    "playerGoal": "Achieve full acquittal for the client accused of murder with an unusual weapon.",
+    "summary": "Marco Bellini was arrested after his former business partner was found dead in the restaurant 'The Forbidden Fork', apparently with a fatal wound caused by a very sharp pizza. Police discovered Marco's fingerprints on one of the slices, and it is said that they had argued shortly before the crime. The case centers on whether such an unusually sharp pizza could have been used as a deadly weapon or if other hands or hidden motives are involved.",
+    "shortSummary": "A pizzaiolo is accused of killing his ex-partner using a surprisingly razor-sharp slice of pizza; ambiguous clues and questionable witnesses make discovering what really happened difficult.",
     "evidence": [
-      "'Blood stains' found on defendant’s clothing match both human and animal blood but not fully identified;",
-      "'The autopsy' reveals deep wounds resembling claw marks rather than those from knives or common weapons;",
-      "'A broken watch', discovered next to corpse, stopped at three o’clock—an hour incompatible with main statements regarding suspects’ movements;",
-      "'Photographic testimony': A blurry photo shows someone probably Giuliano close to an ancient druidic altar just before homicide under red moonlight;",
-      "'Personal diary' written by Lucio repeatedly mentions “wolf-spirit” feared by locals during nights between waning sun and waxing moon;"
+      "The serrated blade found near the oven shows no obvious signs of recent use.",
+      "Security camera footage only partially captures the assault scene due to an overturned mirror.",
+      "On the digital receipt among recent orders: 'extra crunchy – super thin pizza'",
+      "The bloodied gloves belong to another employee, not to the alleged culprit.",
+      "Andrea Martini testifies that nobody could handle this special ‘pizza slicer’ without risking severe personal injury."
     ],
     "witnessNames": [
-      "Alessandra Moretti",
-      "Father Matteo Bertoni",
-      "Tobia Lotti"
+      "'Luca Ferraro'",
+      "'Andreea Vasile'",
+      "'Pietro Bianchi'"
     ],
     "witnessDescriptions": [
-      "Alessandra Moretti is a local artist known for her curious temperament; claims she saw a figure running through woods right after hearing odd howls along with distant screams around two past midnight—she believes it was indeed Giuliano even though he seemed ‘unrecognizable’.",
-      "In Padua recognized as strict yet empathetic spiritual guide, Father Matteo Bertoni testifies before court that earlier that afternoon he’d heard Lucio confess fears about dark forces in these woods then fulfilled unusual ritual requests; further reports parish rumours suggesting some youths dressed up as werewolves that evening.",
-      "{Tobia Lotti works as municipal gamekeeper: reserved person scrupulously rational}. Yet reports something out-of-the-ordinary – around four o’clock finds huge fresh tracks far too large for any known species mingling alongside human footprints heading southeast beyond borders allowed by heritage map.' Although skeptical points out anomalous crossings difficult to document well due wet ground."
+      "Luca Ferraro, veteran waiter — smiling but secretly nervous: claims he saw Marco having an animated argument withthe victim about half-an-hour before tragedy struck; however, adds that according to him Marco seemed regretful rather than threatening;",
+      "Andreea Vasile works as chef specializing in innovative toppings — eccentric with blunt character: declares she noticed suspicious movements from customers seated by entrance while deeply busy experimenting; indirectly suggests possible external intruders;",
+      "Pietro Bianchi delivers local food and’s always wary: tells judges he randomly passed at incriminating time witnessing someone dash out hurriedly dressed as courier just seconds after commotion broke inside."
     ],
     "witnessGenders": [
-      "F",
       "M",
+      "F",
       "M"
     ],
     "additionalInfo": []
   },
   {
-    "title": "Il Caso della Luna di Sangue",
-    "playerGoal": "Ottenere l'assoluzione completa dell'imputato accusato di omicidio durante una notte di luna piena.",
-    "summary": "Durante il festival annuale della Luna, Lucio Romano viene trovato morto in un bosco vicino alla città. Il giovane Giuliano Ferri è arrestato dopo che testimoni lo hanno visto nei pressi del luogo del delitto con vestiti insanguinati e segni strani sulle braccia. Tuttavia, l'autopsia mostra particolari ambigui: la morte sembra essere avvenuta ore prima rispetto all'avvistamento di Giuliano e ci sono graffi compatibili con artigli animali su Lucio. Nel processo emergono testimonianze discordanti sulla sequenza degli eventi e alcune antiche leggende locali sembrano influenzare le percezioni dei cittadini.",
-    "shortSummary": "Giuliano Ferri è imputato per omicidio dopo uno strano decesso al festival lunare; prove fisiche contrastanti ed elementi superstiziosi mettono a dura prova la ricerca della verità.",
+    "title": "Processo della Pizza Affilata",
+    "playerGoal": "Ottenere l'assoluzione completa per il cliente accusato di omicidio mediante un'arma insolita.",
+    "summary": "Marco Bellini è stato arrestato dopo che la vittima, suo ex socio in affari, è stata trovata morta nel ristorante 'La Forchetta Proibita', apparentemente con una ferita fatale causata da una pizza tagliatissima. La polizia ha rinvenuto le impronte digitali di Marco su uno degli spicchi e si dice che i due avessero litigato poco prima del crimine. Il caso ruota attorno alla scoperta se davvero può essere stata usata una pizza così affilata come arma contundente oppure se sono coinvolte altre mani o motivazioni nascoste.",
+    "shortSummary": "Un pizzaiolo viene accusato di aver ucciso il proprio ex socio usando una fetta di pizza sorprendentemente tagliente; indizi ambigui e testimoni dubbi rendono difficile scoprire cosa sia davvero accaduto.",
     "evidence": [
-      "'Macchie ematiche' trovate sugli abiti dell’imputato corrispondenti sia al sangue umano che animale ma non completamente identificate;",
-      "'L’autopsia' rivela ferite profonde simili a quelle d’artiglio piuttosto che da lama o arma comune;",
-      "'Un orologio rotto', scoperto accanto al cadavere, fermo alle ore tre—un’ora incompatibile con le dichiarazioni principali sui movimenti degli indagati;",
-      "'Testimonianza fotografica': Una foto sfocata ritrae qualcuno probabilmente Giuliano vicino ad un antico altare druidico poco prima dell’omicidio sotto luce rossa lunare;",
-      "'Diario personale' scritto da Lucio parla ripetutamente dello “spirito-lupo” temuto dagli abitanti nelle notti tra sole calante e luna crescente;"
+      "La lama seghettata ritrovata vicino al forno non presenta tracce evidenti d’uso recente.",
+      "La registrazione delle telecamere mostra solo parzialmente la scena dell’aggressione a causa dello specchio rovesciato.",
+      "Sullo scontrino elettronico si legge fra gli ultimi ordini: 'pizza extra croccante – super sottile'",
+      "I guanti insanguinati appartengono ad un dipendente diverso dal presunto colpevole.",
+      "Andrea Martini testimonia che nessuno avrebbe potuto maneggiare la speciale ‘pizza affilatrice’ senza rischiare gravi lesioni personali."
     ],
     "witnessNames": [
-      "Alessandra Moretti",
-      "Padre Matteo Bertoni",
-      "Tobia Lotti"
+      "Luca Ferraro",
+      "Andreea Vasile",
+      "Pietro Bianchi"
     ],
     "witnessDescriptions": [
-      "Alessandra Moretti è un'artista locale dal temperamento curioso; afferma d’aver visto una sagoma correre nella foresta subito dopo aver sentito ululati inconsueti ed urla lontane attorno alle due passate mezzanotte—crede fosse proprio Giuliano anche se diceva sembrare ‘irriconoscibile’.",
-      "A Padova noto come guida spirituale rigorosa ma empatica, Padre Matteo Bertoni sostiene davanti alla corte aver confessato nel pomeriggio precedente Lucio circa timori riguardo forze oscure presenti nei boschi esaudendo poi richieste ritualistiche insolite; riferisce inoltre voci circolate in parrocchia secondo cui alcuni giovani si sarebbero travestiti da licantropo quella sera.",
-      "{Tobia Lotti fa il guardiacaccia comunale: persona riservata scrupolosamente razionale}. Rivela però qualcosa fuori dall'ordinario - intorno alle quattro trova impronte fresche enormemente grandi per qualsiasi specie conosciuta mescolarsi ai passi umani verso sud-est oltre i limiti consentiti dalla mappa patrimoniale.' Benché dimostri scetticismo indica incroci anomali mal documentabili sul terreno bagnatosotto."
+      "Luca Ferraro, cameriere veterano sorridente ma riservatamente nervoso: sostiene nella sua deposizione di aver visto Marco discutere animatamente con la vittima circa mezz'ora prima della tragedia, aggiungendo però che Marco sembrava dispiaciuto piuttosto che minaccioso secondo lui stesso;",
+      "Andreea Vasile lavora come chef specializzata nei condimenti innovativi ed eccentrica dalla personalità schietta: dichiara in aula d'aver notato movimenti strani dai clienti seduti vicino all’ingresso mentre era impegnatissima coi suoi esperimenti culinari — suggerisce indirettamente possibili intrusi esterni;",
+      "Pietro Bianchi fa consegne alimentari locali ed è sempre sulle sue difese: racconta ai giudici d’essersi imbattuto casualmente nell’orario incriminatorio vedendo correre fuori qualcuno trafelato vestito da rider appena pochi secondi dopo lo spargersi del trambusto dentro al locale."
     ],
     "witnessGenders": [
-      "F",
       "M",
+      "F",
       "M"
     ],
     "additionalInfo": []

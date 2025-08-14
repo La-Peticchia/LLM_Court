@@ -60,6 +60,7 @@ public class Court : MonoBehaviour
     [SerializeField, UnityEngine.Range(1, 5)] private int numOfInteractions;
     private int _defenseInteractions;
     private int _attackInteractions;
+    [SerializeField] private bool enableAnalyzeInfo = true;
     
     public bool PlayerCanAct => _roundsTimeline[_round].role == defenseName;
 
@@ -180,11 +181,11 @@ public class Court : MonoBehaviour
             (" "," "),
             (judgeName, $"Now the {judgeName} introduces the court case then passes the word to {attackName}"),
             (attackName,$"Now the {attackName} introduces their case thesis then asks {judgeName} the amount of questions they want to deliver to the witnesses"),
-            (judgeName, $"Now the {judgeName} grants a specific number of questions to {attackName} based on the previous spoken line. They can specify the total number of granted questions by appending it at the end of the answer in this manner: [number of question]"),
+            (judgeName, $"Now the {judgeName} grants a specific number of questions to {attackName} based on the previous spoken line. They must specify the total number of granted questions by appending it at the end of the answer in this manner: [number of questions]"),
             //(judgeName, $"Now the {judgeName} grants a specific number of questions to {attackName} based on the previous spoken line then passes the word to {defenseName}"),
             //(judgeName, $"Now the {judgeName} passes the word to {defenseName}"),
             (defenseName,$"Now the {defenseName} introduces their case thesis then asks {judgeName} the amount of questions they want to deliver to the witnesses"),
-            (judgeName, $"Now the {judgeName} grants a specific number of questions to {defenseName} based on the previous spoken line. They can specify the total number of granted questions by appending it at the end of the answer in this manner: [number of question]"),
+            (judgeName, $"Now the {judgeName} grants a specific number of questions to {defenseName} based on the previous spoken line. They must specify the total number of granted questions by appending it at the end of the answer in this manner: [number of questions]"),
             
         };
 
@@ -370,7 +371,11 @@ public class Court : MonoBehaviour
         
         if (_roundsTimeline[_round].role.ToLower().Contains(defenseName.ToLower()))
         {
-            var infoReqTask = _sentenceAnalyzer.AnalyzeInfoNeeded(llmCharacter.chat, _caseDescription);
+            Task<string> infoReqTask = (Task<string>)Task.CompletedTask;
+            
+            if(enableAnalyzeInfo)
+                infoReqTask = _sentenceAnalyzer.AnalyzeInfoNeeded(llmCharacter.chat, _caseDescription);
+            
             var nextCharTask = _sentenceAnalyzer.AnalyzeNextCharacter(llmCharacter.chat, characters.ToArray());
             data = await Task.WhenAll(nextCharTask, infoReqTask);
         }
@@ -410,7 +415,7 @@ public class Court : MonoBehaviour
 //                        _attackInteractions += number;
 //                    }
             }
-            else if(_roundsTimeline[_round].role.ToLower().Contains(attackName.ToLower()))
+            else if(enableAnalyzeInfo && _roundsTimeline[_round].role.ToLower().Contains(attackName.ToLower()))
                 data[1] = await _sentenceAnalyzer.AnalyzeInfoNeeded(llmCharacter.chat, _caseDescription);
             //else 
             //    data[1] = Regex.Match(text, @"\*(.*?)\*").Groups[1].Value;

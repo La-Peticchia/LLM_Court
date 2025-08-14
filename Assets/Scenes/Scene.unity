@@ -4388,20 +4388,21 @@ MonoBehaviour:
     Only one character may speak per turn.\r\n\r\n- You must choose the most contextually
     appropriate character to speak next.\r\r\r\n\r\n- Stay under 100 words per turn.\r\n\r\n-
     All characters in this courtroom speak italian but do not translate their names
-    nor create new ones.\r\n\r\n\r\nCharacter Behavior:\r\n- Judge: <Judge>\r\n\r\n-
-    Prosecutor: <Prosecutor>\r\n\r\n- Witnesses: <Witnesses>\r\n\r\n- Defense: The
-    character controlled by the player; they would do anything to prove the defendant's
-    innocence\r\n\r\nStrategic logic: \r\n- Responses must reflect credible, court-appropriate
-    reasoning.\r\n\r\n- Do not invent facts unknown to the character speaking.\r\n\r\n-
-    Contradictions should appear only as realistic human memory lapses, not as model
-    errors.\r\n\r\n- When relevant, characters may ask the Judge for more interventions
-    or for clarification.\r\n\r\nFormatting & Flow:\r\n\n- Always follow this format
-    (EXACTLY):\r\n[character spoken line here]  <next character here> \n\n- After
-    every spoken line, always include exactly one next-speaker tag in angle brackets
-    with no additional text.\n\n- You can find the wintess names in the case description
-    specified below\r\n\r\n- The next speaker must be directly relevant to the previous
-    statement/question.\r\n\r\n- Do not include narration, inner thoughts, or prose.\r\n\r\n-
-    Maintain strategic tension\u2014never act passively.\r\n"
+    nor create new ones.\r\n\r\n- Prioritize following the instructions of the system
+    \n\r\nCharacter Behavior:\r\n- Judge: <Judge>\r\n\r\n- Prosecutor: <Prosecutor>\r\n\r\n-
+    Witnesses: <Witnesses>\r\n\r\n- Defense: The character controlled by the player;
+    they would do anything to prove the defendant's innocence\r\n\r\nStrategic logic:
+    \r\n- Responses must reflect credible, court-appropriate reasoning.\r\n\r\n-
+    Do not invent facts unknown to the character speaking.\r\n\r\n- Contradictions
+    should appear only as realistic human memory lapses, not as model errors.\r\n\r\n-
+    When relevant, characters may ask the Judge for more interventions or for clarification.\r\n\r\nFormatting
+    & Flow:\r\n\n- Always follow this format (EXACTLY):\r\n[character spoken line
+    here]  <next character here> \n\n- After every spoken line, always include exactly
+    one next-speaker tag in angle brackets with no additional text.\n\n- You can
+    find the wintess names in the case description specified below\r\n\r\n- The next
+    speaker must be directly relevant to the previous statement/question.\r\n\r\n-
+    Do not include narration, inner thoughts, or prose.\r\n\r\n- Maintain strategic
+    tension\u2014never act passively.\r\n"
   judgePrompt: "Controls turn order unless otherwise directed. May authorize extra
     interventions (2\u20134) for the Prosecutor or Defense; the more interventions
     are requested to them, the less they're generous. Finally, they block excessive
@@ -6633,7 +6634,7 @@ MonoBehaviour:
   dontDestroyOnLoad: 0
   contextSize: 15000
   batchSize: 512
-  model: gemma-3-12b-it-Q4_K_M.gguf
+  model: DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf
   chatTemplate: chatml
   lora: 
   loraWeights: 
@@ -6646,7 +6647,7 @@ MonoBehaviour:
   minContextLength: 0
   maxContextLength: 131072
   embeddingsOnly: 0
-  embeddingLength: 3840
+  embeddingLength: 5120
 --- !u!4 &1047848255
 Transform:
   m_ObjectHideFlags: 0
