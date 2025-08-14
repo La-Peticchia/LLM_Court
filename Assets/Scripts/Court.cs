@@ -371,11 +371,13 @@ public class Court : MonoBehaviour
         
         if (_roundsTimeline[_round].role.ToLower().Contains(defenseName.ToLower()))
         {
-            var infoReqTask = _sentenceAnalyzer.AnalyzeInfoNeeded(llmCharacter.chat, _caseDescription);
-            var nextCharTask = _sentenceAnalyzer.AnalyzeNextCharacter(llmCharacter.chat, characters.ToArray());
             
+            var nextCharTask = _sentenceAnalyzer.AnalyzeNextCharacter(llmCharacter.chat, characters.ToArray());
             if (enableAnalyzeInfo)
+            {
+                var infoReqTask = _sentenceAnalyzer.AnalyzeInfoNeeded(llmCharacter.chat, _caseDescription);
                 data = await Task.WhenAll(nextCharTask, infoReqTask);
+            }
             else
                 data[0] = await nextCharTask;
         }
