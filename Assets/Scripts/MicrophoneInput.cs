@@ -43,7 +43,7 @@ public class MicrophoneInput : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     void ToggleRecording()
     {
-
+        AudioManager.instance.PlaySFXOneShot("button_click");  
         if (!isRecording)
         {
             microphoneRecord.StartRecord();
