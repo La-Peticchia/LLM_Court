@@ -48,6 +48,7 @@ public class Court : MonoBehaviour
 
     //Command text
     private readonly string _questionCharacter = "<";
+    private readonly string _interventionGrantCharacter = "[";
     private readonly string _requestCharacter = "*";
     private readonly string _gameOverCharacter = "#";
     private readonly string _judgePlaceholder = "<Judge>";
@@ -153,6 +154,7 @@ public class Court : MonoBehaviour
     }
     
     //TODO rimuovi l'analisi del testo del giudice per garantire interventi aggiuntivi e utilizzare il formato: [number of question]
+    //fixare anche il salvataggio
     //Il passaggio di parola è ancora un po' rotto: da fixare
     //Generare altri casi e testare 
     private void InitializeRounds()
@@ -176,18 +178,18 @@ public class Court : MonoBehaviour
     public void SetAIText(string text)
     {
 
-        if (_roundsTimeline[_round].role == wildcardCharacterName)
-        {
-            if (text.Contains(_questionCharacter))
-            {
-                aiTitle.text = text.Split(_questionCharacter)[0];
-                aiText.text = text.Split(_questionCharacter)[1].Split(_requestCharacter)[0];
-            }
+        //if (_roundsTimeline[_round].role == wildcardCharacterName)
+        //{
+        //    if (text.Contains(_questionCharacter))
+        //    {
+        //        aiTitle.text = text.Split(_questionCharacter)[0];
+        //        aiText.text = text.Split(_questionCharacter)[1].Split(_requestCharacter)[0];
+        //    }
+        //
+        //    return;
+        //}
 
-            return;
-        }
-
-        aiText.text = text.Split(_questionCharacter)[0].Split(_gameOverCharacter)[0].Split(_requestCharacter)[0];
+        aiText.text = text.Split(_questionCharacter)[0].Split(_gameOverCharacter)[0].Split(_requestCharacter)[0].Split(_interventionGrantCharacter)[0];
 
     }
 
@@ -359,22 +361,38 @@ public class Court : MonoBehaviour
         else
         {
             
-            
-            if (_roundsTimeline[_round].role.ToLower().Contains(judgeName.ToLower()))
+            if (_roundsTimeline[_round].role.ToLower().Contains(judgeName.ToLower()) && _round > 0)
             {
-                (int number, string character) = await _sentenceAnalyzer.AnalyzeGrantInterventions(llmCharacter.chat, new[]{attackName, defenseName});
+                Match grantMatch = Regex.Match(text, @"\[(.*?)\]");
+                string prevCharacter = _roundsTimeline[_round - 1].role;
 
-                if(!character.Contains("NULL") && number > 0)
-                    if (character.ToLower().Contains(defenseName.ToLower()))
+                if(grantMatch.Success && int.TryParse(grantMatch.Groups[1].Value, out var grantNum))
+                {   
+                    if (prevCharacter.ToLower().Contains(defenseName.ToLower()))
                     {
                         Debug.Log("incremented defense");
-                        _defenseInteractions += number;
+                        _defenseInteractions += grantNum;
                     }
-                    else if (character.ToLower().Contains(attackName.ToLower()))
+                    else if (prevCharacter.ToLower().Contains(attackName.ToLower()))
                     {
                         Debug.Log("incremented attack");
-                        _attackInteractions += number;
-                    }
+                        _attackInteractions += grantNum;
+                    }                    
+                }
+                    
+                //(int number, string character) = await _sentenceAnalyzer.AnalyzeGrantInterventions(llmCharacter.chat, new[]{attackName, defenseName});
+//
+//                if(!character.Contains("NULL") && number > 0)
+//                    if (character.ToLower().Contains(defenseName.ToLower()))
+//                    {
+//                        Debug.Log("incremented defense");
+//                        _defenseInteractions += number;
+//                    }
+//                    else if (character.ToLower().Contains(attackName.ToLower()))
+//                    {
+//                        Debug.Log("incremented attack");
+//                        _attackInteractions += number;
+//                    }
             }
             else if(_roundsTimeline[_round].role.ToLower().Contains(attackName.ToLower()))
                 data[1] = await _sentenceAnalyzer.AnalyzeInfoNeeded(llmCharacter.chat, _caseDescription);
