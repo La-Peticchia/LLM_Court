@@ -1,0 +1,58 @@
+[
+  {
+    "title": "The Joker's Trial: Murder at the Museum of Illusions",
+    "playerGoal": "Reduce the murder conviction and obtain recognition of psychiatric mitigating factors",
+    "summary": "The Joker is accused of the premeditated murder of curator Alice Grant during a private exhibition at the Museum of Illusions. Although much evidence points to criminal intent, doubts remain about the perpetrator’s mental state and overall security on that night. The defense aims to highlight psychological issues affecting his lethal actions, as well as possible failures in museum surveillance.",
+    "shortSummary": "Accused of intentional homicide against Alice Grant, the defense seeks to emphasize mental instability and procedural errors to reduce sentencing.",
+    "evidence": [
+      "The toy gun found next to the body bore traces from both a real firearm and gloves used by the alleged killer.",
+      "Footage was missing precisely during crucial hours; damage had been reported by technicians two days earlier.",
+      "'A note found in a locker room contained confused writings about inner voices and feelings of persecution.'",
+      "'No direct witness sawthe attack but only heard hysterical laughter coming from themain hall.'"
+    ],
+    "witnessNames": [
+      "Alice Watson"
+    ],
+    "witnessDescriptions": [
+      "Alice Watson works as an exhibit assistant;a generally anxious person witha highly analytical style.She testified under oathto noticing obsessive behavior among visitorsand colleaguesbut recalls indistinctly who was whereatthen exact timeof themurder.",
+      "Harrison Leeis partoftheinternalsecuritystaff,andisknownforbeingdistractedbuteffectiveinhisstaffeasylevelrelationshipsand communication.Hesayshewasaengagedoutsidethemuseumwhilesomeonewasmanipulatingthemainelectricalpanels—howeverdoesnotrecallimportantdetailsaboutthesceneaftertheshot.",
+      "MartaDonatellicaresforthehistoricalarchives;meticulousandinclinedtoprecisionwitharchivaldata,yetemotionallyfragileundertrialstress.Shesaysthatsheheardanargumentinthemirroredroombetweenseveralmaskedfiguresjustbefore,butcouldn’t tellwhowasyelling‘Help!’ornorwhetheritwasonlypartof thenight’sstagedshow.",
+      "VictorCraneisdressedasaclow-acrobatemployedbytheeventorganization;ahighlyunpredictablepersonality.Heassertsconfidentlythathe sawmultipleindividualsdressedasthe‘Joker’roamingfreelythroughadjacentrooms,sothatitwouldbehardtodistinguishtherealperpetratorevenamidgrowingchaosinthefinalminutes."
+    ],
+    "witnessGenders": [
+      "M"
+    ],
+    "additionalInfo": []
+  },
+  {
+    "title": "Il Processo del Joker: Omicidio nel Museo delle Illusioni",
+    "playerGoal": "Ridurre la condanna per omicidio e ottenere il riconoscimento di attenuanti psichiatriche",
+    "summary": "Il Joker è accusato dell'omicidio premeditato della curatrice Alice Grant durante un’esposizione privata al Museo delle Illusioni. Sebbene numerose prove indichino l’intenzione criminale, persistono dubbi sulle condizioni mentali del colpevole e sulla sicurezza generale della notte in questione. La difesa punta a far emergere le difficoltà psicologiche che avrebbero influito sull’azione letale, nonché potenziali falle nella vigilanza museale.",
+    "shortSummary": "Accusando il Joker d’omcidio volontario ai danni di Alice Grant, la difesa mira a evidenziare instabilità mentale ed errori procedurali per ridurre la pena.",
+    "evidence": [
+      "La pistola giocattolo rinvenuta accanto al corpo presentava tracce sia dello strumento vero che dei guanti usati dal presunto assassino.",
+      "I filmati mancavano proprio nelle ore cruciali; una memoria danneggiata era stata segnalata dai tecnici due giorni prima.",
+      "In una nota trovata nello spogliatoio c’erano scritte confusionarie su voci interne e senso di persecuzione.",
+      "Nessun testimone diretto ha visto l’aggressione ma solo udito risate isteriche provenire dalla sala principale."
+    ],
+    "witnessNames": [
+      "Alice Watson",
+      "Harrison Lee",
+      "Marta Donatelli",
+      "Victor Crane"
+    ],
+    "witnessDescriptions": [
+      "Alice Watson lavora come assistente alle esposizioni; persona ansiosa con uno stile analitico molto rigoroso. Ha dichiarato sotto giuramento di aver notato comportamenti ossessivi tra i visitatori suoi colleghi quella sera ma riferisce confusamente chi fosse presente dove all’orario esatto dell’omicidio.",
+      "Harrison Lee fa parte della sicurezza interna ed è noto per essere distratto ma comunicativo nei rapporti interpersonali con staff. Racconta d’essere stato impegnato fuori dal museo mentre qualcuno manipolava i pannelli elettrici principali—tuttavia ignora particolari rilevanti sulla scena subito dopo lo sparo.",
+      "Marta Donatelli cura gli archivi storici: metodica e incline alla precisione nei dati archivistici però emotivamente fragile davanti allo stress processuale; sostiene che poco prima aveva sentito una lite nell’aula degli specchi fra più figure mascherate senza sapere chi urlasse davvero 'Aiuto!' o se fosse soltanto parte dello spettacolo organizzativo serale.",
+      "Victor Crane veste da clown-acrobata ingaggiato dall’organizzazione personalità imprevedibile; afferma convintamente avvistare più soggetti travestiti da ‘Joker’ aggirarsi indisturbati tra sale adiacenti così nessuno poteva distinguere l’autore effettivo dato anche il caos provocatorio incrementatosì negli ultimi minuti."
+    ],
+    "witnessGenders": [
+      "F",
+      "M",
+      "F",
+      "M"
+    ],
+    "additionalInfo": []
+  }
+]
