@@ -171,6 +171,34 @@ namespace LLMUnity
             
         }
 
+
+        //aggiorna il seed dell'ai per risposta differenti se il caso viene ricaricato
+        public void UpdateSeed(int newSeed)
+        {
+            seed = newSeed;
+            Debug.Log($"[LLM_CHARACTER] Seed aggiornato a: {newSeed}");
+        }
+
+        //cncella la cronologia della chat e la cache LLM per far si che al nuovo riavvio del caso L'AI risponda in modo differente
+        public void ClearSavedHistory()
+        {
+            if (string.IsNullOrEmpty(save)) return;
+
+            string filepath = GetJsonSavePath(save);
+            if (File.Exists(filepath))
+            {
+                File.Delete(filepath);
+                Debug.Log($"[LLM_CHARACTER] Cronologia chat cancellata: {filepath}");
+            }
+
+            string cachepath = GetCacheSavePath(save);
+            if (File.Exists(cachepath))
+            {
+                File.Delete(cachepath);
+                Debug.Log($"[LLM_CHARACTER] Cache LLM cancellata: {cachepath}");
+            }
+        }
+
         protected override void OnValidate()
         {
             base.OnValidate();
