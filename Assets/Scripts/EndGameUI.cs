@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
+using LLMUnity;
 
 public class EndGameUI : MonoBehaviour
 {
@@ -49,7 +50,18 @@ public class EndGameUI : MonoBehaviour
             CaseMemory.SavedCase = court.GetCaseDescription();
             CaseMemory.SavedTranslatedCase = court.GetTranslatedDescription();
             CaseMemory.RestartingSameCase = true;
-            CaseMemory.NewSeed = Random.Range(0, int.MaxValue);
+
+            LLMCharacter llmCharacter = FindFirstObjectByType<LLMCharacter>();
+            if (llmCharacter != null)
+            {
+                CaseMemory.OriginalSeed = llmCharacter.seed;
+                llmCharacter.ClearSavedHistory();
+            }
+
+            int newAISeed = Random.Range(0, int.MaxValue);
+            CaseMemory.NewAISeed = newAISeed;
+
+            Debug.Log($"[RETRY] Seed originale: {CaseMemory.OriginalSeed}, Nuovo seed: {newAISeed}");
         }
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.EventSystems;
+using LLMUnity;
 
 public class SettingsUI : MonoBehaviour
 {
@@ -62,17 +63,26 @@ public class SettingsUI : MonoBehaviour
 
     private void RetrySameCase()
     {
-        SaveVolumeSettings(); 
+        SaveVolumeSettings();
 
         if (court != null)
         {
             CaseMemory.SavedCase = court.GetCaseDescription();
             CaseMemory.SavedTranslatedCase = court.GetTranslatedDescription();
             CaseMemory.RestartingSameCase = true;
-            int newSeed = Random.Range(0, int.MaxValue);
-            CaseMemory.NewSeed = newSeed;
 
-            Debug.Log($"[RETRY] Generato nuovo seed: {newSeed}");
+            // Salva il seed corrente e genera uno nuovo
+            LLMCharacter llmCharacter = FindFirstObjectByType<LLMCharacter>();
+            if (llmCharacter != null)
+            {
+                CaseMemory.OriginalSeed = llmCharacter.seed; // Salva il seed attuale
+                llmCharacter.ClearSavedHistory(); // Cancella cronologia
+            }
+
+            int newAISeed = Random.Range(0, int.MaxValue);
+            CaseMemory.NewAISeed = newAISeed;
+
+            Debug.Log($"[RETRY] Seed originale: {CaseMemory.OriginalSeed}, Nuovo seed: {newAISeed}");
         }
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

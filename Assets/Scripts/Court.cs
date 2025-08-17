@@ -159,7 +159,12 @@ public class Court : MonoBehaviour
     
     private void InitializeChat()
     {
-        llmCharacter.prompt = mainPrompt;
+        string variabilityPrompt = "";
+        if (CaseMemory.NewAISeed.HasValue)
+        {
+            variabilityPrompt = $"\n\nSession Seed: {CaseMemory.NewAISeed.Value}. Use this seed to introduce natural variation in character behaviors, dialogue patterns, and decision-making while maintaining character consistency.";
+        }
+        llmCharacter.prompt = mainPrompt + variabilityPrompt;
         llmCharacter.ClearChat();
         llmCharacter.AddMessage("Case Description", BuildCaseDescriptionPrompt());
         enabled = true;

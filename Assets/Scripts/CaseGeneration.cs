@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Azure;
 using Azure.AI.Inference;
+using LLMUnity;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TMPro;
@@ -95,14 +96,27 @@ public class CaseGeneration : MonoBehaviour
             }
         }
 
-        if (CaseMemory.NewSeed.HasValue)
+        if (CaseMemory.NewAISeed.HasValue)
         {
-            int oldSeed = seed;
-            seed = CaseMemory.NewSeed.Value;
-            Debug.Log($"[CASE_GEN] Seed cambiato da {oldSeed} a {seed}");
+            // Trova l'LLMCharacter e aggiorna il suo seed
+            LLMCharacter llmCharacter = FindFirstObjectByType<LLMCharacter>();
+            if (llmCharacter != null)
+            {
+                
+                int oldSeed = llmCharacter.seed;
+
+                int newSeed = CaseMemory.NewAISeed.Value;
+
+                Debug.Log($"[CASE_GEN] Vecchio seed: {oldSeed}, Nuovo seed: {newSeed}");
+
+                llmCharacter.UpdateSeed(newSeed);
+            }
+            else
+            {
+                Debug.LogWarning("[CASE_GEN] LLMCharacter non trovato per aggiornare il seed");
+            }
         }
 
-        Debug.Log($"[CASE_GEN] Seed attuale: {seed}");
 
         if (CaseMemory.HasValidSavedCase)
         {
