@@ -12,11 +12,13 @@ public class SettingsUI : MonoBehaviour
     [SerializeField] private GameObject mainSettingsPanel;
     [SerializeField] private GameObject audioSettingsPanel;
     [SerializeField] private Court court;
+    [SerializeField] private SavePopupUI savePopupUI;
 
     [SerializeField] private Button returnToMenuButton;
     [SerializeField] private Button settingsButton;        
     [SerializeField] private Button audioSettingsButton;   
     [SerializeField] private Button resetVolumeButton;
+    [SerializeField] private Button retryButton;
 
     [Header("Audio Controls")]
     [SerializeField] private Slider masterVolumeSlider;
@@ -49,12 +51,31 @@ public class SettingsUI : MonoBehaviour
         returnToMenuButton.onClick.AddListener(ReturnToMainMenu);
         audioSettingsButton.onClick.AddListener(OpenAudioSettings);
         resetVolumeButton.onClick.AddListener(ResetVolumesToDefault);
+        retryButton.onClick.AddListener(RetrySameCase);
 
         SetupSliderWithInput(masterVolumeSlider, masterVolumeInputField, 0, 100, OnMasterVolumeChanged);
         SetupSliderWithInput(BGVolumeSlider, BGVolumeInputField, 0, 100, OnBGVolumeChanged);
         SetupSliderWithInput(sfxVolumeSlider, sfxVolumeInputField, 0, 100, OnSFXVolumeChanged);
 
         LoadVolumeSettings();
+    }
+
+    private void RetrySameCase()
+    {
+        SaveVolumeSettings(); 
+
+        if (court != null)
+        {
+            CaseMemory.SavedCase = court.GetCaseDescription();
+            CaseMemory.SavedTranslatedCase = court.GetTranslatedDescription();
+            CaseMemory.RestartingSameCase = true;
+            int newSeed = Random.Range(0, int.MaxValue);
+            CaseMemory.NewSeed = newSeed;
+
+            Debug.Log($"[RETRY] Generato nuovo seed: {newSeed}");
+        }
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void SetupSliderWithInput(Slider slider, TMP_InputField input, int min, int max, UnityEngine.Events.UnityAction<float> onSliderChange)
@@ -210,6 +231,15 @@ public class SettingsUI : MonoBehaviour
     private void ReturnToMainMenu()
     {
         SaveVolumeSettings();
-        SceneManager.LoadScene("Menu");
+
+        if (savePopupUI != null)
+        {
+            settingsUI.SetActive(false);
+            savePopupUI.ShowSavePopup(SavePopupUI.ReturnDestination.MainMenu);
+        }
+        else
+        {
+            SceneManager.LoadScene("Menu");
+        }
     }
 }

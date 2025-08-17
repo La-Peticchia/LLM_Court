@@ -12,6 +12,7 @@ public class EndGameUI : MonoBehaviour
     [SerializeField] private Button mainMenuButton;
     [SerializeField] private float typingSpeed = 0.05f;
     [SerializeField] private Button retryButton;
+    [SerializeField] private SavePopupUI savePopupUI;
 
     private string savedCaseDescription;
     private string savedTranslatedDescription;
@@ -22,8 +23,7 @@ public class EndGameUI : MonoBehaviour
         panel.SetActive(false);
         returnButton.onClick.AddListener(RestartGame);
         mainMenuButton.onClick.AddListener(GoToMainMenu);
-        retryButton.onClick.AddListener(RetrySameCase);
-        retryButton.gameObject.SetActive(false);
+        retryButton.onClick.AddListener(RetrySameCase);;
     }
 
     public void SaveCase(string original, string translated)
@@ -38,8 +38,6 @@ public class EndGameUI : MonoBehaviour
         panel.SetActive(true);
         resultText.text = "";
         resultText.color = color;
-        //retryButton.gameObject.SetActive(message == "HAI PERSO");
-        retryButton.gameObject.SetActive(true);
         StartCoroutine(TypeText(message));
     }
 
@@ -51,6 +49,7 @@ public class EndGameUI : MonoBehaviour
             CaseMemory.SavedCase = court.GetCaseDescription();
             CaseMemory.SavedTranslatedCase = court.GetTranslatedDescription();
             CaseMemory.RestartingSameCase = true;
+            CaseMemory.NewSeed = Random.Range(0, int.MaxValue);
         }
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -68,11 +67,28 @@ public class EndGameUI : MonoBehaviour
 
     private void RestartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (savePopupUI != null)
+        {
+            panel.SetActive(false);
+            savePopupUI.ShowSavePopup(SavePopupUI.ReturnDestination.CourtPreview);
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        
     }
 
     private void GoToMainMenu()
     {
-        SceneManager.LoadScene("Menu");
+        if (savePopupUI != null)
+        {
+            panel.SetActive(false);
+            savePopupUI.ShowSavePopup(SavePopupUI.ReturnDestination.MainMenu);
+        }
+        else
+        {
+            SceneManager.LoadScene("Menu");
+        }
     }
 }

@@ -95,6 +95,14 @@ public class CaseGeneration : MonoBehaviour
             }
         }
 
+        if (CaseMemory.NewSeed.HasValue)
+        {
+            int oldSeed = seed;
+            seed = CaseMemory.NewSeed.Value;
+            Debug.Log($"[CASE_GEN] Seed cambiato da {oldSeed} a {seed}");
+        }
+
+        Debug.Log($"[CASE_GEN] Seed attuale: {seed}");
 
         if (CaseMemory.HasValidSavedCase)
         {

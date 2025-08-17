@@ -1,0 +1,52 @@
+[
+  {
+    "title": "The Case of the Missing Camera",
+    "playerGoal": "Prove the innocence of the client accused of theft or obtain a reduced sentence through solid legal arguments.",
+    "summary": "Alessandro Rossi, a university assistant, was arrested on charges of having stolen an expensive digital camera from the photography lab. The main evidence against Alessandro comes from witnesses who saw him near the scene of the alleged theft; however, footage from security cameras is partially obscured and some inventory details seem inconsistent. The trial requires great attention to conflicting testimonies and uncertain timelines.",
+    "shortSummary": "A young academic assistant faces conviction for allegedly stealing a camera at a university: ambiguous evidence and procedural errors cast doubt on his guilt.",
+    "evidence": [
+      "- Electronic access logs show multiple entries into the room during the same time window",
+      "- Internal camera partially blocked by boxes at crucial moment",
+      "- Handwritten inventory lacking signature or final confirmation on specific day",
+      "- A mark left on desk suggests recent use but does not identify who was present"
+    ],
+    "witnessNames": [
+      "Luca Bianchi",
+      "Sofia Venturi"
+    ],
+    "witnessDescriptions": [
+      "Luca Bianchi is technical manager for laboratories: reserved and meticulous in material checks; firmly states that Alessandro was nearby shortly before discovering something missing though he admits confusion about exact timing.",
+      "Sofia Venturi is a graduate student very attentive to detail but inclined towards empathy with colleagues; she claims she noticed Alessandro stressed that morning while working yet also notes many people entered without being recorded."
+    ],
+    "witnessGenders": [
+      "M",
+      "F"
+    ],
+    "additionalInfo": []
+  },
+  {
+    "title": "Il Caso della Fotocamera Scomparsa",
+    "playerGoal": "Dimostrare l'innocenza del cliente accusato di furto oppure ottenere una riduzione della pena attraverso argomentazioni legali solide.",
+    "summary": "Alessandro Rossi, assistente universitario, è stato arrestato con l'accusa di aver sottratto una costosa fotocamera digitale dal laboratorio fotografico. La prova principale contro Alessandro viene da testimoni che lo hanno visto vicino al luogo del presunto furto; tuttavia, le immagini delle telecamere sono parzialmente oscurate e alcuni dettagli dell'inventario sembrano incoerenti. Il processo richiede grande attenzione alle testimonianze discordanti e agli orari incerti.",
+    "shortSummary": "Un giovane assistente accademico rischia la condanna per il presunto furto di una fotocamera presso un'università: prove ambigue ed errori procedurali mettono in discussione la sua colpevolezza.",
+    "evidence": [
+      "- Registro degli accessi elettronici mostra entrate multiple nella stanza nello stesso intervallo temporale",
+      "- Telecamera interna parzialmente oscurata dalle scatole durante il momento rilevante",
+      "- Inventario scritto a mano privo di firma o conferma finale nel giorno specifico",
+      "- Una traccia sul banco suggerisce uso recente ma non identifica chi fosse presente"
+    ],
+    "witnessNames": [
+      "Luca Bianchi",
+      "Sofia Venturi"
+    ],
+    "witnessDescriptions": [
+      "Luca Bianchi è responsabile tecnico dei laboratori: riservato e scrupoloso nei controlli materiali; sostiene fermamente che Alessandro era presente nelle vicinanze poco prima del ritrovamento mancante pur ammettendo confusione sull’orario esatto.",
+      "Sofia Venturi è studentessa laureanda molto attenta ai dettagli ma incline all’empatia verso i colleghi; afferma d’aver notato Alessandro stressato quella mattina mentre lavorava però dichiara anche che molte persone sono passate dal locale senza essere segnalate."
+    ],
+    "witnessGenders": [
+      "M",
+      "F"
+    ],
+    "additionalInfo": []
+  }
+]
