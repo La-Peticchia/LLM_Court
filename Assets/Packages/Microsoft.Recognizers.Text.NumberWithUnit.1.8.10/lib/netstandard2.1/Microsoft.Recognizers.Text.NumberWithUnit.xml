@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Recognizers.Text.NumberWithUnit</name>
+    </assembly>
+    <members>
+        <member name="M:Microsoft.Recognizers.Text.NumberWithUnit.NumberWithUnitExtractor.MergeCompoundUnits(System.Collections.Generic.List{Microsoft.Recognizers.Text.ExtractResult},System.String)">
+            <summary>
+            Merge compound units when extracting, like compound 5 foot 3 inch as one entity.
+            </summary>
+            <param name="ers">Extract results.</param>
+            <param name="source">Input text.</param>
+            <returns>The compounded units.</returns>
+        </member>
+        <member name="F:Microsoft.Recognizers.Text.NumberWithUnit.NumberWithUnitOptions.None">
+            <summary>
+            Represents None
+            </summary>
+        </member>
+        <member name="F:Microsoft.Recognizers.Text.NumberWithUnit.NumberWithUnitOptions.NoProtoCache">
+            <summary>
+            NoProtoCache
+            </summary>
+        </member>
+        <member name="F:Microsoft.Recognizers.Text.NumberWithUnit.NumberWithUnitOptions.EnablePreview">
+            <summary>
+            EnablePreview
+            </summary>
+        </member>
+        <member name="M:Microsoft.Recognizers.Text.NumberWithUnit.NumberWithUnitParser.MergeCompoundUnit(Microsoft.Recognizers.Text.ExtractResult)">
+            <summary>
+            Parsing compounded result, like 5 foot 3 inch.
+            </summary>
+            <param name="compoundResult">Extracted compounded result.</param>
+            <returns>Parsed compounded result.</returns>
+        </member>
+    </members>
+</doc>

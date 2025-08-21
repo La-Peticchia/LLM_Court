@@ -1762,6 +1762,207 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &293275947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 293275949}
+  - component: {fileID: 293275948}
+  - component: {fileID: 293275950}
+  m_Layer: 0
+  m_Name: TTSManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &293275948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293275947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f95b25670455da49be1b3aa4e22af3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelUrl:
+    url: https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX/resolve/main/onnx/model_fp16.onnx
+    downloadLocation: 0
+  options:
+    executionProvider:
+      executionProviderPriorities: 00000000
+  language: 0
+  allVoices:
+  - af
+  - af_alloy
+  - af_aoede
+  - af_bella
+  - af_heart
+  - af_jessica
+  - af_kore
+  - af_nicole
+  - af_nova
+  - af_river
+  - af_sarah
+  - af_sky
+  - am_adam
+  - am_echo
+  - am_eric
+  - am_fenrir
+  - am_liam
+  - am_michael
+  - am_onyx
+  - am_puck
+  - am_santa
+  maleVoiceNames:
+  - am_adam
+  - am_echo
+  - am_eric
+  - am_fenrir
+  - am_liam
+  - am_michael
+  - am_onyx
+  - am_puck
+  - am_santa
+  femaleVoiceNames:
+  - af
+  - af_alloy
+  - af_aoede
+  - af_bella
+  - af_heart
+  - af_jessica
+  - af_kore
+  - af_nicole
+  - af_nova
+  - af_river
+  - af_sarah
+  - af_sky
+  judgeSpeed: 0.9
+  prosecutorSpeed: 1.1
+  witnessSpeed: 1
+  volume: 0.7
+  minTextLength: 30
+  minWordsCount: 5
+  enableSentenceFiltering: 1
+--- !u!4 &293275949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293275947}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 378.25024, y: -45.49759, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &293275950
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293275947}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &305003775
 GameObject:
   m_ObjectHideFlags: 0
@@ -3484,9 +3685,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   judgePrefab: {fileID: 7254194851352301084, guid: e5661ebdeb5769848a53baeb72c0253a, type: 3}
-  attackPrefabs:
-  - {fileID: 6564444806103842598, guid: bf1b4d376c737434c81baae9cfb3d309, type: 3}
+  maleProsecutorPrefabs:
   - {fileID: 6564444806103842598, guid: 99246705b3533a64591e7479889597f4, type: 3}
+  femaleProsecutorPrefabs:
+  - {fileID: 6564444806103842598, guid: bf1b4d376c737434c81baae9cfb3d309, type: 3}
   maleWitnessPrefabs:
   - {fileID: 7254194851352301084, guid: 411f11a3f471d0c4ba8c1709ea756062, type: 3}
   - {fileID: 7254194851352301084, guid: 47dae06f798ac004ca7e1d08fe59962f, type: 3}
@@ -4801,12 +5003,14 @@ MonoBehaviour:
   systemMessages: {fileID: 1283318607}
   caseDescriptionText: {fileID: 72392618}
   nextButton: {fileID: 724531321}
-  runJets: {fileID: 726528682}
   micButton: {fileID: 1202811257}
   micInput: {fileID: 1202811260}
   characterAnimator: {fileID: 576788991}
   endGameUI: {fileID: 1587732802}
   playerGoalText: {fileID: 1813294562}
+  ttsManager: {fileID: 293275948}
+  enableTTS: 1
+  waitForTTSCompletion: 1
   wildcardCharacterName: Wildcard
   defenseName: Defense
   attackName: Prosecutor
@@ -4817,22 +5021,21 @@ MonoBehaviour:
     legally sound, adversarial behavior.\r\n\r\nSimulation Rules (Always Apply):\r\n-
     Only one character may speak per turn.\r\n\r\n- You must choose the most contextually
     appropriate character to speak next.\r\r\r\n\r\n- Stay under 100 words per turn.\r\n\r\n-
-    All characters in this courtroom speak italian but do not translate their names
-    nor create new ones.\r\n\r\n- Prioritize following the instructions of the system
-    \n\r\nCharacter Behavior:\r\n- Judge: <Judge>\r\n\r\n- Prosecutor: <Prosecutor>\r\n\r\n-
-    Witnesses: <Witnesses>\r\n\r\n- Defense: The character controlled by the player;
-    they would do anything to prove the defendant's innocence\r\n\r\nStrategic logic:
-    \r\n- Responses must reflect credible, court-appropriate reasoning.\r\n\r\n-
-    Do not invent facts unknown to the character speaking.\r\n\r\n- Contradictions
-    should appear only as realistic human memory lapses, not as model errors.\r\n\r\n-
-    When relevant, characters may ask the Judge for more interventions or for clarification.\r\n\r\nFormatting
-    & Flow:\r\n\n- Always follow this format (EXACTLY):\r\n[character spoken line
-    here]  <next character here> \n\n- After every spoken line, always include exactly
-    one next-speaker tag in angle brackets with no additional text.\n\n- You can
-    find the wintess names in the case description specified below\r\n\r\n- The next
-    speaker must be directly relevant to the previous statement/question.\r\n\r\n-
-    Do not include narration, inner thoughts, or prose.\r\n\r\n- Maintain strategic
-    tension\u2014never act passively.\r\n"
+    All characters in this courtroom speak english\r\n\r\n- Prioritize following
+    the instructions of the system \n\r\nCharacter Behavior:\r\n- Judge: <Judge>\r\n\r\n-
+    Prosecutor: <Prosecutor>\r\n\r\n- Witnesses: <Witnesses>\r\n\r\n- Defense: The
+    character controlled by the player; they would do anything to prove the defendant's
+    innocence\r\n\r\nStrategic logic: \r\n- Responses must reflect credible, court-appropriate
+    reasoning.\r\n\r\n- Do not invent facts unknown to the character speaking.\r\n\r\n-
+    Contradictions should appear only as realistic human memory lapses, not as model
+    errors.\r\n\r\n- When relevant, characters may ask the Judge for more interventions
+    or for clarification.\r\n\r\nFormatting & Flow:\r\n\n- Always follow this format
+    (EXACTLY):\r\n[character spoken line here]  <next character here> \n\n- After
+    every spoken line, always include exactly one next-speaker tag in angle brackets
+    with no additional text.\n\n- You can find the wintess names in the case description
+    specified below\r\n\r\n- The next speaker must be directly relevant to the previous
+    statement/question.\r\n\r\n- Do not include narration, inner thoughts, or prose.\r\n\r\n-
+    Maintain strategic tension\u2014never act passively.\r\n"
   judgePrompt: "Controls turn order unless otherwise directed. May authorize extra
     interventions (2\u20134) for the Prosecutor or Defense; the more interventions
     are requested to them, the less they're generous. Finally, they block excessive
@@ -5157,7 +5360,6 @@ GameObject:
   - component: {fileID: 726528678}
   - component: {fileID: 726528677}
   - component: {fileID: 726528680}
-  - component: {fileID: 726528682}
   - component: {fileID: 726528681}
   m_Layer: 0
   m_Name: Main Camera
@@ -5381,24 +5583,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &726528682
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 726528676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3443b9e57c05f3d489e736a5e2707f9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  modelAsset: {fileID: 5022602860645237092, guid: 15ee614287ed5ea48a487ca8c9bc329e, type: 3}
-  phonemeAsset: {fileID: 4900000, guid: fc7c85ffe60029e48b5f570ea55b254a, type: 3}
-  inputField: {fileID: 0}
-  debounceDelay: 0.5
-  minDelayAfterEnd: 1
-  samplerate: 22050
 --- !u!1001 &730741235
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5712,7 +5896,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1317443167}
   m_HandleRect: {fileID: 1317443166}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -17310,3 +17494,4 @@ SceneRoots:
   - {fileID: 605992476}
   - {fileID: 105907951}
   - {fileID: 1587732803}
+  - {fileID: 293275949}

@@ -5,17 +5,16 @@ using UnityEngine.UI;
 
 public class CharacterAnimator : MonoBehaviour
 {
-    [Header("Prefab Fisso")]
-    public GameObject judgePrefab;
+    [Header("Fixed Prefabs")]
+    public GameObject judgePrefab; // Always male
 
-    [Header("Roster Random - Prosecutor")]
-    public List<GameObject> attackPrefabs;
-    //public List<GameObject> witnessPrefabs;
+    [Header("Prosecutor Prefabs - Gender Based")]
+    public List<GameObject> maleProsecutorPrefabs;
+    public List<GameObject> femaleProsecutorPrefabs;
 
-    [Header("Witness Prefabs - Gendered")]
+    [Header("Witness Prefabs - Gender Based")]
     public List<GameObject> maleWitnessPrefabs;
     public List<GameObject> femaleWitnessPrefabs;
-
 
     private GameObject defensePrefab;
 
@@ -29,53 +28,123 @@ public class CharacterAnimator : MonoBehaviour
     private string currentRole;
 
     private Dictionary<string, GameObject> roleToPrefab = new();
+    private Dictionary<string, string> characterGenders = new(); // Track assigned genders
+
+    // Public property to get prosecutor gender
+    public string ProsecutorGender { get; private set; } = "M";
 
     private void Awake()
+    {
+        LoadDefensePrefab();
+    }
+
+    private void LoadDefensePrefab()
     {
         string savedName = PlayerPrefs.GetString("SelectedDefenseCharacter", "");
         if (!string.IsNullOrEmpty(savedName))
         {
-            // Carica il prefab dal Resources (o alternativamente da un array)
             GameObject loadedPrefab = Resources.Load<GameObject>("Prefab/" + savedName);
             if (loadedPrefab != null)
                 defensePrefab = loadedPrefab;
             else
-                Debug.LogWarning("Prefab difesa non trovato: " + savedName);
+                Debug.LogWarning("Defense prefab not found: " + savedName);
         }
     }
 
+    /// <summary>
+    /// Assegna prefab dinamici basati sui generi
+    /// </summary>
     public void AssignDynamicPrefabs(List<string> witnessNames, List<string> witnessGenders, string attackRole)
     {
         roleToPrefab.Clear();
+        characterGenders.Clear();
 
-        if (attackPrefabs.Count > 0)
+        // Assign prosecutor with random gender
+        AssignProsecutorPrefab(attackRole);
+
+        // Assign witnesses based on their specific genders
+        AssignWitnessPrefabs(witnessNames, witnessGenders);
+
+        // Judge is always male
+        characterGenders["Judge"] = "M";
+        characterGenders["Defense"] = "M"; // Default, but won't be used for TTS
+
+        Debug.Log("Character assignments completed:");
+        foreach (var kvp in characterGenders)
         {
-            var randomAttack = attackPrefabs[Random.Range(0, attackPrefabs.Count)];
-            roleToPrefab[attackRole] = randomAttack;
+            Debug.Log($"- {kvp.Key}: {kvp.Value}");
         }
+    }
 
-        // Assegna i testimoni basandosi sul genere
+    private void AssignProsecutorPrefab(string attackRole)
+    {
+        // Random gender selection for prosecutor
+        bool isMale = Random.Range(0, 2) == 0;
+        ProsecutorGender = isMale ? "M" : "F";
+
+        List<GameObject> prosecutorPrefabs = isMale ? maleProsecutorPrefabs : femaleProsecutorPrefabs;
+
+        if (prosecutorPrefabs.Count > 0)
+        {
+            var randomProsecutor = prosecutorPrefabs[Random.Range(0, prosecutorPrefabs.Count)];
+            roleToPrefab[attackRole] = randomProsecutor;
+            characterGenders[attackRole] = ProsecutorGender;
+
+            Debug.Log($"Assigned {(isMale ? "male" : "female")} prosecutor: {randomProsecutor.name}");
+        }
+        else
+        {
+            Debug.LogWarning($"No {(isMale ? "male" : "female")} prosecutor prefabs available");
+        }
+    }
+
+    private void AssignWitnessPrefabs(List<string> witnessNames, List<string> witnessGenders)
+    {
         for (int i = 0; i < witnessNames.Count; i++)
         {
             string witnessName = witnessNames[i];
 
-            // Se non abbiamo abbastanza dati gender, assegna maschio per default
+            // Use provided gender or default to male
             string gender = i < witnessGenders.Count ? witnessGenders[i].Trim().ToUpper() : "M";
-            List<GameObject> availablePrefabs = gender == "M" ? maleWitnessPrefabs : femaleWitnessPrefabs;
 
+            // Normalize gender
+            if (gender != "M" && gender != "F")
+            {
+                gender = "M"; // Default to male if invalid
+                Debug.LogWarning($"Invalid gender for {witnessName}, defaulting to Male");
+            }
+
+            List<GameObject> availablePrefabs = gender == "M" ? maleWitnessPrefabs : femaleWitnessPrefabs;
 
             if (availablePrefabs.Count > 0)
             {
                 var randomWitness = availablePrefabs[Random.Range(0, availablePrefabs.Count)];
                 roleToPrefab[witnessName] = randomWitness;
+                characterGenders[witnessName] = gender;
 
-                Debug.Log($"Assegnato testimone {witnessName} ({gender}) -> {randomWitness.name}");
+                Debug.Log($"Assigned {witnessName} ({gender}): {randomWitness.name}");
             }
             else
             {
-                Debug.LogWarning($"Nessun prefab disponibile per testimoni {gender}");
+                Debug.LogWarning($"No {(gender == "M" ? "male" : "female")} witness prefabs available");
             }
         }
+    }
+
+    /// <summary>
+    /// Get the assigned gender for a character
+    /// </summary>
+    public string GetCharacterGender(string characterName)
+    {
+        if (characterGenders.TryGetValue(characterName, out string gender))
+            return gender;
+
+        // Default fallbacks
+        if (characterName == "Judge") return "M";
+        if (characterName == "Defense") return "M";
+        if (characterName == "Prosecutor") return ProsecutorGender;
+
+        return "M"; // Default to male
     }
 
     public void HideCurrentCharacter()
@@ -116,17 +185,11 @@ public class CharacterAnimator : MonoBehaviour
 
         currentRole = role;
 
-        GameObject prefabToUse = null;
-        if (role == "Judge")
-            prefabToUse = judgePrefab;
-        else if (role == "Defense")
-            prefabToUse = defensePrefab;
-        else if (roleToPrefab.ContainsKey(role))
-            prefabToUse = roleToPrefab[role];
+        GameObject prefabToUse = GetPrefabForRole(role);
 
         if (prefabToUse == null)
         {
-            Debug.LogWarning($"Nessun prefab assegnato per il ruolo: {role}");
+            Debug.LogWarning($"No prefab assigned for role: {role}");
             aiImageObject.SetActive(true);
             aiText.text = text;
             return;
@@ -156,7 +219,25 @@ public class CharacterAnimator : MonoBehaviour
         }
     }
 
-    private bool IsAttackRole(string role) => roleToPrefab.ContainsKey(role) && attackPrefabs.Contains(roleToPrefab[role]);
+    private GameObject GetPrefabForRole(string role)
+    {
+        if (role == "Judge")
+            return judgePrefab;
+        else if (role == "Defense")
+            return defensePrefab;
+        else if (roleToPrefab.ContainsKey(role))
+            return roleToPrefab[role];
+
+        return null;
+    }
+
+    private bool IsAttackRole(string role)
+    {
+        return roleToPrefab.ContainsKey(role) &&
+               (maleProsecutorPrefabs.Contains(roleToPrefab[role]) ||
+                femaleProsecutorPrefabs.Contains(roleToPrefab[role]));
+    }
+
     private bool IsDefenseRole(string role) => role == "Defense";
 
     private IEnumerator ShowTextAfterEnter(Animator animator, string text, bool isAttack, bool isDefense)
@@ -202,5 +283,13 @@ public class CharacterAnimator : MonoBehaviour
         }
 
         Destroy(obj);
+    }
+
+    /// <summary>
+    /// Get all character gender assignments for external use
+    /// </summary>
+    public Dictionary<string, string> GetAllCharacterGenders()
+    {
+        return new Dictionary<string, string>(characterGenders);
     }
 }

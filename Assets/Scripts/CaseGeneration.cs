@@ -162,15 +162,12 @@ public class CaseGeneration : MonoBehaviour
     async void OnPlayButtonClicked()
     {
         ToggleButtons(false);
-        
+
         CaseDescription transCaseDescription = _translatedDescriptions.First.Value;
         CaseDescription tmpCaseDescription = null;
-        
-        //TODO implement a new class that manages the save files of cases; implement both saving and loading procedure with some basic UI that shows all the loaded files
-        
+
         if (_saveManager.CheckForTranslation(transCaseDescription.GetID()))
         {
-            
             Debug.Log("Case description ID: " + transCaseDescription.GetID());
             CaseDescription[] tmpDescriptions = _saveManager.GetSavedDescriptionsByID(transCaseDescription.GetID());
             tmpCaseDescription = tmpDescriptions[0];
@@ -181,26 +178,49 @@ public class CaseGeneration : MonoBehaviour
             {
                 string response = await _apiManager.RequestTranslation(transCaseDescription.GetJsonDescription(), seed: seed);
                 tmpCaseDescription = JsonConvert.DeserializeObject<CaseDescription>(response);
-                
-                if(transCaseDescription.IsSaved())
-                    await _saveManager.SaveCaseDescription(new []{tmpCaseDescription, transCaseDescription}, transCaseDescription.GetID());
+
+                if (transCaseDescription.IsSaved())
+                    await _saveManager.SaveCaseDescription(new[] { tmpCaseDescription, transCaseDescription }, transCaseDescription.GetID());
             }
             catch (Exception e)
             {
                 Debug.LogWarning("Translation failed:" + e.Message);
             }
-        
         }
 
-        _court.InitializeCourt(tmpCaseDescription ?? JsonConvert.DeserializeObject<CaseDescription>(JsonConvert.SerializeObject(transCaseDescription)), transCaseDescription);
-        await _saveManager.SaveAsLastCase(tmpCaseDescription != null ? new[]{tmpCaseDescription, transCaseDescription} : new []{transCaseDescription});
-        
-        
+        await _saveManager.SaveAsLastCase(tmpCaseDescription != null ? new[] { tmpCaseDescription, transCaseDescription } : new[] { transCaseDescription });
+
         courtPreviewCanvas.SetActive(false);
+
+        if (loadingCanvas != null)
+            loadingCanvas.SetActive(true);
+
+        KokoroTTSManager ttsManager = FindFirstObjectByType<KokoroTTSManager>();
+        if (ttsManager != null)
+        {
+            int timeout = 0;
+            while (!ttsManager.isInitialized && timeout < 50) // Max 5 secondi
+            {
+                await System.Threading.Tasks.Task.Delay(100);
+                timeout++;
+            }
+
+            if (!ttsManager.isInitialized)
+                Debug.LogWarning("TTS not ready, continuing without it");
+        }
+
+        _court.InitializeCourt(
+            tmpCaseDescription ?? JsonConvert.DeserializeObject<CaseDescription>(JsonConvert.SerializeObject(transCaseDescription)),
+            transCaseDescription
+        );
+
+        if (loadingCanvas != null)
+            loadingCanvas.SetActive(false);
+
         Destroy(gameObject);
         AudioManager.instance.PlayMusicForScene("Gameplay");
     }
-    
+
     private void OnNewCaseButtonClicked()
     {
         StoreDescriptions();

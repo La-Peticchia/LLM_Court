@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Catalyst.Models.English</id>
+    <version>1.0.30952</version>
+    <authors>Curiosity GmbH</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>catalyst-logo.png</icon>
+    <description>This package contains the default English models for Catalyst. Catalyst is a Natural Language Processing library built from scratch for speed. Inspired by spaCy's design, it brings pre-trained models, out-of-the box support for training word and document embeddings, and flexible entity recognition models.</description>
+    <copyright>(c) Copyright 2021 Curiosity GmbH - all right reserved, Copyright (c) 2019, HoldOffHunger (British to American lookup table data)</copyright>
+    <tags>English, Natural Language Processing, NLP, Spacy, Machine Learning, ML, Embeddings, Data Science, Big Data, Artificial Intelligence, AI, NLP Library, Neural Networks, Deep Learning</tags>
+    <repository url="https://github.com/curiosity-ai/catalyst" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.1">
+        <dependency id="Catalyst" version="1.0.30950" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>
