@@ -50,7 +50,7 @@ public class SavePopupUI : MonoBehaviour
             return;
         }
 
-        // Se il caso corrente è già salvato, non mostrare il popup
+        // Se il caso corrente ï¿½ giï¿½ salvato, non mostrare il popup
         if (IsCaseAlreadySaved())
         {
             ProceedWithoutSaving();
@@ -82,7 +82,6 @@ public class SavePopupUI : MonoBehaviour
     private void OnNoClicked()
     {
         if (_isProcessing) return;
-
         ProceedWithoutSaving();
     }
 

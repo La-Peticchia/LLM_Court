@@ -1,37 +1,5 @@
 [
   {
-    "title": "The Case of the Night at the Museum",
-    "playerGoal": "Obtain full acquittal for the client accused of art theft.",
-    "summary": "On a stormy night, an ancient Etruscan vase disappears from the city museum; security accuses Martina Rossetti, a restorer present at the scene. Although found near the scene with dirty gloves and lacking exhaustive explanations, Michelle asserts her innocence. The real thief may have manipulated evidence or exploited surveillance flaws during a partial blackout caused by the storm.",
-    "shortSummary": "Martina Rossetti is suspected of stealing a valuable vase amidst total blackout; players must prove she was not responsible for what happened on that mysterious night.",
-    "evidence": [
-      "Restoration gloves found close to the empty pedestal but without complete fingerprints belonging to presumed culprit.",
-      "'Half-broken' footage resulting from electrical outages between nine pm and eleven am next day showing some confusing movements among shadows in main corridors.",
-      "Secondary electronic key missing, unrecognized by digital access terminal throughout evening shift per IT logs reported by technicians."
-    ],
-    "witnessNames": [
-      "Ettore Vismara",
-      "Giulia De Santis"
-    ],
-    "witnessDescriptions": [
-      "Ettore Vismara works as an experienced guard in this same museum and is known for being methodical yet suspicious towards new hires: he testifies that during storms he often checks different areas than usual shifts do—and claims to have encountered Martina out-of-schedule near Egyptian halls right after sudden emergency lights went off.",
-      "Giulia De Santis provides seasonal service as volunteer in historical archives and is described as cheerful yet keenly observant: she declares before judge having heard unusual metallic noises while organizing old documents just prior to general power loss—then only saw indistinct shapes which could not be clearly identified due to nearly complete darkness."
-    ],
-    "witnessGenders": [
-      "M",
-      "M"
-    ],
-    "additionalInfo": [
-      "The judge grants permission for in-depth questioning of Ettore Vismara and Giulia De Santis to clarify Martina Rossetti's whereabouts. Additionally, high-resolution security camera footage from adjacent buildings is authorized for examination to supplement the 'half-broken' footage.\n\n",
-      "Martina Rossetti was wearing a black sweater and dark jeans. Her expression appeared nervous and worried, with a hint of frustration in her eyes as she insisted on her innocence.",
-      "Ettore Vismara encountered Martina Rossetti at 10:47 PM, 23 feet from the Egyptian hall. Security logs show Ettore Vismara's swipe at 10:45 PM near the security room during the blackout, but his location wasn't GPS-tracked.\n\n",
-      "Ettore Vismara was searching for a misplaced security manual and deviated from his route to investigate a reported issue with the museum's audio system, which had been malfunctioning earlier that evening. ",
-      "The audio system had an intermittent feedback issue. Ettore Vismara last noticed it during the morning security briefing, about 5 hours before the storm hit, when static noise briefly disrupted the communication feed from the control room to his radio. \n\n",
-      "Martina Rossetti was found with a small, hidden pocket in her restorer's uniform containing a faintly Etruscan-style design etched onto a silver pendant; she claimed it was an inherited family heirloom. ",
-      "Ecco due possibili interventi per interrogare i testimoni al fine di stabilire la responsabilità di Martina Rossetti:\n\n1. **Interrogatorio di Ettore Vismara**: \"Signor Vismara, può descrivere esattamente cosa ha visto quando ha incontrato Martina Rossetti vicino alle sale egizie durante l'interruzione della corrente? Ha notato se indossava qualcosa di diverso o aveva atteggiamenti sospetti?\"\n \n2. **Interrogatorio di Giulia De Santis**: \"Signora De Santis, può specificare se i rumori metallici che ha sentito erano provenienti dalle aree vicine a dove si trovava Martina Rossetti? Ha idea se quei rumori potrebbero essere collegati al furto del vaso etrusco?\" \n\n"
-    ]
-  },
-  {
     "title": "Il Caso della Notte al Museo",
     "playerGoal": "Ottenere l'assoluzione totale per il cliente accusato di furto d'arte.",
     "summary": "Durante una notte tempestosa, un antico vaso etrusco scompare dal museo civico; la sicurezza accusa Martina Rossetti, restauratrice presente sul luogo. Sebbene trovata vicino alla scena con guanti sporchi e priva di giustificazioni esaurienti, Michelle sostiene la sua innocenza. Il vero ladro potrebbe aver manipolato le prove o sfruttato falle nella sorveglianza notturna rimasta inattiva per blackout parziale causato dalla tempesta.",

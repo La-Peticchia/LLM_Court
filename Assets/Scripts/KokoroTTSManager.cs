@@ -249,6 +249,7 @@ public class KokoroTTSManager : MonoBehaviour
         List<string> sentences = new List<string>();
         int start = 0;
 
+        
         for (int i = 0; i < text.Length; i++)
         {
             if (SentenceDelimiters.Contains(text[i]))
@@ -321,16 +322,11 @@ public class KokoroTTSManager : MonoBehaviour
 
         if (characterAudioSources.TryGetValue(request.character, out AudioSource audioSource))
         {
-            if (audioSource.isPlaying)
-                audioSource.Stop();
-
             if (audioSource.clip != null)
                 Destroy(audioSource.clip);
 
             audioSource.clip = audioClip;
             audioSource.Play();
-
-            _ = WaitForAudioCompletion(audioSource, request.onComplete);
         }
         else
         {

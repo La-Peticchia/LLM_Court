@@ -1,54 +1,60 @@
 [
   {
-    "title": "The Joker's Trial: Murder at the Museum of Illusions",
-    "playerGoal": "Reduce the murder conviction and obtain recognition of psychiatric mitigating factors",
-    "summary": "The Joker is accused of the premeditated murder of curator Alice Grant during a private exhibition at the Museum of Illusions. Although much evidence points to criminal intent, doubts remain about the perpetrator’s mental state and overall security on that night. The defense aims to highlight psychological issues affecting his lethal actions, as well as possible failures in museum surveillance.",
-    "shortSummary": "Accused of intentional homicide against Alice Grant, the defense seeks to emphasize mental instability and procedural errors to reduce sentencing.",
+    "title": "The Case of Riccardo Bianchi",
+    "playerGoal": "Secure a full acquittal for your client, Riccardo Bianchi, accused of burglary",
+    "summary": "Riccardo Bianchi, a 35-year-old man with no prior criminal record, is accused of burglarizing a downtown jewelry store. On the night of the incident, cameras captured him near the store but not inside. A witness claims to have seen him forcing the door open, while a partial fingerprint found at the scene has not yet been officially identified as his. Riccardo states he was merely passing by on his way back from a bar. The defense must prove his innocence or instill reasonable doubt in the jury.",
+    "shortSummary": "Riccardo Bianchi is accused of theft at a jewelry store. Cameras show him nearby but not inside. A witness accuses him, and there’s a suspicious fingerprint. You must prove his innocence or create doubt.",
     "evidence": [
-      "The toy gun found next to the body bore traces from both a real firearm and gloves used by the alleged killer.",
-      "Footage was missing precisely during crucial hours; damage had been reported by technicians two days earlier.",
-      "'A note found in a locker room contained confused writings about inner voices and feelings of persecution.'",
-      "'No direct witness sawthe attack but only heard hysterical laughter coming from themain hall.'"
+      "Camera footage shows Riccardo 50 meters from the jewelry store at 2:00 AM, but the quality is poor and his movements are unclear",
+      "A partial fingerprint found on the inner handle of the broken door; it has not yet been confirmed as belonging to Riccardo",
+      "A footprint found outside the store matches the type of shoe Riccardo wore that evening, but it’s a common model",
+      "A bar receipt proves Riccardo was there until 1:30 AM, though the bartender recalls he seemed nervous"
     ],
     "witnessNames": [
-      "Alice Watson"
+      "Mario Rossi",
+      "Anna Verdi",
+      "Luca Neri",
+      "Giulia Conti"
     ],
     "witnessDescriptions": [
-      "Alice Watson works as an exhibit assistant;a generally anxious person witha highly analytical style.She testified under oathto noticing obsessive behavior among visitorsand colleaguesbut recalls indistinctly who was whereatthen exact timeof themurder.",
-      "Harrison Leeis partoftheinternalsecuritystaff,andisknownforbeingdistractedbuteffectiveinhisstaffeasylevelrelationshipsand communication.Hesayshewasaengagedoutsidethemuseumwhilesomeonewasmanipulatingthemainelectricalpanels—howeverdoesnotrecallimportantdetailsaboutthesceneaftertheshot.",
-      "MartaDonatellicaresforthehistoricalarchives;meticulousandinclinedtoprecisionwitharchivaldata,yetemotionallyfragileundertrialstress.Shesaysthatsheheardanargumentinthemirroredroombetweenseveralmaskedfiguresjustbefore,butcouldn’t tellwhowasyelling‘Help!’ornorwhetheritwasonlypartof thenight’sstagedshow.",
-      "VictorCraneisdressedasaclow-acrobatemployedbytheeventorganization;ahighlyunpredictablepersonality.Heassertsconfidentlythathe sawmultipleindividualsdressedasthe‘Joker’roamingfreelythroughadjacentrooms,sothatitwouldbehardtodistinguishtherealperpetratorevenamidgrowingchaosinthefinalminutes."
+      "Mario Rossi is the owner of the robbed jewelry store; he is irritable and convinced of Riccardo's guilt because he saw him loitering in the area in the days leading up to the theft, claiming he had a suspicious demeanor that very evening.",
+      "Anna Verdi is a passerby who claims to have seen someone resembling Riccardo forcing open the jewelry store door; she is insecure and tends to contradict herself about the exact description of the person she saw during depositions.",
+      "Luca Neri is the bartender who served Riccardo late into the night; calm but detail-oriented, he confirms Riccardo was at the bar until 1:30 AM but notes he seemed agitated and kept checking his watch before leaving hurriedly.",
+      "Giulia Conti works as a night guard in a building near the jewelry store; reserved yet precise, she reports having noticed a man running away from the area around 2:15 AM, though she cannot confirm it was definitely Riccardo."
     ],
     "witnessGenders": [
+      "F",
+      "M",
+      "M",
       "M"
     ],
     "additionalInfo": []
   },
   {
-    "title": "Il Processo del Joker: Omicidio nel Museo delle Illusioni",
-    "playerGoal": "Ridurre la condanna per omicidio e ottenere il riconoscimento di attenuanti psichiatriche",
-    "summary": "Il Joker è accusato dell'omicidio premeditato della curatrice Alice Grant durante un’esposizione privata al Museo delle Illusioni. Sebbene numerose prove indichino l’intenzione criminale, persistono dubbi sulle condizioni mentali del colpevole e sulla sicurezza generale della notte in questione. La difesa punta a far emergere le difficoltà psicologiche che avrebbero influito sull’azione letale, nonché potenziali falle nella vigilanza museale.",
-    "shortSummary": "Accusando il Joker d’omcidio volontario ai danni di Alice Grant, la difesa mira a evidenziare instabilità mentale ed errori procedurali per ridurre la pena.",
+    "title": "Il Caso di Riccardo Bianchi",
+    "playerGoal": "Ottenere l'assoluzione completa per il tuo cliente, Riccardo Bianchi, accusato di furto con scasso",
+    "summary": "Riccardo Bianchi, un uomo di 35 anni senza precedenti penali, è accusato di furto con scasso in una gioielleria del centro città. La notte dell'incidente, le telecamere lo hanno ripreso vicino al negozio, ma non all'interno. Un testimone sostiene di averlo visto forzare la porta, mentre un'impronta digitale parziale trovata sul luogo non è stata ancora identificata ufficialmente come sua. Riccardo afferma di essere passato lì per caso tornando da un bar. La difesa deve dimostrare la sua innocenza o instillare il dubbio ragionevole nella giuria.",
+    "shortSummary": "Riccardo Bianchi è accusato di furto in una gioielleria. Le telecamere lo mostrano nelle vicinanze, ma non dentro. Un testimone lo accusa e c'è un'impronta sospetta. Devi provare la sua innocenza o creare dubbio.",
     "evidence": [
-      "La pistola giocattolo rinvenuta accanto al corpo presentava tracce sia dello strumento vero che dei guanti usati dal presunto assassino.",
-      "I filmati mancavano proprio nelle ore cruciali; una memoria danneggiata era stata segnalata dai tecnici due giorni prima.",
-      "In una nota trovata nello spogliatoio c’erano scritte confusionarie su voci interne e senso di persecuzione.",
-      "Nessun testimone diretto ha visto l’aggressione ma solo udito risate isteriche provenire dalla sala principale."
+      "Un filmato della telecamera mostra Ricciardo a 50 metri dalla gioielleria alle 2:00 di notte, ma la qualità è scarsa e i suoi movimenti non sono chiari",
+      "Un'impronta digitale parziale trovata sulla maniglia interna della porta sfondata; non è stata ancora confermata come appartenente a Ricciardo",
+      "Un footprint trovato fuori dal negozio corrisponde al tipo di scarpa indossato da Ricciardo quella sera, ma è un modello comune",
+      "Una ricevuta del bar dimostra che Ricciardo era lì fino all'1:30 di notte, ma il barista ricorda che sembrava nervoso"
     ],
     "witnessNames": [
-      "Alice Watson",
-      "Harrison Lee",
-      "Marta Donatelli",
-      "Victor Crane"
+      "Mario Rossi",
+      "Anna Verdi",
+      "Luca Neri",
+      "Giulia Conti"
     ],
     "witnessDescriptions": [
-      "Alice Watson lavora come assistente alle esposizioni; persona ansiosa con uno stile analitico molto rigoroso. Ha dichiarato sotto giuramento di aver notato comportamenti ossessivi tra i visitatori suoi colleghi quella sera ma riferisce confusamente chi fosse presente dove all’orario esatto dell’omicidio.",
-      "Harrison Lee fa parte della sicurezza interna ed è noto per essere distratto ma comunicativo nei rapporti interpersonali con staff. Racconta d’essere stato impegnato fuori dal museo mentre qualcuno manipolava i pannelli elettrici principali—tuttavia ignora particolari rilevanti sulla scena subito dopo lo sparo.",
-      "Marta Donatelli cura gli archivi storici: metodica e incline alla precisione nei dati archivistici però emotivamente fragile davanti allo stress processuale; sostiene che poco prima aveva sentito una lite nell’aula degli specchi fra più figure mascherate senza sapere chi urlasse davvero 'Aiuto!' o se fosse soltanto parte dello spettacolo organizzativo serale.",
-      "Victor Crane veste da clown-acrobata ingaggiato dall’organizzazione personalità imprevedibile; afferma convintamente avvistare più soggetti travestiti da ‘Joker’ aggirarsi indisturbati tra sale adiacenti così nessuno poteva distinguere l’autore effettivo dato anche il caos provocatorio incrementatosì negli ultimi minuti."
+      "Mario Rossi è il proprietario della gioielleria derubata; è un uomo irascibile e convinto che Riccardo sia colpevole perché lo ha visto spesso gironzolare nella zona nei giorni precedenti al furto, affermando che aveva un atteggiamento sospetto quella sera stessa.",
+      "Anna Verdi è una passante che sostiene di aver visto qualcuno simile a Riccardo forzare la porta della gioielleria; ha un carattere insicuro e durante le deposizioni tende a contraddirsi sulla descrizione esatta della persona vista.",
+      "Luca Neri è il barista che ha servito Riccardo fino a tarda ora; pacato ma attento ai dettagli, conferma che era nel bar fino all’1:30 ma sottolinea che sembrava agitato e continuava a guardare l’orologio prima di andarsene frettolosamente.",
+      "Giulia Conti lavora come guardia notturna in un edificio vicino alla gioielleria; riservata ma precisa, dichiara di aver notato un uomo correre via dalla zona intorno alle 2:15, anche se non può confermare che fosse proprio Riccardo."
     ],
     "witnessGenders": [
-      "F",
+      "M",
       "M",
       "F",
       "M"

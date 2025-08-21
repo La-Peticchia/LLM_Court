@@ -252,6 +252,7 @@ public class CaseGeneration : MonoBehaviour
         ToggleSaveButton();
         ToggleButtons(true);
         
+        Debug.Log("ID: " + _translatedDescriptions.First.Value.GetID());
     }
 
     void ToggleSaveButton()
@@ -308,8 +309,8 @@ public class CaseGeneration : MonoBehaviour
             _ = OnError("Case generation failed, retry");
             seed = Random.Range(0, int.MaxValue);
         }
-        
-        
+
+
         ToggleButtons(true);
     }
 
@@ -319,6 +320,8 @@ public class CaseGeneration : MonoBehaviour
             _translatedDescriptions.AddFirst(description);
             await _courtPreviewAnimation.PlayAnimation(description.GetBriefDescription(true));
             ToggleSaveButton();
+            
+        Debug.Log("ID: " + description.GetID());
     }
 
     private void ToggleButtons(bool enable)

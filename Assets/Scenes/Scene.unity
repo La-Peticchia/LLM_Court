@@ -1848,9 +1848,6 @@ MonoBehaviour:
   prosecutorSpeed: 1.1
   witnessSpeed: 1
   volume: 0.7
-  minTextLength: 30
-  minWordsCount: 5
-  enableSentenceFiltering: 1
 --- !u!4 &293275949
 Transform:
   m_ObjectHideFlags: 0
@@ -7876,7 +7873,7 @@ MonoBehaviour:
   dontDestroyOnLoad: 0
   contextSize: 8192
   batchSize: 512
-  model: gemma-2-9b-it-Q4_K_M.gguf
+  model: gemma-3-12b-it-Q4_K_M.gguf
   chatTemplate: chatml
   lora: 
   loraWeights: 
@@ -7887,9 +7884,9 @@ MonoBehaviour:
   SSLKey: 
   SSLKeyPath: 
   minContextLength: 0
-  maxContextLength: 8192
+  maxContextLength: 131072
   embeddingsOnly: 0
-  embeddingLength: 3584
+  embeddingLength: 3840
 --- !u!4 &1047848255
 Transform:
   m_ObjectHideFlags: 0
