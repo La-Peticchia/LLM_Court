@@ -1,63 +1,51 @@
 [
   {
-    "title": "The Case of Riccardo Bianchi",
-    "playerGoal": "Secure a full acquittal for your client, Riccardo Bianchi, accused of burglary",
-    "summary": "Riccardo Bianchi, a 35-year-old man with no prior criminal record, is accused of burglarizing a downtown jewelry store. On the night of the incident, cameras captured him near the store but not inside. A witness claims to have seen him forcing the door open, while a partial fingerprint found at the scene has not yet been officially identified as his. Riccardo states he was merely passing by on his way back from a bar. The defense must prove his innocence or instill reasonable doubt in the jury.",
-    "shortSummary": "Riccardo Bianchi is accused of theft at a jewelry store. Cameras show him nearby but not inside. A witness accuses him, and there’s a suspicious fingerprint. You must prove his innocence or create doubt.",
+    "title": "The Trial of the Wizard's Tower",
+    "playerGoal": "Obtain full acquittal for the wizard Arven, accused of murder and destruction by explosive magic.",
+    "summary": "During a ritual duel at the prestigious Academy of the Wizard’s Tower, a powerful explosion caused the mysterious death of rival Lothar. Your client, Arven Lumis, was found near the site with arcane residue on his hands. However, details are confusing: witnesses disagree about people's movements and some clues suggest deliberate alteration or unknown third-party involvement. It will be up to you to discover whether there was truly malice or simply an unfortunate accident between talented but fiercely competitive wizards.",
+    "shortSummary": "A deadly explosion shakes central tower during a duel between mages; your client is charged while evidence and alibis contradict each other.",
     "evidence": [
-      "Camera footage shows Riccardo 50 meters from the jewelry store at 2:00 AM, but the quality is poor and his movements are unclear",
-      "A partial fingerprint found on the inner handle of the broken door; it has not yet been confirmed as belonging to Riccardo",
-      "A footprint found outside the store matches the type of shoe Riccardo wore that evening, but it’s a common model",
-      "A bar receipt proves Riccardo was there until 1:30 AM, though the bartender recalls he seemed nervous"
+      "Ashy powder traces found on robes that do not match standard energy signature from Arven's spells",
+      "An anonymous threatening letter addressed to Lothar appeared in his private book just days before clash",
+      "Broken pocket watch showed exactly nine o’clock – conflicting with official statements about precise time ",
+      "Violet glowing residues discovered under planks near arena never normally used in authorized school rituals"
     ],
     "witnessNames": [
-      "Mario Rossi",
-      "Anna Verdi",
-      "Luca Neri",
-      "Giulia Conti"
+      "Therin Valostril",
+      "Elyra Fendrel"
     ],
     "witnessDescriptions": [
-      "Mario Rossi is the owner of the robbed jewelry store; he is irritable and convinced of Riccardo's guilt because he saw him loitering in the area in the days leading up to the theft, claiming he had a suspicious demeanor that very evening.",
-      "Anna Verdi is a passerby who claims to have seen someone resembling Riccardo forcing open the jewelry store door; she is insecure and tends to contradict herself about the exact description of the person she saw during depositions.",
-      "Luca Neri is the bartender who served Riccardo late into the night; calm but detail-oriented, he confirms Riccardo was at the bar until 1:30 AM but notes he seemed agitated and kept checking his watch before leaving hurriedly.",
-      "Giulia Conti works as a night guard in a building near the jewelry store; reserved yet precise, she reports having noticed a man running away from the area around 2:15 AM, though she cannot confirm it was definitely Riccardo."
+      "...Senior professor at academy known for procedural rigor & authoritarian demeanor; insists he saw Arven behaving suspiciously right after blast yet admits interventions were hindered by general chaos.",
+      "...Expert librarian specializing historical archives; calmly casts doubt on actual culpability noting unusual noises coming from basement shortly before final spell as well as glimpsing hooded figure not belonging among regular students."
     ],
     "witnessGenders": [
       "F",
-      "M",
-      "M",
-      "M"
+      "F"
     ],
     "additionalInfo": []
   },
   {
-    "title": "Il Caso di Riccardo Bianchi",
-    "playerGoal": "Ottenere l'assoluzione completa per il tuo cliente, Riccardo Bianchi, accusato di furto con scasso",
-    "summary": "Riccardo Bianchi, un uomo di 35 anni senza precedenti penali, è accusato di furto con scasso in una gioielleria del centro città. La notte dell'incidente, le telecamere lo hanno ripreso vicino al negozio, ma non all'interno. Un testimone sostiene di averlo visto forzare la porta, mentre un'impronta digitale parziale trovata sul luogo non è stata ancora identificata ufficialmente come sua. Riccardo afferma di essere passato lì per caso tornando da un bar. La difesa deve dimostrare la sua innocenza o instillare il dubbio ragionevole nella giuria.",
-    "shortSummary": "Riccardo Bianchi è accusato di furto in una gioielleria. Le telecamere lo mostrano nelle vicinanze, ma non dentro. Un testimone lo accusa e c'è un'impronta sospetta. Devi provare la sua innocenza o creare dubbio.",
+    "title": "Il Processo della Torre dei Maghi",
+    "playerGoal": "Ottenere l'assoluzione completa per il mago Arven, accusato di omicidio e distruzione con magia esplosiva.",
+    "summary": "Durante un duello rituale nella prestigiosa Accademia della Torre dei Maghi, una potente esplosione ha causato la morte misteriosa del rivale Lothar. Il tuo cliente, Arven Lumis, è stato trovato vicino al luogo dell'esplosione con residui arcani sulle mani. Tuttavia i dettagli sono confusi: le testimonianze divergono riguardo ai movimenti delle persone presenti e alcuni elementi lasciano sospettare alterazione deliberata degli indizi o coinvolgimento terzo sconosciuto. Starà a te scoprire se davvero vi fu dolo oppure solo uno sfortunato incidente fra maghi talentuosi ma avversari accaniti.",
+    "shortSummary": "Un’esplosione letale scuote la torre centrale durante un duello tra maghi; il tuo assistito viene incriminato mentre prove ed alibi si contraddicono.",
     "evidence": [
-      "Un filmato della telecamera mostra Ricciardo a 50 metri dalla gioielleria alle 2:00 di notte, ma la qualità è scarsa e i suoi movimenti non sono chiari",
-      "Un'impronta digitale parziale trovata sulla maniglia interna della porta sfondata; non è stata ancora confermata come appartenente a Ricciardo",
-      "Un footprint trovato fuori dal negozio corrisponde al tipo di scarpa indossato da Ricciardo quella sera, ma è un modello comune",
-      "Una ricevuta del bar dimostra che Ricciardo era lì fino all'1:30 di notte, ma il barista ricorda che sembrava nervoso"
+      "Le tracce di polvere cinerea trovate sulla veste che non corrispondono alla firma energetica standard incantesimi d'Arven",
+      "Una lettera minatoria anonima indirizzata a Lothar apparsa nel suo libro privato proprio pochi giorni prima dello scontro",
+      "L'orologio da tasca rotto segnava le ore ventuno esatte – discordanti dalle dichiarazioni ufficiali sul momento preciso dell'incidente",
+      "Residui luminosi viola scoperti sotto alcune assi vicine all'arena mai utilizzati normalmente nei riti autorizzati dalla scuola"
     ],
     "witnessNames": [
-      "Mario Rossi",
-      "Anna Verdi",
-      "Luca Neri",
-      "Giulia Conti"
+      "Therin Valostril",
+      "Elyra Fendrel"
     ],
     "witnessDescriptions": [
-      "Mario Rossi è il proprietario della gioielleria derubata; è un uomo irascibile e convinto che Riccardo sia colpevole perché lo ha visto spesso gironzolare nella zona nei giorni precedenti al furto, affermando che aveva un atteggiamento sospetto quella sera stessa.",
-      "Anna Verdi è una passante che sostiene di aver visto qualcuno simile a Riccardo forzare la porta della gioielleria; ha un carattere insicuro e durante le deposizioni tende a contraddirsi sulla descrizione esatta della persona vista.",
-      "Luca Neri è il barista che ha servito Riccardo fino a tarda ora; pacato ma attento ai dettagli, conferma che era nel bar fino all’1:30 ma sottolinea che sembrava agitato e continuava a guardare l’orologio prima di andarsene frettolosamente.",
-      "Giulia Conti lavora come guardia notturna in un edificio vicino alla gioielleria; riservata ma precisa, dichiara di aver notato un uomo correre via dalla zona intorno alle 2:15, anche se non può confermare che fosse proprio Riccardo."
+      "Therin Valostril è docente anziano presso l’Accademia famosa per scrupolo procedurale ed atteggiamento autoritario; sostiene fermamente di aver visto Arven agitarsi in modo sospetto subito dopo lo scoppio ma ammette anche che suoi tentativi d’intervento furono ostacolati dal caos generale.",
+      "Italyra Fendrel ricopre ruolo bibliotecaria esperta negli archivi storici; incline alla calma lucida pronuncia invece dubbi sull’effettiva colpevolezza poiché riferisce rumori insoliti provenienti dai sotterranei poco prima dell’incanto finale oltre ad intravedere una figura incappucciata non appartenente agli studenti canonici."
     ],
     "witnessGenders": [
-      "M",
-      "M",
       "F",
-      "M"
+      "F"
     ],
     "additionalInfo": []
   }

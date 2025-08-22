@@ -259,11 +259,14 @@ public class Court : MonoBehaviour
 
     public void SetAIText(string text)
     {
-        aiText.text = text.Split(_questionCharacter)[0]
-                      .Split(_gameOverCharacter)[0]
-                      .Split(_requestCharacter)[0]
-                      .Split(_interventionGrantCharacter)[0];
-        if (enableTTS && ttsManager != null && !string.IsNullOrWhiteSpace(aiText.text))
+        string cleanText = text.Split(_questionCharacter)[0]
+                              .Split(_gameOverCharacter)[0]
+                              .Split(_requestCharacter)[0]
+                              .Split(_interventionGrantCharacter)[0];
+
+        aiText.text = cleanText;
+
+        if (enableTTS && ttsManager != null && !string.IsNullOrWhiteSpace(cleanText))
         {
             string currentCharacter = _roundsTimeline[_round].role;
 
@@ -272,18 +275,25 @@ public class Court : MonoBehaviour
             {
                 string ttsCharacterName = MapToTTSCharacter(currentCharacter);
 
-                if (waitForTTSCompletion)
-                {
-                    nextButton.interactable = false;
-                    ttsManager.GenerateSpeech(ttsCharacterName, aiText.text, OnTTSComplete);
-                }
-                else
-                {
-                    ttsManager.GenerateSpeech(ttsCharacterName, aiText.text);
-                }
+                // Aggiorna il testo nel streaming TTS
+                ttsManager.UpdateStreamingText(ttsCharacterName, cleanText);
 
-                Debug.Log($"TTS requested for: {ttsCharacterName} (original: {currentCharacter})");
+                Debug.Log($"Updated TTS streaming for: {ttsCharacterName}");
             }
+        }
+    }
+
+    private void StartTTSForCurrentCharacter()
+    {
+        if (!enableTTS || ttsManager == null) return;
+
+        string currentCharacter = _roundsTimeline[_round].role;
+
+        if (!currentCharacter.ToLower().Contains(defenseName.ToLower()))
+        {
+            string ttsCharacterName = MapToTTSCharacter(currentCharacter);
+            ttsManager.StartStreamingTTS(ttsCharacterName);
+            Debug.Log($"Started TTS streaming for: {ttsCharacterName}");
         }
     }
 
@@ -300,12 +310,34 @@ public class Court : MonoBehaviour
         else if (characterName.ToLower().Contains(attackName.ToLower()))
             return "Prosecutor";
         else
-            return characterName; // For witnesses, use their actual name
+            return characterName;
     }
     public void AIReplyComplete()
     {
         AddToLog(aiTitle.text, aiText.text);
-        //llmCharacter.chat[^1] = new ChatMessage{role = aiText.text, content = aiText.text};
+
+        // Finalizza il TTS streaming
+        if (enableTTS && ttsManager != null)
+        {
+            string currentCharacter = _roundsTimeline[_round].role;
+
+            if (!currentCharacter.ToLower().Contains(defenseName.ToLower()))
+            {
+                string ttsCharacterName = MapToTTSCharacter(currentCharacter);
+
+                if (waitForTTSCompletion)
+                {
+                    nextButton.interactable = false;
+                    ttsManager.FinalizeStreamingTTS(ttsCharacterName, OnTTSComplete);
+                }
+                else
+                {
+                    ttsManager.FinalizeStreamingTTS(ttsCharacterName);
+                }
+
+                Debug.Log($"Finalized TTS streaming for: {ttsCharacterName}");
+            }
+        }
     }
     private void OnInputFieldSubmit(string message)
     {
@@ -358,6 +390,12 @@ public class Court : MonoBehaviour
         if (_lastPhase && _round >= _roundsTimeline.Count - 1)
         {
             characterAnimator.ShowCharacter(judgeName, "");  // Entra con animazione e poi mostra testo
+
+            if (enableTTS && ttsManager != null)
+            {
+                ttsManager.StartStreamingTTS("Judge");
+            }
+
             string verdict = await _sentenceAnalyzer.FinalVerdict(_caseDescription, llmCharacter.chat, SetAIText, AIReplyComplete);
 
             if (verdict.Contains(_winTag))
@@ -398,6 +436,8 @@ public class Court : MonoBehaviour
             string systemMessage = _roundsTimeline[_round].systemMessage;
             if (systemMessage != "")
                 llmCharacter.AddSystemMessage(systemMessage);
+
+            StartTTSForCurrentCharacter();
 
             string answer = await llmCharacter.ContinueChat(_roundsTimeline[_round].role, SetAIText, AIReplyComplete);
 
