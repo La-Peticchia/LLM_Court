@@ -26,13 +26,9 @@ public class SentenceAnalyzer : MonoBehaviour
     [SerializeField] string splitCharacters = ">";
     [SerializeField, Range(1, 10)] private int numOfMessages = 5;
 
-    private const string TranslationCharacters = "<trans>";
-    private const string TranslationSentence = "Language:\nThe judge speaks italian so your answer must be written in this language";
-    
     public void InitializeAnalysis()
     {
         llmCharacter.playerName = "user";
-        finalVerdictPrompt = finalVerdictPrompt.Replace(TranslationCharacters, TranslationSentence);
         InitializeChat();
     }
     
@@ -197,7 +193,7 @@ public class SentenceAnalyzer : MonoBehaviour
     
     //TODO create the logic in Court.cs to call the FinalVerdict method then debug all the dialogue  
     
-    public async Task<string> FinalVerdict(CaseDescription caseDescription, List<ChatMessage> chatMessages, Callback<string> callback = null, EmptyCallback completionCallback = null)
+    public async Task<string> FinalVerdict(CaseDescription caseDescription, List<ChatMessage> chatMessages, string language = "english", Callback<string> callback = null, EmptyCallback completionCallback = null)
     {
         SwitchMode(Mode.FinalVerdict);
 
@@ -220,7 +216,7 @@ public class SentenceAnalyzer : MonoBehaviour
                             $"- To declare a loss you must write this tag: #LOSS.\n" +
                             $"- You can put the chosen tag at the end of your answer \n\n";
 
-        userPrompt += TranslationSentence;
+        userPrompt = $"Language:\nThe judge speaks {language} so your answer must be written in this language";
         
         Debug.Log("Final verdict user prompt:\n" + userPrompt);
 

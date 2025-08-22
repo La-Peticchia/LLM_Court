@@ -39,7 +39,8 @@ public class APIInterface : MonoBehaviour
     private const string SubsectionSplitCharacters = "+++";
     private const string ReplaceCharacters = "!!!";
     private const string FormatRepeatCharacters = "|||";
-    private const string TranslationCharacters = "<trans>";
+    //private const string TranslationCharacters = "<trans>";
+    private const string TranslationCharacters = "<language>";
     private const string NumReplaceCharacters = "<num>";
     
     
@@ -100,7 +101,7 @@ public class APIInterface : MonoBehaviour
     
     //TODO rivedere il prompt principale per poter generare dei casi un po' meno misteriosi
     
-    public async Task<CaseDescription> RequestCaseDescription(string preferences = "", bool translation = false, int seed = 0)
+    public async Task<CaseDescription> RequestCaseDescription(string preferences = "", string language = "", int seed = 0)
     {
         
         CaseDescription tmpDescription;
@@ -123,7 +124,8 @@ public class APIInterface : MonoBehaviour
                 int rand = Random.Range(2,5);
                 string currentPrompt = 
                     prompt.Replace(ReplaceCharacters, preferences != "" ? "I want you to take into account these preferences/topics: " + preferences : "")
-                    .Replace(TranslationCharacters, (translation) ? "Write the value of each JSON Key in italian; the language should not interfere with the case generation, so proper names are not affected by the language" : "")
+                    //.Replace(TranslationCharacters, !string.IsNullOrWhiteSpace(language) ? $"Write the value of each JSON Key in {language}; the language should not interfere with the case generation, so proper names are not affected by the language" : "")
+                    .Replace(TranslationCharacters, language)
                     .Replace(NumReplaceCharacters, rand.ToString())
                     .Replace(FormatRepeatCharacters, GetWitnessesFormat(rand));
 
@@ -147,7 +149,7 @@ public class APIInterface : MonoBehaviour
                 
                 string cleanResponse = RemoveSpecialCharacters(response.Value.Content);
                 tmpDescription = JsonConvert.DeserializeObject<CaseDescription>(cleanResponse);
-                
+                tmpDescription.language = language;
                 //TODO
                 //- organize the JSON object creation in 2 phases: the first one you create the case description, the second one you create the witnesses
                 //- Add 2 more names (witnesses + additional information) to the "sectionNames" JSON Key in prompt
@@ -232,15 +234,16 @@ public class APIInterface : MonoBehaviour
 //        }
 //    }
 
-    public async Task<(string,string)> RequestAdditionalInfo(string totalCaseDescription, string addRequest)
+    public async Task<(string,string)> RequestAdditionalInfo(string totalCaseDescription, string addRequest, string addTransLanguage = "english")
     {
         if(useDebugPrompt) return ("","");
         
+        string currentPrompt = !addTransLanguage.ToLower().Contains("en") ? $"Finally you must answer both in english and {addTransLanguage} and split those answers with these characters: ^^^" : ""; 
         
         var requestOptions = _chatOptions;
         requestOptions.Messages = new List<ChatRequestMessage>()
         {
-            new ChatRequestSystemMessage(AdditionalInfoPrompt + "\n\nCase Description:\n" + totalCaseDescription),
+            new ChatRequestSystemMessage(currentPrompt + "\n\nCase Description:\n" + totalCaseDescription),
             new ChatRequestUserMessage(addRequest)
         };
         requestOptions.ResponseFormat = ChatCompletionsResponseFormat.CreateTextFormat();
@@ -258,7 +261,12 @@ public class APIInterface : MonoBehaviour
                 return ("", "");
             
             string[] split = response.Value.Content.Split("^^^", StringSplitOptions.RemoveEmptyEntries);
+            
+            if(split.Length == 1)
+                return (split[0],split[0]);
+
             return (split[0],split[1]);
+            
         }
         catch (Exception e)
         {

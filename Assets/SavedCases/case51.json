@@ -1,0 +1,54 @@
+[
+  {
+    "title": "The Case of the Flying Pizza Cutter",
+    "playerGoal": "Obtain full acquittal by defending a defendant accused of theft and assault, demonstrating that the evidence is insufficient or contradictory.",
+    "summary": "A young pizza delivery person is accused after throwing a pizza cutter from his bicycle near a store where theft had just been reported. The charges include petty theft and alleged attempted physical harm with the thrown object. The prosecution claims he was seen throwing the cutter at an employee when confronted, but video footage shows ambiguous shadows without clearly identifying who did it or clarifying real motives for their actions. Testimonies conflict regarding whether there was any real threat or simply panic during a heated argument.",
+    "shortSummary": "A delivery worker stands accused of throwing a pizza cutter during an altercation over suspected shoplifting; incomplete evidence creates key doubts about crime and intent.",
+    "evidence": [
+      "- Surveillance video only partially shows the involved person due to poor lighting.",
+      "- A partial fingerprint was found on the handle of the pizza cutter.",
+      "- Initial testimony reports hearing insults but not witnessing an actual throw directly.",
+      "- There is no clear confirmation that stolen items match those in police reports."
+    ],
+    "witnessNames": [
+      "Carlos Mendoza",
+      "Lorena Torres"
+    ],
+    "witnessDescriptions": [
+      "Carlos Mendoza works as night manager at the affected store; nervous under pressure, he recounts having argued bitterly with someone who seemed suspicious although admits not seeing clearly who actually threwthe utensil because of chaos during intense arguments that night.",
+      "Lorena Torres is a regular customer—a temperamental eyewitness: she claims to have seen sudden movement near counters but confesses insecurity distinguishing faces among those involved given both verbal shouting matches and falling objects occurred amid confusion."
+    ],
+    "witnessGenders": [
+      "M",
+      "F"
+    ],
+    "additionalInfo": [],
+    "language": null
+  },
+  {
+    "title": "El caso del cortapizza volador",
+    "playerGoal": "Obtener la absolución completa defendiendo a un acusado de robo y agresión, demostrando que las pruebas son insuficientes o contradictorias.",
+    "summary": "Un joven repartidor de pizzas es acusado tras lanzarse un cortapizza desde su bicicleta cerca de una tienda donde se había denunciado el hurto momentos antes. Los cargos incluyen robo menor y supuesto intento de daño físico con el objeto lanzado. La acusación sostiene que fue visto arrojando el cortador hacia un empleado al ser confrontado, pero las grabaciones presentan sombras ambiguas sin identificar plenamente al autor ni clarificar motivos reales para la acción. Existen contradicciones entre testimonios sobre si hubo amenaza real o simplemente pánico ante una discusión acalorada.",
+    "shortSummary": "Un repartidor está acusado por lanzar un cortapizza durante una disputa en torno a presunto robo en tienda; evidencia incompleta genera dudas clave sobre delito e intención.",
+    "evidence": [
+      "- El video vigilancia muestra sólo parcialmente la persona implicada debido a mala iluminación.",
+      "- Se encontró huella digital parcial en el mango del cortapizza.",
+      "- Testimonio inicial afirma haber escuchado insultos pero no vio lanzamiento directo.",
+      "- Falta constancia clara de objetos robados coincidentes con los reportes policiales."
+    ],
+    "witnessNames": [
+      "Carlos Mendoza",
+      "Lorena Torres"
+    ],
+    "witnessDescriptions": [
+      "Carlos Mendoza trabaja como gerente nocturno en la tienda afectada; nervioso bajo presión, narra haber discutido agriamente con quien parecía sospechoso aunque reconoce no ver claramente quién lanzó realmente el utensilio debido al tumulto durante discusiones intensas esa noche.",
+      "Lorena Torres es clienta habitual temperamental testigo ocular: asegura haber visto movimiento brusco cerca del área mostradores pero confiesa inseguridad respecto a distinguir los rostros dentro del grupo involucrado cuando se produjo tanto altercado verbal como objetos cayendo accidentalmente."
+    ],
+    "witnessGenders": [
+      "M",
+      "F"
+    ],
+    "additionalInfo": [],
+    "language": "spanish"
+  }
+]

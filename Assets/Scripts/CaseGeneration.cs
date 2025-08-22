@@ -29,7 +29,8 @@ public class CaseGeneration : MonoBehaviour
     [SerializeField] private GameObject loadingCanvas;
     [SerializeField] public Button returnToMenuButton;
 
-    private LinkedList<CaseDescription> _translatedDescriptions;
+    private LinkedList<CaseDescription> _descriptionList;
+    private string _language;
     
     //References
     private APIInterface _apiManager;
@@ -58,14 +59,17 @@ public class CaseGeneration : MonoBehaviour
         returnToMenuButton.onClick.AddListener(ReturnToMainMenu);
 
 
-        _translatedDescriptions = new LinkedList<CaseDescription>();
+        _descriptionList = new LinkedList<CaseDescription>();
 
         if (seed == 0)
             seed = Random.Range(0, int.MaxValue);
         
         _courtRecordUI.isGameplay = false;
 
-
+        //Debug
+        _language = "english";
+        //_language = PlayerPrefs.GetString("language");
+        
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -163,32 +167,33 @@ public class CaseGeneration : MonoBehaviour
     {
         ToggleButtons(false);
 
-        CaseDescription transCaseDescription = _translatedDescriptions.First.Value;
+        CaseDescription firstCaseDescription = _descriptionList.First.Value;
         CaseDescription tmpCaseDescription = null;
 
-        if (_saveManager.CheckForTranslation(transCaseDescription.GetID()))
-        {
-            Debug.Log("Case description ID: " + transCaseDescription.GetID());
-            CaseDescription[] tmpDescriptions = _saveManager.GetSavedDescriptionsByID(transCaseDescription.GetID());
-            tmpCaseDescription = tmpDescriptions[0];
-        }
-        else
-        {
-            try
+        if(!firstCaseDescription.language.ToLower().Contains("en"))
+            if (_saveManager.CheckForEnglish(firstCaseDescription.GetID()))
             {
-                string response = await _apiManager.RequestTranslation(transCaseDescription.GetJsonDescription(), seed: seed);
-                tmpCaseDescription = JsonConvert.DeserializeObject<CaseDescription>(response);
-
-                if (transCaseDescription.IsSaved())
-                    await _saveManager.SaveCaseDescription(new[] { tmpCaseDescription, transCaseDescription }, transCaseDescription.GetID());
+                Debug.Log("Case description ID: " + firstCaseDescription.GetID());
+                CaseDescription[] tmpDescriptions = _saveManager.GetSavedDescriptionsByID(firstCaseDescription.GetID());
+                tmpCaseDescription = tmpDescriptions[0];
             }
-            catch (Exception e)
+            else
             {
-                Debug.LogWarning("Translation failed:" + e.Message);
-            }
-        }
+                try
+                {
+                    string response = await _apiManager.RequestTranslation(firstCaseDescription.GetJsonDescription(), "english", seed);
+                    tmpCaseDescription = JsonConvert.DeserializeObject<CaseDescription>(response);
 
-        await _saveManager.SaveAsLastCase(tmpCaseDescription != null ? new[] { tmpCaseDescription, transCaseDescription } : new[] { transCaseDescription });
+                    if (firstCaseDescription.IsSaved())
+                        await _saveManager.SaveCaseDescription(new[] { tmpCaseDescription, firstCaseDescription }, firstCaseDescription.GetID());
+                }
+                catch (Exception e)
+                {
+                    Debug.LogWarning("Translation failed:" + e.Message);
+                }
+            }
+
+        await _saveManager.SaveAsLastCase(tmpCaseDescription != null ? new[] { tmpCaseDescription, firstCaseDescription } : new[] { firstCaseDescription });
 
         courtPreviewCanvas.SetActive(false);
 
@@ -210,8 +215,8 @@ public class CaseGeneration : MonoBehaviour
         }
 
         _court.InitializeCourt(
-            tmpCaseDescription ?? JsonConvert.DeserializeObject<CaseDescription>(JsonConvert.SerializeObject(transCaseDescription)),
-            transCaseDescription
+            tmpCaseDescription ?? JsonConvert.DeserializeObject<CaseDescription>(JsonConvert.SerializeObject(firstCaseDescription)),
+            firstCaseDescription
         );
 
         if (loadingCanvas != null)
@@ -234,14 +239,14 @@ public class CaseGeneration : MonoBehaviour
         switch (buttonID)
         {
             case 0 :
-                value = _translatedDescriptions.Last.Value.GetBriefDescription(true);
-                _translatedDescriptions.AddFirst(_translatedDescriptions.Last.Value);
-                _translatedDescriptions.RemoveLast();
+                value = _descriptionList.Last.Value.GetBriefDescription(true);
+                _descriptionList.AddFirst(_descriptionList.Last.Value);
+                _descriptionList.RemoveLast();
                 break;
             case 1:
-                _translatedDescriptions.AddLast(_translatedDescriptions.First.Value);
-                _translatedDescriptions.RemoveFirst();
-                value = _translatedDescriptions.First.Value.GetBriefDescription(true);
+                _descriptionList.AddLast(_descriptionList.First.Value);
+                _descriptionList.RemoveFirst();
+                value = _descriptionList.First.Value.GetBriefDescription(true);
                 break;
             default:
                 value = "ERROR - Wrong button ID";
@@ -252,12 +257,12 @@ public class CaseGeneration : MonoBehaviour
         ToggleSaveButton();
         ToggleButtons(true);
         
-        Debug.Log("ID: " + _translatedDescriptions.First.Value.GetID());
+        Debug.Log("ID: " + _descriptionList.First.Value.GetID());
     }
 
     void ToggleSaveButton()
     {
-        if (_translatedDescriptions.First.Value.IsSaved())
+        if (_descriptionList.First.Value.IsSaved())
         {
             saveButton.GetComponentInChildren<TextMeshProUGUI>().text = "delete";
             saveButton.GetComponent<Image>().color = new Color(255, 179, 179);
@@ -273,7 +278,7 @@ public class CaseGeneration : MonoBehaviour
     async void OnSaveButtonClicked()
     {
         ToggleButtons(false);
-        var firstDes = _translatedDescriptions.First.Value;
+        var firstDes = _descriptionList.First.Value;
         if (firstDes.IsSaved())
         {
             _saveManager.DeleteDescription(firstDes.GetID());
@@ -301,7 +306,7 @@ public class CaseGeneration : MonoBehaviour
         
         
         //Get translated case description
-        CaseDescription tmpDescription = await _apiManager.RequestCaseDescription(prefInputField.text, true, seed);
+        CaseDescription tmpDescription = await _apiManager.RequestCaseDescription(prefInputField.text, _language, seed);
         if (tmpDescription != null)
             AddDescriptionToList(tmpDescription);
         else
@@ -317,7 +322,7 @@ public class CaseGeneration : MonoBehaviour
     public async void AddDescriptionToList(CaseDescription description)
     {
             
-            _translatedDescriptions.AddFirst(description);
+            _descriptionList.AddFirst(description);
             await _courtPreviewAnimation.PlayAnimation(description.GetBriefDescription(true));
             ToggleSaveButton();
             

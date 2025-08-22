@@ -1,0 +1,54 @@
+[
+  {
+    "title": "The Purple Room Case",
+    "playerGoal": "Achieve total acquittal for Mr. Afton from the charge of murder in the bedroom.",
+    "summary": "In this intricate criminal case, William Afton, nicknamed 'Purple Guy,' has been accused of murdering young Thomas Blake. The body was found in a purple bedroom inside Afton's house during a private party. Evidence suggests the suspect's presence at the scene and an ambiguous relationship between victim and defendant; however, clear motives are lacking and discrepancies emerge among key witnesses' accounts about nighttime movements and crucial event timings.",
+    "shortSummary": "William ‘Purple Guy’ Afton faces charges of murder after Thomas Blake’s body is found in his purple room: witness testimonies contain gaps that severely challenge both prosecution and defense.",
+    "evidence": [
+      "- A partially cleaned dirty knife found under the pillow on the purple bed with no identifiable fingerprints.",
+      "- Minimal but visible traces of blue paint mixed with blood on the carpet near the window.",
+      "- An incomplete audio recording from a hidden camera picks up only fragments of voices present before the presumed time of death.",
+      "- Confused messages exchanged between Victim and Defendant hours prior regarding unresolved family debts."
+    ],
+    "witnessNames": [
+      "Linda Rossi",
+      "Derek Hunt"
+    ],
+    "witnessDescriptions": [
+      "Linda Rossi isthe victim’s older sister – unusually cautiousin her answers – confidently claims she saw Mr.Ahton briefly enterthroom that night but cannot confirm if hewas presnt when thee lights went out; alsoshe reports hearinga strange metallic noise justafter midnight.",
+      "Derek Hunt worksas afreelance waiter hiredto serve guestsat thparty atthe mansion — very attentive todetail — declars having noticed Lindainan animated discussionwith someoneoutsideth door whileheset uptheg lasses attwo-fifty amalso recalls colord stainson clothing, thoughtheycontradict descriptionsreported byotherguests."
+    ],
+    "witnessGenders": [
+      "F",
+      "M"
+    ],
+    "additionalInfo": [],
+    "language": "english"
+  },
+  {
+    "title": "Il Caso della Camera Viola",
+    "playerGoal": "Ottenere l'assoluzione totale per il signor Afton dall'accusa di omicidio nella camera da letto.",
+    "summary": "In questa intricata causa penale, William Afton, soprannominato 'Purple Guy', è stato accusato dell’omicidio del giovane Thomas Blake. Il cadavere è stato rinvenuto in una camera da letto viola all’interno della casa di Afton durante una festa privata. Le prove suggeriscono la presenza del sospettato sulla scena e indicano un rapporto ambiguo tra vittima e imputato; tuttavia, mancano motivazioni chiare ed emergono discrepanze nei racconti dei testimoni chiave su movimenti notturni e orari cruciali degli eventi.",
+    "shortSummary": "William ‘Purple Guy’ Afton affronta l’accusa d’omicidio dopo che il corpo di Thomas Blake viene trovato nella sua stanza viola: le testimonianze presentano lacune che mettono a dura prova sia accusa che difesa.",
+    "evidence": [
+      "- Un coltello sporco parzialmente pulito trovato sotto il cuscino nel letto viola senza impronte identificabili.",
+      "- Tracce minime ma visibili di vernice blu miste al sangue sul tappeto vicino alla finestra.",
+      "- Una registrazione audio incompleta proveniente dalla videocamera nascosta rileva solo frammenti delle voci dei presenti prima dell'ora presunta del decesso.",
+      "- Messaggi confusi intercorsi fra Vittima e Imputato nelle ore precedenti riguardanti debiti familiari non chiariti."
+    ],
+    "witnessNames": [
+      "Linda Rossi",
+      "Derek Hunt"
+    ],
+    "witnessDescriptions": [
+      "Linda Rossi è la sorella maggiore della vittima – insolitamente cauta nelle risposte – afferma con sicurezza che ha visto Mr. Afton entrare brevemente nella camera quella notte ma non può confermare se fosse presente quando si sono spente le luci; sostiene inoltre aver sentito uno strano rumore metallico poco dopo mezzanotte.",
+      "Derek Hunt lavora come cameriere freelance assunto per servire gli ospiti durante la festa presso la villa — persona molto attenta ai dettagli — dichiara d'aver notato Linda discutere animatamente con qualcuno fuori dalla porta mentre lui sistemava i bicchieri alle tre meno dieci; ricorda anche macchie colorate sugli indumenti rasentando però contraddizioni sugli abbigliamentiriportati dagli altri invitati."
+    ],
+    "witnessGenders": [
+      "F",
+      "M"
+    ],
+    "additionalInfo": [],
+    "language": "italian"
+  }
+]

@@ -59,6 +59,7 @@ public class Court : MonoBehaviour
     private readonly string _interventionGrantCharacter = "[";
     private readonly string _requestCharacter = "*";
     private readonly string _gameOverCharacter = "#";
+    private readonly string _languagePlaceholder = "<language>";
     private readonly string _judgePlaceholder = "<Judge>";
     private readonly string _prosecutorPlaceholder = "<Prosecutor>";
     private readonly string _witnessesPlaceholder = "<Witnesses>";
@@ -138,11 +139,12 @@ public class Court : MonoBehaviour
     {
         _caseDescription = caseDescription;
         _translatedDescription = translatedDescription;
-
+        enableTTS = translatedDescription.language.ToLower().Contains("en");
+        
         if (playerGoalText)
             playerGoalText.text = _translatedDescription.GetTotalDescription(1, true);
 
-        mainPrompt = mainPrompt.Replace(_judgePlaceholder, judgePrompt).Replace(_prosecutorPlaceholder, attackPrompt).Replace(_witnessesPlaceholder, witnessesPrompt);
+        mainPrompt = mainPrompt.Replace(_judgePlaceholder, judgePrompt).Replace(_prosecutorPlaceholder, attackPrompt).Replace(_witnessesPlaceholder, witnessesPrompt).Replace(_languagePlaceholder, translatedDescription.language);
 
         InitializeChat();
         InitializeRounds();
@@ -396,7 +398,7 @@ public class Court : MonoBehaviour
                 ttsManager.StartStreamingTTS("Judge");
             }
 
-            string verdict = await _sentenceAnalyzer.FinalVerdict(_caseDescription, llmCharacter.chat, SetAIText, AIReplyComplete);
+            string verdict = await _sentenceAnalyzer.FinalVerdict(_caseDescription, llmCharacter.chat, _translatedDescription.language, SetAIText, AIReplyComplete);
 
             if (verdict.Contains(_winTag))
                 _pendingEndGameMessage = ("HAI VINTO", Color.green);
@@ -515,7 +517,7 @@ public class Court : MonoBehaviour
         if (!string.IsNullOrWhiteSpace(data[1]) && !data[1].ToUpper().Contains("NULL"))
             try
             {
-                (string answer, string translatedAnswer) = await _apiManager.RequestAdditionalInfo(_caseDescription.GetTotalDescription(new[] { 0, 2, 3, 4 }), data[1]);
+                (string answer, string translatedAnswer) = await _apiManager.RequestAdditionalInfo(_caseDescription.GetTotalDescription(new[] { 0, 2, 3, 4 }), data[1], _translatedDescription.language);
                 if (!string.IsNullOrWhiteSpace(answer))
                 {
                     _caseDescription.AddInformation(answer);
@@ -609,7 +611,7 @@ public class CaseDescription
     public List<string> witnessDescriptions;
     public List<string> witnessGenders;
     public List<string> additionalInfo;
-
+    public string language;
 
 
     /// <summary> Indexes of section names:
