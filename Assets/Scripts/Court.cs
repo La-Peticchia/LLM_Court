@@ -36,7 +36,7 @@ public class Court : MonoBehaviour
     private SettingsUI _settingsUI;
 
     [Header("TTS Integration")]
-    [SerializeField] private KokoroTTSManager ttsManager;
+    private KokoroTTSManager ttsManager;
     [SerializeField] private bool enableTTS = true;
     [SerializeField] private bool waitForTTSCompletion = true;
 
@@ -102,7 +102,13 @@ public class Court : MonoBehaviour
         _sentenceAnalyzer = FindFirstObjectByType<SentenceAnalyzer>();
 
         if (ttsManager == null)
+        {
             ttsManager = FindFirstObjectByType<KokoroTTSManager>();
+            if (ttsManager == null)
+                Debug.LogError("[Court] Nessun KokoroTTSManager trovato in scena!");
+            else
+                Debug.Log("[Court] KokoroTTSManager assegnato correttamente: " + ttsManager.name);
+        }
 
         playerText.onSubmit.AddListener(OnInputFieldSubmit);
         nextButton.onClick.AddListener(OnNextButtonClick);
@@ -164,7 +170,10 @@ public class Court : MonoBehaviour
         await llmCharacter.llm.WaitUntilReady();
 
         if (enableTTS && ttsManager != null)
+        {
+            ttsManager.ResetForNewGame();
             await InitializeTTSSystem();
+        }
 
         _courtRecordUI.isGameplay = true;
         _finalRoundStepOneDone = false;
