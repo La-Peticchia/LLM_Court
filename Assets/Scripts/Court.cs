@@ -101,6 +101,9 @@ public class Court : MonoBehaviour
         _apiManager = FindFirstObjectByType<APIInterface>();
         _sentenceAnalyzer = FindFirstObjectByType<SentenceAnalyzer>();
 
+        if (ttsManager == null)
+            ttsManager = FindFirstObjectByType<KokoroTTSManager>();
+
         playerText.onSubmit.AddListener(OnInputFieldSubmit);
         nextButton.onClick.AddListener(OnNextButtonClick);
 

@@ -44,6 +44,10 @@ public class EndGameUI : MonoBehaviour
 
     private void RetrySameCase()
     {
+        var tts = FindFirstObjectByType<KokoroTTSManager>();
+        if (tts != null)
+            tts.StopAllSpeech();
+
         Court court = Object.FindFirstObjectByType<Court>();
         if (court != null)
         {
@@ -79,6 +83,10 @@ public class EndGameUI : MonoBehaviour
 
     private void RestartGame()
     {
+        var tts = FindFirstObjectByType<KokoroTTSManager>();
+        if (tts != null)
+            tts.StopAllSpeech();
+
         if (savePopupUI != null)
         {
             panel.SetActive(false);
@@ -93,6 +101,10 @@ public class EndGameUI : MonoBehaviour
 
     private void GoToMainMenu()
     {
+        var tts = FindFirstObjectByType<KokoroTTSManager>();
+        if (tts != null)
+            tts.StopAllSpeech();
+
         if (savePopupUI != null)
         {
             panel.SetActive(false);
