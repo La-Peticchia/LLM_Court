@@ -67,7 +67,7 @@ public class CaseGeneration : MonoBehaviour
         _courtRecordUI.isGameplay = false;
 
         //Debug
-        _language = "english";
+        _language = "french";
         //_language = PlayerPrefs.GetString("language");
         
     }
@@ -170,7 +170,7 @@ public class CaseGeneration : MonoBehaviour
         CaseDescription firstCaseDescription = _descriptionList.First.Value;
         CaseDescription tmpCaseDescription = null;
 
-        if(!firstCaseDescription.language.ToLower().Contains("en"))
+        if(!firstCaseDescription.language.ToLower().StartsWith("en"))
             if (_saveManager.CheckForEnglish(firstCaseDescription.GetID()))
             {
                 Debug.Log("Case description ID: " + firstCaseDescription.GetID());

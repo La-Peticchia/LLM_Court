@@ -163,6 +163,7 @@ public class KokoroTTSManager : MonoBehaviour
             CancellationToken cancellationToken = destroyCancellationToken;
             byte[] modelData = await modelUrl.Load(cancellationToken);
             await Awaitable.MainThreadAsync();
+            await Awaitable.MainThreadAsync();
             cancellationToken.ThrowIfCancellationRequested();
 
             tts = new KokoroTTS(modelData, options);

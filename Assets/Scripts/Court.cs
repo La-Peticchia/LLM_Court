@@ -148,7 +148,7 @@ public class Court : MonoBehaviour
     {
         _caseDescription = caseDescription;
         _translatedDescription = translatedDescription;
-        enableTTS = translatedDescription.language.ToLower().Contains("en");
+        enableTTS = translatedDescription.language.ToLower().StartsWith("en");
         
         if (playerGoalText)
             playerGoalText.text = _translatedDescription.GetTotalDescription(1, true);
