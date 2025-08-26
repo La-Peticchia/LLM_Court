@@ -418,6 +418,9 @@ public class KokoroTTSManager : MonoBehaviour
         char[] delimiters = new char[] { '.', '!', '?', ';', ':' };
         int lastEnd = 0;
 
+        //readySegments = text.Split('.',StringSplitOptions.RemoveEmptyEntries).ToList();
+        //Debug.Log("Text segments: \n" + string.Join("\n",readySegments));
+        
         for (int i = 0; i < text.Length; i++)
         {
             if (delimiters.Contains(text[i]))
@@ -427,16 +430,16 @@ public class KokoroTTSManager : MonoBehaviour
                 {
                     char prev = text[i - 1];
                     char next = text[i + 1];
-
+        
                     // Ignora punto dopo abbreviazione tipo "Dr." o "Mr."
                     if (text[i] == '.' && char.IsUpper(next) == false && char.IsLetter(prev))
                         continue;
-
+        
                     // Ignora decimali
                     if (text[i] == '.' && char.IsDigit(prev) && char.IsDigit(next))
                         continue;
                 }
-
+        
                 string sentence = text.Substring(lastEnd, (i - lastEnd) + 1).Trim();
                 if (!string.IsNullOrEmpty(sentence))
                 {
@@ -445,7 +448,7 @@ public class KokoroTTSManager : MonoBehaviour
                 }
             }
         }
-
+        
         // Gestione del testo residuo (ultima frase)
         if (lastEnd < text.Length)
         {
@@ -455,7 +458,7 @@ public class KokoroTTSManager : MonoBehaviour
                 readySegments.Add(remaining); // forza sempre la generazione dell'ultima frase
             }
         }
-
+        
         // Eventuale accodamento della frase corta all'ultima frase precedente
         for (int j = 0; j < readySegments.Count; j++)
         {

@@ -1,66 +1,28 @@
 [
   {
-    "title": "Le mystère du croissant sanglant",
-    "playerGoal": "Obtenir l’acquittement complet de la cliente en prouvant qu’elle n’est pas responsable du meurtre présumé.",
-    "summary": "Dans une boulangerie réputée parisienne, un jeune homme a été retrouvé mort au petit matin, avec des traces de sang sur un plateau contenant des croissants et baguettes. Claire Moreau, boulangère chevronnée connue pour sa méticulosité et son calme, est accusée de ce crime après que des empreintes lui correspondant aient été retrouvées près du corps. Les circonstances sont troubles : horaires atypiques d’arrivée et témoignages contradictoires sèment le doute sur la solidité réelle des accusations.",
-    "shortSummary": "Claire Moreau doit répondre d’accusations graves liées à un meurtre dans sa propre boulangerie ; plusieurs indices ambigus permettent pourtant chacun une interprétation différente selon leur contexte exact.",
+    "title": "The Case of the Diamond-Eyed Zucchini Thief",
+    "playerGoal": "Obtain full acquittal for the defendant accused of grand theft vegetable with a mysterious diamond connection.",
+    "summary": "Clara Mendoza, chef at an exclusive restaurant, is on trial for allegedly stealing a rare zucchini from a private collector’s greenhouse during an event where one guest sported artificial 'diamond eyes.' Security footage shows only indistinct shadows; fingerprints found near the scene do not match Clara. The prosecution claims she had motive to procure unusual ingredients and was seen arguing with the collector earlier that night. Two witnesses offer conflicting observations about who entered and left through back exits amid heavy rain, raising questions about possible accomplices or mistaken identity. The defense must unravel ambiguous clues related to jewel-themed accessories and missing produce while exposing inconsistencies in testimonies.",
+    "shortSummary": "Chef Clara Mendoza faces charges over a stolen prized zucchini linked to odd diamond-eyed jewelry. Conflicting witness accounts leave guilt uncertain as evidence remains open-ended.",
     "evidence": [
-      "La présence inhabituelle d’un vieux couteau à pain ensanglanté sous le comptoir principal emplacement non habituels pour les outils tranchants.",
-      "Baguette dont certaines fibres contiennent simultanément ADN victimaire ET clientèle cet instant-là selon analyse policière sommaire.",
-      "Sacoche oubliée derrière le four – attribuée initialement au défunt mais possédant aussi billets signés par Claire ainsi qu'un badge temporaire employé lors livraisons nocturnes récentes.",
-      "Témoin visuel qui rapporte avoir vu deux ombres distinctes traverser la boutique juste avant découverte du drame."
+      "A security tape showing two figures but overly blurred due to glare reflected off someone's jeweled glasses.",
+      "A partly muddied white glove inscribed inside with 'CZ,' found behind tomato vines near where diamonds were reportedly dropped.",
+      "A receipt for expensive cosmetic contact lenses labeled ‘Diamond Eyes’, billed anonymously on event day.",
+      "Mismatched footprints—one set small in size leading out into rain-soaked grass beside larger boot prints possibly male."
     ],
     "witnessNames": [
-      "Sébastien Girard",
-      "Louise Lefèvre",
-      "Hugo Beaumont",
-      "Mme Monique Allard"
+      "Sandra Polk",
+      "Lorenzo Dray"
     ],
     "witnessDescriptions": [
-      "Sébastien Girard est livreur chez ‘Les Saveurs Parisiennes’, extraverti mais parfois distrait; il affirme ne pas être entré dans l’arrière-boutique cette nuit-là malgré voir aperçu Claire s’affairer vers 3h15 sans rien remarquer d’inhabituel sauf peut-être ses gestes brusques.",
-      "Louise Lefèvre travaille comme vendeuse auprès de Claire depuis six ans; réservée mais observatrice elle dit avoir entendu murmures animés entre victimes & celle-ci peu avant fermeture puis confirme absence soudaine victime sans pouvoir clairement identifier interlocuteur final.",
-      "Hugo Beaumont fidèle client matinal passionné par gastronomie locale se décrit jovial & attentif aux détails: il prétend avec insistance qu’à 7 h uniquement deux types viennoiseries étaient visibles alors que trois variétés auraient dû figurer si routine suivie strictement—lui témoigne également présence croissant suspect taché devant caisse centrale dialoguant brièvement avec Mme Moreau peu auparavant.",
-      "Mme Monique Allard inspectrice municipale sérieux tempéré toujours pointilleuse envers procédures hygiène relate visites fréquentes inopinées y compris veille incident où suivant contrôle prolongé tout paraissait normal exceptées tensions palpables chez certains membres équipe."
+      "Tall art dealer Sandra Polk wore oversized sunglasses 'diamond eyes' throughout the rainy party; assertive yet evasive when questioned by police, she insists seeing Clara linger nervously outside but admits losing sight after dropping her umbrella among scattered garden tools.",
+      "Lorenzo Dray is an introverted botanist employed by Mr. Rubenstein the owner; analytical yet anxious under cross-examination, he recalls hearing muffled voices just before spotting someone leaving—but never positively identified their face beneath wet hoods or observed any clear thief-jewel interaction."
     ],
     "witnessGenders": [
-      "M",
-      "F",
       "M",
       "F"
     ],
     "additionalInfo": [],
-    "language": "french"
-  },
-  {
-    "title": "Le mystère du croissant sanglant",
-    "playerGoal": "Obtenir l’acquittement complet de la cliente en prouvant qu’elle n’est pas responsable du meurtre présumé.",
-    "summary": "Dans une boulangerie réputée parisienne, un jeune homme a été retrouvé mort au petit matin, avec des traces de sang sur un plateau contenant des croissants et baguettes. Claire Moreau, boulangère chevronnée connue pour sa méticulosité et son calme, est accusée de ce crime après que des empreintes lui correspondant aient été retrouvées près du corps. Les circonstances sont troubles : horaires atypiques d’arrivée et témoignages contradictoires sèment le doute sur la solidité réelle des accusations.",
-    "shortSummary": "Claire Moreau doit répondre d’accusations graves liées à un meurtre dans sa propre boulangerie ; plusieurs indices ambigus permettent pourtant chacun une interprétation différente selon leur contexte exact.",
-    "evidence": [
-      "La présence inhabituelle d’un vieux couteau à pain ensanglanté sous le comptoir principal emplacement non habituels pour les outils tranchants.",
-      "Baguette dont certaines fibres contiennent simultanément ADN victimaire ET clientèle cet instant-là selon analyse policière sommaire.",
-      "Sacoche oubliée derrière le four – attribuée initialement au défunt mais possédant aussi billets signés par Claire ainsi qu'un badge temporaire employé lors livraisons nocturnes récentes.",
-      "Témoin visuel qui rapporte avoir vu deux ombres distinctes traverser la boutique juste avant découverte du drame."
-    ],
-    "witnessNames": [
-      "Sébastien Girard",
-      "Louise Lefèvre",
-      "Hugo Beaumont",
-      "Mme Monique Allard"
-    ],
-    "witnessDescriptions": [
-      "Sébastien Girard est livreur chez ‘Les Saveurs Parisiennes’, extraverti mais parfois distrait; il affirme ne pas être entré dans l’arrière-boutique cette nuit-là malgré voir aperçu Claire s’affairer vers 3h15 sans rien remarquer d’inhabituel sauf peut-être ses gestes brusques.",
-      "Louise Lefèvre travaille comme vendeuse auprès de Claire depuis six ans; réservée mais observatrice elle dit avoir entendu murmures animés entre victimes & celle-ci peu avant fermeture puis confirme absence soudaine victime sans pouvoir clairement identifier interlocuteur final.",
-      "Hugo Beaumont fidèle client matinal passionné par gastronomie locale se décrit jovial & attentif aux détails: il prétend avec insistance qu’à 7 h uniquement deux types viennoiseries étaient visibles alors que trois variétés auraient dû figurer si routine suivie strictement—lui témoigne également présence croissant suspect taché devant caisse centrale dialoguant brièvement avec Mme Moreau peu auparavant.",
-      "Mme Monique Allard inspectrice municipale sérieux tempéré toujours pointilleuse envers procédures hygiène relate visites fréquentes inopinées y compris veille incident où suivant contrôle prolongé tout paraissait normal exceptées tensions palpables chez certains membres équipe."
-    ],
-    "witnessGenders": [
-      "M",
-      "F",
-      "M",
-      "F"
-    ],
-    "additionalInfo": [],
-    "language": "french"
+    "language": "english"
   }
 ]
