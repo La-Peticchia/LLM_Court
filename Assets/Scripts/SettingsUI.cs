@@ -65,6 +65,10 @@ public class SettingsUI : MonoBehaviour
     {
         SaveVolumeSettings();
 
+        var tts = FindFirstObjectByType<KokoroTTSManager>();
+        if (tts != null)
+            tts.StopAllSpeech();
+
         if (court != null)
         {
             CaseMemory.SavedCase = court.GetCaseDescription();
@@ -241,6 +245,10 @@ public class SettingsUI : MonoBehaviour
     private void ReturnToMainMenu()
     {
         SaveVolumeSettings();
+
+        var tts = FindFirstObjectByType<KokoroTTSManager>();
+        if (tts != null)
+            tts.StopAllSpeech();
 
         if (savePopupUI != null)
         {
