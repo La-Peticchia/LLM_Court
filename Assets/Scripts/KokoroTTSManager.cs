@@ -128,7 +128,7 @@ public class KokoroTTSManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
+        Debug.Log("[KokoroTTSManager] Awake chiamato su " + gameObject.name);
         Debug.Log("TTS Manager Awake completed");
     }
 
@@ -691,6 +691,19 @@ public class KokoroTTSManager : MonoBehaviour
         }
 
         Debug.Log("TTS Manager destroyed");
+    }
+
+    public void ResetForNewGame()
+    {
+        StopAllSpeech();
+        currentSpeakingCharacter = "";
+        currentActiveVoice = "";
+
+        if (characterToVoice != null) characterToVoice.Clear();
+        if (characterGenders != null) characterGenders.Clear();
+        if (loadedVoices != null) loadedVoices.Clear();
+
+        CreateSingleAudioSource();
     }
 
     [ContextMenu("Update Voice List")]
