@@ -43,14 +43,15 @@ public class SavePopupUI : MonoBehaviour
 
         _currentDestination = destination;
 
-        // Se il player ha caricato una partita tramite "Continue" e vuole tornare al menu,salva automaticamente senza mostrare il popup
+        // MODIFICATO: Se il player ha caricato una partita tramite "Continue" e vuole tornare al menu,
+        // aggiorna SOLO il lastCase senza salvare come nuovo caso
         if (_wasLoadedFromContinue && destination == ReturnDestination.MainMenu)
         {
-            _ = SaveAndProceed();
+            _ = UpdateLastCaseAndProceed(); // ← NUOVO METODO
             return;
         }
 
-        // Se il caso corrente � gi� salvato, non mostrare il popup
+        // Se il caso corrente è già salvato, non mostrare il popup
         if (IsCaseAlreadySaved())
         {
             ProceedWithoutSaving();
@@ -78,11 +79,38 @@ public class SavePopupUI : MonoBehaviour
         await SaveAndProceed();
     }
 
-
     private void OnNoClicked()
     {
         if (_isProcessing) return;
         ProceedWithoutSaving();
+    }
+
+    private async Task UpdateLastCaseAndProceed()
+    {
+        _isProcessing = true;
+        popupPanel.SetActive(false);
+
+        try
+        {
+            if (_court != null && _saveSystem != null)
+            {
+                var originalCase = _court.GetCaseDescription();
+                var translatedCase = _court.GetTranslatedDescription();
+
+                if (originalCase != null && translatedCase != null)
+                {
+                    // Aggiorna SOLO il lastCase, NON salva come nuovo caso
+                    await _saveSystem.SaveAsLastCase(new[] { originalCase, translatedCase });
+                    Debug.Log("[SAVE_POPUP] Aggiornato solo lastCase per Continue - nessun nuovo salvataggio creato");
+                }
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Errore durante l'aggiornamento lastCase: {e.Message}");
+        }
+
+        ProceedToDestination();
     }
 
     // Salva il caso corrente e va nella scena indicata
@@ -100,12 +128,17 @@ public class SavePopupUI : MonoBehaviour
 
                 if (originalCase != null && translatedCase != null)
                 {
-                    // Salva il caso
+                    // Salva il caso SOLO se non è già salvato
                     if (!translatedCase.IsSaved())
                     {
                         int newId = await _saveSystem.SaveCaseDescription(new[] { originalCase, translatedCase });
                         translatedCase.SetID(newId);
                         originalCase.SetID(newId);
+                        Debug.Log("[SAVE_POPUP] Salvato nuovo caso con ID: " + newId);
+                    }
+                    else
+                    {
+                        Debug.Log("[SAVE_POPUP] Caso già salvato con ID: " + translatedCase.GetID());
                     }
 
                     // Salva come ultimo caso per il "Continue"

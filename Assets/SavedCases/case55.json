@@ -1,0 +1,54 @@
+[
+  {
+    "title": "The Spider Incident: Trial for the Death of Peter Lucas",
+    "playerGoal": "Achieve full acquittal or secure a verdict of manslaughter instead of murder for defendant Max Porter.",
+    "summary": "Max Porter, a university student and amateur cosplayer known as 'Spiderman', is accused of killing fellow student Peter Lucas during an off-campus party. Eyewitnesses saw both involved in a heated dispute about comic book authenticity before Peter fell from the balcony where they were alone. Physical evidence places Max at the scene but suggests only circumstantial involvement; conflicting witness statements leave doubt over whether it was intentional homicide or tragic accident, complicated by traces suggesting possible intervention unrelated to their argument.",
+    "shortSummary": "Student Max Porter faces trial after rival Peter Lucas dies following their Spiderman-themed confrontation on a balcony—was this deliberate harm or fatal misadventure? Evidence and testimony raise ambiguity around guilt and intent.",
+    "evidence": [
+      "'Spiderweb' prop found tangled with railing fibers near site of fall;",
+      "'Text messages between defendants showing hostile banter leading up to event;'",
+      "'Forensic report notes unusual residue possibly synthetic glue under victim's fingernails;'",
+      "'Security camera shows partial view obstructed just minutes before incident.'"
+    ],
+    "witnessNames": [
+      "Jennifer Kim",
+      "Derek Santiago"
+    ],
+    "witnessDescriptions": [
+      "Jennifer Kim is an undergraduate biology major who attended the party dressed as Gwen Stacy; she’s meticulous yet reserved, claiming she overheard raised voices, but only caught glimpses through glass when two figures struggled on balcony—she thinks one reached out momentarily in alarm though cannot confirm which person initiated contact first.",
+      "Derek Santiago is campus security staff tasked with monitoring building entrances that night; he’s cautious and somewhat skeptical towards students’ accounts. He testifies that although his post offered limited visibility outside main entryway surveillance screens revealed several guests lurking near stairwell shortly prior to police arrival—and distinct shadow movements suggest someone else may have come onto patio unobserved."
+    ],
+    "witnessGenders": [
+      "F",
+      "M"
+    ],
+    "additionalInfo": [],
+    "language": "english"
+  },
+  {
+    "title": "The Spider Incident: Trial for the Death of Peter Lucas",
+    "playerGoal": "Achieve full acquittal or secure a verdict of manslaughter instead of murder for defendant Max Porter.",
+    "summary": "Max Porter, a university student and amateur cosplayer known as 'Spiderman', is accused of killing fellow student Peter Lucas during an off-campus party. Eyewitnesses saw both involved in a heated dispute about comic book authenticity before Peter fell from the balcony where they were alone. Physical evidence places Max at the scene but suggests only circumstantial involvement; conflicting witness statements leave doubt over whether it was intentional homicide or tragic accident, complicated by traces suggesting possible intervention unrelated to their argument.",
+    "shortSummary": "Student Max Porter faces trial after rival Peter Lucas dies following their Spiderman-themed confrontation on a balcony—was this deliberate harm or fatal misadventure? Evidence and testimony raise ambiguity around guilt and intent.",
+    "evidence": [
+      "'Spiderweb' prop found tangled with railing fibers near site of fall;",
+      "'Text messages between defendants showing hostile banter leading up to event;'",
+      "'Forensic report notes unusual residue possibly synthetic glue under victim's fingernails;'",
+      "'Security camera shows partial view obstructed just minutes before incident.'"
+    ],
+    "witnessNames": [
+      "Jennifer Kim",
+      "Derek Santiago"
+    ],
+    "witnessDescriptions": [
+      "Jennifer Kim is an undergraduate biology major who attended the party dressed as Gwen Stacy; she’s meticulous yet reserved, claiming she overheard raised voices, but only caught glimpses through glass when two figures struggled on balcony—she thinks one reached out momentarily in alarm though cannot confirm which person initiated contact first.",
+      "Derek Santiago is campus security staff tasked with monitoring building entrances that night; he’s cautious and somewhat skeptical towards students’ accounts. He testifies that although his post offered limited visibility outside main entryway surveillance screens revealed several guests lurking near stairwell shortly prior to police arrival—and distinct shadow movements suggest someone else may have come onto patio unobserved."
+    ],
+    "witnessGenders": [
+      "F",
+      "M"
+    ],
+    "additionalInfo": [],
+    "language": "english"
+  }
+]

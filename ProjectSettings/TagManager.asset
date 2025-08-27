@@ -9,6 +9,7 @@ TagManager:
   - BackButton
   - RomboButton
   - PaperButton
+  - LanguageButton
   layers:
   - Default
   - TransparentFX
