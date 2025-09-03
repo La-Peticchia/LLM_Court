@@ -67,7 +67,7 @@ public class CaseGeneration : MonoBehaviour
         _courtRecordUI.isGameplay = false;
 
         //Debug
-        _language = "french";
+        //_language = "french";
         //_language = PlayerPrefs.GetString("language");
         
     }
