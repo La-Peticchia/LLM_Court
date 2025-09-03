@@ -1,0 +1,58 @@
+[
+  {
+    "title": "The Case of the Masked Superman Thief",
+    "playerGoal": "Achieve the full acquittal of the defendant or prove that his involvement was misunderstood by both public opinion and gathered evidence.",
+    "summary": "Lorenzo Ferrari, nicknamed 'Superman' due to an iconic mask worn at local events, is accused of stealing valuable watches from a jewelry store. Several witnesses link him to the crime because of his eccentric reputation, but security camera footage only shows a masked man with vaguely similar features. The case becomes complicated as Lorenzo attended a nearby event on the same evening as the robbery and several details do not add up in witness statements; ambiguous clues between urban myth and courtroom reality must be thoroughly examined.",
+    "shortSummary": "'Superman', a young man known for wearing costumes, is unfairly accused after being seen near where valuables were stolen; testimonies are inconsistent whereas some evidence contradicts what really happened.",
+    "evidence": [
+      "The security camera captured a thief dressed as a superhero but their face is not fully visible.",
+      "The approximate time frame for the theft almost perfectly matches when Lorenzo was publicly present at another event nearby.",
+      "A glove found inside the jewelry store contains partial DNA traces compatible both with Lorenzo and other local residents."
+    ],
+    "witnessNames": [
+      "Marta Bellini",
+      "Giorgio Piranesi",
+      "Nicolò Grassi"
+    ],
+    "witnessDescriptions": [
+      "Marta Bellini works as shop assistant at the jewelry store: she’s very precise in her accounts—she reported seeing an unknown person dressed like Superman enter before official closing time but also admits mixing up timings since many fans passed by outside during that afternoon.",
+      "Giorgio Piranesi often takes part in city events and has an outgoing personality; he firmly claims he greeted Lorenzo right outside town square shortly after what cameras recorded—but confesses there are regularly people roaming around disguised as heroes so possibly mistook someone else for him.",
+      "Nicolò Grassi works municipal security specializing street surveillance—and comes across methodical: he says he's reviewed videos finding multiple frames showing more individuals apparently clad similarly without definite confirmation regarding identity."
+    ],
+    "witnessGenders": [
+      "F",
+      "F",
+      "F"
+    ],
+    "additionalInfo": [],
+    "language": "english"
+  },
+  {
+    "title": "Il Caso del Ladro Mascherato Superman",
+    "playerGoal": "Ottenere l'assoluzione completa dell'imputato o dimostrare che il suo coinvolgimento è stato frainteso dal pubblico e dalle prove raccolte.",
+    "summary": "Lorenzo Ferrari, soprannominato 'Superman' per via di una maschera iconica indossata durante eventi locali, viene accusato di aver rubato preziosi orologi in una gioielleria. Diversi testimoni lo collegano al crimine per la sua fama eccentrica, ma le immagini delle telecamere mostrano solo un uomo mascherato con caratteristiche vagamente simili. Il caso si complica perché Lorenzo aveva partecipato a una manifestazione vicina proprio la sera della rapina e vari dettagli non tornano nelle dichiarazioni dei presenti; occorre esaminare attentamente gli indizi ambigui tra mito urbano e realtà processuale.",
+    "shortSummary": "Un giovane noto come 'Superman' è accusato ingiustamente di furto dopo essere visto nei pressi del luogo del crimine; le testimonianze sono confuse mentre alcune prove risultano contraddittorie sulle reali circostanze.",
+    "evidence": [
+      "La telecamera rileva un ladro con costume da supereroe ma il volto non è completamente visibile.",
+      "L'orario indicativo della rapina coincide quasi perfettamente con quello della manifestazione dove Lorenzo era presente pubblicamente.",
+      "Sul guanto trovato nella gioielleria c'è traccia parziale di DNA compatibile sia col sospetto sia altri residenti locali."
+    ],
+    "witnessNames": [
+      "Marta Bellini",
+      "Giorgio Piranesi",
+      "Nicolò Grassi"
+    ],
+    "witnessDescriptions": [
+      "Marta Bellini lavora come commessa nella gioielleria ed è molto precisa nei suoi racconti; ha riferito d’aver visto uno sconosciuto vestito da Superman entrare prima dell’orario ufficiale chiusura però dice anche che adesso confonde i tempi perché molti fan stavano passando davanti alle vetrine nel pomeriggio stesso.",
+      "Giorgio Piranesi partecipa spesso agli eventi cittadini ed ha carattere estroverso; sostiene fermemente d’aver salutando Lorenzo fuori dalla piazza poco dopo l’orario stimabile dai registratori delle videocamere ma ammette anche che vede spesso persone aggirarsi travestite da eroi quindi potrebbe essersi sbagliando nell’identificazione.",
+      "Nicolò Grassi lavora alla sicurezza comunale specializzato nelle riprese stradali ed appare metodico: dichiare infatti d’avere analizzato i video disponibili individuando alcuni frame in cui comparivono più individui apparentemente simili negli abiti supereroici pur senza poter affermare certamento identità personale."
+    ],
+    "witnessGenders": [
+      "F",
+      "M",
+      "M"
+    ],
+    "additionalInfo": [],
+    "language": "italian"
+  }
+]

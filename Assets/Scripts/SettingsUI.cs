@@ -16,12 +16,13 @@ public class SettingsUI : MonoBehaviour
     [SerializeField] private SavePopupUI savePopupUI;
 
     [SerializeField] private Button returnToMenuButton;
-    [SerializeField] private Button settingsButton;        
-    [SerializeField] private Button audioSettingsButton;   
+    [SerializeField] private Button settingsButton;
+    [SerializeField] private Button audioSettingsButton;
     [SerializeField] private Button resetVolumeButton;
     [SerializeField] private Button retryButton;
 
     [Header("Audio Controls")]
+    [SerializeField] private Toggle masterMuteToggle;
     [SerializeField] private Slider masterVolumeSlider;
     [SerializeField] private TMP_InputField masterVolumeInputField;
     [SerializeField] private Slider BGVolumeSlider;
@@ -32,13 +33,20 @@ public class SettingsUI : MonoBehaviour
     [Header("Audio Test")]
     [SerializeField] private string testSFXName = "button_click";
 
+
     private const string MASTER_VOLUME_KEY = "MasterVolume";
     private const string BG_VOLUME_KEY = "MusicVolume";
     private const string SFX_VOLUME_KEY = "SFXVolume";
+    private const string MASTER_MUTE_KEY = "MasterMute";
 
     private const float DEFAULT_MASTER_VOLUME = 80f;
     private const float DEFAULT_MUSIC_VOLUME = 70f;
     private const float DEFAULT_SFX_VOLUME = 85f;
+
+    private float storedMasterVolume;
+    private float storedMusicVolume;
+    private float storedSFXVolume;
+    private bool isMuted = false;
 
     public bool IsOpen => settingsUI != null && settingsUI.activeInHierarchy;
 
@@ -53,6 +61,9 @@ public class SettingsUI : MonoBehaviour
         audioSettingsButton.onClick.AddListener(OpenAudioSettings);
         resetVolumeButton.onClick.AddListener(ResetVolumesToDefault);
         retryButton.onClick.AddListener(RetrySameCase);
+
+        if (masterMuteToggle != null)
+            masterMuteToggle.onValueChanged.AddListener(OnMasterMuteChanged);
 
         SetupSliderWithInput(masterVolumeSlider, masterVolumeInputField, 0, 100, OnMasterVolumeChanged);
         SetupSliderWithInput(BGVolumeSlider, BGVolumeInputField, 0, 100, OnBGVolumeChanged);
@@ -75,12 +86,11 @@ public class SettingsUI : MonoBehaviour
             CaseMemory.SavedTranslatedCase = court.GetTranslatedDescription();
             CaseMemory.RestartingSameCase = true;
 
-            // Salva il seed corrente e genera uno nuovo
             LLMCharacter llmCharacter = FindFirstObjectByType<LLMCharacter>();
             if (llmCharacter != null)
             {
-                CaseMemory.OriginalSeed = llmCharacter.seed; // Salva il seed attuale
-                llmCharacter.ClearSavedHistory(); // Cancella cronologia
+                CaseMemory.OriginalSeed = llmCharacter.seed;
+                llmCharacter.ClearSavedHistory();
             }
 
             int newAISeed = Random.Range(0, int.MaxValue);
@@ -129,16 +139,23 @@ public class SettingsUI : MonoBehaviour
         float masterVolume = PlayerPrefs.GetFloat(MASTER_VOLUME_KEY, DEFAULT_MASTER_VOLUME);
         float musicVolume = PlayerPrefs.GetFloat(BG_VOLUME_KEY, DEFAULT_MUSIC_VOLUME);
         float sfxVolume = PlayerPrefs.GetFloat(SFX_VOLUME_KEY, DEFAULT_SFX_VOLUME);
+        bool isMasterMuted = PlayerPrefs.GetInt(MASTER_MUTE_KEY, 0) == 1;  // NUOVO
 
         masterVolumeSlider.SetValueWithoutNotify(masterVolume);
         BGVolumeSlider.SetValueWithoutNotify(musicVolume);
         sfxVolumeSlider.SetValueWithoutNotify(sfxVolume);
+        if (masterMuteToggle != null) masterMuteToggle.SetIsOnWithoutNotify(isMasterMuted);  // NUOVO
 
         masterVolumeInputField.SetTextWithoutNotify(Mathf.RoundToInt(masterVolume).ToString());
         BGVolumeInputField.SetTextWithoutNotify(Mathf.RoundToInt(musicVolume).ToString());
         sfxVolumeInputField.SetTextWithoutNotify(Mathf.RoundToInt(sfxVolume).ToString());
 
-        ApplyAudioSettings(masterVolume, musicVolume, sfxVolume);
+        storedMasterVolume = masterVolume;
+        storedMusicVolume = musicVolume;
+        storedSFXVolume = sfxVolume;
+        isMuted = isMasterMuted;
+
+        ApplyAudioSettings(isMasterMuted ? 0 : masterVolume, isMasterMuted ? 0 : musicVolume, isMasterMuted ? 0 : sfxVolume);
     }
 
     private void ApplyAudioSettings(float master, float music, float sfx)
@@ -151,20 +168,55 @@ public class SettingsUI : MonoBehaviour
         }
     }
 
+    private void OnMasterMuteChanged(bool isMuteOn)
+    {
+        isMuted = isMuteOn;
+
+        if (isMuteOn)
+        {
+            storedMasterVolume = masterVolumeSlider.value;
+            storedMusicVolume = BGVolumeSlider.value;
+            storedSFXVolume = sfxVolumeSlider.value;
+
+            ApplyAudioSettings(0, 0, 0);
+        }
+        else
+        {
+            ApplyAudioSettings(storedMasterVolume, storedMusicVolume, storedSFXVolume);
+        }
+
+        SaveVolumeSettings();
+    }
+
     private void OnMasterVolumeChanged(float value)
     {
         masterVolumeInputField.SetTextWithoutNotify(Mathf.RoundToInt(value).ToString());
 
-        ApplyAudioSettings(value, BGVolumeSlider.value, sfxVolumeSlider.value);
+        if (!isMuted)
+        {
+            ApplyAudioSettings(value, BGVolumeSlider.value, sfxVolumeSlider.value);
+        }
+        else
+        {
+            storedMasterVolume = value;
+        }
+
         SaveVolumeSettings();
     }
-
 
     private void OnBGVolumeChanged(float value)
     {
         BGVolumeInputField.SetTextWithoutNotify(Mathf.RoundToInt(value).ToString());
 
-        ApplyAudioSettings(masterVolumeSlider.value, value, sfxVolumeSlider.value);
+        if (!isMuted)
+        {
+            ApplyAudioSettings(masterVolumeSlider.value, value, sfxVolumeSlider.value);
+        }
+        else
+        {
+            storedMusicVolume = value;
+        }
+
         SaveVolumeSettings();
     }
 
@@ -172,10 +224,17 @@ public class SettingsUI : MonoBehaviour
     {
         sfxVolumeInputField.SetTextWithoutNotify(Mathf.RoundToInt(value).ToString());
 
-        ApplyAudioSettings(masterVolumeSlider.value, BGVolumeSlider.value, value);
+        if (!isMuted)
+        {
+            ApplyAudioSettings(masterVolumeSlider.value, BGVolumeSlider.value, value);
 
-        if (!string.IsNullOrEmpty(testSFXName) && AudioManager.instance != null)
-            AudioManager.instance.PlaySFXOneShot(testSFXName);
+            if (!string.IsNullOrEmpty(testSFXName) && AudioManager.instance != null)
+                AudioManager.instance.PlaySFXOneShot(testSFXName);
+        }
+        else
+        {
+            storedSFXVolume = value;
+        }
 
         SaveVolumeSettings();
     }
@@ -185,6 +244,7 @@ public class SettingsUI : MonoBehaviour
         PlayerPrefs.SetFloat(MASTER_VOLUME_KEY, masterVolumeSlider.value);
         PlayerPrefs.SetFloat(BG_VOLUME_KEY, BGVolumeSlider.value);
         PlayerPrefs.SetFloat(SFX_VOLUME_KEY, sfxVolumeSlider.value);
+        PlayerPrefs.SetInt(MASTER_MUTE_KEY, isMuted ? 1 : 0);
         PlayerPrefs.Save();
     }
 
@@ -193,6 +253,7 @@ public class SettingsUI : MonoBehaviour
         masterVolumeSlider.value = DEFAULT_MASTER_VOLUME;
         BGVolumeSlider.value = DEFAULT_MUSIC_VOLUME;
         sfxVolumeSlider.value = DEFAULT_SFX_VOLUME;
+        if (masterMuteToggle != null) masterMuteToggle.isOn = false;
     }
 
     private void Update()
@@ -222,7 +283,6 @@ public class SettingsUI : MonoBehaviour
     public void CloseSettings()
     {
         settingsUI.SetActive(false);
- 
         SaveVolumeSettings();
     }
 

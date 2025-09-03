@@ -31,16 +31,17 @@ public class CaseGeneration : MonoBehaviour
 
     private LinkedList<CaseDescription> _descriptionList;
     private string _language;
-    
+
     //References
     private APIInterface _apiManager;
     private CourtPreviewAnimation _courtPreviewAnimation;
     private Court _court;
     private SaveSystem _saveManager;
-    
-    [FormerlySerializedAs("_seed")] [SerializeField]
+
+    [FormerlySerializedAs("_seed")]
+    [SerializeField]
     private int seed;
-    
+
     private CourtRecordUI _courtRecordUI;
 
     private void Awake()
@@ -54,8 +55,8 @@ public class CaseGeneration : MonoBehaviour
 
         newCaseButton.onClick.AddListener(OnNewCaseButtonClicked);
         saveButton.onClick.AddListener(OnSaveButtonClicked);
-        
-        
+
+
         returnToMenuButton.onClick.AddListener(ReturnToMainMenu);
 
 
@@ -63,13 +64,15 @@ public class CaseGeneration : MonoBehaviour
 
         if (seed == 0)
             seed = Random.Range(0, int.MaxValue);
-        
+
         _courtRecordUI.isGameplay = false;
 
-        //Debug
+        //Debug - Commented out hardcoded french
         //_language = "french";
-        //_language = PlayerPrefs.GetString("language");
-        
+
+        // Get language from OptionsUI settings
+        _language = OptionsUI.GetSelectedLanguage();
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -106,7 +109,7 @@ public class CaseGeneration : MonoBehaviour
             LLMCharacter llmCharacter = FindFirstObjectByType<LLMCharacter>();
             if (llmCharacter != null)
             {
-                
+
                 int oldSeed = llmCharacter.seed;
 
                 int newSeed = CaseMemory.NewAISeed.Value;
@@ -131,27 +134,8 @@ public class CaseGeneration : MonoBehaviour
             return;
         }
 
-        //if (GameSaveSystem.IsContinue && GameSaveSystem.HasSavedGame())
-        //{
-        //    var data = GameSaveSystem.LoadGame();
-        //    courtPreviewCanvas.SetActive(false);
-        //    // Ricostruisce il CaseDescription da JSON salvato
-        //    CaseDescription savedCase = new CaseDescription(
-        //        data.caseDescription, sectionSplitCharacters: "\n", subsectionSplitCharacters: "\n"
-        //    );
-        //    CaseDescription savedTranslatedCase = new CaseDescription(
-        //        data.translatedDescription, sectionSplitCharacters: "\n", subsectionSplitCharacters: "\n"
-        //    );
-        //    // Inizializza court con i dati salvati e mi assicuro che riprenda dal round corretto
-        //    _court.InitializeCourt(savedCase, savedTranslatedCase);
-        //    _court.SetCurrentRound(data.round);
-        //    GameSaveSystem.IsContinue = false;
-        //    Destroy(gameObject);
-        //    return;
-        //}
-
     }
-    
+
     CaseDescription _currentCaseDescription;
     CaseDescription _currentTranslatedDescription;
     //private Witness[] _currentWitnesses;
@@ -170,7 +154,7 @@ public class CaseGeneration : MonoBehaviour
         CaseDescription firstCaseDescription = _descriptionList.First.Value;
         CaseDescription tmpCaseDescription = null;
 
-        if(!firstCaseDescription.language.ToLower().StartsWith("en"))
+        if (!firstCaseDescription.language.ToLower().StartsWith("en"))
             if (_saveManager.CheckForEnglish(firstCaseDescription.GetID()))
             {
                 Debug.Log("Case description ID: " + firstCaseDescription.GetID());
@@ -238,7 +222,7 @@ public class CaseGeneration : MonoBehaviour
 
         switch (buttonID)
         {
-            case 0 :
+            case 0:
                 value = _descriptionList.Last.Value.GetBriefDescription(true);
                 _descriptionList.AddFirst(_descriptionList.Last.Value);
                 _descriptionList.RemoveLast();
@@ -252,11 +236,11 @@ public class CaseGeneration : MonoBehaviour
                 value = "ERROR - Wrong button ID";
                 break;
         }
-        
-        await _courtPreviewAnimation.PlaySwitchAnimation(buttonID,value);
+
+        await _courtPreviewAnimation.PlaySwitchAnimation(buttonID, value);
         ToggleSaveButton();
         ToggleButtons(true);
-        
+
         Debug.Log("ID: " + _descriptionList.First.Value.GetID());
     }
 
@@ -272,7 +256,7 @@ public class CaseGeneration : MonoBehaviour
             saveButton.GetComponentInChildren<TextMeshProUGUI>().text = "save";
             saveButton.GetComponent<Image>().color = new Color(207, 255, 179);
         }
-        
+
     }
 
     async void OnSaveButtonClicked()
@@ -285,8 +269,8 @@ public class CaseGeneration : MonoBehaviour
             firstDes.SetID(-1);
         }
         else
-            firstDes.SetID(await _saveManager.SaveCaseDescription(new []{firstDes}));
-        
+            firstDes.SetID(await _saveManager.SaveCaseDescription(new[] { firstDes }));
+
         ToggleSaveButton();
         ToggleButtons(true);
     }
@@ -303,8 +287,8 @@ public class CaseGeneration : MonoBehaviour
     private async void StoreDescriptions()
     {
         ToggleButtons(false);
-        
-        
+
+
         //Get translated case description
         CaseDescription tmpDescription = await _apiManager.RequestCaseDescription(prefInputField.text, _language, seed);
         if (tmpDescription != null)
@@ -321,11 +305,11 @@ public class CaseGeneration : MonoBehaviour
 
     public async void AddDescriptionToList(CaseDescription description)
     {
-            
-            _descriptionList.AddFirst(description);
-            await _courtPreviewAnimation.PlayAnimation(description.GetBriefDescription(true));
-            ToggleSaveButton();
-            
+
+        _descriptionList.AddFirst(description);
+        await _courtPreviewAnimation.PlayAnimation(description.GetBriefDescription(true));
+        ToggleSaveButton();
+
         Debug.Log("ID: " + description.GetID());
     }
 
@@ -337,5 +321,5 @@ public class CaseGeneration : MonoBehaviour
         foreach (var item in arrowButtons)
             item.enabled = enable;
     }
-    
+
 }

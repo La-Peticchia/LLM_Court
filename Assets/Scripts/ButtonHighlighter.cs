@@ -19,6 +19,9 @@ public class ButtonHighlighter : MonoBehaviour
 
     private Dictionary<string, GameObject> tagToHighlight;
 
+    //Lista di tag che devono avere solo audio, senza highlight visivo
+    private HashSet<string> audioOnlyTags = new HashSet<string> { "LanguageButton" };
+
     private void Awake()
     {
         tagToHighlight = new Dictionary<string, GameObject>
@@ -40,37 +43,45 @@ public class ButtonHighlighter : MonoBehaviour
         {
             string tag = btn.tag;
 
-            if (!tagToHighlight.TryGetValue(tag, out GameObject prefab))
-                continue;
-
             if (btn.GetComponent<HighlightHandler>() != null)
                 continue;
 
-            if (prefab == null)
-                continue;
+            bool audioOnly = audioOnlyTags.Contains(tag);
 
-            GameObject highlight = Instantiate(prefab, btn.transform);
-            highlight.name = "HighlightImage";
-            highlight.SetActive(false);
+            if (audioOnly || tagToHighlight.ContainsKey(tag))
+            {
+                GameObject highlight = null;
 
-            RectTransform rect = highlight.GetComponent<RectTransform>();
-            rect.anchorMin = Vector2.zero;
-            rect.anchorMax = Vector2.one;
-            rect.offsetMin = Vector2.zero;
-            rect.offsetMax = Vector2.zero;
+                if (!audioOnly && tagToHighlight.TryGetValue(tag, out GameObject prefab) && prefab != null)
+                {
+                    highlight = Instantiate(prefab, btn.transform);
+                    highlight.name = "HighlightImage";
+                    highlight.SetActive(false);
 
-            HighlightHandler handler = btn.gameObject.AddComponent<HighlightHandler>();
-            handler.highlightImage = highlight;
-            handler.buttonHighlighter = this;
+                    RectTransform rect = highlight.GetComponent<RectTransform>();
+                    rect.anchorMin = Vector2.zero;
+                    rect.anchorMax = Vector2.one;
+                    rect.offsetMin = Vector2.zero;
+                    rect.offsetMax = Vector2.zero;
+                }
+
+                HighlightHandler handler = btn.gameObject.AddComponent<HighlightHandler>();
+                handler.highlightImage = highlight;
+                handler.buttonHighlighter = this;
+                handler.audioOnly = audioOnly;
+            }
         }
     }
 
-    // Metodi per riprodurre i suoni
     public void PlayHoverSound(string buttonTag)
     {
         if (AudioManager.instance == null || !enableAudioFeedback) return;
 
-        if (buttonTag == "PaperButton")
+        if (buttonTag == "LanguageButton")
+        {
+            AudioManager.instance.PlaySFXOneShot("button_hover");
+        }
+        else if (buttonTag == "PaperButton")
         {
             AudioManager.instance.PlaySFXOneShot("paper_hover");
         }
@@ -84,7 +95,11 @@ public class ButtonHighlighter : MonoBehaviour
     {
         if (AudioManager.instance == null || !enableAudioFeedback) return;
 
-        if (buttonTag == "PaperButton")
+        if (buttonTag == "LanguageButton")
+        {
+            AudioManager.instance.PlaySFXOneShot("button_click");
+        }
+        else if (buttonTag == "PaperButton")
         {
             AudioManager.instance.PlaySFXOneShot("paper_click");
         }
@@ -98,6 +113,7 @@ public class ButtonHighlighter : MonoBehaviour
     {
         public GameObject highlightImage;
         public ButtonHighlighter buttonHighlighter;
+        public bool audioOnly = false;
 
         private bool isSelected = false;
         private Coroutine blinkCoroutine;
@@ -132,13 +148,13 @@ public class ButtonHighlighter : MonoBehaviour
                 buttonHighlighter.PlayHoverSound(gameObject.tag);
             }
 
-            if (highlightImage != null && !isSelected)
+            if (!audioOnly && highlightImage != null && !isSelected)
                 highlightImage.SetActive(true);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (highlightImage != null && !isSelected)
+            if (!audioOnly && highlightImage != null && !isSelected)
                 highlightImage.SetActive(false);
         }
 
@@ -169,7 +185,7 @@ public class ButtonHighlighter : MonoBehaviour
         {
             isSelected = true;
 
-            if (blinkCoroutine == null)
+            if (blinkCoroutine == null && highlightImage != null)
                 blinkCoroutine = StartCoroutine(BlinkHighlight());
         }
 
@@ -195,7 +211,7 @@ public class ButtonHighlighter : MonoBehaviour
 
         private IEnumerator BlinkHighlight()
         {
-            while (true)
+            while (highlightImage != null)
             {
                 highlightImage.SetActive(true);
                 yield return new WaitForSeconds(0.5f);
@@ -212,7 +228,8 @@ public class ButtonHighlighter : MonoBehaviour
                 blinkCoroutine = null;
             }
 
-            highlightImage.SetActive(on);
+            if (highlightImage != null)
+                highlightImage.SetActive(on);
         }
     }
 }
