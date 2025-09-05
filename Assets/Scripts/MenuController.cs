@@ -16,7 +16,7 @@ public class MenuController : MonoBehaviour
     public Button optionsButton;
     public Button backFromCharacterButton;
     public Button backFromOptionsButton;
-    public Button continueButton;
+    public Button lastcaseButton;
     public GameObject caseGeneration;
 
     private OptionsUI optionsUI;
@@ -35,9 +35,9 @@ public class MenuController : MonoBehaviour
         backFromCharacterButton.onClick.AddListener(CloseCharacterPanel);
         backFromOptionsButton.onClick.AddListener(CloseOptionsPanel);
 
-        continueButton.onClick.AddListener(ContinueGame);
+        lastcaseButton.onClick.AddListener(ContinueGame);
 
-        CheckContinueButtonAvailability();
+        CheckLastcaseButtonAvailability();
 
         AudioManager.instance.PlayMusicForScene("Menu");
 
@@ -63,13 +63,13 @@ public class MenuController : MonoBehaviour
         SceneManager.LoadScene("Scene");
     }
 
-    private void CheckContinueButtonAvailability()
+    private void CheckLastcaseButtonAvailability()
     {
         string lastCasePath = Path.Combine(Application.dataPath, "SavedCases", "lastCase.json");
         bool hasLastCase = File.Exists(lastCasePath);
 
-        continueButton.interactable = hasLastCase;
-        continueButton.gameObject.SetActive(hasLastCase);
+        lastcaseButton.interactable = hasLastCase;
+        lastcaseButton.gameObject.SetActive(hasLastCase);
     }
 
     private void ContinueGame()

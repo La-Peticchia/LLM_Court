@@ -128,8 +128,8 @@ public class KokoroTTSManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        Debug.Log("[KokoroTTSManager] Awake chiamato su " + gameObject.name);
-        Debug.Log("TTS Manager Awake completed");
+       // Debug.Log("[KokoroTTSManager] Awake chiamato su " + gameObject.name);
+       // Debug.Log("TTS Manager Awake completed");
     }
 
     private async void Start()
@@ -192,8 +192,8 @@ public class KokoroTTSManager : MonoBehaviour
         var supportedMaleVoices = maleVoiceNames.Where(voice => voice[0] == langPrefix).ToArray();
         var supportedFemaleVoices = femaleVoiceNames.Where(voice => voice[0] == langPrefix).ToArray();
 
-        Debug.Log($"Available male voices: {string.Join(", ", supportedMaleVoices)}");
-        Debug.Log($"Available female voices: {string.Join(", ", supportedFemaleVoices)}");
+        //Debug.Log($"Available male voices: {string.Join(", ", supportedMaleVoices)}");
+       // Debug.Log($"Available female voices: {string.Join(", ", supportedFemaleVoices)}");
     }
 
     private void CreateSingleAudioSource()
@@ -266,7 +266,7 @@ public class KokoroTTSManager : MonoBehaviour
             string selectedVoice = availableJudgeVoices[UnityEngine.Random.Range(0, availableJudgeVoices.Count)];
             characterToVoice["Judge"] = selectedVoice;
             characterGenders["Judge"] = "M";
-            Debug.Log($"Assigned specific Judge voice: {selectedVoice}");
+            //Debug.Log($"Assigned specific Judge voice: {selectedVoice}");
         }
         else
         {
@@ -285,7 +285,7 @@ public class KokoroTTSManager : MonoBehaviour
     {
         if (availableVoices.Count == 0)
         {
-            Debug.LogWarning($"No voices available for {characterName} ({gender})");
+            //Debug.LogWarning($"No voices available for {characterName} ({gender})");
             return;
         }
 
@@ -293,7 +293,7 @@ public class KokoroTTSManager : MonoBehaviour
         characterToVoice[characterName] = selectedVoice;
         characterGenders[characterName] = gender;
 
-        Debug.Log($"Assigned voice '{selectedVoice}' to {characterName} ({gender})");
+       // Debug.Log($"Assigned voice '{selectedVoice}' to {characterName} ({gender})");
     }
 
     public void StartStreamingTTS(string characterName)
@@ -307,7 +307,7 @@ public class KokoroTTSManager : MonoBehaviour
         streamingState.Initialize(characterName);
         currentSpeakingCharacter = characterName;
 
-        Debug.Log($"Started TTS streaming for: {characterName}");
+       // Debug.Log($"Started TTS streaming for: {characterName}");
     }
     public void FinalizeStreamingTTS(string characterName, Action onComplete = null)
     {
@@ -341,7 +341,7 @@ public class KokoroTTSManager : MonoBehaviour
             _ = ProcessTTSQueue(onComplete);
         }
 
-        Debug.Log($"Finalized TTS streaming for: {characterName}");
+       // Debug.Log($"Finalized TTS streaming for: {characterName}");
     }
 
     public void UpdateStreamingText(string characterName, string currentText)
@@ -514,11 +514,11 @@ public class KokoroTTSManager : MonoBehaviour
         }
         catch (OperationCanceledException)
         {
-            Debug.Log("TTS processing cancelled gracefully");
+            //Debug.Log("TTS processing cancelled gracefully");
         }
         catch (ObjectDisposedException)
         {
-            Debug.Log("TTS processing stopped due to disposed token");
+            //Debug.Log("TTS processing stopped due to disposed token");
         }
         finally
         {
@@ -535,7 +535,7 @@ public class KokoroTTSManager : MonoBehaviour
     {
         if (string.IsNullOrEmpty(voiceName))
         {
-            Debug.LogWarning($"No voice name provided for character: {characterName}");
+            //Debug.LogWarning($"No voice name provided for character: {characterName}");
             return;
         }
 
@@ -547,7 +547,7 @@ public class KokoroTTSManager : MonoBehaviour
                 await tts.LoadVoiceAsync(new Uri(voiceUrl), cancellationToken);
                 currentActiveVoice = voiceName;
                 loadedVoices.Add(voiceName);
-                Debug.Log($"SWITCHED to voice: {voiceName} for character: {characterName}");
+                //Debug.Log($"SWITCHED to voice: {voiceName} for character: {characterName}");
             }
 
             float speed = GetCharacterSpeed(characterName);
@@ -570,15 +570,15 @@ public class KokoroTTSManager : MonoBehaviour
             currentAudioSource.clip = audioClip;
             currentAudioSource.Play();
 
-            Debug.Log($"Playing TTS for {characterName} ({voiceName}): {cleanedText.Substring(0, Math.Min(30, cleanedText.Length))}...");
+            //Debug.Log($"Playing TTS for {characterName} ({voiceName}): {cleanedText.Substring(0, Math.Min(30, cleanedText.Length))}...");
         }
         catch (OperationCanceledException)
         {
-            Debug.Log($"TTS generation cancelled for {characterName}");
+           // Debug.Log($"TTS generation cancelled for {characterName}");
         }
         catch (Exception e)
         {
-            Debug.LogError($"TTS generation failed for {characterName}: {e.Message}");
+           // Debug.LogError($"TTS generation failed for {characterName}: {e.Message}");
         }
     }
 
@@ -621,7 +621,7 @@ public class KokoroTTSManager : MonoBehaviour
         }
         catch (OperationCanceledException)
         {
-            Debug.Log("Audio completion wait cancelled");
+            //Debug.Log("Audio completion wait cancelled");
         }
     }
 
@@ -721,6 +721,6 @@ public class KokoroTTSManager : MonoBehaviour
             .Select(path => Path.GetFileNameWithoutExtension(path))
             .ToArray();
 
-        Debug.Log($"Found {allVoices.Length} voice files");
+        //Debug.Log($"Found {allVoices.Length} voice files");
     }
 }

@@ -596,7 +596,7 @@ GameObject:
   - component: {fileID: 70964326}
   - component: {fileID: 70964325}
   m_Layer: 5
-  m_Name: ContinueButton
+  m_Name: LastCaseButton
   m_TagString: MenuButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5898,7 +5898,7 @@ MonoBehaviour:
   optionsButton: {fileID: 809770193}
   backFromCharacterButton: {fileID: 1675162952}
   backFromOptionsButton: {fileID: 1532796378}
-  continueButton: {fileID: 70964325}
+  lastcaseButton: {fileID: 70964325}
   caseGeneration: {fileID: 0}
 --- !u!4 &1288077690
 Transform:
