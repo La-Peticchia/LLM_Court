@@ -292,7 +292,7 @@ public class Court : MonoBehaviour
                 // Aggiorna il testo nel streaming TTS
                 ttsManager.UpdateStreamingText(ttsCharacterName, cleanText);
 
-                Debug.Log($"Updated TTS streaming for: {ttsCharacterName}");
+                //Debug.Log($"Updated TTS streaming for: {ttsCharacterName}");
             }
         }
     }
@@ -307,14 +307,14 @@ public class Court : MonoBehaviour
         {
             string ttsCharacterName = MapToTTSCharacter(currentCharacter);
             ttsManager.StartStreamingTTS(ttsCharacterName);
-            Debug.Log($"Started TTS streaming for: {ttsCharacterName}");
+            //Debug.Log($"Started TTS streaming for: {ttsCharacterName}");
         }
     }
 
     private void OnTTSComplete()
     {
         nextButton.interactable = true;
-        Debug.Log("TTS completed, next button re-enabled");
+        //Debug.Log("TTS completed, next button re-enabled");
     }
 
     private string MapToTTSCharacter(string characterName)
@@ -349,7 +349,7 @@ public class Court : MonoBehaviour
                     ttsManager.FinalizeStreamingTTS(ttsCharacterName);
                 }
 
-                Debug.Log($"Finalized TTS streaming for: {ttsCharacterName}");
+                //Debug.Log($"Finalized TTS streaming for: {ttsCharacterName}");
             }
         }
     }

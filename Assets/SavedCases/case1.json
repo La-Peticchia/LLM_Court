@@ -1,5 +1,32 @@
 [
-  null,
+  {
+    "title": "The Case of the Missing Necklace",
+    "playerGoal": "Obtain a complete acquittal for the defendant from charges of aggravated theft.",
+    "summary": "Maria Rossi, a housemaid in an elegant villa, is accused of stealing a valuable necklace belonging to her employer. The main evidence against her is the presence of her fingerprints on the drawer where the jewelry was kept; however, there are no records proving when they were left. The case revolves around unclear movements inside the house and conflicting testimonies from family staff members.",
+    "shortSummary": "Maria Rossi is accused of stealing an expensive necklace at her workplace; both evidence and witnesses reveal many ambiguities about her actions and who truly committed the crime.",
+    "evidence": [
+      "The defendant’s fingerprints found on both external and internal handles of the jewelry drawer",
+      ". The lock shows no obvious signs of forced entry nor any damage during that day according to police reports",
+      ". An antique clock displayed in entrance appears misaligned with video recordings: it covers part of a time interval where surveillance over common rooms suddenly lapses for approximately twenty-five minutes before discovery."
+    ],
+    "witnessNames": [
+      "Marta Bianchi",
+      "-Luca De Santis",
+      "-Sofia Lorenzi"
+    ],
+    "witnessDescriptions": [
+      "Marta Bianchi owns the villa: stylish yet stern, she insists only Maria had direct access to the jewelry box that morning—though admits never seeing Maria actually go towards study area at incriminating moment.",
+      "Luca De Santis works as discreet methodical butler; says he saw Maria cleaning near office multiple times same day also mentions noticing some commotion among gardeners within very short time frame coinciding with disappearance.",
+      "Sofia Lorenzi young energetic empathetic maid : claims convincingly she saw someone else entering desk-room swiftly via side corridors while hearing overlapped noises coming from living room—but couldn’t clearly identify who it was."
+    ],
+    "witnessGenders": [
+      "F",
+      "M",
+      "F"
+    ],
+    "additionalInfo": [],
+    "language": "english"
+  },
   {
     "title": "Il Caso della Collana Scomparsa",
     "playerGoal": "Ottenere l’assoluzione completa dell’imputata dalle accuse di furto aggravato.",
