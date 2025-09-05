@@ -4912,7 +4912,7 @@ MonoBehaviour:
   characterAnimator: {fileID: 576788991}
   endGameUI: {fileID: 1587732802}
   playerGoalText: {fileID: 1813294562}
-  enableTTS: 1
+  enableTTS: 0
   waitForTTSCompletion: 1
   wildcardCharacterName: Wildcard
   defenseName: Defense
@@ -4979,7 +4979,7 @@ MonoBehaviour:
   witnessesPrompt: 'Provide realistic, human testimony. Uncertainty is allowed, but
     responses must be logically coherent, specific, and fact-based. '
   numOfInteractions: 1
-  enableAnalyzeInfo: 0
+  enableAnalyzeInfo: 1
 --- !u!4 &708504566
 Transform:
   m_ObjectHideFlags: 0
@@ -14461,7 +14461,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter text...
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14504,7 +14504,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 0
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}

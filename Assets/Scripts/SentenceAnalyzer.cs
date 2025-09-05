@@ -86,40 +86,70 @@ public class SentenceAnalyzer : MonoBehaviour
         
     }
 
+//    public async Task<string> AnalyzeInfoNeeded(List<ChatMessage> chatMessages, CaseDescription caseDescription)
+//    {
+//        SwitchMode(Mode.Analyze);
+//        List<ChatMessage> tmpMessages = chatMessages.Where(x => x.role != "system" && x.role != "Case Description").TakeLast(numOfMessages).ToList();
+//        string lastCharacter = tmpMessages[^1].role;
+//
+//        string userPrompt =
+//            $"Can you extract from the following text:\n{lastCharacter}: {tmpMessages[^1].content.Split("*")[0].Split("<")[0]}\n\n" +
+//            $"what specific piece information related to the case description and witnesses specified below the {lastCharacter} is requesting?\n\n" +
+//            $"Follow these steps:\n" +
+//            $"1 - Determine if the speaker is requesting factual, case-relevant information. If not, return < NULL >\n" +
+//            $"2 - If yes, extract the information request(s) they are making, ignoring rhetorical or procedural content\n" +
+//            $"2.5 - If the information request refers to a character (e.g., what someone saw, heard, or did), specify that character’s name in your answer; you MUST NOT use pronouns.\n" +
+//            $"3 - Output only in the format: < answer >\n\n";
+//        
+//        userPrompt += $"Additional context to consider (case description):\n{caseDescription.GetTotalDescription(new []{0,2,3,4})}";
+//        
+//        if (tmpMessages.Count > 1)
+//            userPrompt += $"\n\nAdditional context to consider (prior dialogue):\n{string.Join("\n\n", tmpMessages.SkipLast(1).Select(x => $"{x.role}: {x.content.Split("*")[0].Split("<")[0]}."))}";
+//                          
+//        userPrompt += $"\n\nImportant filtering rules:\n" +
+//                      $"- Do not extract requests that are too generic (e.g. \"More information\")" +
+//                      $"- Do not extract request(s) of additional interventions or questions " +
+//                      $"- Do not extract questions that are rhetorical, procedural, or unrelated to courtroom facts" +
+//                      $"- Only include requests that could provide specific details or clues to support or refute the case (e.g., times, actions, observations, locations, sounds ...)" +
+//                      $"- If there’s no factual request, return < NULL >";
+//
+//        userPrompt += $"\n\nGood example\n" +
+//                      $"- Input:\nProsecutor: \"Signorina Flameheart, ha visto se Alaric Shadowwind tracciava dei simboli sul terreno prima dell’arrivo del drago? Se sì, può descriverli?\"\n" +
+//                      $"- Output: < A description of any symbols Alaric Shadowwind drew on the ground before the dragon arrived >";
+//        
+//        userPrompt += $"\n\nExamples of what not to extract:\n" +
+//                      $"- \"Richiedo il permesso di interrogare la signorina Flameheart.\" → < NULL >\n(this is procedural)" +
+//                      $"- \"Signor giudice, membri della giuria...\" → < NULL >\n(Opening statement, not an info request)";
+//        
+//        Debug.Log($"Analyze info user prompt:\n" + userPrompt);
+//        
+//        string answer = await llmCharacter.Chat(userPrompt);
+//        Debug.Log("Analyze info answer: " + answer);
+//        
+//        var match = Regex.Match(answer,@"<([^>]+)>");
+//        if (match.Success)
+//            return match.Groups[1].Value;
+//        
+//        return answer;
+//    }
+
     public async Task<string> AnalyzeInfoNeeded(List<ChatMessage> chatMessages, CaseDescription caseDescription)
     {
         SwitchMode(Mode.Analyze);
         List<ChatMessage> tmpMessages = chatMessages.Where(x => x.role != "system" && x.role != "Case Description").TakeLast(numOfMessages).ToList();
         string lastCharacter = tmpMessages[^1].role;
 
-        string userPrompt =
-            $"Can you extract from the following text:\n{lastCharacter}: {tmpMessages[^1].content.Split("*")[0].Split("<")[0]}\n\n" +
-            $"what specific piece information related to the case description and witnesses specified below the {lastCharacter} is requesting?\n\n" +
-            $"Follow these steps:\n" +
-            $"1 - Determine if the speaker is requesting factual, case-relevant information. If not, return < NULL >\n" +
-            $"2 - If yes, extract the information request(s) they are making, ignoring rhetorical or procedural content\n" +
-            $"2.5 - If the information request refers to a character (e.g., what someone saw, heard, or did), specify that character’s name in your answer; you MUST NOT use pronouns." +
-            $"3 - Output only in the format: < answer >\n\n";
-        
-        userPrompt += $"Additional context to consider (case description):\n{caseDescription.GetTotalDescription(new []{0,2,3,4})}";
-        
-        if (tmpMessages.Count > 1)
-            userPrompt += $"\n\nAdditional context to consider (prior dialogue):\n{string.Join("\n\n", tmpMessages.SkipLast(1).Select(x => $"{x.role}: {x.content.Split("*")[0].Split("<")[0]}."))}";
-                          
-        userPrompt += $"\n\nImportant filtering rules:\n" +
-                      $"- Do not extract requests that are too generic (e.g. \"More information\")" +
-                      $"- Do not extract request(s) of additional interventions or questions " +
-                      $"- Do not extract questions that are rhetorical, procedural, or unrelated to courtroom facts" +
-                      $"- Only include requests that could provide specific details or clues to support or refute the case (e.g., times, actions, observations, locations, sounds ...)" +
-                      $"- If there’s no factual request, return < NULL >";
+        string userPrompt = "Analyze the user prompt for case-related factual information requests.\n";
 
-        userPrompt += $"\n\nGood example\n" +
-                      $"- Input:\nProsecutor: \"Signorina Flameheart, ha visto se Alaric Shadowwind tracciava dei simboli sul terreno prima dell’arrivo del drago? Se sì, può descriverli?\"\n" +
-                      $"- Output: < A description of any symbols Alaric Shadowwind drew on the ground before the dragon arrived >";
+        userPrompt +=
+            $"\n# Instructions\nGiven the following input:\n\"{lastCharacter}: {tmpMessages[^1].content.Split("*")[0].Split("<")[0]}\"\n\nIdentify any specific factual information the {lastCharacter} is seeking about the case description or witnesses.\n\nContext:\n- Case description: \"{caseDescription.GetTotalDescription(new []{0,2,3,4})}\"\n- Prior dialogue: \"{string.Join("\n\n", tmpMessages.SkipLast(1).Select(x => $"{x.role}: {x.content.Split("*")[0].Split("<")[0]}."))}\"\n";
+
+        userPrompt += "\nFollow these steps:\n1. Determine whether the speaker is making a factual, case-related information request. If not, respond as per Output Format guidelines.\n2. If so, extract only the core factual information requests and ignore rhetorical or procedural content.\n3. If the request mentions a character (e.g., what someone saw, heard, or did), specify that character's full name in your output; avoid pronouns.\n4. Disregard requests that are generic (e.g., \"More information\"), procedural (e.g., requesting permission), or irrelevant to the facts of the case.\n5. Only include requests that seek specific details or clues important for confirming or disproving any aspect of the case (e.g., actions, times, locations, observations, sounds).\n6. If the input, or [text to extract], is empty, malformed, or contains no factual information request, respond per Output Format.\n\nAfter extraction, validate that the output correctly reflects whether a factual request was found and that it is concise and specific. If validation fails, correct the output before returning.\n" +
+                      "\n# Good Extraction Example\nInput:\nProsecutor: \"Signorina Flameheart, ha visto se Alaric Shadowwind tracciava dei simboli sul terreno prima dell’arrivo del drago? Se sì, può descriverli?\"\nOutput:\nA description of any symbols Alaric Shadowwind drew on the ground before the dragon arrived.\n" +
+                      "\n# Do Not Extract These (Examples)\nInput: \"Richiedo il permesso di interrogare la signorina Flameheart.\"\nOutput:\nNo factual information request found.\n" +
+                      "\nInput: \"Signor giudice, membri della giuria...\"\nOutput:\nNo factual information request found.\n" +
+                      "\n# Output Format\n- If a valid, case-relevant request is present, return a concise description of what is being asked for, in plain text.\n- If not, or if input is empty/unrelated/malformed, state \"No factual information request found.\"\n- Return only this textual result, without JSON formatting or extra explanation.\n";
         
-        userPrompt += $"\n\nExamples of what not to extract:\n" +
-                      $"- \"Richiedo il permesso di interrogare la signorina Flameheart.\" → < NULL >\n(this is procedural)" +
-                      $"- \"Signor giudice, membri della giuria...\" → < NULL >\n(Opening statement, not an info request)";
         
         Debug.Log($"Analyze info user prompt:\n" + userPrompt);
         
@@ -133,36 +163,73 @@ public class SentenceAnalyzer : MonoBehaviour
         return answer;
     }
 
-    public async Task<(int, string)> AnalyzeGrantInterventions(List<ChatMessage> chatMessages, string[] mainCharacters)
+    
+    //public async Task<(int, string)> AnalyzeGrantInterventions(List<ChatMessage> chatMessages, string[] mainCharacters)
+    //{
+    //    SwitchMode(Mode.Analyze);
+    //    List<ChatMessage> tmpMessages = chatMessages.Where(x => x.role != "system" && x.role != "Case Description").TakeLast(numOfMessages).ToList();
+    //    string lastCharacter = tmpMessages[^1].role;
+    //    string userPrompt =
+    //        $"Can you extract from the following text:\n{lastCharacter}: {tmpMessages[^1].content.Split("*")[0].Split("<")[0]}\n\n" +
+    //        $"how many interventions {lastCharacter} is granting and who they are giving interventions to?\n\n" +
+    //        $"Follow these steps:\n" +
+    //        $"1 - Determine if the speaker is giving additional interventions. \n" +
+    //        $"2 - If yes, extract the number of granted interventions\n" +
+    //        $"3 - Determine whom character the speaker is talking to; they can be only one of them: {string.Join(" or ", mainCharacters)} or NULL" +
+    //        $"4 - Output your answer in the following format: [here you put the number (put 0 if no interventions are granted) | here you put the character name (put NULL if no interventions are granted)] ";
+    //
+    //    
+    //    if (tmpMessages.Count > 1)
+    //        userPrompt += $"\n\nAdditional context to consider (prior dialogue):\n{string.Join("\n\n", tmpMessages.SkipLast(1).Select(x => $"{x.role}: {x.content.Split("*")[0].Split("<")[0]}."))}";
+    //
+    //    userPrompt += $"\n\nImportant notes:\n" +
+    //                  $"- Remember that {lastCharacter} must explicitly grant a specific number of intervention or accept additional interventions requests.\n" +
+    //                  $"- If the request or grant is not explicit you must give 0 additional interventions";
+    //    
+    //    Debug.Log("Analyze grant user prompt:\n" + userPrompt);
+    //    
+    //    string[] answer = (await llmCharacter.Chat(userPrompt)).Replace("[", "").Replace("]","").Split("|");
+    //    Debug.Log($"Analyze grant answer: {answer[0]} | {answer[1]}" );
+    //    
+    //    return (int.Parse(answer[0]), answer[1]);
+    //}
+    
+        public async Task<(int, string)> AnalyzeGrantInterventions(List<ChatMessage> chatMessages, string[] mainCharacters)
     {
         SwitchMode(Mode.Analyze);
         List<ChatMessage> tmpMessages = chatMessages.Where(x => x.role != "system" && x.role != "Case Description").TakeLast(numOfMessages).ToList();
         string lastCharacter = tmpMessages[^1].role;
         string userPrompt =
-            $"Can you extract from the following text:\n{lastCharacter}: {tmpMessages[^1].content.Split("*")[0].Split("<")[0]}\n\n" +
-            $"how many interventions {lastCharacter} is granting and who they are giving interventions to?\n\n" +
-            $"Follow these steps:\n" +
-            $"1 - Determine if the speaker is giving additional interventions. \n" +
-            $"2 - If yes, extract the number of granted interventions\n" +
-            $"3 - Determine whom character the speaker is talking to; they can be only one of them: {string.Join(" or ", mainCharacters)} or NULL" +
-            $"4 - Output your answer in the following format: [here you put the number (put 0 if no interventions are granted) | here you put the character name (put NULL if no interventions are granted)] ";
+            $"Analyze the following court dialogue:\n{lastCharacter}: {tmpMessages[^1].content.Split("*")[0].Split("<")[0]}\n\n" +
+            $"Determine if the {lastCharacter} is explicitly granting any interventions and identify to whom the intervention is granted.\n\n\n" +
+            $"Instructions:\n" +
+            $"1. Check whether the Judge explicitly grants any interventions during the speaking turn.\n" +
+            $"2. If so, extract the total number of interventions granted (must be a non-negative integer).\n\n" +
+            $"3. Identify the recipient of the intervention. Valid recipients are: {string.Join(" or ", mainCharacters)} or NULL if none are granted. If ambiguous or unspecified, use 'NULL'.\n" +
+            $"4. Output your answer exactly in the format: [number | character name]\n";
 
-        //string userPrompt =
-        //    $"Can you extract from the following text:\n{lastCharacter}: {tmpMessages[^1].content.Split("*")[0].Split("<")[0]}\n\n" +
-        //    $"Your task is to determine if {lastCharacter} the speaker is explicitly granting additional interventions, and if so, to whom.\n\n" +
-        //    $"Follow these steps strictly:\n" +
-        //    $"1 - First, check if the speaker is granting any interventions (do not confuse with requests for interventions; only granting counts).\n" +
-        //    $"2 - If yes, extract the exact number of interventions granted (as an integer).\n" +
-        //    $"3 - Identify the single character to whom the interventions are granted; this character can only be one of: {string.Join(" or ", mainCharacters)}. If no interventions are granted, set this to NULL.\n" +
-        //    $"4 - Always output in this exact format (no extra spaces or text): [number_of_interventions | character_name]. Use 0 and NULL if no interventions are granted.\n" +
-        //    $"5 - If the text is ambiguous, default to 0 | NULL.\n";
         
         if (tmpMessages.Count > 1)
             userPrompt += $"\n\nAdditional context to consider (prior dialogue):\n{string.Join("\n\n", tmpMessages.SkipLast(1).Select(x => $"{x.role}: {x.content.Split("*")[0].Split("<")[0]}."))}";
 
-        userPrompt += $"\n\nImportant notes:\n" +
-                      $"- Remember that {lastCharacter} must explicitly grant a specific number of intervention or accept additional interventions requests.\n" +
-                      $"- If the request or grant is not explicit you must give 0 additional interventions";
+        userPrompt += $"\nNotes:\n" +
+                      $"- Count only explicit and unambiguous interventions granted by the Judge.\n" +
+                      $"- If no interventions are granted or it is unclear, output [0 | NULL].\n" +
+                      $"- Output an integer only (e.g., 1, 2, 0; no decimals).\n" +
+                      $"- Only respond in the format specified, without additional explanations or extra text.\n" +
+                      $"- If the prompt is incomplete, ambiguous, or improperly formatted, output [0 | NULL].";
+
+        userPrompt +=
+            "\n Set reasoning_effort = minimal for this moderately complex classification task. Ensure output strictly matches the required format; if any ambiguity or missing information, output [0 | NULL].\n";
+
+        userPrompt += "\n ## Output Format\n" +
+                      "- Output one line only, exactly in this format:\n" +
+                      "  [number | character name]\n\n" +
+                      "  For example:\n" +
+                      "  [1 | Prosecutor]\n" +
+                      "  [2 | Defense]\n" +
+                      "  [0 | NULL]\n\n" +
+                      "- If the input does not meet requirements, always output [0 | NULL].";
         
         Debug.Log("Analyze grant user prompt:\n" + userPrompt);
         
