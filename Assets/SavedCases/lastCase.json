@@ -26,5 +26,33 @@
     ],
     "additionalInfo": [],
     "language": "italian"
+  },
+  {
+    "title": "Il Caso della Collana Scomparsa",
+    "playerGoal": "Ottenere l’assoluzione completa dell’imputata dalle accuse di furto aggravato.",
+    "summary": "Maria Rossi, domestica in una villa signorile, viene accusata del furto di una preziosa collana appartenente alla proprietaria. La prova principale è la presenza delle sue impronte digitali sul cassetto dove era conservato il gioiello; tuttavia manca qualsiasi registrazione che dimostri quando le abbia lasciate. Il caso ruota attorno a movimenti poco chiari all’interno della casa e testimonianze contraddittorie da parte dei membri dello staff familiare.",
+    "shortSummary": "Maria Rossi è accusata del furto di una costosa collana nella villa dove lavora; prove e testimonianze presentano molte ambiguità sui suoi movimenti e sull’identità reale del colpevole.",
+    "evidence": [
+      "Le impronte digitali dell’imputata trovate sulla maniglia esterna ed interna del cassetto porta-gioie",
+      "La serratura non mostra segni evidenti d’effrazione né risulta forzata durante quella giornata secondo il rapporto degli agenti intervenuti",
+      ". Un orologio antico esposto nell’ingresso risulta sfasato rispetto alle registrazioni video: sembra coprire un intervallo temporale dove la visibilità sulle stanze comuni si interrompe improvvisamente per circa venticinque minuti prima della scoperta."
+    ],
+    "witnessNames": [
+      "Marta Bianchi",
+      "Luca De Santis",
+      "Sofia Lorenzi"
+    ],
+    "witnessDescriptions": [
+      "Marta Bianchi è la proprietaria della villa: elegante ma severa, sostiene con fermezza che solo Maria aveva accesso diretto al portagioie quell’ora mattutina, senza però averla vista effettivamente spostarsi verso lo studio nel momento incriminato.",
+      "Luca De Santis lavora come maggiordomo discreto e metodico; racconta che vide Maria pulire nei pressi dello studio più volte quel giorno ma afferma anche aver notato uno strano trambusto tra i giardinieri intorno allo stesso breve lasso temporale in cui sparì la collana.",
+      "Sofia Lorenzi è giovane governante energica dal tono empatico: dichiara convinta di aver visto qualcun altro entrare velocemente nello scrittoio dai corridoi laterali quando sentiva rumori fortuitamente sovrapposti provenienti dal salone—senza poter identificare chiaramente chi fosse."
+    ],
+    "witnessGenders": [
+      "F",
+      "M",
+      "F"
+    ],
+    "additionalInfo": [],
+    "language": "italian"
   }
 ]
