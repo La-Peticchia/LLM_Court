@@ -309,20 +309,6 @@ public class KokoroTTSManager : MonoBehaviour
 
        // Debug.Log($"Started TTS streaming for: {characterName}");
     }
-
-    public void UpdateStreamingText(string characterName, string currentText)
-    {
-        if (!streamingState.isStreaming || streamingState.character != characterName)
-        {
-            return;
-        }
-
-        string cleanText = CleanAndValidateText(currentText);
-        streamingState.accumulatedText = cleanText;
-
-        ProcessNewSentences();
-    }
-
     public void FinalizeStreamingTTS(string characterName, Action onComplete = null)
     {
         if (!streamingState.isStreaming || streamingState.character != characterName)
@@ -358,6 +344,19 @@ public class KokoroTTSManager : MonoBehaviour
        // Debug.Log($"Finalized TTS streaming for: {characterName}");
     }
 
+    public void UpdateStreamingText(string characterName, string currentText)
+    {
+        if (!streamingState.isStreaming || streamingState.character != characterName)
+        {
+            return;
+        }
+
+        string cleanText = CleanAndValidateText(currentText);
+        streamingState.accumulatedText = cleanText;
+
+        ProcessNewSentences();
+    }
+    
     private void ProcessNewSentences()
     {
         string newText = GetRemainingText();
@@ -471,8 +470,6 @@ public class KokoroTTSManager : MonoBehaviour
 
         return readySegments.Where(s => s != null).ToList();
     }
-
-
 
     private int CountWords(string text)
     {
