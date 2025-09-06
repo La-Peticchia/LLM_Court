@@ -4939,7 +4939,7 @@ MonoBehaviour:
     find the wintess names in the case description specified below\r\n\r\n- The next
     speaker must be directly relevant to the previous statement/question.\r\n\r\n-
     Do not include narration, inner thoughts, or prose.\r\n\r\n- Maintain strategic
-    tension\u2014never act passively.\r\n"
+    tension\u2014never act passively.\r"
   judgePrompt: "Controls turn order unless otherwise directed. May authorize extra
     interventions (2\u20134) for the Prosecutor or Defense; the more interventions
     are requested to them, the less they're generous. Finally, they block excessive
@@ -5777,7 +5777,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1317443167}
   m_HandleRect: {fileID: 1317443166}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -7834,7 +7834,7 @@ MonoBehaviour:
   dontDestroyOnLoad: 0
   contextSize: 8192
   batchSize: 512
-  model: gemma-3-12b-it-Q4_K_M.gguf
+  model: Meta-Llama-3.1-13B-Instruct-abliterated.Q4_K_M.gguf
   chatTemplate: chatml
   lora: 
   loraWeights: 
@@ -7847,7 +7847,7 @@ MonoBehaviour:
   minContextLength: 0
   maxContextLength: 131072
   embeddingsOnly: 0
-  embeddingLength: 3840
+  embeddingLength: 4096
 --- !u!4 &1047848255
 Transform:
   m_ObjectHideFlags: 0
@@ -8764,9 +8764,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   llmCharacter: {fileID: 290782657}
-  analysisPrompt: "You are an AI who analyzes dialogues taken from a courtroom dialogue;
+  analysisPrompt: 'You are an AI who analyzes dialogues taken from a courtroom dialogue;
     the user will specify the dialogue (it could be only one speaker) and you must
-    answer by only writing the format specified by the user. \n"
+    answer by only writing the format specified by the user. /nothink
+
+'
   summaryPrompt: "You are an AI who summarizes dialogues between different characters.
     The user will pass you the dialogue; the whole summary must be ranging from 100
     to 150 words. The dialogue will always take place in a courtroom. \n\n- The summary
