@@ -242,6 +242,7 @@ namespace LLMUnity
         public void SetModel(string path)
         {
             model = GetLLMManagerAsset(path);
+            model = Path.GetFileName(model);
             if (!string.IsNullOrEmpty(model))
             {
                 ModelEntry modelEntry = LLMManager.Get(model);
