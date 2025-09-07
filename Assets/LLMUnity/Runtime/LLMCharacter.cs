@@ -702,6 +702,9 @@ namespace LLMUnity
             ChatRequest request = await PromptWithoutQuery(role);
             string result = await CompletionRequest(request, callback);
 
+            if(result.Contains("</think>"))
+                result = result.Split("</think>")[0];
+            
             if (addToHistory && result != null)
             {
                 await chatLock.WaitAsync();

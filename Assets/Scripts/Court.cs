@@ -274,9 +274,10 @@ public class Court : MonoBehaviour
     public void SetAIText(string text)
     {
         string cleanText = text.Split(_questionCharacter)[0]
-                              .Split(_gameOverCharacter)[0]
                               .Split(_requestCharacter)[0]
-                              .Split(_interventionGrantCharacter)[0];
+                              .Split(_interventionGrantCharacter)[0]
+                              .Replace(_winTag, "")
+                              .Replace(_lossTag, "");
 
         aiText.text = cleanText;
 
@@ -352,6 +353,8 @@ public class Court : MonoBehaviour
                 //Debug.Log($"Finalized TTS streaming for: {ttsCharacterName}");
             }
         }
+        
+
     }
     private void OnInputFieldSubmit(string message)
     {
@@ -383,7 +386,6 @@ public class Court : MonoBehaviour
                 return;
             string message = playerText.text;
             Debug.Log("Message: " + message);
-            llmCharacter.AddPlayerMessage(message);
             playerText.interactable = false;
             characterAnimator.HideCurrentCharacter();
             AddToLog(defenseName, message);
@@ -413,9 +415,9 @@ public class Court : MonoBehaviour
             string verdict = await _sentenceAnalyzer.FinalVerdict(_caseDescription, llmCharacter.chat, _translatedDescription.language, SetAIText, AIReplyComplete);
 
             if (verdict.Contains(_winTag))
-                _pendingEndGameMessage = ("HAI VINTO", Color.green);
+                _pendingEndGameMessage = ("YOU WIN", Color.green);
             else
-                _pendingEndGameMessage = ("HAI PERSO", Color.red);
+                _pendingEndGameMessage = ("YOU LOSE", Color.red);
 
             nextButton.interactable = true;
 
@@ -455,6 +457,8 @@ public class Court : MonoBehaviour
 
             string answer = await llmCharacter.ContinueChat(_roundsTimeline[_round].role, SetAIText, AIReplyComplete);
 
+            Debug.Log(_roundsTimeline[_round].role + ": " + answer);
+            
             if (!_lastPhase) await SetUpNextRound(answer);
 
         }
@@ -475,7 +479,7 @@ public class Court : MonoBehaviour
         if (_roundsTimeline[_round].role.ToLower().Contains(defenseName.ToLower()))
         {
 
-            var nextCharTask = _sentenceAnalyzer.AnalyzeNextCharacter(llmCharacter.chat, characters.ToArray());
+            var nextCharTask = _sentenceAnalyzer.AnalyzeNextCharacter(llmCharacter.chat, (defenseName, text), characters.ToArray());
             if (enableAnalyzeInfo)
             {
                 var infoReqTask = _sentenceAnalyzer.AnalyzeInfoNeeded(llmCharacter.chat, _caseDescription);
@@ -483,6 +487,9 @@ public class Court : MonoBehaviour
             }
             else
                 data[0] = await nextCharTask;
+            
+            llmCharacter.AddPlayerMessage(text + $"<{data[0]}>");
+            
         }
         else
         {
@@ -511,7 +518,7 @@ public class Court : MonoBehaviour
             //else 
             //    data[1] = Regex.Match(text, @"\*(.*?)\*").Groups[1].Value;
 
-            Debug.Log(_roundsTimeline[_round].role + ": " + text);
+            //Debug.Log(_roundsTimeline[_round].role + ": " + text);
             data[0] = Regex.Match(text, @"<([^>]+)>").Groups[1].Value;
 
         }

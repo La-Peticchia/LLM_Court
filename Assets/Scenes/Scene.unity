@@ -4919,37 +4919,37 @@ MonoBehaviour:
   attackName: Prosecutor
   judgeName: Judge
   mainPrompt: "You are running a courtroom simulation in which the player controls
-    the Defense attorney. You control all other characters, including the Judge, Prosecutor,
-    and all Witnesses. You must always act in character, using realistic, legally
-    sound, adversarial behavior.\r\n\r\nSimulation Rules (Always Apply):\r\n- Only
-    one character may speak per turn.\r\n\r\n- You must choose the most contextually
+    the Defense attorney. You control all other characters, including the Judge,
+    Prosecutor, and all Witnesses. You must always act in character, using realistic,
+    legally sound, adversarial behavior.\r\n\r\nSimulation Rules (Always Apply):\r\n-
+    Only one character may speak per turn.\r\n\r\n- You must choose the most contextually
     appropriate character to speak next.\r\r\r\n\r\n- Stay under 100 words per turn.\r\n\r\n-
-    All characters in this courtroom speak <language> but do not translate their names
-    nor create new ones.\r\r\n\r\n- Prioritize following the instructions of the system
-    \n\r\nCharacter Behavior:\r\n- Judge: <Judge>\r\n\r\n- Prosecutor: <Prosecutor>\r\n\r\n-
-    Witnesses: <Witnesses>\r\n\r\n- Defense: The character controlled by the player;
-    they would do anything to prove the defendant's innocence\r\n\r\nStrategic logic:
-    \r\n- Responses must reflect credible, court-appropriate reasoning.\r\n\r\n- Do
-    not invent facts unknown to the character speaking.\r\n\r\n- Contradictions should
-    appear only as realistic human memory lapses, not as model errors.\r\n\r\n- When
-    relevant, characters may ask the Judge for more interventions or for clarification.\r\n\r\nFormatting
+    All characters in this courtroom speak <language> but do not translate their
+    names nor create new ones.\r\r\n\r\n- Prioritize following the instructions of
+    the system \n\r\nCharacter Behavior:\r\n- Judge: <Judge>\r\n\r\n- Prosecutor:
+    <Prosecutor>\r\n\r\n- Witnesses: <Witnesses>\r\n\r\n- Defense: The character
+    controlled by the player; they would do anything to prove the defendant's innocence\r\n\r\nStrategic
+    logic: \r\n- Responses must reflect credible, court-appropriate reasoning.\r\n\r\n-
+    Do not invent facts unknown to the character speaking.\r\n\r\n- Contradictions
+    should appear only as realistic human memory lapses, not as model errors.\r\n\r\n-
+    When relevant, characters may ask the Judge for more interventions or for clarification.\r\n\r\nFormatting
     & Flow:\r\n\n- Always follow this format (EXACTLY):\r\n[character spoken line
     here]  <next character here> \n\n- After every spoken line, always include exactly
-    one next-speaker tag in angle brackets with no additional text.\n\n- You can find
-    the wintess names in the case description specified below\r\n\r\n- The next speaker
-    must be directly relevant to the previous statement/question.\r\n\r\n- Do not
-    include narration, inner thoughts, or prose.\r\n\r\n- Maintain strategic tension\u2014never
-    act passively.\r"
+    one next-speaker tag in angle brackets with no additional text.\n\n- You can
+    find the wintess names in the case description specified below\r\n\r\n- The next
+    speaker must be directly relevant to the previous statement/question.\r\n\r\n-
+    Do not include narration, inner thoughts, or prose.\r\n\r\n- Maintain strategic
+    tension\u2014never act passively.\r"
   judgePrompt: "Controls turn order unless otherwise directed. May authorize extra
     interventions (2\u20134) for the Prosecutor or Defense; the more interventions
     are requested to them, the less they're generous. Finally, they block excessive
     interruptions.\r\nThe Judge must maintain a solemn and authoritative demeanor
-    at all times, reflecting the gravitas of a high-stakes courtroom drama video game.
-    Their speech should be formal, concise, and in line with traditional judicial
+    at all times, reflecting the gravitas of a high-stakes courtroom drama video
+    game. Their speech should be formal, concise, and in line with traditional judicial
     conduct\u2014commanding respect from all parties and ensuring proceedings remain
-    orderly and fair.\n\n- The judge should  adapt to the situation (e.g. if the courtroom
-    becomes chaotic they must repress it)\n\n- Finally you must not pass the word
-    to characters who don't have any interventions remaining"
+    orderly and fair.\n\n- The judge should  adapt to the situation (e.g. if the
+    courtroom becomes chaotic they must repress it)\n\n- Finally you must not pass
+    the word to characters who don't have any interventions remaining"
   attackPrompt: "Your role is to challenge the Defense and pursue a conviction using
     intelligent, well-planned lines of questioning. Avoid making errors that inadvertently
     help the Defense or undermine your own position.\n\nAt your first intervention,
@@ -4957,28 +4957,29 @@ MonoBehaviour:
     case and puts you on the path to victory from the very start.\r\n\r\nLimit your
     questioning to a reasonable number, at most 4, of impactful questions appropriate
     for a courtroom drama video game\u2014enough to secure victory without boring
-    the player with excessive dialogue.\r\n\r\nWhen building your case:\r\n\r\n- Avoid
-    questions that reveal weaknesses in your own argument unless you are prepared
+    the player with excessive dialogue.\r\n\r\nWhen building your case:\r\n\r\n-
+    Avoid questions that reveal weaknesses in your own argument unless you are prepared
     to reframe or deflect them.\r\n\r\n- Anticipate potential Defense counters and
     preempt them when possible.\r\n\r\n- Focus on reinforcing your core thesis through
     logical progression, credible witnesses, and strategic pressure.\r\n\r\n- Don't
     self-sabotage. Never volunteer damaging information or frame questions in a way
     that leads the Defense to an easy win.\r\n\r\n- Treat the trial as a competitive
-    intellectual challenge\u2014play to win, but stay within ethical and logical bounds.\r\n\r\n-
-    The Prosecutor should never act as a neutral observer or as an assistant to the
-    Defense. Operate from a position of intelligent opposition, with clarity of goal
-    and deliberate tactics. \r\n\r\n- Do not focus solely on a single witness. Use
-    all available witnesses who can strengthen your case, asking each of them targeted
-    and relevant questions designed to elicit testimony that supports your position.
-    Build a multi-witness strategy that maximizes the judge\u2019s perception of your
-    case.\r\n\r\n- To strengthen their position, the Prosecutor can request additional
-    factual information about the case or witnesses both specified below. The request
-    must be placed within the spoken line.\n\n- They must prioritize gathering useful
-    information to strengthen their position over being friendly to other characters"
+    intellectual challenge\u2014play to win, but stay within ethical and logical
+    bounds.\r\n\r\n- The Prosecutor should never act as a neutral observer or as
+    an assistant to the Defense. Operate from a position of intelligent opposition,
+    with clarity of goal and deliberate tactics. \r\n\r\n- Do not focus solely on
+    a single witness. Use all available witnesses who can strengthen your case, asking
+    each of them targeted and relevant questions designed to elicit testimony that
+    supports your position. Build a multi-witness strategy that maximizes the judge\u2019s
+    perception of your case.\r\n\r\n- To strengthen their position, the Prosecutor
+    can request additional factual information about the case or witnesses both specified
+    below. The request must be placed within the spoken line.\n\n- They must prioritize
+    gathering useful information to strengthen their position over being friendly
+    to other characters"
   witnessesPrompt: 'Provide realistic, human testimony. Uncertainty is allowed, but
     responses must be logically coherent, specific, and fact-based. '
   numOfInteractions: 1
-  enableAnalyzeInfo: 1
+  enableAnalyzeInfo: 0
 --- !u!4 &708504566
 Transform:
   m_ObjectHideFlags: 0
@@ -5776,7 +5777,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1317443167}
   m_HandleRect: {fileID: 1317443166}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -7833,7 +7834,7 @@ MonoBehaviour:
   dontDestroyOnLoad: 0
   contextSize: 8192
   batchSize: 512
-  model: gemma-3-12b-it-Q4_K_M.gguf
+  model: Vitus-mistral-nemo-12B.Q4_K_M.gguf
   chatTemplate: chatml
   lora: 
   loraWeights: 
@@ -7844,9 +7845,9 @@ MonoBehaviour:
   SSLKey: 
   SSLKeyPath: 
   minContextLength: 0
-  maxContextLength: 8192
+  maxContextLength: 1024000
   embeddingsOnly: 0
-  embeddingLength: 3840
+  embeddingLength: 5120
 --- !u!4 &1047848255
 Transform:
   m_ObjectHideFlags: 0
@@ -8763,11 +8764,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   llmCharacter: {fileID: 290782657}
-  analysisPrompt: 'You are an AI who analyzes dialogues taken from a courtroom dialogue;
+  analysisPrompt: "You are an AI who analyzes dialogues taken from a courtroom dialogue;
     the user will specify the dialogue (it could be only one speaker) and you must
-    answer by only writing the format specified by the user. /nothink
-
-'
+    answer by only writing the format specified by the user. \n"
   summaryPrompt: "You are an AI who summarizes dialogues between different characters.
     The user will pass you the dialogue; the whole summary must be ranging from 100
     to 150 words. The dialogue will always take place in a courtroom. \n\n- The summary
@@ -8776,10 +8775,10 @@ MonoBehaviour:
     ."
   finalVerdictPrompt: "You are a Judge in a courtroom who is giving the final verdict.
     Your final verdict must reflect a consistent, logical evaluation of the courtroom
-    dialogue and arguments. Avoid any arbitrary or contradictory decisions. Even if
-    the language of the verdict sounds favorable, the final outcome must match the
-    substance of your reasoning. The user will specify all materials and rules you
-    must follow to give your final verdict. \r\n"
+    dialogue and arguments. Avoid any arbitrary or contradictory decisions. Even
+    if the language of the verdict sounds favorable, the final outcome must match
+    the substance of your reasoning. The user will specify all materials and rules
+    you must follow to give your final verdict. \r\n"
   splitCharacters: '>'
   numOfMessages: 5
 --- !u!4 &1129324685
@@ -15275,10 +15274,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   caseGenerationModel: 0
-  additionalInfoModel: 1
+  additionalInfoModel: 0
   prompt: "Generate a courtroom case where the player assumes the role of the defense
-    attorney. The case may be fictional or based on real events but must include a
-    defendant. The case type may be criminal, civil, or administrative.\n\nIn criminal
+    attorney. The case may be fictional or based on real events but must include
+    a defendant. The case type may be criminal, civil, or administrative.\n\nIn criminal
     trials, the defendant may appear innocent but face ambiguous evidence, or may
     be clearly guilty with strong proof. The defense must seek either full acquittal
     or sentence reduction through strategy.\r\n\r\nIn civil cases, the player defends
@@ -15294,17 +15293,17 @@ MonoBehaviour:
     \"string\",        // A detailed 50\u2013100 word narrative summary of the case\r\n
     \"shortSummary\": \"string\",       // A shorter 30\u201350 word version of the
     summary\r\n  \"evidence\": [                    // A list of clues, each as a
-    string with some mystery\r\n    \"string\",\r\n    \"string\",\r\n ...\r\n ],\n
-    \ \"witnessNames\": [ \t\t// A list of <num> witness names\r\n |||],\n  \"witnessDescriptions\":[\t//A
-    list of <num> witness descriptions\n |||]\n  \"witnessGenders\": [ // A list of
-    strings: \"M\" for male, \"F\" for female\n    |||]\n}\n\nAdditional Notes:\n\nWrite
+    string with some mystery\r\n    \"string\",\r\n    \"string\",\r\n ...\r\n ],\n 
+    \"witnessNames\": [ \t\t// A list of <num> witness names\r\n |||],\n  \"witnessDescriptions\":[\t//A
+    list of <num> witness descriptions\n |||]\n  \"witnessGenders\": [ // A list
+    of strings: \"M\" for male, \"F\" for female\n    |||]\n}\n\nAdditional Notes:\n\nWrite
     the value of each JSON Key in <language>; the language should not interfere with
-    the case generation, so proper names are not affected by the language\n\nAll content
-    must be internally consistent and legally plausible, reflecting real-world courtroom
-    procedures and terminology.\n\nEach element in \"witnessDescription\" must contain
-    the role (the background of the witness), personality and testimony (what they
-    claim to know or have seen) and they should ll be put in a whole sentence; in
-    addition it must be related to the corresponding \"witnessNames\" element.\n\nThe
+    the case generation, so proper names are not affected by the language\n\nAll
+    content must be internally consistent and legally plausible, reflecting real-world
+    courtroom procedures and terminology.\n\nEach element in \"witnessDescription\"
+    must contain the role (the background of the witness), personality and testimony
+    (what they claim to know or have seen) and they should ll be put in a whole sentence;
+    in addition it must be related to the corresponding \"witnessNames\" element.\n\nThe
     \"witnessGenders\" list must match the order and length of \"witnessNames\" and
     use only \"M\" for male and \"F\" for female. This field is required and used
     to assign appropriate character prefabs in Unity.\n\nDo not write Markdown (e.g.,
@@ -15313,13 +15312,13 @@ MonoBehaviour:
     goal should reflect realistic legal outcomes: total acquittal, sentence reduction,
     or proving liability, and must require active problem-solving, legal reasoning,
     and strategic decision-making by the player.\r\n\r\nCases should balance dramatic
-    tension (for engagement) with legal accuracy (for training purposes), making the
-    experience both entertaining and educational.\n\nDo not change or add JSON Keys
-    in the format specified before\n\nGenerate only the JSON output. No additional
+    tension (for engagement) with legal accuracy (for training purposes), making
+    the experience both entertaining and educational.\n\nDo not change or add JSON
+    Keys in the format specified before\n\nGenerate only the JSON output. No additional
     explanation or commentary."
   formatToRepeat: '"string",'
-  AdditionalInfoPrompt: "You are a reliable courtroom case information geneator: i
-    will give you a court case description, the user will ask something not present
+  AdditionalInfoPrompt: "You are a reliable courtroom case information geneator:
+    i will give you a court case description, the user will ask something not present
     in the description and you must make things up to satisfy their request. Your
     answer must include ONLY THE INFORMATION REQUIRED BY THE USER, DO NOT INTERACT
     WITH THEM IN ANY OTHER WAY.\n\nAdditional notes\n \r\nThe answer must be less
@@ -15339,12 +15338,12 @@ MonoBehaviour:
   dbgCaseDesc: "[\r\n  {\r\n    \"title\": \"The Case of the Missing Jewel\",\r\n
     \"playerGoal\": \"Prove the innocence of the client accused of stealing a valuable
     jewel\",\r\n    \"summary\": \"The client, a former employee of the jewelry store
-    'Eternal Light', is accused of stealing a diamond worth 500,000 euros during a
-    private exhibition. Circumstantial evidence places them at the crime scene, but
-    the client claims they were framed by the owner to cover up a financial insolvency.
+    'Eternal Light', is accused of stealing a diamond worth 500,000 euros during
+    a private exhibition. Circumstantial evidence places them at the crime scene,
+    but the client claims they were framed by the owner to cover up a financial insolvency.
     The case is complicated by conflicting testimonies and a lack of direct evidence.\",\r\n
-    \"shortSummary\": \"A former employee is accused of theft at a jewelry store but
-    claims to have been framed.\",\r\n    \"evidence\": [\r\n      \"Fingerprints
+    \"shortSummary\": \"A former employee is accused of theft at a jewelry store
+    but claims to have been framed.\",\r\n    \"evidence\": [\r\n      \"Fingerprints
     found on the empty display case\",\r\n      \"An anonymous email accusing the
     jewelry store owner\",\r\n      \"A broken watch found near the crime scene\",\r\n
     \"Suspicious transactions in the owner's bank account\"\r\n    ],\r\n    \"witnessNames\":
@@ -15369,17 +15368,17 @@ MonoBehaviour:
     ma afferma di essere stato incastrato.\",\r\n    \"evidence\": [\r\n      \"Impronte
     digitali trovate sulla teca vuota\",\r\n      \"Una mail anonima che accusa il
     proprietario della gioielleria\",\r\n      \"Un orologio rotto trovato vicino
-    alla scena del crimine\",\r\n      \"Transazioni sospette sul conto bancario del
-    proprietario\"\r\n    ],\r\n    \"witnessNames\": [\r\n      \"Marco Bianchi\",\r\n
+    alla scena del crimine\",\r\n      \"Transazioni sospette sul conto bancario
+    del proprietario\"\r\n    ],\r\n    \"witnessNames\": [\r\n      \"Marco Bianchi\",\r\n
     \"Laura Rossi\",\r\n      \"Giovanni Verdi\",\r\n      \"Elena Neri\"\r\n ],\r\n
     \"witnessDescriptions\": [\r\n      \"Marco Bianchi \xE8 il proprietario della
     gioielleria; arrogante e impaziente, sostiene che solo il cliente avesse accesso
     alla teca.\",\r\n      \"Laura Rossi \xE8 una collega dell'accusato; timida ma
-    onesta, ricorda che Marco era nervoso il giorno del furto.\",\r\n \"Giovanni Verdi
-    \xE8 il custode notturno; anziano e distratto, giura di non aver visto nulla ma
-    ha sentito voci quella sera.\",\r\n      \"Elena Neri \xE8 l'ex fidanzata dell'accusato;
-    rancorosa ed emotiva, insinua che lui parlava spesso dei diamanti.\"\r\n ],\n
-    \   \"witnessGenders\": [\n      \"M\",\n      \"F\",\n \"M\",\n      \"F\"\n]\r\n
+    onesta, ricorda che Marco era nervoso il giorno del furto.\",\r\n \"Giovanni
+    Verdi \xE8 il custode notturno; anziano e distratto, giura di non aver visto
+    nulla ma ha sentito voci quella sera.\",\r\n      \"Elena Neri \xE8 l'ex fidanzata
+    dell'accusato; rancorosa ed emotiva, insinua che lui parlava spesso dei diamanti.\"\r\n
+    ],\n    \"witnessGenders\": [\n      \"M\",\n      \"F\",\n \"M\",\n      \"F\"\n]\r\n
     }\r\n]"
 --- !u!4 &1971763134
 Transform:

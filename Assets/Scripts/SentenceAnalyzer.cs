@@ -54,19 +54,19 @@ public class SentenceAnalyzer : MonoBehaviour
         
     }
 
-    public async Task<string> AnalyzeNextCharacter(List<ChatMessage> chatMessages, string[] characters)
+    public async Task<string> AnalyzeNextCharacter(List<ChatMessage> chatMessages, (string character, string content) newEntry, string[] characters)
     {
         SwitchMode(Mode.Analyze);
         List<ChatMessage> tmpMessages = chatMessages.Where(x => x.role != "system").TakeLast(numOfMessages).ToList();
-        string lastCharacter = tmpMessages[^1].role;
+        string lastCharacter = newEntry.character;
         characters = characters.Where(x => !x.ToLower().Contains(lastCharacter.ToLower())).ToArray();
         string userPrompt =
-            $"Can you extract from the following text:\n{lastCharacter}: {tmpMessages[^1].content}\n\n" +
+            $"Can you extract from the following text:\n{lastCharacter}: {newEntry.content}\n\n" +
             $"which one of the following characters:\n-{string.Join("\n-", characters)}\n" +
             $"is {lastCharacter} talking to?\n\n";
 
         if (tmpMessages.Count > 1)
-            userPrompt += $"To better answer my question you can take into account the following dialogue which is prior to the text I specified before:\n{string.Join("\n\n", tmpMessages.SkipLast(1).Select(x => $"{x.role}: {x.content}"))}";
+            userPrompt += $"To better answer my question you can take into account the following dialogue which is prior to the text I specified before:\n{string.Join("\n\n", tmpMessages.Select(x => $"{x.role}: {x.content}"))}";
                           
         userPrompt += $"You can write the answer in this format: \n< Name of character >";
         
@@ -75,12 +75,17 @@ public class SentenceAnalyzer : MonoBehaviour
         Debug.Log($"Analyze char user prompt:\n" + userPrompt);
         
         
-        string answer = await llmCharacter.Chat(userPrompt);
+        string answer = (await llmCharacter.Chat(userPrompt)).Replace("\n", "");
+        
+        if(answer.Contains("<think>"))
+            answer = answer.Split("</think>")[1];
+        
         Debug.Log("Analyze char answer: " + answer);
         
         var match = Regex.Match(answer,@"<([^>]+)>");
         if (match.Success)
             return match.Groups[1].Value;
+        
         
         return answer;
         
@@ -154,7 +159,13 @@ public class SentenceAnalyzer : MonoBehaviour
         Debug.Log($"Analyze info user prompt:\n" + userPrompt);
         
         string answer = await llmCharacter.Chat(userPrompt);
+        
         Debug.Log("Analyze info answer: " + answer);
+
+        if(answer.Contains("<think>"))
+            answer = answer.Split("</think>")[1];
+
+        
         
         var match = Regex.Match(answer,@"<([^>]+)>");
         if (match.Success)
@@ -290,11 +301,13 @@ public class SentenceAnalyzer : MonoBehaviour
                             $"- To declare a loss you must write this tag: #LOSS.\n" +
                             $"- You can put the chosen tag at the end of your answer \n\n";
 
-        userPrompt = $"Language:\nThe judge speaks {language} so your answer must be written in this language";
+        userPrompt += $"Language:\nThe judge speaks {language} so your answer must be written in this language";
         
         Debug.Log("Final verdict user prompt:\n" + userPrompt);
 
         string answer = await llmCharacter.Chat(userPrompt, callback, completionCallback);
+        if(answer.Contains("<think>"))
+            answer = answer.Split("</think>")[1];
         
         Debug.Log("Final verdict answer:\n" + answer);
         
