@@ -9,6 +9,7 @@ public class SavePopupUI : MonoBehaviour
     [SerializeField] private GameObject popupPanel;
     [SerializeField] private Button yesButton;
     [SerializeField] private Button noButton;
+    [SerializeField] private Button backButton; 
 
     private SaveSystem _saveSystem;
     private Court _court;
@@ -32,6 +33,7 @@ public class SavePopupUI : MonoBehaviour
 
         yesButton.onClick.AddListener(OnYesClicked);
         noButton.onClick.AddListener(OnNoClicked);
+        if (backButton != null) backButton.onClick.AddListener(CancelPopup); 
 
         popupPanel.SetActive(false);
     }

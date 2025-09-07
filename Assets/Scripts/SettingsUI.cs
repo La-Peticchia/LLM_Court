@@ -5,6 +5,7 @@ using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.EventSystems;
 using LLMUnity;
+using System.Collections;
 
 public class SettingsUI : MonoBehaviour
 {
@@ -14,12 +15,15 @@ public class SettingsUI : MonoBehaviour
     [SerializeField] private GameObject audioSettingsPanel;
     [SerializeField] private Court court;
     [SerializeField] private SavePopupUI savePopupUI;
+    [SerializeField] private GameObject loadingCanvas; // Reference to loading UI
 
     [SerializeField] private Button returnToMenuButton;
     [SerializeField] private Button settingsButton;
     [SerializeField] private Button audioSettingsButton;
     [SerializeField] private Button resetVolumeButton;
     [SerializeField] private Button retryButton;
+    [SerializeField] private Button backFromAudioButton;
+    [SerializeField] private Button backFromMainButton;
 
     [Header("Audio Controls")]
     [SerializeField] private Toggle masterMuteToggle;
@@ -32,7 +36,6 @@ public class SettingsUI : MonoBehaviour
 
     [Header("Audio Test")]
     [SerializeField] private string testSFXName = "button_click";
-
 
     private const string MASTER_VOLUME_KEY = "MasterVolume";
     private const string BG_VOLUME_KEY = "MusicVolume";
@@ -56,11 +59,18 @@ public class SettingsUI : MonoBehaviour
         mainSettingsPanel.SetActive(true);
         audioSettingsPanel.SetActive(false);
 
+        // Make sure loading canvas is initially hidden
+        if (loadingCanvas != null)
+            loadingCanvas.SetActive(false);
+
         settingsButton?.onClick.AddListener(OpenSettings);
         returnToMenuButton.onClick.AddListener(ReturnToMainMenu);
         audioSettingsButton.onClick.AddListener(OpenAudioSettings);
         resetVolumeButton.onClick.AddListener(ResetVolumesToDefault);
         retryButton.onClick.AddListener(RetrySameCase);
+
+        if (backFromAudioButton != null) backFromAudioButton.onClick.AddListener(CloseAudioSettings);
+        if (backFromMainButton != null) backFromMainButton.onClick.AddListener(CloseSettings);
 
         if (masterMuteToggle != null)
             masterMuteToggle.onValueChanged.AddListener(OnMasterMuteChanged);
@@ -99,6 +109,23 @@ public class SettingsUI : MonoBehaviour
             Debug.Log($"[RETRY] Seed originale: {CaseMemory.OriginalSeed}, Nuovo seed: {newAISeed}");
         }
 
+        // Show loading UI before scene reload
+        ShowLoadingAndReload();
+    }
+
+    private void ShowLoadingAndReload()
+    {
+        settingsUI.SetActive(false);
+
+        if (loadingCanvas != null)
+            loadingCanvas.SetActive(true);
+
+        StartCoroutine(ReloadSceneWithDelay());
+    }
+
+    private IEnumerator ReloadSceneWithDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -139,12 +166,12 @@ public class SettingsUI : MonoBehaviour
         float masterVolume = PlayerPrefs.GetFloat(MASTER_VOLUME_KEY, DEFAULT_MASTER_VOLUME);
         float musicVolume = PlayerPrefs.GetFloat(BG_VOLUME_KEY, DEFAULT_MUSIC_VOLUME);
         float sfxVolume = PlayerPrefs.GetFloat(SFX_VOLUME_KEY, DEFAULT_SFX_VOLUME);
-        bool isMasterMuted = PlayerPrefs.GetInt(MASTER_MUTE_KEY, 0) == 1;  // NUOVO
+        bool isMasterMuted = PlayerPrefs.GetInt(MASTER_MUTE_KEY, 0) == 1;
 
         masterVolumeSlider.SetValueWithoutNotify(masterVolume);
         BGVolumeSlider.SetValueWithoutNotify(musicVolume);
         sfxVolumeSlider.SetValueWithoutNotify(sfxVolume);
-        if (masterMuteToggle != null) masterMuteToggle.SetIsOnWithoutNotify(isMasterMuted);  // NUOVO
+        if (masterMuteToggle != null) masterMuteToggle.SetIsOnWithoutNotify(isMasterMuted);
 
         masterVolumeInputField.SetTextWithoutNotify(Mathf.RoundToInt(masterVolume).ToString());
         BGVolumeInputField.SetTextWithoutNotify(Mathf.RoundToInt(musicVolume).ToString());
