@@ -54,19 +54,19 @@ public class SentenceAnalyzer : MonoBehaviour
         
     }
 
-    public async Task<string> AnalyzeNextCharacter(List<ChatMessage> chatMessages, string[] characters)
+    public async Task<string> AnalyzeNextCharacter(List<ChatMessage> chatMessages, (string character, string content) newEntry, string[] characters)
     {
         SwitchMode(Mode.Analyze);
         List<ChatMessage> tmpMessages = chatMessages.Where(x => x.role != "system").TakeLast(numOfMessages).ToList();
-        string lastCharacter = tmpMessages[^1].role;
+        string lastCharacter = newEntry.character;
         characters = characters.Where(x => !x.ToLower().Contains(lastCharacter.ToLower())).ToArray();
         string userPrompt =
-            $"Can you extract from the following text:\n{lastCharacter}: {tmpMessages[^1].content}\n\n" +
+            $"Can you extract from the following text:\n{lastCharacter}: {newEntry.content}\n\n" +
             $"which one of the following characters:\n-{string.Join("\n-", characters)}\n" +
             $"is {lastCharacter} talking to?\n\n";
 
         if (tmpMessages.Count > 1)
-            userPrompt += $"To better answer my question you can take into account the following dialogue which is prior to the text I specified before:\n{string.Join("\n\n", tmpMessages.SkipLast(1).Select(x => $"{x.role}: {x.content}"))}";
+            userPrompt += $"To better answer my question you can take into account the following dialogue which is prior to the text I specified before:\n{string.Join("\n\n", tmpMessages.Select(x => $"{x.role}: {x.content}"))}";
                           
         userPrompt += $"You can write the answer in this format: \n< Name of character >";
         
@@ -75,12 +75,17 @@ public class SentenceAnalyzer : MonoBehaviour
         Debug.Log($"Analyze char user prompt:\n" + userPrompt);
         
         
-        string answer = await llmCharacter.Chat(userPrompt);
+        string answer = (await llmCharacter.Chat(userPrompt)).Replace("\n", "");
+        
+        if(answer.Contains("<think>"))
+            answer = answer.Split("</think>")[1];
+        
         Debug.Log("Analyze char answer: " + answer);
         
         var match = Regex.Match(answer,@"<([^>]+)>");
         if (match.Success)
             return match.Groups[1].Value;
+        
         
         return answer;
         
@@ -144,17 +149,23 @@ public class SentenceAnalyzer : MonoBehaviour
         userPrompt +=
             $"\n# Instructions\nGiven the following input:\n\"{lastCharacter}: {tmpMessages[^1].content.Split("*")[0].Split("<")[0]}\"\n\nIdentify any specific factual information the {lastCharacter} is seeking about the case description or witnesses.\n\nContext:\n- Case description: \"{caseDescription.GetTotalDescription(new []{0,2,3,4})}\"\n- Prior dialogue: \"{string.Join("\n\n", tmpMessages.SkipLast(1).Select(x => $"{x.role}: {x.content.Split("*")[0].Split("<")[0]}."))}\"\n";
 
-        userPrompt += "\nFollow these steps:\n1. Determine whether the speaker is making a factual, case-related information request. If not, respond as per Output Format guidelines.\n2. If so, extract only the core factual information requests and ignore rhetorical or procedural content.\n3. If the request mentions a character (e.g., what someone saw, heard, or did), specify that character's full name in your output; avoid pronouns.\n4. Disregard requests that are generic (e.g., \"More information\"), procedural (e.g., requesting permission), or irrelevant to the facts of the case.\n5. Only include requests that seek specific details or clues important for confirming or disproving any aspect of the case (e.g., actions, times, locations, observations, sounds).\n6. If the input, or [text to extract], is empty, malformed, or contains no factual information request, respond per Output Format.\n\nAfter extraction, validate that the output correctly reflects whether a factual request was found and that it is concise and specific. If validation fails, correct the output before returning.\n" +
+        userPrompt += "\nFollow these steps:\n1. Determine whether the speaker is making a factual, case-related information request. If not, respond as per Output Format guidelines.\n2. If so, extract only the core factual information requests and ignore rhetorical or procedural content.\n3. If the request mentions a character (e.g., what someone saw, heard, or did), specify that character's full name in your output; avoid pronouns.\n4. Disregard requests that are generic (e.g., \"More information\"), procedural (e.g., requesting permission), or irrelevant to the facts of the case.\n5. Only include requests that seek specific details or clues important for confirming or disproving any aspect of the case (e.g., actions, times, locations, observations, sounds).\n6. If the input given before, is empty, malformed, or contains no factual information request, respond per Output Format.\n\nAfter extraction, validate that the output correctly reflects whether a factual request was found and that it is concise and specific. If validation fails, correct the output before returning.\n" +
                       "\n# Good Extraction Example\nInput:\nProsecutor: \"Signorina Flameheart, ha visto se Alaric Shadowwind tracciava dei simboli sul terreno prima dell’arrivo del drago? Se sì, può descriverli?\"\nOutput:\nA description of any symbols Alaric Shadowwind drew on the ground before the dragon arrived.\n" +
-                      "\n# Do Not Extract These (Examples)\nInput: \"Richiedo il permesso di interrogare la signorina Flameheart.\"\nOutput:\nNo factual information request found.\n" +
-                      "\nInput: \"Signor giudice, membri della giuria...\"\nOutput:\nNo factual information request found.\n" +
-                      "\n# Output Format\n- If a valid, case-relevant request is present, return a concise description of what is being asked for, in plain text.\n- If not, or if input is empty/unrelated/malformed, state \"No factual information request found.\"\n- Return only this textual result, without JSON formatting or extra explanation.\n";
+                      "\n# Do Not Extract These (Examples)\nInput: \"Richiedo il permesso di interrogare la signorina Flameheart.\"\nOutput:\nNULL\n" +
+                      "\nInput: \"Signor giudice, membri della giuria...\"\nOutput:\nNULL\n" +
+                      "\n# Output Format\n- If a valid, case-relevant request is present, return a concise description of what is being asked for, in plain text.\n- If not, or if input is empty/unrelated/malformed, state \"NULL\"\n- Return only this textual result, without JSON formatting or extra explanation.\n";
         
         
         Debug.Log($"Analyze info user prompt:\n" + userPrompt);
         
         string answer = await llmCharacter.Chat(userPrompt);
+        
         Debug.Log("Analyze info answer: " + answer);
+
+        if(answer.Contains("<think>"))
+            answer = answer.Split("</think>")[1];
+
+        
         
         var match = Regex.Match(answer,@"<([^>]+)>");
         if (match.Success)
@@ -233,10 +244,17 @@ public class SentenceAnalyzer : MonoBehaviour
         
         Debug.Log("Analyze grant user prompt:\n" + userPrompt);
         
-        string[] answer = (await llmCharacter.Chat(userPrompt)).Replace("[", "").Replace("]","").Split("|");
-        Debug.Log($"Analyze grant answer: {answer[0]} | {answer[1]}" );
         
-        return (int.Parse(answer[0]), answer[1]);
+        string answer = await llmCharacter.Chat(userPrompt);
+        
+        if(answer.Contains("<think>"))
+            answer = answer.Split("</think>")[1];
+        
+        string[] answers = (answer).Replace("[", "").Replace("]","").Split("|");
+        
+        Debug.Log($"Analyze grant answer: {answers[0]} | {answers[1]}" );
+        
+        return (int.Parse(answers[0]), answers.Length == 2 ? answers[1] : "");
     }
     
     public async Task<string> Summarize(List<ChatMessage> chatMessages)
@@ -283,11 +301,13 @@ public class SentenceAnalyzer : MonoBehaviour
                             $"- To declare a loss you must write this tag: #LOSS.\n" +
                             $"- You can put the chosen tag at the end of your answer \n\n";
 
-        userPrompt = $"Language:\nThe judge speaks {language} so your answer must be written in this language";
+        userPrompt += $"Language:\nThe judge speaks {language} so your answer must be written in this language";
         
         Debug.Log("Final verdict user prompt:\n" + userPrompt);
 
         string answer = await llmCharacter.Chat(userPrompt, callback, completionCallback);
+        if(answer.Contains("<think>"))
+            answer = answer.Split("</think>")[1];
         
         Debug.Log("Final verdict answer:\n" + answer);
         

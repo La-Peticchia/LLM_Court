@@ -651,7 +651,7 @@ public class KokoroTTSManager : MonoBehaviour
 
     public void StopAllSpeech()
     {
-        Debug.Log("Stopping all TTS speech...");
+        //Debug.Log("Stopping all TTS speech...");
 
         if (currentAudioSource != null && currentAudioSource.isPlaying)
         {
@@ -661,7 +661,7 @@ public class KokoroTTSManager : MonoBehaviour
         streamingState.Clear();
         currentSpeakingCharacter = "";
 
-        Debug.Log("TTS speech stopped");
+        //Debug.Log("TTS speech stopped");
     }
 
     /*public bool IsAnySpeaking()

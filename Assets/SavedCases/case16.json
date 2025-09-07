@@ -1,0 +1,42 @@
+[
+  {
+    "title": "The Mystery of the Missing Violin",
+    "playerGoal": "Prove the innocence of the client accused of art theft",
+    "summary": "The famous violin 'Aurora', worth millions, disappeared during a private performance. Your client, master luthier Lorenzo Marchesi, is accused of theft. Circumstantial evidence places him at the scene, but there's no smoking gun. Two contradictory witnesses complicate the case: one claims to have seen him fleeing with a suspicious backpack, while the other swears to his innocence. You'll need to dismantle the accusations by examining every detail.",
+    "shortSummary": "A luthier is accused of stealing a valuable violin during a concert. Ambiguous evidence and conflicting witnesses make this case complex.",
+    "evidence": [
+      "Partial fingerprints on the display case glass",
+      "An anonymous note mentioning 'the sound of Aurora' found in the client's workshop",
+      "Surveillance footage of a hooded figure leaving the scene",
+      "Purchase receipt for unusual materials signed by the client"
+    ],
+    "witnessNames": [
+      "Giulia Conti",
+      "Marco Bianchi"
+    ],
+    "witnessDescriptions": [
+      "Giulia Conti, event organizer and ex-girlfriend of the client, described as emotional but precise, testifies that she saw Lorenzo approach the display case shortly before the theft with nervous movements.",
+      "Marco Bianchi, night watchman with a gruff but honest demeanor, states that he personally checked the empty room that evening and found no signs of break-in, arguing that it was physically impossible for Lorenzo to have stolen it."
+    ]
+  },
+  {
+    "title": "Il Mistero del Violino Scomparso",
+    "playerGoal": "Dimostrare l'innocenza del cliente accusato di furto d'arte",
+    "summary": "Il famoso violino 'Aurora', valutato milioni, è scomparso durante un'esibizione privata. Il tuo cliente, il maestro liutaio Lorenzo Marchesi, è accusato del furto. Le prove circostanziali lo collocano sulla scena, ma manca una prova schiacciante. Due testimoni contraddittori complicano il caso: uno sostiene di averlo visto fuggire con uno zaino sospetto, l'altro giura sulla sua innocenza. Dovrai smontare le accuse esaminando ogni dettaglio.",
+    "shortSummary": "Un liutaio è accusato di rubare un violino prezioso durante un concerto. Prove ambigue e testimoni contrastanti rendono il caso complesso.",
+    "evidence": [
+      "Impronte digitali parziali sul vetro della teca espositiva",
+      "Un biglietto anonimo che menziona 'il suono dell'Aurora' trovato nell'officina del cliente",
+      "Video sorveglianza con una figura incappucciata che lascia la scena",
+      "Ricevuta d'acquisto per materiali insoliti firmata dal cliente"
+    ],
+    "witnessNames": [
+      "Giulia Conti",
+      "Marco Bianchi"
+    ],
+    "witnessDescriptions": [
+      "Giulia Conti, organizzatrice dell'evento e ex fidanzata del cliente, descritta come emotiva ma precisa, testimonia di aver visto Lorenzo avvicinarsi alla teca poco prima del furto con movimenti nervosi.",
+      "Marco Bianchi, custode notturno dal carattere burbero ma onesto, afferma che quella sera ha controllato personalmente la sala vuota e non c'erano segni effrazione, sostenendo l'impossibilità fisica del furto da parte di Lorenzo."
+    ]
+  }
+]

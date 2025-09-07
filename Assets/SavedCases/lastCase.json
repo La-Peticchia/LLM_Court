@@ -1,74 +1,60 @@
 [
   {
-    "title": "The Warehouse Explosion: People v. Luca Ferraro",
-    "playerGoal": "Achieve a full acquittal for the defendant, proving that he was not responsible for the explosion.",
-    "summary": "Luca Ferraro, an experienced warehouse supervisor, stands accused in a criminal trial after a devastating chemical explosion injured five workers and caused significant property damage. The prosecution alleges negligence and possible sabotage linked to missing safety logs and confidential emails about hazardous materials storage. However, ambiguous security footage contradicts some witness accounts while gaps exist in documentation regarding maintenance reports prior to the disaster. The defense must unravel complex procedural issues with evidence handling and argue alternative theories of causation under intense media scrutiny.",
-    "shortSummary": "Luca Ferraro is charged with causing a deadly warehouse explosion despite uncertain proof; conflicting witnesses & incomplete records create doubt as you defend him against serious allegations.",
+    "title": "Crime in the Shadow of the Bridge",
+    "playerGoal": "Prove that the defendant is not guilty of murder and obtain full acquittal.",
+    "summary": "On a rainy night, Matteo Cosenti’s body is found under Rose Bridge. The defendant, Sara Bellini—a former colleague of the victim and last person seen with him according to faulty street cameras—is accused of murder. A work-related argument fuels suspicion against Sara; however, forensic evidence remains controversial: no direct trace links her physically to where he died and one key witness has given inconsistent statements. The player must carefully analyze ambiguous clues while facing media pressure and procedural mistakes.",
+    "shortSummary": "Sara Bellini stands trial for killing a former colleague under Rose Bridge. Contradictory evidence calls into question her alleged guilt as hints suggest others may be involved in the crime.",
     "evidence": [
-      "Security camera shows someone entering restricted area but image is blurred during critical minutes.",
-      "Recently replaced machine part logged by technician on day before accident but form only partially completed.",
-      "The official safety audit notes discrepancies between real quantities stored versus those recorded four days earlier.",
-      "A deleted email thread recovered from server hints at budget-pressure decisions affecting chemical inventory compliance."
+      "Street camera only partially captures figures near scene due to bad weather.",
+      "'Kitchen knife' found at scene contains mixed fingerprints but none match even those belonging to victim himself.",
+      "'Threatening message,' sent days before by victim using an untraceable burnt-out mobile phone addressed to an unknown recipient.",
+      "'Audio testimony': confused noises recorded by passersby suggest female screams but no name audibly clear."
     ],
     "witnessNames": [
       "Luca Ferretti",
-      "Natalia Ruiz",
-      "Sandra Klein",
-      "Benedetto Marchetti"
+      "Arianna Di Paolo",
+      "Giorgio Nardi"
     ],
     "witnessDescriptions": [
-      "Luca Ferretti is the night shift foreman known for his adherence to protocol yet pressed by time constraints; he claims no knowledge of any unauthorized activities or equipment failures prior to clocking out early due to illness on incident night.",
-      "Natalia Ruiz serves as logistics coordinator—meticulous but anxious—who asserts she saw unfamiliar personnel near hazardous lockers before lunch break yet cannot be sure if this occurred hours ahead or just moments before ignoring procedure herself due distractions.",
-      "Sandra Klein works in HR administration—a calm observer prone toward skepticism—and testifies management had recently reprimanded staff over cost-cutting measures impacting routine inspections though admits misplacing relevant logbooks last month amid turnover chaos.",
-      "Benedetto Marchetti oversees building security—a rule-bound stickler described as wary—with testimony highlighting minor alarm faults weeks preceding incident plus rumored arguments among contractors although struggling recollect exact names involved."
+      "Night guard Luca Ferretti claims—as part of his vigilant role—to have witnessed two silhouettes arguing fiercely on that evening near bridge; attentive character yet easily swayed by rumors around him; admits uncertainty whether it was actually Sarah present during decisive moment there.",
+      "Former university mate Arianna Di Paolo now works nearby as barmaid: lives every story emotionally and often expresses doubts about what she remembers from stressful events; nervously tells authorities she heard female cries coming from path close behind venue though precise identity remained unknown.",
+      "7501916"
     ],
     "witnessGenders": [
+      "F",
       "M",
-      "F",
-      "F",
-      "M"
+      "F"
     ],
-    "additionalInfo": [
-      "**Luca Ferraro's Disregard for Safety Regulations and Knowledge of Hazardous Materials**\n\nAs the warehouse supervisor, Luca Ferraro was responsible for ensuring compliance with safety regulations and proper handling of hazardous materials. However, evidence suggests that he exhibited a disturbing disregard for these critical aspects:\n\n1.  **Missing Safety Logs**: The prosecution alleges that Ferraro failed to maintain accurate safety logs, which is a critical requirement for tracking and managing hazardous materials.\n2.  **Knowledge of Hazardous Materials**: As a supervisor, Ferraro was expected to have in-depth knowledge of the hazardous materials stored in the warehouse.\n3.  **Negligence and Possible Sabotage**: The prosecution's allegations of negligence were possibly linked to sabotage.\n\n**Culpability in the Devastating Event**\n\nThe evidence points to several factors that suggest Luca Ferraro's culpability:\n\n*   **Security Footage**: Although blurry security footage shows someone entering restricted areas but does not decisively incriminate him or provide alibis contradicting witness accounts,\n*   **Partially Completed Maintenance Reports**: A recently replaced machine part was logged by a technician on day before accident - partially completed indicating lackadaisical approach towards stringent recording keeping needed especially around dangerous equipment/machinery\n*   **Discrepancies between Real Quantities Stored versus Recorded:** Official safety audit discrepancies raise serious concerns about inventory management practices under his supervision four days prior event date.\n\n\n\nThese findings collectively imply that Luca prioritized productivity over worker well-being; therefore demanding severe consequences proportionate crimes committed given lives affected",
-      "No factual information request was found in your query. If you have any specific questions or need clarification on a particular aspect of the case, feel free to ask.",
-      "To approach this complex case, let's break down the key elements and analyze them systematically:\n\n### Case Overview\n\n- **Accusation:** Luca Ferraro, a warehouse supervisor, is accused of negligence and possible sabotage leading to a chemical explosion.\n- **Prosecution's Allegations:** The prosecution suggests that Luca Ferraro's actions or lack thereof (negligence) and possibly intentional acts (sabotage) caused the explosion. They point to missing safety logs and confidential emails about hazardous materials storage as evidence.\n- **Defense Challenges:** The defense must address issues with evidence handling, argue alternative theories of causation, and do so under significant media scrutiny.\n\n### Evidence Analysis\n\n1. **Security Camera Footage:**\n   - A person enters a restricted area, but the footage is blurred during critical minutes.\n   - **Implication:** This could imply someone was doing something they shouldn't have been doing, but the blurriness limits its usefulness.\n\n2. **Partially Completed Machine Part Log:**\n   - A technician logged a recently replaced machine part on the day before the accident, but the form was only partially completed.\n   - **Implication:** This could suggest negligence or rushed work but doesn't directly link to sabotage or direct causation of the explosion.\n\n3. **Safety Audit Discrepancies:**\n   - The official safety audit noted discrepancies between actual quantities stored versus those recorded four days earlier.\n   - **Implication:** This indicates potential negligence in record-keeping or compliance with safety regulations.\n\n4. **Deleted Email Thread:**\n   - Recovered from the server, it hints at budget-pressure decisions affecting chemical inventory compliance.\n   - **Implication:** This supports a motive for cutting corners that could lead to an accident.\n\n### Witness Analysis\n\n1. **Luca Ferretti (Night Shift Foreman):**\n   - Adheres to protocol but claims no knowledge of unauthorized activities or equipment failures.\n   - His early departure due to illness might be relevant if it left unsupervised areas vulnerable.\n\n2. **Natalia Ruiz (Logistics Coordinator):**\n   - Sees unfamiliar personnel near hazardous lockers but is unsure of timing.\n   \n3.  These witness accounts focus on procedural adherence when most convienient \n\nFor further formats customized advice meeting facualrities providing forgér"
-    ],
-    "language": "english"
+    "additionalInfo": [],
+    "language": null
   },
   {
-    "title": "The Warehouse Explosion: People v. Luca Ferraro",
-    "playerGoal": "Achieve a full acquittal for the defendant, proving that he was not responsible for the explosion.",
-    "summary": "Luca Ferraro, an experienced warehouse supervisor, stands accused in a criminal trial after a devastating chemical explosion injured five workers and caused significant property damage. The prosecution alleges negligence and possible sabotage linked to missing safety logs and confidential emails about hazardous materials storage. However, ambiguous security footage contradicts some witness accounts while gaps exist in documentation regarding maintenance reports prior to the disaster. The defense must unravel complex procedural issues with evidence handling and argue alternative theories of causation under intense media scrutiny.",
-    "shortSummary": "Luca Ferraro is charged with causing a deadly warehouse explosion despite uncertain proof; conflicting witnesses & incomplete records create doubt as you defend him against serious allegations.",
+    "title": "Delitto all'ombra del ponte",
+    "playerGoal": "Dimostrare che l'imputato non è colpevole di omicidio e ottenere la piena assoluzione.",
+    "summary": "Durante una notte piovosa, il corpo di Matteo Cosenti viene ritrovato sotto il Ponte delle Rose. L’imputata, Sara Bellini, ex collega della vittima e ultima persona vista con lui secondo telecamere stradali difettose, è accusata dell’omicidio. Una lite per motivi lavorativi alimenta i sospetti contro Sara; tuttavia le prove forensi sono controverse: nessuna traccia diretta collega fisicamente Sara al luogo della morte e un testimone chiave ha fornito testimonianze incoerenti. Il giocatore deve analizzare attentamente gli indizi ambigui tra pressioni mediatiche ed errori procedurali.",
+    "shortSummary": "Sara Bellini viene processata per l’uccisione di un ex collega sotto il Ponte delle Rose. Prove contraddittorie mettono in dubbio la sua presunta colpevolezza mentre si intravede la possibilità che altre persone siano coinvolte nell’omicidio.",
     "evidence": [
-      "Security camera shows someone entering restricted area but image is blurred during critical minutes.",
-      "Recently replaced machine part logged by technician on day before accident but form only partially completed.",
-      "The official safety audit notes discrepancies between real quantities stored versus those recorded four days earlier.",
-      "A deleted email thread recovered from server hints at budget-pressure decisions affecting chemical inventory compliance."
+      "Telecamera stradale riprende solo parzialmente le figure vicino al luogo dell'omicidio a causa del maltempo.",
+      "'Coltello da cucina' trovato sulla scena contiene impronte digitali miste ma incomparabili anche alla vittima stessa.",
+      "'Messaggio minatorio', inviato giorni prima dalla vittima a uno sconosciuto tramite cellulare bruciato irreperibile.",
+      "'Testimonianza audio': rumori confusi registrati dai passanti indicano urla femminili ma nessun nome chiaramente udibile."
     ],
     "witnessNames": [
       "Luca Ferretti",
-      "Natalia Ruiz",
-      "Sandra Klein",
-      "Benedetto Marchetti"
+      "Arianna Di Paolo",
+      "Giorgio Nardi"
     ],
     "witnessDescriptions": [
-      "Luca Ferretti is the night shift foreman known for his adherence to protocol yet pressed by time constraints; he claims no knowledge of any unauthorized activities or equipment failures prior to clocking out early due to illness on incident night.",
-      "Natalia Ruiz serves as logistics coordinator—meticulous but anxious—who asserts she saw unfamiliar personnel near hazardous lockers before lunch break yet cannot be sure if this occurred hours ahead or just moments before ignoring procedure herself due distractions.",
-      "Sandra Klein works in HR administration—a calm observer prone toward skepticism—and testifies management had recently reprimanded staff over cost-cutting measures impacting routine inspections though admits misplacing relevant logbooks last month amid turnover chaos.",
-      "Benedetto Marchetti oversees building security—a rule-bound stickler described as wary—with testimony highlighting minor alarm faults weeks preceding incident plus rumored arguments among contractors although struggling recollect exact names involved."
+      "La guardia notturna Luca Ferretti sostiene nel suo ruolo vigilante di aver visto due sagome discutere violentemente quella sera presso il ponte; personalità attenta ma facilmente influenzabile dalle voci circostanti; dichiara però che non era sicuro se fosse proprio Sarah ad essere presente nella zona quell’attimo decisivo.",
+      "L’ex compagna universitaria Arianna Di Paolo lavora come barista nelle vicinanze: vive emotivamente ogni racconto ed esprime spesso dubbi su ciò che ricorda degli eventi stressanti; afferma dialogando nervosamente alle autorità d’avere sentito grida femminili provenienti dal viottolo poco lontano dal locale benché ignota restasse l’identità precisa.",
+      "Giorgio Nardi è impiegato comunale addetto ai lavori pubblici: carattere pragmatico e metodico nei dettagli amministrativi quotidiani, riferisce durante procedimento d’aver raccolto casualmente oggetto metallico forse arma? alcune ore dopo senza vedere direttamente alcun litigio né altra presenza umana particolare sul posto."
     ],
     "witnessGenders": [
       "M",
       "F",
-      "F",
       "M"
     ],
-    "additionalInfo": [
-      "**Luca Ferraro's Disregard for Safety Regulations and Knowledge of Hazardous Materials**\n\nAs the warehouse supervisor, Luca Ferraro was responsible for ensuring compliance with safety regulations and proper handling of hazardous materials. However, evidence suggests that he exhibited a disturbing disregard for these critical aspects:\n\n1.  **Missing Safety Logs**: The prosecution alleges that Ferraro failed to maintain accurate safety logs, which is a critical requirement for tracking and managing hazardous materials.\n2.  **Knowledge of Hazardous Materials**: As a supervisor, Ferraro was expected to have in-depth knowledge of the hazardous materials stored in the warehouse.\n3.  **Negligence and Possible Sabotage**: The prosecution's allegations of negligence were possibly linked to sabotage.\n\n**Culpability in the Devastating Event**\n\nThe evidence points to several factors that suggest Luca Ferraro's culpability:\n\n*   **Security Footage**: Although blurry security footage shows someone entering restricted areas but does not decisively incriminate him or provide alibis contradicting witness accounts,\n*   **Partially Completed Maintenance Reports**: A recently replaced machine part was logged by a technician on day before accident - partially completed indicating lackadaisical approach towards stringent recording keeping needed especially around dangerous equipment/machinery\n*   **Discrepancies between Real Quantities Stored versus Recorded:** Official safety audit discrepancies raise serious concerns about inventory management practices under his supervision four days prior event date.\n\n\n\nThese findings collectively imply that Luca prioritized productivity over worker well-being; therefore demanding severe consequences proportionate crimes committed given lives affected",
-      "No factual information request was found in your query. If you have any specific questions or need clarification on a particular aspect of the case, feel free to ask.",
-      "To approach this complex case, let's break down the key elements and analyze them systematically:\n\n### Case Overview\n\n- **Accusation:** Luca Ferraro, a warehouse supervisor, is accused of negligence and possible sabotage leading to a chemical explosion.\n- **Prosecution's Allegations:** The prosecution suggests that Luca Ferraro's actions or lack thereof (negligence) and possibly intentional acts (sabotage) caused the explosion. They point to missing safety logs and confidential emails about hazardous materials storage as evidence.\n- **Defense Challenges:** The defense must address issues with evidence handling, argue alternative theories of causation, and do so under significant media scrutiny.\n\n### Evidence Analysis\n\n1. **Security Camera Footage:**\n   - A person enters a restricted area, but the footage is blurred during critical minutes.\n   - **Implication:** This could imply someone was doing something they shouldn't have been doing, but the blurriness limits its usefulness.\n\n2. **Partially Completed Machine Part Log:**\n   - A technician logged a recently replaced machine part on the day before the accident, but the form was only partially completed.\n   - **Implication:** This could suggest negligence or rushed work but doesn't directly link to sabotage or direct causation of the explosion.\n\n3. **Safety Audit Discrepancies:**\n   - The official safety audit noted discrepancies between actual quantities stored versus those recorded four days earlier.\n   - **Implication:** This indicates potential negligence in record-keeping or compliance with safety regulations.\n\n4. **Deleted Email Thread:**\n   - Recovered from the server, it hints at budget-pressure decisions affecting chemical inventory compliance.\n   - **Implication:** This supports a motive for cutting corners that could lead to an accident.\n\n### Witness Analysis\n\n1. **Luca Ferretti (Night Shift Foreman):**\n   - Adheres to protocol but claims no knowledge of unauthorized activities or equipment failures.\n   - His early departure due to illness might be relevant if it left unsupervised areas vulnerable.\n\n2. **Natalia Ruiz (Logistics Coordinator):**\n   - Sees unfamiliar personnel near hazardous lockers but is unsure of timing.\n   \n3.  These witness accounts focus on procedural adherence when most convienient \n\nFor further formats customized advice meeting facualrities providing forgér"
-    ],
-    "language": "english"
+    "additionalInfo": [],
+    "language": "italian"
   }
 ]
