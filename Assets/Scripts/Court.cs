@@ -106,8 +106,8 @@ public class Court : MonoBehaviour
             ttsManager = FindFirstObjectByType<KokoroTTSManager>();
             if (ttsManager == null)
                 Debug.LogError("[Court] Nessun KokoroTTSManager trovato in scena!");
-            else
-                Debug.Log("[Court] KokoroTTSManager assegnato correttamente: " + ttsManager.name);
+            //else
+                //Debug.Log("[Court] KokoroTTSManager assegnato correttamente: " + ttsManager.name);
         }
 
         playerText.onSubmit.AddListener(OnInputFieldSubmit);
@@ -674,7 +674,7 @@ public class CaseDescription
         if (witnessGenders == null || witnessGenders.Count != witnessNames.Count)
         {
             this.witnessGenders = witnessNames.Select(name => UnityEngine.Random.Range(0, 2) == 0 ? "M" : "F").ToList();
-            Debug.Log("Case caricato senza gender info - assegnati generi casuali");
+            //Debug.Log("Case caricato senza gender info - assegnati generi casuali");
         }
         else
         {

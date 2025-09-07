@@ -142,10 +142,6 @@ public class LLMSettingsInitializer : MonoBehaviour
 
         // Valida selezione modello (solo che non sia stringa vuota)
         string selectedModel = GetSelectedModel();
-        if (!string.IsNullOrEmpty(selectedModel))
-        {
-            Debug.Log($"[LLMSettingsInitializer] Modello selezionato: {selectedModel}");
-        }
 
         if (!isValid)
         {

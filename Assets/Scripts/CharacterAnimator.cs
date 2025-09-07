@@ -69,11 +69,11 @@ public class CharacterAnimator : MonoBehaviour
         characterGenders["Judge"] = "M";
         characterGenders["Defense"] = "M"; // Default, but won't be used for TTS
 
-        Debug.Log("Character assignments completed:");
-        foreach (var kvp in characterGenders)
+        //Debug.Log("Character assignments completed:");
+        /*foreach (var kvp in characterGenders)
         {
             Debug.Log($"- {kvp.Key}: {kvp.Value}");
-        }
+        }*/
     }
 
     private void AssignProsecutorPrefab(string attackRole)
@@ -90,7 +90,7 @@ public class CharacterAnimator : MonoBehaviour
             roleToPrefab[attackRole] = randomProsecutor;
             characterGenders[attackRole] = ProsecutorGender;
 
-            Debug.Log($"Assigned {(isMale ? "male" : "female")} prosecutor: {randomProsecutor.name}");
+            //Debug.Log($"Assigned {(isMale ? "male" : "female")} prosecutor: {randomProsecutor.name}");
         }
         else
         {
@@ -122,7 +122,7 @@ public class CharacterAnimator : MonoBehaviour
                 roleToPrefab[witnessName] = randomWitness;
                 characterGenders[witnessName] = gender;
 
-                Debug.Log($"Assigned {witnessName} ({gender}): {randomWitness.name}");
+                //Debug.Log($"Assigned {witnessName} ({gender}): {randomWitness.name}");
             }
             else
             {

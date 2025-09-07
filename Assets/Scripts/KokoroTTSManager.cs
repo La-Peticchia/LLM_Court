@@ -120,7 +120,7 @@ public class KokoroTTSManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            Debug.Log("TTS Manager created and set as DontDestroyOnLoad");
+            //Debug.Log("TTS Manager created and set as DontDestroyOnLoad");
         }
         else if (Instance != this)
         {
@@ -676,7 +676,7 @@ public class KokoroTTSManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log("TTS Manager destroying...");
+        //Debug.Log("TTS Manager destroying...");
         StopAllSpeech();
 
         if (tts != null)
