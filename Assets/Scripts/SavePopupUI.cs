@@ -9,7 +9,7 @@ public class SavePopupUI : MonoBehaviour
     [SerializeField] private GameObject popupPanel;
     [SerializeField] private Button yesButton;
     [SerializeField] private Button noButton;
-    [SerializeField] private Button backButton; 
+    [SerializeField] private Button backButton;
 
     private SaveSystem _saveSystem;
     private Court _court;
@@ -29,11 +29,11 @@ public class SavePopupUI : MonoBehaviour
         _saveSystem = FindFirstObjectByType<SaveSystem>();
         _court = FindFirstObjectByType<Court>();
 
-        _wasLoadedFromContinue = PlayerPrefs.GetInt("UseLastSavedCase", 0) == 1;
+        _wasLoadedFromContinue = PlayerPrefs.GetInt("UseLastSavedCase", 0) == 1 || CaseMemory.WasLoadedFromLastCase;
 
         yesButton.onClick.AddListener(OnYesClicked);
         noButton.onClick.AddListener(OnNoClicked);
-        if (backButton != null) backButton.onClick.AddListener(CancelPopup); 
+        if (backButton != null) backButton.onClick.AddListener(CancelPopup);
 
         popupPanel.SetActive(false);
     }
@@ -45,11 +45,11 @@ public class SavePopupUI : MonoBehaviour
 
         _currentDestination = destination;
 
-        // MODIFICATO: Se il player ha caricato una partita tramite "Continue" e vuole tornare al menu,
+        // Se il player ha caricato una partita tramite "Continue" e vuole tornare al menu,
         // aggiorna SOLO il lastCase senza salvare come nuovo caso
         if (_wasLoadedFromContinue && destination == ReturnDestination.MainMenu)
         {
-            _ = UpdateLastCaseAndProceed(); // ← NUOVO METODO
+            _ = UpdateLastCaseAndProceed();
             return;
         }
 
@@ -68,6 +68,11 @@ public class SavePopupUI : MonoBehaviour
         if (_court == null) return true;
 
         var currentCase = _court.GetTranslatedDescription();
+
+        // Se il caso proviene da lastCase ed ha un ID valido, consideralo già salvato
+        if (_wasLoadedFromContinue && currentCase != null && currentCase.GetID() > 0)
+            return true;
+
         return currentCase != null && currentCase.IsSaved();
     }
 
