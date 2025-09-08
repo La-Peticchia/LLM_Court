@@ -1,0 +1,54 @@
+[
+  {
+    "title": "Il caso della misteriosa contaminazione nei soft drink",
+    "playerGoal": "Ottenere l’assoluzione totale del proprio assistito, manager di una fabbrica di bibite gassate accusato di negligenza aggravata e contaminazione volontaria.",
+    "summary": "In un paese italiano emergono casi di intossicazione associati a una famosa bibita gassata. Il responsabile dello stabilimento, Marco Serioli, viene arrestato con l’accusa che abbia alterato volutamente i processi o ignorato controlli essenziali per sicurezza alimentare. Le prove includono documentazioni incomplete sugli standard igienici, testimonianze contraddittorie tra operatori e fornitori degli impianti chimici non chiariscono la fonte esatta delle presunte anomalie. La difesa dovrà convincere il tribunale sull’assenza dell’intento doloso e sulle possibili responsabilità esterne o anomalia casuale.",
+    "shortSummary": "Un manager è imputato per presumibile negligente contaminazione in una fabbrica italiana: le fonti reali sono ambigue fra errore umano ed eventuale manomissione da terzi; occorre ottenere assoluzione puntando su lacune procedurali nel fascicolo probatorio.",
+    "evidence": [
+      "Registro qualità mostra interruzioni inspiegabili nella raccolta dati durante due giorni critici",
+      "Analisi laboratorio indipendente rileva tracce minime ma diffuse solo in alcuni campioni scambiati prima dell’incidente",
+      "Verbale fornitore CO2: indica ritardo nelle consegne portando all’utilizzo parziale dei serbatoi residui mal conservati",
+      "Chat interna dipendenti dove si discute apertamente della confusione riguardo ai protocolli notturno-neve scolastica regionale"
+    ],
+    "witnessNames": [
+      "Giovanni Tramacchi",
+      "Lidia Fassi"
+    ],
+    "witnessDescriptions": [
+      "Giovanni Tramacchi è caposquadra operatore linea imbottigliamento dotato d’esperienza ventennale nell’ambiente industriale; pragmatismo notevole lo rende osservatore attento agli orari turnistica e alle ispezioni straordinarie: sostiene che nello specifico turno chiave nessun addetto aveva riscontrato odori insoliti né variazioni visive nei liquidi prodotti.",
+      "Lidia Fassi gestisce gli ordini materie prime come referente logistica aziendale; approccio preciso-ansioso alla verifica inventario tipico dei suoi incarichi ispira fiducia nel gruppo ma dichara con fermezza d’avere ricevuto via mail istruzioni errate sui tempi modifiche-trattamento serbatoi senza sapere chi fosse realmente autore delle disposizioni."
+    ],
+    "witnessGenders": [
+      "M",
+      "F"
+    ],
+    "additionalInfo": [],
+    "language": "italian"
+  },
+  {
+    "title": "Il caso della misteriosa contaminazione nei soft drink",
+    "playerGoal": "Ottenere l’assoluzione totale del proprio assistito, manager di una fabbrica di bibite gassate accusato di negligenza aggravata e contaminazione volontaria.",
+    "summary": "In un paese italiano emergono casi di intossicazione associati a una famosa bibita gassata. Il responsabile dello stabilimento, Marco Serioli, viene arrestato con l’accusa che abbia alterato volutamente i processi o ignorato controlli essenziali per sicurezza alimentare. Le prove includono documentazioni incomplete sugli standard igienici, testimonianze contraddittorie tra operatori e fornitori degli impianti chimici non chiariscono la fonte esatta delle presunte anomalie. La difesa dovrà convincere il tribunale sull’assenza dell’intento doloso e sulle possibili responsabilità esterne o anomalia casuale.",
+    "shortSummary": "Un manager è imputato per presumibile negligente contaminazione in una fabbrica italiana: le fonti reali sono ambigue fra errore umano ed eventuale manomissione da terzi; occorre ottenere assoluzione puntando su lacune procedurali nel fascicolo probatorio.",
+    "evidence": [
+      "Registro qualità mostra interruzioni inspiegabili nella raccolta dati durante due giorni critici",
+      "Analisi laboratorio indipendente rileva tracce minime ma diffuse solo in alcuni campioni scambiati prima dell’incidente",
+      "Verbale fornitore CO2: indica ritardo nelle consegne portando all’utilizzo parziale dei serbatoi residui mal conservati",
+      "Chat interna dipendenti dove si discute apertamente della confusione riguardo ai protocolli notturno-neve scolastica regionale"
+    ],
+    "witnessNames": [
+      "Giovanni Tramacchi",
+      "Lidia Fassi"
+    ],
+    "witnessDescriptions": [
+      "Giovanni Tramacchi è caposquadra operatore linea imbottigliamento dotato d’esperienza ventennale nell’ambiente industriale; pragmatismo notevole lo rende osservatore attento agli orari turnistica e alle ispezioni straordinarie: sostiene che nello specifico turno chiave nessun addetto aveva riscontrato odori insoliti né variazioni visive nei liquidi prodotti.",
+      "Lidia Fassi gestisce gli ordini materie prime come referente logistica aziendale; approccio preciso-ansioso alla verifica inventario tipico dei suoi incarichi ispira fiducia nel gruppo ma dichara con fermezza d’avere ricevuto via mail istruzioni errate sui tempi modifiche-trattamento serbatoi senza sapere chi fosse realmente autore delle disposizioni."
+    ],
+    "witnessGenders": [
+      "M",
+      "F"
+    ],
+    "additionalInfo": [],
+    "language": "italian"
+  }
+]
