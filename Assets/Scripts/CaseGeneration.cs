@@ -77,7 +77,7 @@ public class CaseGeneration : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // se l'utente clicca contine ed ha un salvataggio parte direttamente il gameplay senza passare per court preview canvas
+        // se l'utente clicca continue ed ha un salvataggio parte direttamente il gameplay senza passare per court preview canvas
         if (PlayerPrefs.GetInt("UseLastSavedCase", 0) == 1)
         {
             PlayerPrefs.SetInt("UseLastSavedCase", 0);
@@ -88,6 +88,8 @@ public class CaseGeneration : MonoBehaviour
 
             if (lastCase != null && lastCase.Length > 0)
             {
+                CaseMemory.WasLoadedFromLastCase = true;
+
                 courtPreviewCanvas.SetActive(false);
                 loadingCanvas.SetActive(true);
 
@@ -108,18 +110,9 @@ public class CaseGeneration : MonoBehaviour
             LLMCharacter llmCharacter = FindFirstObjectByType<LLMCharacter>();
             if (llmCharacter != null)
             {
-
                 int oldSeed = llmCharacter.seed;
-
                 int newSeed = CaseMemory.NewAISeed.Value;
-
-                Debug.Log($"[CASE_GEN] Vecchio seed: {oldSeed}, Nuovo seed: {newSeed}");
-
                 llmCharacter.UpdateSeed(newSeed);
-            }
-            else
-            {
-                Debug.LogWarning("[CASE_GEN] LLMCharacter non trovato per aggiornare il seed");
             }
         }
 

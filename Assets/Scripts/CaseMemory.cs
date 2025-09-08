@@ -4,7 +4,8 @@ public static class CaseMemory
     public static CaseDescription SavedTranslatedCase;
     public static bool RestartingSameCase = false;
     public static int? NewAISeed = null;
-    public static int? OriginalSeed = null; 
+    public static int? OriginalSeed = null;
+    public static bool WasLoadedFromLastCase = false;
 
     public static void Clear()
     {
@@ -13,6 +14,7 @@ public static class CaseMemory
         RestartingSameCase = false;
         NewAISeed = null;
         OriginalSeed = null;
+        WasLoadedFromLastCase = false;
     }
 
     public static bool HasValidSavedCase =>

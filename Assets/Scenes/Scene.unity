@@ -3925,7 +3925,6 @@ MonoBehaviour:
   audioSettingsPanel: {fileID: 2066086062}
   court: {fileID: 708504565}
   savePopupUI: {fileID: 105907950}
-  loadingCanvas: {fileID: 2143410396}
   returnToMenuButton: {fileID: 373991687}
   settingsButton: {fileID: 2124250847}
   audioSettingsButton: {fileID: 225358534}
@@ -4750,7 +4749,7 @@ RectTransform:
   m_LocalScale: {x: 1.0099913, y: 1.0099913, z: 1.0099913}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 2119390620}
+  - {fileID: 1092699066}
   m_Father: {fileID: 2143410397}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7493,7 +7492,7 @@ MonoBehaviour:
   dontDestroyOnLoad: 0
   contextSize: 8192
   batchSize: 512
-  model: gemma-2-9b-it-Q4_K_M.gguf
+  model: gemma-3-12b-it-Q4_K_M.gguf
   chatTemplate: chatml
   lora: 
   loraWeights: 
@@ -7504,9 +7503,9 @@ MonoBehaviour:
   SSLKey: 
   SSLKeyPath: 
   minContextLength: 0
-  maxContextLength: 8192
+  maxContextLength: 131072
   embeddingsOnly: 0
-  embeddingLength: 3584
+  embeddingLength: 3840
 --- !u!4 &1047848255
 Transform:
   m_ObjectHideFlags: 0
@@ -7935,16 +7934,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1092699065}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.99010754, y: 0.99010754, z: 0.99010754}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2119390620}
+  m_Father: {fileID: 663602644}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -34.8, y: -122}
+  m_AnchoredPosition: {x: 510.10364, y: -319.80475}
   m_SizeDelta: {x: 249.485, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1092699067
@@ -13387,6 +13386,57 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1813390162
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1813390163}
+  - component: {fileID: 1813390164}
+  m_Layer: 5
+  m_Name: RetryLoadingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1813390163
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813390162}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.73046875, y: 0.73046875, z: 0.73046875}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 640, y: 360.0428}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1813390164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813390162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35d63d20498e9554daa5cb15b0e27acf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingCanvas: {fileID: 2143410396}
+  loadingText: {fileID: 1092699067}
+  minimumLoadingTime: 1.5
 --- !u!1 &1824709058
 GameObject:
   m_ObjectHideFlags: 0
@@ -15928,15 +15978,14 @@ RectTransform:
   m_GameObject: {fileID: 2119390619}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9901076, y: 0.9901076, z: 0.9901076}
+  m_LocalScale: {x: 0.73046875, y: 0.73046875, z: 0.73046875}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1092699066}
-  m_Father: {fileID: 663602644}
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 544.55927, y: -199.01161}
+  m_AnchoredPosition: {x: 989.0665, y: 232.47487}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2119390621
@@ -16807,3 +16856,5 @@ SceneRoots:
   - {fileID: 105907951}
   - {fileID: 1587732803}
   - {fileID: 293275949}
+  - {fileID: 2119390620}
+  - {fileID: 1813390163}

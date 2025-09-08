@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -69,11 +70,11 @@ public class CharacterAnimator : MonoBehaviour
         characterGenders["Judge"] = "M";
         characterGenders["Defense"] = "M"; // Default, but won't be used for TTS
 
-        Debug.Log("Character assignments completed:");
-        foreach (var kvp in characterGenders)
+        //Debug.Log("Character assignments completed:");
+        /*foreach (var kvp in characterGenders)
         {
             Debug.Log($"- {kvp.Key}: {kvp.Value}");
-        }
+        }*/
     }
 
     private void AssignProsecutorPrefab(string attackRole)
@@ -90,7 +91,7 @@ public class CharacterAnimator : MonoBehaviour
             roleToPrefab[attackRole] = randomProsecutor;
             characterGenders[attackRole] = ProsecutorGender;
 
-            Debug.Log($"Assigned {(isMale ? "male" : "female")} prosecutor: {randomProsecutor.name}");
+            //Debug.Log($"Assigned {(isMale ? "male" : "female")} prosecutor: {randomProsecutor.name}");
         }
         else
         {
@@ -100,6 +101,9 @@ public class CharacterAnimator : MonoBehaviour
 
     private void AssignWitnessPrefabs(List<string> witnessNames, List<string> witnessGenders)
     {
+        HashSet<GameObject> usedMalePrefabs = new HashSet<GameObject>();
+        HashSet<GameObject> usedFemalePrefabs = new HashSet<GameObject>();
+
         for (int i = 0; i < witnessNames.Count; i++)
         {
             string witnessName = witnessNames[i];
@@ -115,20 +119,50 @@ public class CharacterAnimator : MonoBehaviour
             }
 
             List<GameObject> availablePrefabs = gender == "M" ? maleWitnessPrefabs : femaleWitnessPrefabs;
+            HashSet<GameObject> usedPrefabs = gender == "M" ? usedMalePrefabs : usedFemalePrefabs;
 
             if (availablePrefabs.Count > 0)
             {
-                var randomWitness = availablePrefabs[Random.Range(0, availablePrefabs.Count)];
-                roleToPrefab[witnessName] = randomWitness;
-                characterGenders[witnessName] = gender;
+                GameObject selectedWitness = SelectUniquePrefab(availablePrefabs, usedPrefabs, witnessName, gender);
 
-                Debug.Log($"Assigned {witnessName} ({gender}): {randomWitness.name}");
+                if (selectedWitness != null)
+                {
+                    roleToPrefab[witnessName] = selectedWitness;
+                    characterGenders[witnessName] = gender;
+                    usedPrefabs.Add(selectedWitness);
+
+                    Debug.Log($"Assigned {witnessName} ({gender}): {selectedWitness.name}");
+                }
+                else
+                {
+                    Debug.LogError($"Could not assign unique prefab to {witnessName} ({gender})");
+                }
             }
             else
             {
                 Debug.LogWarning($"No {(gender == "M" ? "male" : "female")} witness prefabs available");
             }
         }
+    }
+
+    private GameObject SelectUniquePrefab(List<GameObject> availablePrefabs, HashSet<GameObject> usedPrefabs, string witnessName, string gender)
+    {
+        List<GameObject> unusedPrefabs = availablePrefabs.Where(prefab => !usedPrefabs.Contains(prefab)).ToList();
+
+        if (unusedPrefabs.Count > 0)
+        {
+            
+            return unusedPrefabs[Random.Range(0, unusedPrefabs.Count)];
+        }
+        else if (availablePrefabs.Count > 0)
+        {
+            
+            Debug.LogWarning($"All {(gender == "M" ? "male" : "female")} witness prefabs already used. " +
+                            $"Assigning duplicate prefab to {witnessName}.");
+            return availablePrefabs[Random.Range(0, availablePrefabs.Count)];
+        }
+
+        return null;
     }
 
     /// <summary>
