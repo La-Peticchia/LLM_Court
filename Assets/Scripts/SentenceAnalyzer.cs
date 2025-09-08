@@ -335,7 +335,7 @@ public class SentenceAnalyzer : MonoBehaviour
             "# Output Format\n" +
             "[Guilty / Not Guilty / Sentence details]\n" +
             "[Succinct justification referencing facts, defense actions, and any assumptions.]\n\n" +
-            "#WIN or #LOSS\n" +
+            "[#WIN or #LOSS]\n" +
             "\n\n" +
             "# Verbosity\n" +
             "- Be concise and direct; include only logic necessary to justify the verdict.\n\n" +
