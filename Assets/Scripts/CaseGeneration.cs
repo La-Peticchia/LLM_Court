@@ -38,7 +38,6 @@ public class CaseGeneration : MonoBehaviour
     private Court _court;
     private SaveSystem _saveManager;
 
-    [FormerlySerializedAs("_seed")]
     [SerializeField]
     private int seed;
 

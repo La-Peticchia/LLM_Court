@@ -4985,7 +4985,7 @@ MonoBehaviour:
   witnessesPrompt: 'Provide realistic, human testimony. Uncertainty is allowed, but
     responses must be logically coherent, specific, and fact-based. '
   numOfInteractions: 1
-  enableAnalyzeInfo: 1
+  enableAnalyzeInfo: 0
 --- !u!4 &708504566
 Transform:
   m_ObjectHideFlags: 0

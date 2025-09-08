@@ -1,60 +1,34 @@
 [
   {
-    "title": "Crime in the Shadow of the Bridge",
-    "playerGoal": "Prove that the defendant is not guilty of murder and obtain full acquittal.",
-    "summary": "On a rainy night, Matteo Cosenti’s body is found under Rose Bridge. The defendant, Sara Bellini—a former colleague of the victim and last person seen with him according to faulty street cameras—is accused of murder. A work-related argument fuels suspicion against Sara; however, forensic evidence remains controversial: no direct trace links her physically to where he died and one key witness has given inconsistent statements. The player must carefully analyze ambiguous clues while facing media pressure and procedural mistakes.",
-    "shortSummary": "Sara Bellini stands trial for killing a former colleague under Rose Bridge. Contradictory evidence calls into question her alleged guilt as hints suggest others may be involved in the crime.",
+    "title": "The Warehouse Explosion: People v. Luca Ferraro",
+    "playerGoal": "Achieve a full acquittal for the defendant, proving that he was not responsible for the explosion.",
+    "summary": "Luca Ferraro, an experienced warehouse supervisor, stands accused in a criminal trial after a devastating chemical explosion injured five workers and caused significant property damage. The prosecution alleges negligence and possible sabotage linked to missing safety logs and confidential emails about hazardous materials storage. However, ambiguous security footage contradicts some witness accounts while gaps exist in documentation regarding maintenance reports prior to the disaster. The defense must unravel complex procedural issues with evidence handling and argue alternative theories of causation under intense media scrutiny.",
+    "shortSummary": "Luca Ferraro is charged with causing a deadly warehouse explosion despite uncertain proof; conflicting witnesses & incomplete records create doubt as you defend him against serious allegations.",
     "evidence": [
-      "Street camera only partially captures figures near scene due to bad weather.",
-      "'Kitchen knife' found at scene contains mixed fingerprints but none match even those belonging to victim himself.",
-      "'Threatening message,' sent days before by victim using an untraceable burnt-out mobile phone addressed to an unknown recipient.",
-      "'Audio testimony': confused noises recorded by passersby suggest female screams but no name audibly clear."
+      "Security camera shows someone entering restricted area but image is blurred during critical minutes.",
+      "Recently replaced machine part logged by technician on day before accident but form only partially completed.",
+      "The official safety audit notes discrepancies between real quantities stored versus those recorded four days earlier.",
+      "A deleted email thread recovered from server hints at budget-pressure decisions affecting chemical inventory compliance."
     ],
     "witnessNames": [
       "Luca Ferretti",
-      "Arianna Di Paolo",
-      "Giorgio Nardi"
+      "Natalia Ruiz",
+      "Sandra Klein",
+      "Benedetto Marchetti"
     ],
     "witnessDescriptions": [
-      "Night guard Luca Ferretti claims—as part of his vigilant role—to have witnessed two silhouettes arguing fiercely on that evening near bridge; attentive character yet easily swayed by rumors around him; admits uncertainty whether it was actually Sarah present during decisive moment there.",
-      "Former university mate Arianna Di Paolo now works nearby as barmaid: lives every story emotionally and often expresses doubts about what she remembers from stressful events; nervously tells authorities she heard female cries coming from path close behind venue though precise identity remained unknown.",
-      "7501916"
+      "Luca Ferretti is the night shift foreman known for his adherence to protocol yet pressed by time constraints; he claims no knowledge of any unauthorized activities or equipment failures prior to clocking out early due to illness on incident night.",
+      "Natalia Ruiz serves as logistics coordinator—meticulous but anxious—who asserts she saw unfamiliar personnel near hazardous lockers before lunch break yet cannot be sure if this occurred hours ahead or just moments before ignoring procedure herself due distractions.",
+      "Sandra Klein works in HR administration—a calm observer prone toward skepticism—and testifies management had recently reprimanded staff over cost-cutting measures impacting routine inspections though admits misplacing relevant logbooks last month amid turnover chaos.",
+      "Benedetto Marchetti oversees building security—a rule-bound stickler described as wary—with testimony highlighting minor alarm faults weeks preceding incident plus rumored arguments among contractors although struggling recollect exact names involved."
     ],
     "witnessGenders": [
+      "M",
       "F",
-      "M",
-      "F"
-    ],
-    "additionalInfo": [],
-    "language": null
-  },
-  {
-    "title": "Delitto all'ombra del ponte",
-    "playerGoal": "Dimostrare che l'imputato non è colpevole di omicidio e ottenere la piena assoluzione.",
-    "summary": "Durante una notte piovosa, il corpo di Matteo Cosenti viene ritrovato sotto il Ponte delle Rose. L’imputata, Sara Bellini, ex collega della vittima e ultima persona vista con lui secondo telecamere stradali difettose, è accusata dell’omicidio. Una lite per motivi lavorativi alimenta i sospetti contro Sara; tuttavia le prove forensi sono controverse: nessuna traccia diretta collega fisicamente Sara al luogo della morte e un testimone chiave ha fornito testimonianze incoerenti. Il giocatore deve analizzare attentamente gli indizi ambigui tra pressioni mediatiche ed errori procedurali.",
-    "shortSummary": "Sara Bellini viene processata per l’uccisione di un ex collega sotto il Ponte delle Rose. Prove contraddittorie mettono in dubbio la sua presunta colpevolezza mentre si intravede la possibilità che altre persone siano coinvolte nell’omicidio.",
-    "evidence": [
-      "Telecamera stradale riprende solo parzialmente le figure vicino al luogo dell'omicidio a causa del maltempo.",
-      "'Coltello da cucina' trovato sulla scena contiene impronte digitali miste ma incomparabili anche alla vittima stessa.",
-      "'Messaggio minatorio', inviato giorni prima dalla vittima a uno sconosciuto tramite cellulare bruciato irreperibile.",
-      "'Testimonianza audio': rumori confusi registrati dai passanti indicano urla femminili ma nessun nome chiaramente udibile."
-    ],
-    "witnessNames": [
-      "Luca Ferretti",
-      "Arianna Di Paolo",
-      "Giorgio Nardi"
-    ],
-    "witnessDescriptions": [
-      "La guardia notturna Luca Ferretti sostiene nel suo ruolo vigilante di aver visto due sagome discutere violentemente quella sera presso il ponte; personalità attenta ma facilmente influenzabile dalle voci circostanti; dichiara però che non era sicuro se fosse proprio Sarah ad essere presente nella zona quell’attimo decisivo.",
-      "L’ex compagna universitaria Arianna Di Paolo lavora come barista nelle vicinanze: vive emotivamente ogni racconto ed esprime spesso dubbi su ciò che ricorda degli eventi stressanti; afferma dialogando nervosamente alle autorità d’avere sentito grida femminili provenienti dal viottolo poco lontano dal locale benché ignota restasse l’identità precisa.",
-      "Giorgio Nardi è impiegato comunale addetto ai lavori pubblici: carattere pragmatico e metodico nei dettagli amministrativi quotidiani, riferisce durante procedimento d’aver raccolto casualmente oggetto metallico forse arma? alcune ore dopo senza vedere direttamente alcun litigio né altra presenza umana particolare sul posto."
-    ],
-    "witnessGenders": [
-      "M",
       "F",
       "M"
     ],
     "additionalInfo": [],
-    "language": "italian"
+    "language": "english"
   }
 ]

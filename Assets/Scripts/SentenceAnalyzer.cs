@@ -317,8 +317,6 @@ public class SentenceAnalyzer : MonoBehaviour
 
     private void SwitchMode(Mode mode)
     {
-        if (mode == _currentMode) return;
-        
         _currentMode = mode;
         InitializeChat();
     }
