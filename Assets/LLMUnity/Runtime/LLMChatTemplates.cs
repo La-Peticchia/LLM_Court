@@ -691,8 +691,8 @@ namespace LLMUnity
         }
 
         protected override string PrefixMessageSeparator() { return ""; }
-        protected override string PlayerPrefix(string playerName) { return "<｜User｜>"; }
-        protected override string AIPrefix(string AIName) { return "<｜Assistant｜>"; }
+        protected override string PlayerPrefix(string playerName) { return $"<｜{playerName}｜>"; }
+        protected override string AIPrefix(string AIName) { return $"<｜{AIName}｜>"; }
         protected override string RequestSuffix() { return ""; }
 
         public override string[] GetStop(string playerName, string AIName)
