@@ -285,21 +285,62 @@ public class SentenceAnalyzer : MonoBehaviour
         Debug.Log("Final verdict prompt:\n" + llmCharacter.prompt);
         string dialogueSummary = await Summarize(chatMessages);
 
-        string userPrompt = "To write your final verdict I will give you the court case description and a summary of the dialogue happened in the courtroom so you can understand the context:\n\n" +
-                            $"Case Description:\n{caseDescription.GetTotalDescription(new []{0,2,3,4,5})}\n\nDialogue summary:\n{dialogueSummary}\n\n" +
-                            $"Declaring a Win:\nIn the case description there will be also a section containing the player (or the Defense Attorney) goal; you must take that and compare it to the dialogue to determine a win or a loss for the player." +
-                            $"When evaluating:\n" +
-                            $"- Make sure your conclusion directly follows from the arguments presented during the trial.\n" +
-                            $"- If you declare a win, the Defense must have clearly fulfilled their objective within the context of the case.\n" +
-                            $"- If you declare a loss, that must reflect actual shortcomings in logic, strategy, or outcome—not personal opinion or mood.\n" +
-                            $"- Avoid random or emotional decisions; base your ruling on coherence, persuasiveness, and the stated goal of the Defense.\n" +
-                            $"- Your task is not to be lenient or harsh, but to deliver a verdict that is legally sound, internally consistent, and free of randomization.\n\n" +
-                            $"Important notes:\n- your final verdict should not present only a summary of the dialogue happened in the courtroom \n" +
-                            $"- You must also say whether the defendant is guilty or not or how many years is their sentence \n" +
-                            $"- You must also say the reason of the your final choice \n\n" +
-                            $"Formatting:\n- To declare a win you must write this tag: #WIN.\n" +
-                            $"- To declare a loss you must write this tag: #LOSS.\n" +
-                            $"- You can put the chosen tag at the end of your answer \n\n";
+        //string userPrompt = "To write your final verdict I will give you the court case description and a summary of the dialogue happened in the courtroom so you can understand the context:\n\n" +
+        //                    $"Case Description:\n{caseDescription.GetTotalDescription(new []{0,2,3,4,5})}\n\nDialogue summary:\n{dialogueSummary}\n\n" +
+        //                    $"Declaring a Win:\nIn the case description there will be also a section containing the player (or the Defense Attorney) goal; you must take that and compare it to the dialogue to determine a win or a loss for the player." +
+        //                    $"When evaluating:\n" +
+        //                    $"- Make sure your conclusion directly follows from the arguments presented during the trial.\n" +
+        //                    $"- If you declare a win, the Defense must have clearly fulfilled their objective within the context of the case.\n" +
+        //                    $"- If you declare a loss, that must reflect actual shortcomings in logic, strategy, or outcome—not personal opinion or mood.\n" +
+        //                    $"- Avoid random or emotional decisions; base your ruling on coherence, persuasiveness, and the stated goal of the Defense.\n" +
+        //                    $"- Your task is not to be lenient or harsh, but to deliver a verdict that is legally sound, internally consistent, and free of randomization.\n\n" +
+        //                    $"Important notes:\n- your final verdict should not present only a summary of the dialogue happened in the courtroom \n" +
+        //                    $"- You must also say whether the defendant is guilty or not or how many years is their sentence \n" +
+        //                    $"- You must also say the reason of the your final choice \n\n" +
+        //                    $"Formatting:\n- To declare a win you must write this tag: #WIN.\n" +
+        //                    $"- To declare a loss you must write this tag: #LOSS.\n" +
+        //                    $"- You can put the chosen tag at the end of your answer \n\n";
+
+        string userPrompt =
+            " # Role and Objective\n" +
+            "- Write a final, legally sound verdict for a simulated court case, determining whether the Defense Attorney (player) wins or loses, based on provided case facts and courtroom dialogue summary.\n\n" +
+            "# Key Operational Rules (Reminder)\n" +
+            "- Begin with a concise checklist (3-7 bullets) of what you will do; keep items conceptual, not implementation-level.\n" +
+            "- Use only information provided in the inputs; do not speculate beyond given content.\n" +
+            "- After completing the verdict, double-check that the output is clear, directly justified by evidence and argument quality, and matches the required format.\n\n" +
+            "# Instructions\n" +
+            "- Evaluate if the Defense Attorney achieved their stated goal, guided by both the case description and trial dialogue.\n" +
+            "- Ground the verdict strictly on arguments and evidence presented, not on opinion or randomness.\n" +
+            "- Carefully assess the coherence and persuasiveness of defense strategy relative to the Defense goal.\n" +
+            "- If issuing a #WIN, defense objectives must be clearly satisfied per the case context.\n" +
+            "- If issuing a #LOSS, specify concrete failings in defense logic, strategy, or evidence.\n" +
+            "- Avoid superficial summaries—focus on legal reasoning and outcome.\n\n" +
+            "## Sub-categories\n" +
+            "- If the defense goal or evidence is unclear, proceed using the best available information and explicitly note assumptions or ambiguities in your verdict.\n" +
+            "- You may reference metadata (like player name or case number) if available, but it is optional.\n\n" +
+            "# Context\n" +
+            "- You will receive:\n" +
+            $"  - Case description (with Defense's goal):\n\"{caseDescription.GetTotalDescription(new []{0,2,3,4,5})}\"\n" +
+            $"  - Courtroom dialogue summary:\n\"{dialogueSummary}\"\n" +
+            "- Out-of-scope: Speculation not supported by provided content; verdicts unrelated to Defense’s stated objectives.\n\n" +
+            "# Planning and Verification\n" +
+            "- Checklist:\n" +
+            "  1. Review the case description for defense objectives and key facts.\n" +
+            "  2. Analyze the courtroom dialogue summary for evidence and argument quality.\n" +
+            "  3. Determine if the defense achieved their goal based on provided material.\n" +
+            "  4. Apply standard legal reasoning to reach a verdict.\n" +
+            "  5. Clearly state assumptions if inputs are ambiguous.\n" +
+            "  6. Ensure output strictly follows format and justification requirements.\n" +
+            "- After composing the verdict, confirm that it directly references facts and defense actions, includes necessary assumptions, and adheres to output and reasoning standards.\n\n" +
+            "# Output Format\n" +
+            "[Guilty / Not Guilty / Sentence details]\n" +
+            "[Succinct justification referencing facts, defense actions, and any assumptions.]\n\n" +
+            "#WIN or #LOSS\n" +
+            "\n\n" +
+            "# Verbosity\n" +
+            "- Be concise and direct; include only logic necessary to justify the verdict.\n\n" +
+            "# Stop Conditions\n" +
+            "- Output when verdict, reason, and result tag (#WIN/#LOSS) are all present and justified. If input is ambiguous, clearly indicate the basis for any inferences or assumptions.\n";
 
         userPrompt += $"Language:\nThe judge speaks {language} so your answer must be written in this language";
         

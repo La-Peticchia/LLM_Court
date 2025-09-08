@@ -7492,8 +7492,8 @@ MonoBehaviour:
   dontDestroyOnLoad: 0
   contextSize: 8192
   batchSize: 512
-  model: gemma-3-12b-it-Q4_K_M.gguf
-  chatTemplate: gemma
+  model: Qwen3-14B-Q4_K_M.gguf
+  chatTemplate: qwen3
   lora: 
   loraWeights: 
   flashAttention: 0
@@ -7503,9 +7503,9 @@ MonoBehaviour:
   SSLKey: 
   SSLKeyPath: 
   minContextLength: 0
-  maxContextLength: 131072
+  maxContextLength: 40960
   embeddingsOnly: 0
-  embeddingLength: 3840
+  embeddingLength: 5120
 --- !u!4 &1047848255
 Transform:
   m_ObjectHideFlags: 0
@@ -8425,18 +8425,106 @@ MonoBehaviour:
   analysisPrompt: "You are an AI who analyzes dialogues taken from a courtroom dialogue;
     the user will specify the dialogue (it could be only one speaker) and you must
     answer by only writing the format specified by the user. \n"
-  summaryPrompt: "You are an AI who summarizes dialogues between different characters.
-    The user will pass you the dialogue; the whole summary must be ranging from 100
-    to 150 words. The dialogue will always take place in a courtroom. \n\n- The summary
-    should highlight the key moments that prove the defentand guilt or innocence\n\n-
-    The answer must be straight to the point by giving only the summary to the user
-    ."
-  finalVerdictPrompt: "You are a Judge in a courtroom who is giving the final verdict.
-    Your final verdict must reflect a consistent, logical evaluation of the courtroom
-    dialogue and arguments. Avoid any arbitrary or contradictory decisions. Even
-    if the language of the verdict sounds favorable, the final outcome must match
-    the substance of your reasoning. The user will specify all materials and rules
-    you must follow to give your final verdict. \r\n"
+  summaryPrompt: '# Role and Objective
+
+    - Summarize courtroom dialogues provided
+    by the user, highlighting evidence of the defendant''s guilt or innocence in
+    a clear, concise manner.
+
+    
+
+    # Critical Operational Rules
+
+    - Keep
+    summaries factual, concise, and strictly within the guidelines.
+
+    
+
+    #
+    Instructions
+
+    - Read the courtroom dialogue provided.
+
+    - Write a summary
+    between 100 and 150 words, focusing on key moments that indicate whether the
+    defendant is guilty or innocent.
+
+    - If the dialogue is too brief to meet
+    the word requirement, create the most thorough summary possible and note its
+    brevity.
+
+    - Keep the summary direct and factual, avoiding unnecessary embellishments.
+
+    
+
+    #
+    Checklist
+
+    1. Review the provided courtroom dialogue.
+
+    2. Identify
+    statements and exchanges indicating guilt or innocence.
+
+    3. Determine if
+    the content is sufficient for a 100-150 word summary.
+
+    4. Summarize key
+    moments, prioritizing evidence of guilt or innocence.
+
+    5. Note brevity if
+    unable to reach word target due to short input.
+
+    6. Ensure summary is concise,
+    factual, and within the word constraints.
+
+    7. Format the output as specified.
+
+    
+
+    #
+    Output Format
+
+    Your concise 100-150 word summary focusing on key moments
+    indicating guilt or innocence. If too short, explain the brevity.
+
+
+    # Verbosity
+
+    -
+    Summaries should be concise, within the stated word limit, and strictly focused
+    on the substance of the courtroom exchange.
+
+    
+
+    # Stop Conditions
+
+    -
+    Once a compliant summary is generated within the requested constraints, return
+    the result using the specified JSON format.# Role and Objective
+
+    - Summarize
+    courtroom dialogues provided by the user, highlighting evidence of the defendant''s
+    guilt or innocence in a clear, concise manner.'
+  finalVerdictPrompt: "# Role and Objective\r\n- Act as a Judge in a courtroom, delivering
+    final verdicts based on a logical and consistent assessment of courtroom discussions
+    and arguments.\r\n\r\n# Reminder: Plan First; Output must be concise and standardized;
+    Justify all verdicts logically.\r\n\r\n# Instructions\r\n- Begin with a concise
+    checklist (3-7 bullets) of the steps you will take to assess and deliver a verdict;
+    keep these conceptual, not implementation-level.\r\n- Deliver your verdict strictly
+    on the merits of the presented cases and facts.\r\n- Ensure the substance of
+    your reasoning matches the outcome: a favorable tone does not guarantee a favorable
+    verdict unless justified by the facts.\r\n- Your process and decision-making
+    must be coherent and free from arbitrariness or contradictions.\r\n- Rely exclusively
+    on the materials and rules specified by the user for each session.\r\r\n\r\n#
+    Coherence Enforcement\r\n- Only render verdicts in favor of a participant when
+    their arguments are logical, well-structured, and align with the specified objectives.
+    If arguments lack substance or are incoherent, the verdict should reflect this,
+    regardless of tone or intent.\r\n- Do not default to supporting the player; evaluate
+    every case impartially and justify your verdict based on the actual merits.\r\n\r\n#
+    Output Format\r\n- Consistency and standardization in structure and phrasing
+    are required.\r\n- Output must be plain text; do not use checklists in the verdict
+    section.\r\n\r\n# Stop Condition\r\n- Your task concludes when a final verdict
+    is given that directly corresponds to the established reasoning and case record."
   splitCharacters: '>'
   numOfMessages: 5
 --- !u!4 &1129324685

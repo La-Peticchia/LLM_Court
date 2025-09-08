@@ -1,34 +1,64 @@
 [
   {
-    "title": "The Warehouse Explosion: People v. Luca Ferraro",
-    "playerGoal": "Achieve a full acquittal for the defendant, proving that he was not responsible for the explosion.",
-    "summary": "Luca Ferraro, an experienced warehouse supervisor, stands accused in a criminal trial after a devastating chemical explosion injured five workers and caused significant property damage. The prosecution alleges negligence and possible sabotage linked to missing safety logs and confidential emails about hazardous materials storage. However, ambiguous security footage contradicts some witness accounts while gaps exist in documentation regarding maintenance reports prior to the disaster. The defense must unravel complex procedural issues with evidence handling and argue alternative theories of causation under intense media scrutiny.",
-    "shortSummary": "Luca Ferraro is charged with causing a deadly warehouse explosion despite uncertain proof; conflicting witnesses & incomplete records create doubt as you defend him against serious allegations.",
+    "title": "The Case of the Stolen Nutella at Ferrini Factory",
+    "playerGoal": "Achieve complete acquittal of the defendant from the charge of aggravated theft.",
+    "summary": "The defendant, Marco Cosenti, is accused of stealing six crates of Nutella destined for export from a local factory. The case relies on partially obscured camera footage and conflicting testimonies: a coworker claims Marco was nowhere near the storage area at the time; while shipping manager insists only he could access that part of the facility. The physical evidence is inconclusive and some internal procedures were changed just one day prior. There are also doubts about what exact time those packages went missing.",
+    "shortSummary": "Marco Cosenti stands trial for alleged aggravated theft against his company, which produces Nutella. Ambiguous evidence and witnesses with contrasting accounts make it difficult to determine real responsibility.",
     "evidence": [
-      "Security camera shows someone entering restricted area but image is blurred during critical minutes.",
-      "Recently replaced machine part logged by technician on day before accident but form only partially completed.",
-      "The official safety audit notes discrepancies between real quantities stored versus those recorded four days earlier.",
-      "A deleted email thread recovered from server hints at budget-pressure decisions affecting chemical inventory compliance."
+      "Video footage shows only indistinct shadows around the warehouse between 8:15pm and 8:35pm but lacks useful audio and had been interrupted several times due to scheduled maintenance in preceding days.",
+      "Mixed fingerprints found on boxes recovered from landfill—some matching Marco while others remain unidentified.",
+      "'Electronic entry logs for restricted zone show unusual activity that same day – multiple accesses with identical credentials within minutes.'",
+      "'No stolen items have been resold or found available locally on black market according to investigators.'"
     ],
     "witnessNames": [
-      "Luca Ferretti",
-      "Natalia Ruiz",
-      "Sandra Klein",
-      "Benedetto Marchetti"
+      "Luca Martauni",
+      "Giorgia Vanetti"
     ],
     "witnessDescriptions": [
-      "Luca Ferretti is the night shift foreman known for his adherence to protocol yet pressed by time constraints; he claims no knowledge of any unauthorized activities or equipment failures prior to clocking out early due to illness on incident night.",
-      "Natalia Ruiz serves as logistics coordinator—meticulous but anxious—who asserts she saw unfamiliar personnel near hazardous lockers before lunch break yet cannot be sure if this occurred hours ahead or just moments before ignoring procedure herself due distractions.",
-      "Sandra Klein works in HR administration—a calm observer prone toward skepticism—and testifies management had recently reprimanded staff over cost-cutting measures impacting routine inspections though admits misplacing relevant logbooks last month amid turnover chaos.",
-      "Benedetto Marchetti oversees building security—a rule-bound stickler described as wary—with testimony highlighting minor alarm faults weeks preceding incident plus rumored arguments among contractors although struggling recollect exact names involved."
+      "Luca Martauni works as freight handler in this factory; tends toward precision when stating facts although sometimes nervous under pressure.His testimony states that all evening he personally saw Marco busy working within production department never moving toward implicated warehouses.",
+      "Giorgia Vanetti holds an administrative position at Ferrini plant,and always appears very decisive—even somewhat severe judging other employees.She firmly declares only Marko held special authorisation needed on specific day enabling him physically open gates into section where Nutella disappeared."
     ],
     "witnessGenders": [
       "M",
-      "F",
-      "F",
-      "M"
+      "F"
     ],
-    "additionalInfo": [],
+    "additionalInfo": [
+      "\n\n**English**\nBased upon provided information here's summary describing each witness’s account regarding timeframe during which nutella got stolen:\n\n* Luca Martauni: Claims having personally seen Marko occupied inside production throughout entire evening shift without heading towards storehouse area holding nutellas–implying marko couldn't be near location when theft occurred.\n* Giorgia Vanetti : States exclusively Marko possessed special permission required opening gate leading directly onto spot lacking stock precisely latest date.Anyway she does not supply direct alibi nor timeline specifying movement patterns involving marco .\n\nSecurity video displays shadowy figures alongside depot approx eight fifteen through half past yet neither sound nor clarity exists given interruptions recorded earlier.",
+      "\nHow might Luca explain possibility that although observing markos presence continually engaged workstation,camera system still records suspicious silhouettes proximate sealed store? \r\rHe can argue perhaps circumstances allow transition out side main workshop unnoticed either by himself as observer or another party , possibly suggesting migrations across units stand plausible if actual layouts divide sections spatially away sight.Since duties likely restrict vantage point coverage overlooking various locales,some fleeting gaps may slip observation .Shadow representations caught via fuzzy display potentially belonged third person instead being distorted effects resulting technical faults.Luca may thus highlight personal vigilance noting continuous occupation despite admitting remote odds minute absences pass unremarked.",
+      "\rWhether luca provides certainty absolutely confirming non-departure mr c during robbery interval:\rMartauni renders statement attesting cosentis involvement dedicated operations until night drew close remaining rooted workspace.Again however despite assurance total lack travel explicit proof excluding brief visits elsewhere stays limited based memory rather than comprehensive surveillance backup.",
+      "\rRepetition - Whether Lucas offers guarantee Marcos stayed put whole period beside incident site:Martaunis deposition affirms ongoing task execution constituting full term observed engagement thereby disavowing ventures outward.Yet admission mere recollection fails establish irrefutable security rendering claim wholly definite absent further corroboration."
+    ],
     "language": "english"
+  },
+  {
+    "title": "Il Caso della Nutella Rubata alla Fabbrica Ferrini",
+    "playerGoal": "Ottenere l'assoluzione completa dell'imputato dall'accusa di furto aggravato.",
+    "summary": "L’imputato, Marco Cosenti, è accusato di aver trafugato da una fabbrica locale sei casse di Nutella destinate all’esportazione. Il caso si basa su telecamere parzialmente oscurate e testimonianze discordanti: un collega sostiene che Marco fosse lontano dalla zona deposito al momento del furto; la responsabile delle spedizioni giura invece che solo lui poteva accedere a quella parte dello stabilimento. Le prove materiali non sono definitive e alcune procedure interne erano state modificate proprio il giorno prima. Ci sono inoltre dubbi sull’orario esatto in cui le confezioni sarebbero scomparse.",
+    "shortSummary": "Marco Cosenti viene processato per presunto furto aggravato ai danni della sua azienda produttrice di Nutella. Prove ambigue e testimoni con versioni contrastanti rendono difficile determinare la reale responsabilità.",
+    "evidence": [
+      "La ripresa video mostra solo ombre indistinte vicino al magazzino tra le 20:15 e le 20:35, ma manca audio utile ed è stata interrotta più volte per manutenzione programmata nei giorni precedenti.",
+      "Sulle scatole ritrovate nella discarica sono presenti impronte digitali miste, alcune riconducibili a Marco ma altre mai identificate.",
+      "I registri elettronici d’accesso alla zona riservata riportano anomalie temporali il giorno stesso del furto – accesso multiplo dalle stesse credenziali nel giro di pochi minuti.",
+      "Nessun oggetto sottratto è stato rivenduto o recuperabile sul mercato nero locale secondo gli investigatori."
+    ],
+    "witnessNames": [
+      "Luca Martauni",
+      "Giorgia Vanetti"
+    ],
+    "witnessDescriptions": [
+      "Luca Martauni lavora come addetto allo smistamento merci nella fabbrica; tende ad essere preciso nelle sue affermazioni anche se talvolta nervoso sotto pressione. Testimonia che durante tutto l’orario serale ha visto personalmente Marco impegnarsi nel reparto produzione senza spostarsi verso i magazzini incriminati.",
+      "Giorgia Vanetti ricopre la carica amministrativa presso lo stabilimento Ferrini ed appare sempre molto decisa—talvolta persino severa nei giudizi personali sugli altri impiegati; dichiara convinta che solamente Marco avesse l’autorizzazione speciale necessaria quel giorno per aprire fisicamente i cancelli dell’area dove mancava la Nutella."
+    ],
+    "witnessGenders": [
+      "M",
+      "F"
+    ],
+    "additionalInfo": [
+      "\n\n**Italiano**\nSecondo le informazioni fornite, ecco un riassunto della testimonianza di ciascun testimone riguardo al periodo di tempo in cui è stata rubata la Nutella:\n\n* Luca Martauni: Afferma di aver visto personalmente Marco impegnato nel reparto produzione durante tutta la sera, senza spostarsi verso i magazzini dove era conservata la Nutella. Ciò implica che Marco non si trovava vicino all'area dove è avvenuto il furto durante quel periodo.\n* Giorgia Vanetti: Dichiara che solo Marco aveva l'autorizzazione speciale per aprire i cancelli dell'area dove mancava la Nutella in quel giorno specifico. Tuttavia, non fornisce un alibi diretto o una timeline specifica per i movimenti di Marco.\n\nLe riprese video mostrano ombre vicino al magazzino tra le 20:15 e le 20:35, ma mancano audio e presentano alcune interruzioni.",
+      "\n\nCome Luca Martauni potrebbe spiegare la possibilità che Marco Cosenti fosse nella zona di produzione durante il furto mentre le riprese di sicurezza mostrano ombre sospette vicino al magazzino nello stesso periodo? \n\nLuca Martauni potrebbe spiegare che è possibile che Marco Cosenti sia stato nell'area di produzione durante l'orario del furto, come lui ha personalmente osservato, e tuttavia che qualcuno o lui stesso (senza essere notato) si sia spostato verso l'area del magazzino intorno alle 20:15-20:35. Potrebbe suggerire che:\n\n1. La zona di produzione e il magazzino non sono necessariamente adiacenti o in linea visiva diretta, permettendo movimenti tra aree senza essere notati.\n2. Come addetto allo smistamento merci, la postazione di lavoro di Martauni potrebbe non offrire una visuale costante di tutte le aree, specialmente se egli è concentrato sui propri compiti.\n3. Le ombre viste nelle riprese di sicurezza potrebbero appartenere a un'altra persona oppure essere distorte a causa dei problemi con le telecamere.\n\nMartauni può enfatizzare la sua personale osservazione che Marco era impegnato nelle attività produttive durante quel periodo ma riconoscere potenziali punti ciechi o brevi momenti dove Marco avrebbe potuto lasciare l'area senza essere notato",
+      "\n\nSe Luca Martauni possa dire con certezza che Marco Cosenti non ha lasciato l'area di produzione durante il periodo del furto.\n\nLuca Martauni può fornire una dichiarazione secondo cui Marco Cosenti era impegnato nell'area di produzione durante l'intero turno serale e non si è spostato verso il magazzino in questione. Tuttavia, la sua testimonianza non conferma necessariamente con assoluta certezza che Marco non abbia lasciato affatto l'area di produzione durante quel periodo.",
+      "\n\nSe Luca Martauni possa dire con certezza che Marco Cosenti non ha lasciato l'area di produzione durante il periodo del furto.\n\nLuca Martauni può fornire una dichiarazione secondo cui Marco Cosenti era impegnato nell'area di produzione durante l'intero turno serale e non si è spostato verso il magazzino in questione. Tuttavia, la sua testimonianza non conferma necessariamente con assoluta certezza che Marco non abbia lasciato affatto l'area di produzione durante quel periodo."
+    ],
+    "language": "italian"
   }
 ]

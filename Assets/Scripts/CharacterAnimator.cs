@@ -131,16 +131,16 @@ public class CharacterAnimator : MonoBehaviour
                     characterGenders[witnessName] = gender;
                     usedPrefabs.Add(selectedWitness);
 
-                    Debug.Log($"Assigned {witnessName} ({gender}): {selectedWitness.name}");
+                    //Debug.Log($"Assigned {witnessName} ({gender}): {selectedWitness.name}");
                 }
                 else
                 {
-                    Debug.LogError($"Could not assign unique prefab to {witnessName} ({gender})");
+                    //Debug.LogError($"Could not assign unique prefab to {witnessName} ({gender})");
                 }
             }
             else
             {
-                Debug.LogWarning($"No {(gender == "M" ? "male" : "female")} witness prefabs available");
+                //Debug.LogWarning($"No {(gender == "M" ? "male" : "female")} witness prefabs available");
             }
         }
     }
