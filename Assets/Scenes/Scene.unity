@@ -1819,7 +1819,7 @@ MonoBehaviour:
   nKeep: -1
   stop: []
   stream: 1
-  playerName: Peticchia
+  playerName: user
   AIName: AI
   prompt: A chat between a curious human and an artificial intelligence assistant.
     The assistant gives helpful, detailed, and polite answers to the human's questions.
@@ -3248,7 +3248,7 @@ MonoBehaviour:
   nKeep: -1
   stop: []
   stream: 1
-  playerName: Peticchia
+  playerName: user
   AIName: AI
   prompt: A chat between a curious human and an artificial intelligence assistant.
     The assistant gives helpful, detailed, and polite answers to the human's questions.
@@ -7493,7 +7493,7 @@ MonoBehaviour:
   contextSize: 8192
   batchSize: 512
   model: gemma-3-12b-it-Q4_K_M.gguf
-  chatTemplate: chatml
+  chatTemplate: gemma
   lora: 
   loraWeights: 
   flashAttention: 0
@@ -16847,14 +16847,14 @@ SceneRoots:
   - {fileID: 1421243307}
   - {fileID: 576788992}
   - {fileID: 1971763134}
-  - {fileID: 1323568983}
-  - {fileID: 1129324685}
   - {fileID: 708504566}
   - {fileID: 1688863036}
   - {fileID: 572299669}
   - {fileID: 605992476}
   - {fileID: 105907951}
   - {fileID: 1587732803}
+  - {fileID: 1323568983}
+  - {fileID: 1129324685}
   - {fileID: 293275949}
   - {fileID: 2119390620}
   - {fileID: 1813390163}

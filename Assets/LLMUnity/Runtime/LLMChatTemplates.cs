@@ -2,6 +2,7 @@
 /// @brief File implementing the chat templates.
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 namespace LLMUnity
@@ -186,6 +187,52 @@ namespace LLMUnity
         /// <param name="AIName"> the AI name </param>
         /// <param name="endWithPrefix"> whether to end the prompt with the AI prefix </param>
         /// <returns>prompt</returns>
+//        public virtual string ComputePrompt(List<ChatMessage> chatMessages, string playerName, string AIName, bool endWithPrefix = true)
+//        {
+//            //Debug.Log(AIName);
+//            
+//            List<ChatMessage> messages = chatMessages;
+//            if (!SystemPromptSupported())
+//            {
+//                if (chatMessages[0].role == "system")
+//                {
+//                    string firstUserMessage = chatMessages[0].content;
+//                    int newStart = 1;
+//                    if (chatMessages.Count > 1)
+//                    {
+//                        if (firstUserMessage != "") firstUserMessage += "\n\n";
+//                        firstUserMessage += chatMessages[1].content;
+//                        newStart = 2;
+//                    }
+//                    messages = new List<ChatMessage>(){new ChatMessage { role = playerName, content = firstUserMessage }};
+//                    messages.AddRange(chatMessages.GetRange(newStart, chatMessages.Count - newStart));
+//                }
+//            }
+//
+//            string chatPrompt = PromptPrefix();
+//            int start = 0;
+//            if (messages[0].role == "system")
+//            {
+//                chatPrompt += RequestPrefix() + SystemPrefix() + messages[0].content + SystemSuffix();
+//                start = 1;
+//            }
+//            for (int i = start; i < messages.Count; i += 2)
+//            {
+//                if (i > start || start == 0) chatPrompt += RequestPrefix();
+//                chatPrompt += PlayerPrefix(messages[i].role) + PrefixMessageSeparator() + messages[i].content + RequestSuffix();
+//                if (i < messages.Count - 1)
+//                {
+//                    chatPrompt += AIPrefix(messages[i + 1].role) + PrefixMessageSeparator() + messages[i + 1].content + PairSuffix();
+//                }
+//            }
+//            if (endWithPrefix)
+//            {
+//                chatPrompt += AIPrefix(AIName);
+//                if (HasThinkingMode()) chatPrompt += "<think>\n\n</think>\n\n";
+//            }
+//            return chatPrompt;
+//        }
+//
         public virtual string ComputePrompt(List<ChatMessage> chatMessages, string playerName, string AIName, bool endWithPrefix = true)
         {
             //Debug.Log(AIName);
@@ -207,23 +254,23 @@ namespace LLMUnity
                     messages.AddRange(chatMessages.GetRange(newStart, chatMessages.Count - newStart));
                 }
             }
-
+        
             string chatPrompt = PromptPrefix();
-            int start = 0;
-            if (messages[0].role == "system")
+
+            for (int i = 0; i < messages.Count; i++)
             {
-                chatPrompt += RequestPrefix() + SystemPrefix() + messages[0].content + SystemSuffix();
-                start = 1;
+                chatPrompt += RequestPrefix();
+                string currentRole = messages[i].role;
+                string currentContent = messages[i].content;
+                
+                if(playerName.ToLower().Contains(currentRole.ToLower()))
+                    chatPrompt += PlayerPrefix(currentRole) + PrefixMessageSeparator() + currentContent + RequestSuffix();
+                else if(currentRole.Contains("system"))
+                    chatPrompt += RequestPrefix() + SystemPrefix() + currentContent + SystemSuffix();
+                else
+                    chatPrompt += AIPrefix(currentRole) + PrefixMessageSeparator() + currentContent + PairSuffix();
             }
-            for (int i = start; i < messages.Count; i += 2)
-            {
-                if (i > start || start == 0) chatPrompt += RequestPrefix();
-                chatPrompt += PlayerPrefix(messages[i].role) + PrefixMessageSeparator() + messages[i].content + RequestSuffix();
-                if (i < messages.Count - 1)
-                {
-                    chatPrompt += AIPrefix(messages[i + 1].role) + PrefixMessageSeparator() + messages[i + 1].content + PairSuffix();
-                }
-            }
+            
             if (endWithPrefix)
             {
                 chatPrompt += AIPrefix(AIName);
@@ -292,7 +339,7 @@ namespace LLMUnity
     /// @ingroup template
     /// <summary>
     /// Class implementing a modified version of the LLama2 template for chat
-    /// </summary>
+      /// </summary>
     public class LLama2ChatTemplate : LLama2Template
     {
         public override string GetName() { return "llama chat"; }
@@ -390,11 +437,17 @@ namespace LLMUnity
 
         protected override string RequestSuffix() { return "<end_of_turn>\n"; }
         protected override string PairSuffix() { return "<end_of_turn>\n"; }
+        
+        protected override string SystemPrefix() { return "<start_of_turn>system\n"; }
+        protected override string SystemSuffix() { return "<end_of_turn>\n"; }
 
-        protected override string PlayerPrefix(string playerName) { return "<start_of_turn>user\n"; }
-        protected override string AIPrefix(string AIName) { return "<start_of_turn>model\n"; }
+        protected override string PlayerPrefix(string playerName) { return $"<start_of_turn>{playerName}\n"; }
+        //protected override string PlayerPrefix(string playerName) { return "<start_of_turn>user\n"; }
+        protected override string AIPrefix(string AIName) { return $"<start_of_turn>{AIName}\n"; }
+        //protected override string AIPrefix(string AIName) { return $"<start_of_turn>model\n"; }
 
-        protected override bool SystemPromptSupported() { return false; }
+        //protected override bool SystemPromptSupported() { return false; }
+        protected override bool SystemPromptSupported() { return true; }
 
         public override string[] GetStop(string playerName, string AIName)
         {
@@ -553,8 +606,10 @@ namespace LLMUnity
         public override string[] GetNameMatches() { return new string[] {"phi-4"}; }
         public override string[] GetChatTemplateMatches() { return new string[] {"{% for message in messages %}{% if (message['role'] == 'system') %}{{'<|im_start|>system<|im_sep|>' + message['content'] + '<|im_end|>'}}{% elif (message['role'] == 'user') %}{{'<|im_start|>user<|im_sep|>' + message['content'] + '<|im_end|>'}}{% elif (message['role'] == 'assistant') %}{{'<|im_start|>assistant<|im_sep|>' + message['content'] + '<|im_end|>'}}{% endif %}{% endfor %}{% if add_generation_prompt %}{{ '<|im_start|>assistant<|im_sep|>' }}{% endif %}"};}
 
-        protected override string PlayerPrefix(string playerName) { return $"<|im_start|>user<|im_sep|>"; }
-        protected override string AIPrefix(string AIName) { return $"<|im_start|>assistant<|im_sep|>"; }
+        protected override string PlayerPrefix(string playerName) { return $"<|im_start|>{playerName}<|im_sep|>"; }
+        //protected override string PlayerPrefix(string playerName) { return $"<|im_start|>user<|im_sep|>"; }
+        protected override string AIPrefix(string AIName) { return $"<|im_start|>{AIName}<|im_sep|>"; }
+        //protected override string AIPrefix(string AIName) { return $"<|im_start|>assistant<|im_sep|>"; }
         protected override string RequestSuffix() { return "<|im_end|>"; }
         protected override string PairSuffix() { return "<|im_end|>"; }
         protected override string SystemPrefix() { return "<|im_start|>system<|im_sep|>"; }

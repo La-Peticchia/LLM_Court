@@ -586,7 +586,7 @@ namespace LLMUnity
             await chatLock.WaitAsync();
             try
             {
-                string prompt = template.ComputePrompt(chat, "", role);
+                string prompt = template.ComputePrompt(chat, playerName, role);
                 result = GenerateRequest(prompt);
             }
             finally
