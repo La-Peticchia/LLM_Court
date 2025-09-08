@@ -274,8 +274,6 @@ public class Court : MonoBehaviour
     public void SetAIText(string text)
     {
         string cleanText = text.Split(_questionCharacter)[0]
-                              .Split(_requestCharacter)[0]
-                              .Split(_interventionGrantCharacter)[0]
                               .Replace(_winTag, "")
                               .Replace(_lossTag, "");
 
