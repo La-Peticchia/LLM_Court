@@ -15,8 +15,9 @@ using Random = UnityEngine.Random;
 public class Court : MonoBehaviour
 {
     //References
-    [Header("References")]
-    [SerializeField] private LLMCharacter llmCharacter;
+    [Header("References")] [SerializeField]
+    private LLMCharacter llmCharacter;
+
     [SerializeField] private InputField playerText;
     [SerializeField] private TextMeshProUGUI aiText;
     [SerializeField] private Text aiTitle;
@@ -25,7 +26,9 @@ public class Court : MonoBehaviour
     [SerializeField] private TextMeshProUGUI caseDescriptionText;
     [SerializeField] public Button nextButton;
     private APIInterface _apiManager;
+
     private SentenceAnalyzer _sentenceAnalyzer;
+
     //[SerializeField] RunJets runJets;
     [SerializeField] public Button micButton;
     public MicrophoneInput micInput;
@@ -35,23 +38,28 @@ public class Court : MonoBehaviour
     private CourtRecordUI _courtRecordUI;
     private SettingsUI _settingsUI;
 
-    [Header("TTS Integration")]
-    private KokoroTTSManager ttsManager;
+    [Header("TTS Integration")] private KokoroTTSManager ttsManager;
     [SerializeField] private bool enableTTS = true;
     [SerializeField] private bool waitForTTSCompletion = true;
 
     //Names
-    [Header("Character Names")]
-    [SerializeField] private string wildcardCharacterName = "Wildcard";
+    [Header("Character Names")] [SerializeField]
+    private string wildcardCharacterName = "Wildcard";
+
     [SerializeField] private string defenseName = "Defense";
     [SerializeField] private string attackName = "Prosecutor";
     [SerializeField] private string judgeName = "Judge";
 
     //Prompts
-    [Header("Character Prompt")]
-    [TextArea(5, 10)] public string mainPrompt = "A court case where the AI takes control of several characters listed below";
-    [TextArea(5, 10)] public string judgePrompt = "The goal of Judge is to give the defendant's final sentence by listening to the dialogue";
-    [TextArea(5, 10)] public string attackPrompt = "The goal of Prosecutor is proving to the Judge that the defendant is guilty";
+    [Header("Character Prompt")] [TextArea(5, 10)]
+    public string mainPrompt = "A court case where the AI takes control of several characters listed below";
+
+    [TextArea(5, 10)] public string judgePrompt =
+        "The goal of Judge is to give the defendant's final sentence by listening to the dialogue";
+
+    [TextArea(5, 10)]
+    public string attackPrompt = "The goal of Prosecutor is proving to the Judge that the defendant is guilty";
+
     [TextArea(5, 10)] public string witnessesPrompt = "Witnesses";
 
     //Command text
@@ -65,11 +73,13 @@ public class Court : MonoBehaviour
     private readonly string _witnessesPlaceholder = "<Witnesses>";
     private readonly string _rolePlaceholder = "<Role>";
     private readonly string _behaviourPlaceholder = "<Behaviour>";
-    
+
 
 
     //Gameplay
-    [SerializeField, UnityEngine.Range(1, 5)] private int numOfInteractions;
+    [SerializeField, UnityEngine.Range(1, 5)]
+    private int numOfInteractions;
+
     private int _defenseInteractions;
     private int _attackInteractions;
     [SerializeField] private bool enableAnalyzeInfo = true;
@@ -110,7 +120,7 @@ public class Court : MonoBehaviour
             if (ttsManager == null)
                 Debug.LogError("[Court] Nessun KokoroTTSManager trovato in scena!");
             //else
-                //Debug.Log("[Court] KokoroTTSManager assegnato correttamente: " + ttsManager.name);
+            //Debug.Log("[Court] KokoroTTSManager assegnato correttamente: " + ttsManager.name);
         }
 
         playerText.onSubmit.AddListener(OnInputFieldSubmit);
@@ -125,6 +135,7 @@ public class Court : MonoBehaviour
             _settingsUI = FindFirstObjectByType<SettingsUI>();
 
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
@@ -132,7 +143,8 @@ public class Court : MonoBehaviour
             if (IsAnyInputFieldFocused()) return;
             if (_settingsUI != null && _settingsUI.IsOpen) return;
 
-            if (!_roundsTimeline[_round].role.ToLower().Contains(defenseName.ToLower()) && nextButton != null && nextButton.interactable)
+            if (!_roundsTimeline[_round].role.ToLower().Contains(defenseName.ToLower()) && nextButton != null &&
+                nextButton.interactable)
             {
                 OnNextButtonClick();
             }
@@ -152,19 +164,25 @@ public class Court : MonoBehaviour
         _caseDescription = caseDescription;
         _translatedDescription = translatedDescription;
         enableTTS = translatedDescription.language.ToLower().StartsWith("en");
-        
+
         if (playerGoalText)
             playerGoalText.text = _translatedDescription.GetTotalDescription(1, true);
 
-        mainPrompt = mainPrompt.Replace(_judgePlaceholder, judgePrompt).Replace(_prosecutorPlaceholder, attackPrompt).Replace(_witnessesPlaceholder, witnessesPrompt).Replace(_languagePlaceholder, translatedDescription.language);
-
+        string variabilityPrompt = "";
+        if (CaseMemory.NewAISeed.HasValue)
+            variabilityPrompt = $"\n\nSession Seed: {CaseMemory.NewAISeed.Value}. Use this seed to introduce natural variation in character behaviors, dialogue patterns, and decision-making while maintaining character consistency.";
+        
+        mainPrompt = mainPrompt.Replace(_judgePlaceholder, judgePrompt).Replace(_prosecutorPlaceholder, attackPrompt)
+            .Replace(_witnessesPlaceholder, witnessesPrompt)
+            .Replace(_languagePlaceholder, translatedDescription.language) + variabilityPrompt;
+        
         InitializeChat();
         InitializeRounds();
 
         caseDescriptionText.text = _translatedDescription.GetTotalDescription(true);
         characterAnimator.AssignDynamicPrefabs(_translatedDescription.witnessNames,
-                                             _translatedDescription.witnessGenders,
-                                             attackName);
+            _translatedDescription.witnessGenders,
+            attackName);
 
         List<string> characters = new List<string> { judgeName, defenseName, attackName };
         characters.AddRange(caseDescription.witnessNames);
@@ -225,20 +243,15 @@ public class Court : MonoBehaviour
         }
 
         ttsManager.InitializeCharacterVoices(_translatedDescription.witnessNames,
-                                           _translatedDescription.witnessGenders,
-                                           prosecutorGender);
+            _translatedDescription.witnessGenders,
+            prosecutorGender);
 
         Debug.Log("TTS system initialized with character voices");
     }
 
     private void InitializeChat()
     {
-        string variabilityPrompt = "";
-        if (CaseMemory.NewAISeed.HasValue)
-        {
-            variabilityPrompt = $"\n\nSession Seed: {CaseMemory.NewAISeed.Value}. Use this seed to introduce natural variation in character behaviors, dialogue patterns, and decision-making while maintaining character consistency.";
-        }
-        llmCharacter.prompt = mainPrompt + variabilityPrompt;
+        llmCharacter.prompt = mainPrompt;
         llmCharacter.ClearChat();
         llmCharacter.AddMessage("Case Description", BuildCaseDescriptionPrompt());
         enabled = true;
@@ -246,7 +259,8 @@ public class Court : MonoBehaviour
 
     string BuildCaseDescriptionPrompt()
     {
-        return $"The following is the case file for today's simulation, provided in JSON format. Use this only as factual reference during the trial. Do not repeat or explain it:\n{_caseDescription.GetJsonDescription()}";
+        return
+            $"The following is the case file for today's simulation, provided in JSON format. Use this only as factual reference during the trial. Do not repeat or explain it:\n{_caseDescription.GetJsonDescription()}";
     }
 
     //TODO rimuovi l'analisi del testo del giudice per garantire interventi aggiuntivi e utilizzare il formato: [number of question]
@@ -260,14 +274,18 @@ public class Court : MonoBehaviour
     {
         _roundsTimeline = new List<(string role, string systemMessage)>
         {
-            (" "," "),
+            (" ", " "),
             (judgeName, $"Now the {judgeName} introduces the court case then passes the word to {attackName}"),
-            (attackName,$"Now the {attackName} introduces their case thesis then asks {judgeName} the amount of questions they want to deliver to the witnesses"),
-            (judgeName, $"Now the {judgeName} grants a specific number of questions to {attackName} based on the previous spoken line."),
+            (attackName,
+                $"Now the {attackName} introduces their case thesis then asks {judgeName} the amount of questions they want to deliver to the witnesses"),
+            (judgeName,
+                $"Now the {judgeName} grants a specific number of questions to {attackName} based on the previous spoken line."),
             //(judgeName, $"Now the {judgeName} grants a specific number of questions to {attackName} based on the previous spoken line then passes the word to {defenseName}"),
             //(judgeName, $"Now the {judgeName} passes the word to {defenseName}"),
-            (defenseName,$"Now the {defenseName} introduces their case thesis then asks {judgeName} the amount of questions they want to deliver to the witnesses"),
-            (judgeName, $"Now the {judgeName} grants a specific number of questions to {defenseName} based on the previous spoken line."),
+            (defenseName,
+                $"Now the {defenseName} introduces their case thesis then asks {judgeName} the amount of questions they want to deliver to the witnesses"),
+            (judgeName,
+                $"Now the {judgeName} grants a specific number of questions to {defenseName} based on the previous spoken line."),
 
         };
 
@@ -277,10 +295,10 @@ public class Court : MonoBehaviour
     public void SetAIText(string text)
     {
         string cleanText = text.Split(_questionCharacter)[0]
-                              .Replace(_interventionGrantCharacter, "")
-                              .Replace("]", "")
-                              .Replace(_winTag, "")
-                              .Replace(_lossTag, "");
+            .Replace(_interventionGrantCharacter, "")
+            .Replace("]", "")
+            .Replace(_winTag, "")
+            .Replace(_lossTag, "");
 
         aiText.text = cleanText;
 
@@ -330,6 +348,7 @@ public class Court : MonoBehaviour
         else
             return characterName;
     }
+
     public void AIReplyComplete()
     {
         AddToLog(aiTitle.text, aiText.text);
@@ -356,9 +375,10 @@ public class Court : MonoBehaviour
                 //Debug.Log($"Finalized TTS streaming for: {ttsCharacterName}");
             }
         }
-        
+
 
     }
+
     private void OnInputFieldSubmit(string message)
     {
         OnNextButtonClick();
@@ -385,7 +405,8 @@ public class Court : MonoBehaviour
 
         if (_roundsTimeline[_round].role.ToLower().Contains(defenseName.ToLower()))
         {
-            if (EventSystem.current.currentSelectedGameObject == playerText.gameObject && string.IsNullOrWhiteSpace(playerText.text))
+            if (EventSystem.current.currentSelectedGameObject == playerText.gameObject &&
+                string.IsNullOrWhiteSpace(playerText.text))
                 return;
             string message = playerText.text;
             Debug.Log("Message: " + message);
@@ -408,14 +429,15 @@ public class Court : MonoBehaviour
 
         if (_lastPhase && _round >= _roundsTimeline.Count - 1)
         {
-            characterAnimator.ShowCharacter(judgeName, "");  // Entra con animazione e poi mostra testo
+            characterAnimator.ShowCharacter(judgeName, ""); // Entra con animazione e poi mostra testo
 
             if (enableTTS && ttsManager != null)
             {
                 ttsManager.StartStreamingTTS("Judge");
             }
 
-            string verdict = await _sentenceAnalyzer.FinalVerdict(_caseDescription, llmCharacter.chat, _translatedDescription.language, SetAIText, AIReplyComplete);
+            string verdict = await _sentenceAnalyzer.FinalVerdict(_caseDescription, llmCharacter.chat,
+                _translatedDescription.language, SetAIText, AIReplyComplete);
 
             if (verdict.Contains(_winTag))
                 _pendingEndGameMessage = ("YOU WIN", Color.green);
@@ -432,7 +454,7 @@ public class Court : MonoBehaviour
         if (!_lastPhase) CheckForJudgeIntervention();
 
         systemMessages.text = _roundsTimeline[_round].systemMessage;
-        characterAnimator.ShowCharacter(_roundsTimeline[_round].role, "");  // Entra con animazione e poi mostra testo
+        characterAnimator.ShowCharacter(_roundsTimeline[_round].role, ""); // Entra con animazione e poi mostra testo
 
 
         if (_roundsTimeline[_round].role.ToLower().Contains(defenseName.ToLower()))
@@ -447,6 +469,8 @@ public class Court : MonoBehaviour
         }
         else
         {
+            UpdatePromptBehaviour();
+
             playerText.interactable = false;
             playerText.gameObject.SetActive(false);
             micInput.EnableMicInput(false);
@@ -461,7 +485,7 @@ public class Court : MonoBehaviour
             string answer = await llmCharacter.ContinueChat(_roundsTimeline[_round].role, SetAIText, AIReplyComplete);
 
             Debug.Log(_roundsTimeline[_round].role + ": " + answer);
-            
+
             if (!_lastPhase) await SetUpNextRound(answer);
 
         }
@@ -482,7 +506,8 @@ public class Court : MonoBehaviour
         if (_roundsTimeline[_round].role.ToLower().Contains(defenseName.ToLower()))
         {
 
-            var nextCharTask = _sentenceAnalyzer.AnalyzeNextCharacter(llmCharacter.chat, (defenseName, text), characters.ToArray());
+            var nextCharTask =
+                _sentenceAnalyzer.AnalyzeNextCharacter(llmCharacter.chat, (defenseName, text), characters.ToArray());
             if (enableAnalyzeInfo)
             {
                 var infoReqTask = _sentenceAnalyzer.AnalyzeInfoNeeded(llmCharacter.chat, _caseDescription);
@@ -490,9 +515,9 @@ public class Court : MonoBehaviour
             }
             else
                 data[0] = await nextCharTask;
-            
+
             llmCharacter.AddPlayerMessage(text + $"<{data[0]}>");
-            
+
         }
         else
         {
@@ -502,7 +527,9 @@ public class Court : MonoBehaviour
                 Match grantMatch = Regex.Match(text, @"\[(.*?)\]");
                 string prevCharacter = _roundsTimeline[_round - 1].role;
                 if (!(grantMatch.Success && int.TryParse(grantMatch.Groups[1].Value, out var grantNum)))
-                    (grantNum, _) = await _sentenceAnalyzer.AnalyzeGrantInterventions(llmCharacter.chat, new[] { attackName, defenseName });
+                    (grantNum, _) =
+                        await _sentenceAnalyzer.AnalyzeGrantInterventions(llmCharacter.chat,
+                            new[] { attackName, defenseName });
                 if (!prevCharacter.Contains("NULL") && grantNum > 0)
                     if (prevCharacter.ToLower().Contains(defenseName.ToLower()))
                     {
@@ -539,14 +566,17 @@ public class Court : MonoBehaviour
         if (!string.IsNullOrWhiteSpace(data[1]) && !data[1].ToUpper().Contains("NULL"))
             try
             {
-                (string answer, string translatedAnswer) = await _apiManager.RequestAdditionalInfo(_caseDescription.GetTotalDescription(new[] { 0, 2, 3, 4 }), data[1], _translatedDescription.language);
+                (string answer, string translatedAnswer) = await _apiManager.RequestAdditionalInfo(
+                    _caseDescription.GetTotalDescription(new[] { 0, 2, 3, 4 }), data[1],
+                    _translatedDescription.language);
                 if (!string.IsNullOrWhiteSpace(answer))
                 {
                     _caseDescription.AddInformation(answer);
                     _translatedDescription.AddInformation(translatedAnswer);
                 }
 
-                llmCharacter.chat[1] = new ChatMessage { role = "Case Description", content = BuildCaseDescriptionPrompt() };
+                llmCharacter.chat[1] = new ChatMessage
+                    { role = "Case Description", content = BuildCaseDescriptionPrompt() };
                 caseDescriptionText.text = _translatedDescription.GetTotalDescription(true);
 
 
@@ -557,7 +587,42 @@ public class Court : MonoBehaviour
             }
     }
 
-    //TODO rendere la tesi finale del Prosecutor più coerente con quanto successo in aula; il Prosecutor dovrebbe fare domande distribuite tra i vari testimoni
+    void UpdatePromptBehaviour()
+    {
+        string currentRole = _roundsTimeline[_round].role.ToLower();
+        string role = "You play the role of ";
+        string behaviour = "";
+        if (currentRole.Contains(judgeName.ToLower()))
+        {
+            role += judgeName;
+            behaviour = $"{judgeName}: {judgePrompt}";
+        }
+        else if(currentRole.Contains(attackName.ToLower()))
+        {
+            role += attackName;
+            behaviour = $"{attackName}: {attackPrompt}";
+        }
+        else if(_translatedDescription.witnessNames.Any(x => x.ToLower().Contains(currentRole)))
+        {
+            role += "a witness";
+            behaviour = $"Witnesses: {witnessesPrompt}";
+        }
+        else
+        {
+            role = "You control all other characters, including the Judge, Prosecutor, and all Witnesses";
+            behaviour =  $"{judgeName}: {judgePrompt}\n\n" +
+                         $"{attackName}: {attackPrompt}\n\n" +
+                         $"Witnesses: {witnessesPrompt}\n\n" +
+                         $"{defenseName}: The character controlled by the player; they would do anything to prove the defendant's innocence";
+        }
+        
+        llmCharacter.chat[0] = new ChatMessage{role = "system", content = mainPrompt.Replace(_behaviourPlaceholder, behaviour).Replace(_rolePlaceholder, role)};
+        
+        //Debug.Log("UpdatePromptBehaviour:\n\n" + llmCharacter.chat[0].content);
+    }
+
+
+//TODO rendere la tesi finale del Prosecutor più coerente con quanto successo in aula; il Prosecutor dovrebbe fare domande distribuite tra i vari testimoni
     void CheckForJudgeIntervention()
     {
 
@@ -585,7 +650,7 @@ public class Court : MonoBehaviour
             }
 
         if (IsOutOfQuestions && _roundsTimeline[_round].role.ToLower().Contains(judgeName.ToLower()))
-        {
+        {   
             _roundsTimeline[_round] = (judgeName, $"Now the {judgeName} requests the final thesis of the {attackName} and {defenseName}");
             _roundsTimeline.Add((attackName, $"Now the {attackName} shows their final thesis based on what happened in the courtroom"));
             _roundsTimeline.Add((defenseName, $"Now the {defenseName} shows their final thesis"));
