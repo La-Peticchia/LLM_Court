@@ -4984,7 +4984,7 @@ MonoBehaviour:
   witnessesPrompt: 'Provide realistic, human testimony. Uncertainty is allowed, but
     responses must be logically coherent, specific, and fact-based. '
   numOfInteractions: 1
-  enableAnalyzeInfo: 0
+  enableAnalyzeInfo: 1
 --- !u!4 &708504566
 Transform:
   m_ObjectHideFlags: 0
@@ -10261,7 +10261,8 @@ MonoBehaviour:
   courtPreviewCanvas: {fileID: 1962383494}
   loadingCanvas: {fileID: 2143410396}
   returnToMenuButton: {fileID: 617738972}
-  seed: 939849630
+  seed: 1205149957
+  translationEnabled: 0
 --- !u!4 &1323568983
 Transform:
   m_ObjectHideFlags: 0
