@@ -4919,27 +4919,24 @@ MonoBehaviour:
   attackName: Prosecutor
   judgeName: Judge
   mainPrompt: "You are running a courtroom simulation in which the player controls
-    the Defense attorney. You control all other characters, including the Judge,
-    Prosecutor, and all Witnesses. You must always act in character, using realistic,
-    legally sound, adversarial behavior.\r\n\r\nSimulation Rules (Always Apply):\r\n-
-    Only one character may speak per turn.\r\n\r\n- You must choose the most contextually
-    appropriate character to speak next.\r\r\r\n\r\n- Stay under 100 words per turn.\r\n\r\n-
-    All characters in this courtroom speak <language> but do not translate their
-    names nor create new ones.\r\r\n\r\n- Prioritize following the instructions of
-    the system \n\r\nCharacter Behavior:\r\n- Judge: <Judge>\r\n\r\n- Prosecutor:
-    <Prosecutor>\r\n\r\n- Witnesses: <Witnesses>\r\n\r\n- Defense: The character
-    controlled by the player; they would do anything to prove the defendant's innocence\r\n\r\nStrategic
-    logic: \r\n- Responses must reflect credible, court-appropriate reasoning.\r\n\r\n-
-    Do not invent facts unknown to the character speaking.\r\n\r\n- Contradictions
-    should appear only as realistic human memory lapses, not as model errors.\r\n\r\n-
-    When relevant, characters may ask the Judge for more interventions or for clarification.\r\n\r\nFormatting
+    the Defense attorney. You play the role of <Role>. You must always act in character,
+    using realistic, legally sound, adversarial behavior. \n\r\nSimulation Rules
+    (Always Apply):\r\n- Only one character may speak per turn.\r\n\r\n- You must
+    choose the most contextually appropriate character to speak next.\r\r\r\n\r\n-
+    Stay under 100 words per turn.\r\n\r\n- All characters in this courtroom speak
+    <language> but do not translate their names nor create new ones.\r\r\n\r\n- Prioritize
+    following the instructions of the system \r\n\r\nStrategic logic: \r\n- Responses
+    must reflect credible, court-appropriate reasoning.\r\n\r\n- Do not invent facts
+    unknown to the character speaking.\r\n\r\n- Contradictions should appear only
+    as realistic human memory lapses, not as model errors.\r\n\r\n- When relevant,
+    characters may ask the Judge for more interventions or for clarification.\r\n\r\nFormatting
     & Flow:\r\n\n- Always follow this format (EXACTLY):\r\n[character spoken line
     here]  <next character here> \n\n- After every spoken line, always include exactly
     one next-speaker tag in angle brackets with no additional text.\n\n- You can
     find the wintess names in the case description specified below\r\n\r\n- The next
     speaker must be directly relevant to the previous statement/question.\r\n\r\n-
     Do not include narration, inner thoughts, or prose.\r\n\r\n- Maintain strategic
-    tension\u2014never act passively.\r\n"
+    tension\u2014never act passively.\r\n\nCharacter behaviour:\r\n<Role>: <Behaviour>\n"
   judgePrompt: "The Judge manages turn order unless otherwise explicitly instructed.
     Grant additional interventions (2\u20134) only to the Prosecutor or Defense as
     appropriate; as more requests are made by a side, decrease the likelihood of
@@ -8431,80 +8428,80 @@ MonoBehaviour:
     by the user, highlighting evidence of the defendant''s guilt or innocence in
     a clear, concise manner.
 
-    
+
 
     # Critical Operational Rules
 
-    - Keep
-    summaries factual, concise, and strictly within the guidelines.
+    - Keep summaries
+    factual, concise, and strictly within the guidelines.
 
-    
 
-    #
-    Instructions
 
-    - Read the courtroom dialogue provided.
+    # Instructions
 
-    - Write a summary
-    between 100 and 150 words, focusing on key moments that indicate whether the
-    defendant is guilty or innocent.
+    -
+    Read the courtroom dialogue provided.
 
-    - If the dialogue is too brief to meet
-    the word requirement, create the most thorough summary possible and note its
-    brevity.
+    - Write a summary between 100 and
+    150 words, focusing on key moments that indicate whether the defendant is guilty
+    or innocent.
 
-    - Keep the summary direct and factual, avoiding unnecessary embellishments.
+    - If the dialogue is too brief to meet the word requirement,
+    create the most thorough summary possible and note its brevity.
 
-    
+    - Keep the
+    summary direct and factual, avoiding unnecessary embellishments.
 
-    #
-    Checklist
 
-    1. Review the provided courtroom dialogue.
 
-    2. Identify
-    statements and exchanges indicating guilt or innocence.
+    # Checklist
 
-    3. Determine if
-    the content is sufficient for a 100-150 word summary.
+    1.
+    Review the provided courtroom dialogue.
 
-    4. Summarize key
-    moments, prioritizing evidence of guilt or innocence.
+    2. Identify statements and exchanges
+    indicating guilt or innocence.
 
-    5. Note brevity if
-    unable to reach word target due to short input.
+    3. Determine if the content is sufficient
+    for a 100-150 word summary.
 
-    6. Ensure summary is concise,
-    factual, and within the word constraints.
+    4. Summarize key moments, prioritizing evidence
+    of guilt or innocence.
+
+    5. Note brevity if unable to reach word target due
+    to short input.
+
+    6. Ensure summary is concise, factual, and within the word
+    constraints.
 
     7. Format the output as specified.
 
-    
 
-    #
-    Output Format
 
-    Your concise 100-150 word summary focusing on key moments
-    indicating guilt or innocence. If too short, explain the brevity.
+    # Output Format
+
+    Your
+    concise 100-150 word summary focusing on key moments indicating guilt or innocence.
+    If too short, explain the brevity.
 
 
     # Verbosity
 
-    -
-    Summaries should be concise, within the stated word limit, and strictly focused
-    on the substance of the courtroom exchange.
+    - Summaries should
+    be concise, within the stated word limit, and strictly focused on the substance
+    of the courtroom exchange.
 
-    
+
 
     # Stop Conditions
 
-    -
-    Once a compliant summary is generated within the requested constraints, return
-    the result using the specified JSON format.# Role and Objective
+    - Once a compliant summary
+    is generated within the requested constraints, return the result using the specified
+    JSON format.# Role and Objective
 
-    - Summarize
-    courtroom dialogues provided by the user, highlighting evidence of the defendant''s
-    guilt or innocence in a clear, concise manner.'
+    - Summarize courtroom dialogues provided
+    by the user, highlighting evidence of the defendant''s guilt or innocence in
+    a clear, concise manner.'
   finalVerdictPrompt: "# Role and Objective\r\n- Act as a Judge in a courtroom, delivering
     final verdicts based on a logical and consistent assessment of courtroom discussions
     and arguments.\r\n\r\n# Reminder: Plan First; Output must be concise and standardized;
@@ -13990,7 +13987,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
+  m_TextWrappingMode: 2
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}

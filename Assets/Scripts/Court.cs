@@ -63,6 +63,9 @@ public class Court : MonoBehaviour
     private readonly string _judgePlaceholder = "<Judge>";
     private readonly string _prosecutorPlaceholder = "<Prosecutor>";
     private readonly string _witnessesPlaceholder = "<Witnesses>";
+    private readonly string _rolePlaceholder = "<Role>";
+    private readonly string _behaviourPlaceholder = "<Behaviour>";
+    
 
 
     //Gameplay
@@ -275,6 +278,7 @@ public class Court : MonoBehaviour
     {
         string cleanText = text.Split(_questionCharacter)[0]
                               .Replace(_interventionGrantCharacter, "")
+                              .Replace("]", "")
                               .Replace(_winTag, "")
                               .Replace(_lossTag, "");
 
