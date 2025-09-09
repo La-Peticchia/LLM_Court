@@ -3,6 +3,37 @@
     "title": "Il caso del ninja notturno",
     "playerGoal": "Ottenere una riduzione della pena totale di 5 anni per il cliente, accusato di omicidio volontario.",
     "summary": "Durante una festa privata a Milano, la vittima viene ritrovata senza vita nel giardino: è stata colpita mortalmente da uno shuriken. Il principale sospettato è Leonardo Mori, un giovane appassionato di arti marziali che possiede armi tradizionali e ha avuto discussioni accese con la vittima quella sera. Le prove sono ambigue; l’arma trovata appartiene teoricamente all’imputato ma diverse persone avevano libero accesso alla sua borsa durante la serata. Testimoni si contraddicono sulle tempistiche degli spostamenti delle persone chiave in casa e sulla reale presenza dell’imputato nel luogo preciso al momento del crimine.",
+    "evidence": [
+      "- Lo shuriken trovato vicino al corpo reca impronte parziali non attribuibili chiaramente.",
+      "- La videocamera esterna mostra solo ombre indistinte tra le ore cruciali della notte.",
+      "- C’è traccia digitale sul telefono dello scomparso riguardante minacce ricevute anche da altri ospiti.",
+      "- Il testimone dichiara d’aver visto cambiarsi i guanti neri più volte fra clienti diversi."
+    ],
+    "witnessNames": [
+      "Katia Bernardi",
+      "Lorenzo Valli",
+      "Sonia De Angelis",
+      "Davide Neri"
+    ],
+    "witnessDescriptions": [
+      "Katia Bernardi lavora come cameriera stagionale presso ville private ed era incaricata dei servizi ai tavoli quella sera; persona riservata e molto osservatrice sostiene d’avere assistito ad animati scambi verbali fra l’imputato e altre tre persone circa mezz'ora prima dell’incidente ed afferma che Leonardo sembrava stanco o nervoso ma non violento.",
+      "Lorenzo Valli frequenta il corso settimanale d’arti orientali insieme all'imputato ed ha dichiarazioni oscillanti: credeva Leo incapace gestualmente dopo alcune lezioni disastrose, tuttavia ricorda vagamente movimenti precisi simili nell'ombra osservate poco prima dell'accaduto.",
+      "Sonia De Angelis già vicina alla vittima tramite amicizia liceale racconta che molti invitati toccavano curiosamente oggetti raccolti nella sala giochi inclusa la scatola dove probabilmente ‘risposavano quegli strani ferrivori’, sottolineando confusione generale dovuta all’alcol.",
+      "Davide Neri responsabile tecnico audio luci riferisce atmosfere tese nelle ultime battute pre-tragedia oltre ad aver sentito grida miste venire dal piano superiore subito seguite dalla corsa precipitosissima verso il cortile — dice però esplicitamente di NON poter confermare chi abbia gettatonel buio qualsiasi oggetto."
+    ],
+    "witnessGenders": [
+      "F",
+      "M",
+      "F",
+      "M"
+    ],
+    "additionalInfo": [],
+    "language": "italian"
+  },
+  {
+    "title": "Il caso del ninja notturno",
+    "playerGoal": "Ottenere una riduzione della pena totale di 5 anni per il cliente, accusato di omicidio volontario.",
+    "summary": "Durante una festa privata a Milano, la vittima viene ritrovata senza vita nel giardino: è stata colpita mortalmente da uno shuriken. Il principale sospettato è Leonardo Mori, un giovane appassionato di arti marziali che possiede armi tradizionali e ha avuto discussioni accese con la vittima quella sera. Le prove sono ambigue; l’arma trovata appartiene teoricamente all’imputato ma diverse persone avevano libero accesso alla sua borsa durante la serata. Testimoni si contraddicono sulle tempistiche degli spostamenti delle persone chiave in casa e sulla reale presenza dell’imputato nel luogo preciso al momento del crimine.",
     "shortSummary": "Leonardo Mori è accusato di aver ucciso con uno shuriken durante una festa privata a Milano; le prove lo implicano ma varie testimonianze sollevano dubbi sull’esatta dinamica e identità del vero autore.",
     "evidence": [
       "- Lo shuriken trovato vicino al corpo reca impronte parziali non attribuibili chiaramente.",

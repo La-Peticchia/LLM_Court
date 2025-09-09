@@ -41,6 +41,9 @@ public class CaseGeneration : MonoBehaviour
     [SerializeField]
     private int seed;
 
+    [SerializeField] private bool translationEnabled;
+    
+
     private CourtRecordUI _courtRecordUI;
 
     private void Awake()
@@ -145,8 +148,10 @@ public class CaseGeneration : MonoBehaviour
 
         CaseDescription firstCaseDescription = _descriptionList.First.Value;
         CaseDescription tmpCaseDescription = null;
-
-        if (!firstCaseDescription.language.ToLower().StartsWith("en"))
+        
+        
+        
+        if (translationEnabled && !firstCaseDescription.language.ToLower().StartsWith("en"))
             if (_saveManager.CheckForEnglish(firstCaseDescription.GetID()))
             {
                 Debug.Log("Case description ID: " + firstCaseDescription.GetID());
