@@ -1,34 +1,34 @@
 [
   {
-    "title": "The Warehouse Explosion: People v. Luca Ferraro",
-    "playerGoal": "Achieve a full acquittal for the defendant, proving that he was not responsible for the explosion.",
-    "summary": "Luca Ferraro, an experienced warehouse supervisor, stands accused in a criminal trial after a devastating chemical explosion injured five workers and caused significant property damage. The prosecution alleges negligence and possible sabotage linked to missing safety logs and confidential emails about hazardous materials storage. However, ambiguous security footage contradicts some witness accounts while gaps exist in documentation regarding maintenance reports prior to the disaster. The defense must unravel complex procedural issues with evidence handling and argue alternative theories of causation under intense media scrutiny.",
-    "shortSummary": "Luca Ferraro is charged with causing a deadly warehouse explosion despite uncertain proof; conflicting witnesses & incomplete records create doubt as you defend him against serious allegations.",
+    "title": "Il caso del ninja notturno",
+    "playerGoal": "Ottenere una riduzione della pena totale di 5 anni per il cliente, accusato di omicidio volontario.",
+    "summary": "Durante una festa privata a Milano, la vittima viene ritrovata senza vita nel giardino: è stata colpita mortalmente da uno shuriken. Il principale sospettato è Leonardo Mori, un giovane appassionato di arti marziali che possiede armi tradizionali e ha avuto discussioni accese con la vittima quella sera. Le prove sono ambigue; l’arma trovata appartiene teoricamente all’imputato ma diverse persone avevano libero accesso alla sua borsa durante la serata. Testimoni si contraddicono sulle tempistiche degli spostamenti delle persone chiave in casa e sulla reale presenza dell’imputato nel luogo preciso al momento del crimine.",
+    "shortSummary": "Leonardo Mori è accusato di aver ucciso con uno shuriken durante una festa privata a Milano; le prove lo implicano ma varie testimonianze sollevano dubbi sull’esatta dinamica e identità del vero autore.",
     "evidence": [
-      "Security camera shows someone entering restricted area but image is blurred during critical minutes.",
-      "Recently replaced machine part logged by technician on day before accident but form only partially completed.",
-      "The official safety audit notes discrepancies between real quantities stored versus those recorded four days earlier.",
-      "A deleted email thread recovered from server hints at budget-pressure decisions affecting chemical inventory compliance."
+      "- Lo shuriken trovato vicino al corpo reca impronte parziali non attribuibili chiaramente.",
+      "- La videocamera esterna mostra solo ombre indistinte tra le ore cruciali della notte.",
+      "- C’è traccia digitale sul telefono dello scomparso riguardante minacce ricevute anche da altri ospiti.",
+      "- Il testimone dichiara d’aver visto cambiarsi i guanti neri più volte fra clienti diversi."
     ],
     "witnessNames": [
-      "Luca Ferretti",
-      "Natalia Ruiz",
-      "Sandra Klein",
-      "Benedetto Marchetti"
+      "Katia Bernardi",
+      "Lorenzo Valli",
+      "Sonia De Angelis",
+      "Davide Neri"
     ],
     "witnessDescriptions": [
-      "Luca Ferretti is the night shift foreman known for his adherence to protocol yet pressed by time constraints; he claims no knowledge of any unauthorized activities or equipment failures prior to clocking out early due to illness on incident night.",
-      "Natalia Ruiz serves as logistics coordinator—meticulous but anxious—who asserts she saw unfamiliar personnel near hazardous lockers before lunch break yet cannot be sure if this occurred hours ahead or just moments before ignoring procedure herself due distractions.",
-      "Sandra Klein works in HR administration—a calm observer prone toward skepticism—and testifies management had recently reprimanded staff over cost-cutting measures impacting routine inspections though admits misplacing relevant logbooks last month amid turnover chaos.",
-      "Benedetto Marchetti oversees building security—a rule-bound stickler described as wary—with testimony highlighting minor alarm faults weeks preceding incident plus rumored arguments among contractors although struggling recollect exact names involved."
+      "Katia Bernardi lavora come cameriera stagionale presso ville private ed era incaricata dei servizi ai tavoli quella sera; persona riservata e molto osservatrice sostiene d’avere assistito ad animati scambi verbali fra l’imputato e altre tre persone circa mezz'ora prima dell’incidente ed afferma che Leonardo sembrava stanco o nervoso ma non violento.",
+      "Lorenzo Valli frequenta il corso settimanale d’arti orientali insieme all'imputato ed ha dichiarazioni oscillanti: credeva Leo incapace gestualmente dopo alcune lezioni disastrose, tuttavia ricorda vagamente movimenti precisi simili nell'ombra osservate poco prima dell'accaduto.",
+      "Sonia De Angelis già vicina alla vittima tramite amicizia liceale racconta che molti invitati toccavano curiosamente oggetti raccolti nella sala giochi inclusa la scatola dove probabilmente ‘risposavano quegli strani ferrivori’, sottolineando confusione generale dovuta all’alcol.",
+      "Davide Neri responsabile tecnico audio luci riferisce atmosfere tese nelle ultime battute pre-tragedia oltre ad aver sentito grida miste venire dal piano superiore subito seguite dalla corsa precipitosissima verso il cortile — dice però esplicitamente di NON poter confermare chi abbia gettatonel buio qualsiasi oggetto."
     ],
     "witnessGenders": [
-      "M",
       "F",
+      "M",
       "F",
       "M"
     ],
     "additionalInfo": [],
-    "language": "english"
+    "language": "italian"
   }
 ]
