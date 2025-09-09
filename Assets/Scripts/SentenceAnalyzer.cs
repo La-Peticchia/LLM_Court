@@ -333,7 +333,6 @@ public class SentenceAnalyzer : MonoBehaviour
             "  6. Ensure output strictly follows format and justification requirements.\n" +
             "- After composing the verdict, confirm that it directly references facts and defense actions, includes necessary assumptions, and adheres to output and reasoning standards.\n\n" +
             "# Output Format\n" +
-            "[Guilty / Not Guilty / Sentence details]\n" +
             "[Succinct justification referencing facts, defense actions, and any assumptions.]\n\n" +
             "[#WIN or #LOSS]\n" +
             "\n\n" +
