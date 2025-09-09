@@ -5669,7 +5669,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1317443167}
   m_HandleRect: {fileID: 1317443166}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -7489,8 +7489,8 @@ MonoBehaviour:
   dontDestroyOnLoad: 0
   contextSize: 8192
   batchSize: 512
-  model: Qwen3-14B-Q4_K_M.gguf
-  chatTemplate: qwen3
+  model: gemma-2-9b-it-Q4_K_M.gguf
+  chatTemplate: gemma
   lora: 
   loraWeights: 
   flashAttention: 0
@@ -7500,9 +7500,9 @@ MonoBehaviour:
   SSLKey: 
   SSLKeyPath: 
   minContextLength: 0
-  maxContextLength: 40960
+  maxContextLength: 8192
   embeddingsOnly: 0
-  embeddingLength: 5120
+  embeddingLength: 3584
 --- !u!4 &1047848255
 Transform:
   m_ObjectHideFlags: 0
