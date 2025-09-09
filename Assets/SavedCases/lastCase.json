@@ -1,58 +1,34 @@
 [
   {
-    "title": "The Theft of the Golden Banana: Donkey Kong on Trial",
-    "playerGoal": "Achieve the complete acquittal of Donkey Kong from the charge of aggravated theft.",
-    "summary": "Donkey Kong has been accused of stealing a precious golden banana from the Mario Brothers’ gallery. The guard claims that DK was seen near the case, but surveillance footage only shows a fleeting shadow and no clear face. Super Mario states there were obvious traces matching DK’s footprints at the scene, while Peach declares a total lack of evidence for any personal motive. The trial requires examining conflicting testimonies and partially ambiguous proof to demonstrate defendant's innocence.",
-    "shortSummary": "Donkey Kong faces judgment for allegedly stealing a golden banana in the Mario Brothers' gallery; evidence is inconclusive and witnesses disagree about his motives and actions.",
+    "title": "The Warehouse Explosion: People v. Luca Ferraro",
+    "playerGoal": "Achieve a full acquittal for the defendant, proving that he was not responsible for the explosion.",
+    "summary": "Luca Ferraro, an experienced warehouse supervisor, stands accused in a criminal trial after a devastating chemical explosion injured five workers and caused significant property damage. The prosecution alleges negligence and possible sabotage linked to missing safety logs and confidential emails about hazardous materials storage. However, ambiguous security footage contradicts some witness accounts while gaps exist in documentation regarding maintenance reports prior to the disaster. The defense must unravel complex procedural issues with evidence handling and argue alternative theories of causation under intense media scrutiny.",
+    "shortSummary": "Luca Ferraro is charged with causing a deadly warehouse explosion despite uncertain proof; conflicting witnesses & incomplete records create doubt as you defend him against serious allegations.",
     "evidence": [
-      "Fingerprint not fully attributable to defendant found on display case.",
-      "Video recording showing someone resembling Donkey Kong but without certain identification.",
-      "Golden banana recovered in courtyard following an anonymous tip days after offense."
+      "Security camera shows someone entering restricted area but image is blurred during critical minutes.",
+      "Recently replaced machine part logged by technician on day before accident but form only partially completed.",
+      "The official safety audit notes discrepancies between real quantities stored versus those recorded four days earlier.",
+      "A deleted email thread recovered from server hints at budget-pressure decisions affecting chemical inventory compliance."
     ],
     "witnessNames": [
-      "'Mario Rossi Super Mario'",
-      "'Luca Selvaggi Night Guard'",
-      "'Princess Peach Giustiniani'"
+      "Luca Ferretti",
+      "Natalia Ruiz",
+      "Sandra Klein",
+      "Benedetto Marchetti"
     ],
     "witnessDescriptions": [
-      "Mario Rossi has worked as chief curator at Gallery for over ten years; he possesses meticulous detective instincts and expresses strong opinions: insists there were unmistakable clues with footprint style left around incriminated showcase though admits some doubt regarding actual timing compared with accused's normal nightly habits.",
-      "Night Guard Luca Selvaggi patrols gallery every evening until dawn; reservedly anxious character extremely precise about rounds schedule: testifies seeing briefly someone large near showcase shortly before alarm went off but says clearly couldn’t identify either face or possible accomplices present.",
-      "Princess Peach Giustiniani holds official role as main sponsor for local cultural events; reflective & balanced during public judgments in controversial cases: emphatically affirms lately suspects showed neither financial distress nor open rivalry toward museum or brothers running it casting major doubts over alleged criminal motivation attributed to suspect."
+      "Luca Ferretti is the night shift foreman known for his adherence to protocol yet pressed by time constraints; he claims no knowledge of any unauthorized activities or equipment failures prior to clocking out early due to illness on incident night.",
+      "Natalia Ruiz serves as logistics coordinator—meticulous but anxious—who asserts she saw unfamiliar personnel near hazardous lockers before lunch break yet cannot be sure if this occurred hours ahead or just moments before ignoring procedure herself due distractions.",
+      "Sandra Klein works in HR administration—a calm observer prone toward skepticism—and testifies management had recently reprimanded staff over cost-cutting measures impacting routine inspections though admits misplacing relevant logbooks last month amid turnover chaos.",
+      "Benedetto Marchetti oversees building security—a rule-bound stickler described as wary—with testimony highlighting minor alarm faults weeks preceding incident plus rumored arguments among contractors although struggling recollect exact names involved."
     ],
     "witnessGenders": [
       "M",
-      "M",
-      "F"
+      "F",
+      "F",
+      "M"
     ],
     "additionalInfo": [],
     "language": "english"
-  },
-  {
-    "title": "Il Furto della Banana d'Oro: Processo a Donkey Kong",
-    "playerGoal": "Raggiungere l'assoluzione completa di Donkey Kong dall'accusa di furto aggravato.",
-    "summary": "Donkey Kong è stato accusato del furto di una preziosa banana d’oro dalla galleria dei Fratelli Mario. La guardia afferma che DK è stata vista nei pressi della teca, ma la videosorveglianza mostra solo un'ombra sfuggente e nessun volto chiaro. Super Mario sostiene che c'erano segni evidenti delle impronte di DK sulla scena, mentre Peach dichiara mancanza totale degli indizi sul movente personale. Il processo richiede esaminare le testimonianze contrastanti e prove parzialmente ambigue per dimostrare l’innocenza dell’imputato.",
-    "shortSummary": "Donkey Kong affronta il giudizio per il presunto furto della banana d’oro nella galleria dei Fratelli Mario; le prove sono inconcludenti e i testimoni discordano sulle sue motivazioni ed azioni.",
-    "evidence": [
-      "Impronta digitale non completamente riconducibile all'imputato trovata sulla teca.",
-      "Registrazione video in cui si scorge una figura simile a Donkey Kong ma senza identificazione certa.",
-      "Banana d’oro ritrovata nel cortile mediante segnalazione anonima dopo giorni dal reato."
-    ],
-    "witnessNames": [
-      "Mario Rossi Super Mario",
-      "Luca Selvaggi la Guardia Notturna",
-      "Principessa Peach Giustiniani"
-    ],
-    "witnessDescriptions": [
-      "Mario Rossi lavora come curatore capo presso la Galleria da oltre dieci anni; ha uno spirito investigativo meticoloso e molto deciso nelle valutazioni: sostiene con fermezza che ci fossero tracce inequivocabili nello stile delle impronte lasciate attorno alla vetrina incriminata, anche se ammette qualche dubbio sull'orario effettivo del misfatto rispetto alle normali abitudini notturne dell'accusato.",
-      "La Guardia Notturna Luca Selvaggi sorveglia la galleria tutte le sere fino all’alba; ha un carattere riservatamente ansioso ed estremamente preciso nell’orologio sulle ronde: testimonia aver visto quell notte fugacemente qualcuno dalle fattezze grosse aggirarsi vicino alla teca poco prima dello scattare dell’allarme antifurto, ma dice chiaramente di non essere riuscita ad identificare né viso né eventuali complici presenti.",
-      "La Principessa Peach Giustiniani ricopre ruolo istituzionale come sponsor principale degli eventi culturali locali; riflessiva ed equilibrata nei giudizi pubblici durante casi controversi: afferma energicamente che negli ultimi tempi tra gli imputati vi era assenza completa sia infelicità finanziaria sia rivalità manifesta col museo o coi fratelli responsabili mostrando dubbi significativi circa il reale movente criminale attribuito al sospetto."
-    ],
-    "witnessGenders": [
-      "M",
-      "M",
-      "F"
-    ],
-    "additionalInfo": [],
-    "language": "italian"
   }
 ]
