@@ -5668,7 +5668,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1317443167}
   m_HandleRect: {fileID: 1317443166}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -10257,6 +10257,7 @@ MonoBehaviour:
   loadingCanvas: {fileID: 2143410396}
   returnToMenuButton: {fileID: 617738972}
   seed: 939849630
+  translationEnabled: 0
 --- !u!4 &1323568983
 Transform:
   m_ObjectHideFlags: 0

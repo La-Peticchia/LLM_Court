@@ -83,6 +83,7 @@ public class Court : MonoBehaviour
     private int _defenseInteractions;
     private int _attackInteractions;
     [SerializeField] private bool enableAnalyzeInfo = true;
+    private int roundsUntilDynamic = 0;
 
     public bool PlayerCanAct => _roundsTimeline[_round].role == defenseName;
 
@@ -288,6 +289,8 @@ public class Court : MonoBehaviour
                 $"Now the {judgeName} grants a specific number of questions to {defenseName} based on the previous spoken line."),
 
         };
+
+        roundsUntilDynamic = _roundsTimeline.Count;
 
     }
 
@@ -522,7 +525,7 @@ public class Court : MonoBehaviour
         else
         {
 
-            if (_roundsTimeline[_round].role.ToLower().Contains(judgeName.ToLower()) && _round > 0)
+            if (_round <= roundsUntilDynamic && _roundsTimeline[_round].role.ToLower().Contains(judgeName.ToLower()))
             {
                 Match grantMatch = Regex.Match(text, @"\[(.*?)\]");
                 string prevCharacter = _roundsTimeline[_round - 1].role;
@@ -530,13 +533,14 @@ public class Court : MonoBehaviour
                     (grantNum, _) =
                         await _sentenceAnalyzer.AnalyzeGrantInterventions(llmCharacter.chat,
                             new[] { attackName, defenseName });
+                
                 if (!prevCharacter.Contains("NULL") && grantNum > 0)
                     if (prevCharacter.ToLower().Contains(defenseName.ToLower()))
                     {
                         Debug.Log("incremented defense");
                         _defenseInteractions += grantNum;
                     }
-                    else if (prevCharacter.ToLower().Contains(attackName.ToLower()))
+                    else if (prevCharacter.ToLower().Contains(attackName.ToLower()) )
                     {
                         Debug.Log("incremented attack");
                         _attackInteractions += grantNum;
