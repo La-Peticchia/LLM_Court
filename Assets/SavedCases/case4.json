@@ -1,0 +1,28 @@
+[
+  {
+    "title": "The Summit Ridge Incident",
+    "playerGoal": "Secure a full acquittal for the defendant accused of murder.",
+    "summary": "Mountain guide Julia Mathers is charged with murdering her client, an experienced hiker found dead near a perilous ledge atop Silverpine Mountain. Despite ambiguous physical evidence and conflicting witness accounts, prosecutors claim motive by highlighting recent disputes regarding expedition fees and safety disagreements. The defense must untangle contradictory timelines, challenge unclear forensic findings about cause of death versus accidental fall, and confront subtle gaps in alibi statements to prove reasonable doubt beyond circumstantial allegations.",
+    "shortSummary": "Julia Mathers faces trial for allegedly murdering her hiking client on Silverpine Mountain amid competing claims over whether it was an accident or foul play; evidence remains conflicted.",
+    "evidence": [
+      "A torn parka sleeve discovered thirty meters from the body but lacking blood traces.",
+      "The victim’s phone recording ends abruptly minutes before estimated time of death—no argument heard directly.",
+      "Witness cell service logs show intermittent connection spikes during stormy weather at summit.",
+      "No fingerprints on pushed rock debris except partials matching both local wildlife and unknown individual."
+    ],
+    "witnessNames": [
+      "Liam Porter",
+      "Sara Chen"
+    ],
+    "witnessDescriptions": [
+      "As fellow mountain guide Liam Porter has extensive experience leading similar expeditions; analytical yet somewhat evasive under pressure, he testifies that he saw Julia arguing with the victim earlier that day but admits visibility was poor due to fog covering most details.",
+      "Sara Chen is an amateur climber who joined another group nearby; hesitant yet earnest in demeanor, she reports hearing raised voices echoing from above while ascending herself—she insists she glimpsed someone running downslope after rocks fell but couldn’t confirm their identity."
+    ],
+    "witnessGenders": [
+      "M",
+      "F"
+    ],
+    "additionalInfo": [],
+    "language": "english"
+  }
+]
