@@ -636,7 +636,7 @@ public class Court : MonoBehaviour
         string role = _roundsTimeline[_round].role;
         if (role.ToLower().Contains(attackName.ToLower()))
             if (_attackInteractions <= 0)
-                _roundsTimeline[_round] = (judgeName, $"Last message was addressed to {attackName} but they are out of interventions; the Judge must take care of the situation");
+                _roundsTimeline[_round] = (judgeName, $"Last message was addressed to {attackName} but they are out of interventions; the Judge must take care of the situation and pass the word to {defenseName}");
             else
             {
                 if (string.IsNullOrWhiteSpace(_roundsTimeline[_round].systemMessage))
@@ -645,7 +645,7 @@ public class Court : MonoBehaviour
             }
         else if (role.ToLower().Contains(defenseName.ToLower()))
             if (_defenseInteractions <= 0)
-                _roundsTimeline[_round] = (judgeName, $"Last message was addressed to {defenseName} but they are out of interventions; the Judge must take care of the situation");
+                _roundsTimeline[_round] = (judgeName, $"Last message was addressed to {defenseName} but they are out of interventions; the Judge must take care of the situation and pass the word to {attackName}");
             else
             {
                 if (string.IsNullOrWhiteSpace(_roundsTimeline[_round].systemMessage))
