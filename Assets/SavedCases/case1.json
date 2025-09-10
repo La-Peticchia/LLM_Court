@@ -1,24 +1,30 @@
 [
   {
-    "title": "Il mistero del furto notturno all'atelier",
-    "playerGoal": "Dimostrare che l'imputato non ha commesso il reato o ottenere una riduzione della pena.",
-    "summary": "Andrea Bottini, un giovane sarto milanese, è accusato di aver rubato materiali preziosi dall’atelier in cui lavora. La polizia trova suoi guanti vicino alla scena e la telecamera mostra una figura simile a lui durante il fatto. Tuttavia Andrea sostiene di averli persi giorni prima ed esistono discrepanze negli orari tra gli spostamenti registrati dalla metropolitana e l’effettivo momento del furto. Il caso ruota su moventi poco chiari e prove circumstanziali inficiate da errori procedurali potenzialmente decisivi.",
-    "shortSummary": "Andrea Bottini viene accusato di furto nell’atelier per via dei suoi guanti trovati sulla scena; lacune nelle prove offrono spiragli per scagionarlo o mitigare la sua posizione processuale.",
+    "title": "Il Caso della Rapina al Supermercato Aurora",
+    "playerGoal": "Ottenere l'assoluzione completa del cliente o, in alternativa, una significativa riduzione di pena dimostrando dubbi ragionevoli sulla sua colpevolezza.",
+    "summary": "Il tuo assistito, Luca Bertelli, è accusato di aver commesso una rapina armata presso il supermercato Aurora alle 20:30. Un testimone sostiene che la persona ripresa dalle telecamere assomigli a Luca e gli agenti hanno trovato guanti da lavoro nella sua auto poco dopo i fatti. La refurtiva però non è stata trovata con lui e vi sono discrepanze nei tempi indicati dai testimoni. Inoltre un altro individuo era presente sul luogo circa alla stessa ora ma non identificato chiaramente nelle registrazioni video; alcuni dettagli dell’indagine appaiono contraddittori sulle sequenze degli eventi.",
+    "shortSummary": "Luca Bertelli viene processato per presunta rapina in un supermercato locale; le prove contro di lui presentano lacune ed elementi ambigui che mettono in dubbio la sua effettiva responsabilità diretta nel reato contestatogli.",
     "evidence": [
-      "'Guanti con iniziali A.B.' rinvenuti nell’ufficio dove è avvenuto il furto – ma nessuna impronta digitale presente sul tessuto interno;",
-      "'Riprese video della sorveglianza': mostrano solo parzialmente il volto dell’autore mentre entra nel locale alle ore sospette;",
-      "'Tabulazioni Metropolitane Milano Nord': documentano transiti ad orari incompatibili col tempo preciso indicato dal resoconto ufficiale delle indagini;",
-      "'Testimonianze colleghi sull’ambiente lavorativo teso', suggeriscono animosità preesistente fra Andrea e altri dipendenti;"
+      "La videocamera mostra solo parzialmente il volto del sospetto durante la fuga dal supermercato.",
+      "I guanti ritrovati nell'auto del difeso riportano tracce recenti sia sue sia ignote comodità biologiche estranee ai dipendenti noti dello store.",
+      "Nessuno dei contanti rubati risulta mai essere rinvenuto né presso Luca né altrove entro tre giorni dall’arresto.",
+      "L’alibi fornito dalla madre coincide soltanto parzialmente coi tempi fissati dagli altri testi principali."
     ],
     "witnessNames": [
-      "Giulia Ferraris",
-      "Luca Bianchi"
+      "Sara Marchetti",
+      "Emanuele Costa",
+      "Mirella Bertelli",
+      "Giorgio Pozzi"
     ],
     "witnessDescriptions": [
-      "Giulia Ferraris è direttrice amministrativa dell'atelier: rigorosa nella gestione contabile, tende ad essere cauta nei giudizi personali; afferma che Andrea quel giorno era nervoso al lavoro ma lo vide lasciare i locali molto prima del presunto oraio del reato.",
-      "Luca Bianchi ricopre ruolo come apprendista nello stesso atelier: giovane impulsivo, spesso parla senza filtri; testimonia di avere visto qualcuno muoversi furtivamente esaudendo vaghi riferimenti all'aspetto fisico simile a quello d'Andrea — tuttavia dice anche che era troppo buio per identificare chiaramente chi fosse."
+      "Sara Marchetti lavora come cassiera al Supermercado Aurora; è precisa e nervosa sotto pressione. Testimonia d’aver visto ‘un uomo incappucciato similare a chi conosce come Luca’, sebbene ammetta confusione nelle luci fioche all’ingresso quel momento stesso della sera.",
+      "Emanuele Costa svolge mansioni logistiche nello store ed ha carattere riflessivo quanto metodico nel racconto delle routine lavorative; dichiara invece d’aver percepito rumore proveniente dal retro magazzino senza riuscire ad identificarne visivamente alcuna figura determinante prima dell’accorrere generale.",
+      "Mirella Bertelli madre dell'imputatto pensionata calma ma apprensiva dice convinta che suo figlio si trovasse ancora casa tra le 19:45 e almeno fino quasi alle ventidue secondo ricordo proprio — anche se nessun telefono fisso registra chiamate coincidenti agli orari dichiaratamente sovrapposti.",
+      "Giorgio Pozzi frequenta abitualmente piazzale antistante lo stabile commerciale più volte settimana perché venditore ambulante permaloso – afferma d’avver veduto una silhouette fuggente scavalcare cancello stoccaggio merci ‘senza certezza fosse maschio né simile all’amico descritto dalla polizia’. "
     ],
     "witnessGenders": [
+      "F",
+      "M",
       "F",
       "M"
     ],

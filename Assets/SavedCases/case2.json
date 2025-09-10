@@ -1,0 +1,28 @@
+[
+  {
+    "title": "Divisione Ereditata: Il Caso della Casa di famiglia",
+    "playerGoal": "Dimostrare che la divisione proposta dal fratello rappresentato è equa e conforme alle volontà testamentarie, cercando anche una possibile mediazione o risoluzione favorevole.",
+    "summary": "Due fratelli, Andrea Russo e Marco Russo, hanno ricevuto in eredità dal padre deceduto una villa storica situata nei pressi di Roma. Tuttavia non riescono a trovare un accordo sulla divisione della proprietà: Andrea sostiene che la casa debba spettare interamente a lui alla luce dei contributi finanziari versati negli anni per ristrutturazioni e manutenzione; Marco rivendica invece uguale diritti secondo il testamento depositato. Documenti bancari, testimonianze contrastanti fra vicini ed esperti forensi complicano ulteriormente la questione ereditaria davanti al giudice civile.",
+    "shortSummary": "Andrea e Marco Russo si contengono l'eredità paterna su una villa romana senza riuscire ad accordarsi sulla suddivisione: i documenti presentano ambiguità tra investimenti personali fatti da Andrea rispetto ai desiderio del defunto riportati nel testamento.",
+    "evidence": [
+      "Copia originale del testamento con alcune correzioni manoscritte poco leggibili datate pochi giorni prima dalla morte del padre.",
+      "Estratti conto bancario dimostrano bonifici cospicui effettuati da Andrea verso imprese edili locali nella fase degli ultimi tre anni.",
+      "Scontrino fiscale relativo all'acquisto di materiali per ristrutturazione intestato però a nome proprio di Marco due mesi fa.",
+      "Dichiarazione scritta del vicino Giuseppe De Santis sul fatto che il padre espresse verbalmente intenzioni diverse dall'ultima versione formale consegnata agli avvocati."
+    ],
+    "witnessNames": [
+      "Andreea Giordani",
+      "Giuseppe De Santis"
+    ],
+    "witnessDescriptions": [
+      "Andreea Giordani è nota come consulente legale personale dell’erede principale, persona metodica ma tendenzialmente diffidente; afferma sotto giuramento aver visto firmare le modifiche manoscritte direttamente davanti ai figli in presenza dello stesso cedente benché ricordi tensionenella stanza riguardo dettagli precisi sulle condizioni poste nel documento finale.",
+      "Giuseppe De Santis abita accanto alla villa storico-familiare dei fratelli russo; uomo anziano molto schietto nelle opinioni spesso emotivamente coinvolto – dichiara convinto che durante gli incontri informali col padre sentì più volte ribadire oralmente l’intenzione paritetica circa lascito immobiliare ignorando investimenti specificici successivi."
+    ],
+    "witnessGenders": [
+      "F",
+      "M"
+    ],
+    "additionalInfo": [],
+    "language": "italian"
+  }
+]
