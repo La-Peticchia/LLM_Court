@@ -249,11 +249,11 @@ public class KokoroTTSManager : MonoBehaviour
             AssignVoiceToCharacter(witnessName, gender, witnessVoices);
         }
 
-        Debug.Log("Voice assignments completed:");
+        /*Debug.Log("Voice assignments completed:");
         foreach (var kvp in characterToVoice)
         {
             Debug.Log($"- {kvp.Key} ({characterGenders[kvp.Key]}): {kvp.Value}");
-        }
+        }*/
     }
 
     private void AssignJudgeVoice()
@@ -691,7 +691,7 @@ public class KokoroTTSManager : MonoBehaviour
             }
         }
 
-        Debug.Log("TTS Manager destroyed");
+        //Debug.Log("TTS Manager destroyed");
     }
 
     public void ResetForNewGame()
