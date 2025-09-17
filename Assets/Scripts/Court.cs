@@ -277,16 +277,16 @@ public class Court : MonoBehaviour
         {
             (" ", " "),
             (judgeName, $"Now the {judgeName} introduces the court case then passes the word to {attackName}"),
-            (attackName,
-                $"Now the {attackName} introduces their case thesis then asks {judgeName} the amount of questions they want to deliver to the witnesses"),
-            (judgeName,
-                $"Now the {judgeName} grants a specific number of questions to {attackName} based on the previous spoken line."),
+            //(attackName, $"Now the {attackName} introduces their case thesis then asks {judgeName} the amount of questions they want to deliver to the witnesses"),
+            (attackName, $"Now the {attackName} introduces their case thesis "),
+            //(judgeName, $"Now the {judgeName} grants a specific number of questions to {attackName} based on the previous spoken line."),
+            (judgeName, $"Now the {judgeName} grants a two questions to {attackName}"),
             //(judgeName, $"Now the {judgeName} grants a specific number of questions to {attackName} based on the previous spoken line then passes the word to {defenseName}"),
             //(judgeName, $"Now the {judgeName} passes the word to {defenseName}"),
-            (defenseName,
-                $"Now the {defenseName} introduces their case thesis then asks {judgeName} the amount of questions they want to deliver to the witnesses"),
-            (judgeName,
-                $"Now the {judgeName} grants a specific number of questions to {defenseName} based on the previous spoken line."),
+            (defenseName, $"Now the {defenseName} introduces their case thesis"),
+            //(defenseName, $"Now the {defenseName} introduces their case thesis then asks {judgeName} the amount of questions they want to deliver to the witnesses"),
+            (judgeName, $"Now the {judgeName} grants 2 questions to {defenseName}"),
+            //(judgeName, $"Now the {judgeName} grants a specific number of questions to {defenseName} based on the previous spoken line."),
 
         };
 
