@@ -39,7 +39,7 @@ public class Court : MonoBehaviour
     private SettingsUI _settingsUI;
 
     [Header("TTS Integration")] private KokoroTTSManager ttsManager;
-    [SerializeField] private bool enableTTS = true;
+    [SerializeField] public bool enableTTS = true;
     [SerializeField] private bool waitForTTSCompletion = true;
 
     //Names
