@@ -39,7 +39,7 @@ public class Court : MonoBehaviour
     private SettingsUI _settingsUI;
 
     [Header("TTS Integration")] private KokoroTTSManager ttsManager;
-    [SerializeField] private bool enableTTS = true;
+    [SerializeField] public bool enableTTS = true;
     [SerializeField] private bool waitForTTSCompletion = true;
 
     //Names
@@ -212,7 +212,7 @@ public class Court : MonoBehaviour
             return;
         }
 
-        Debug.Log("Waiting for TTS to be ready...");
+        //Debug.Log("Waiting for TTS to be ready...");
 
         int timeout = 0;
         while (!ttsManager.isInitialized && timeout < 100)
@@ -235,7 +235,7 @@ public class Court : MonoBehaviour
 
         string prosecutorGender = characterAnimator.ProsecutorGender;
 
-        Debug.Log($"Initializing TTS - Prosecutor Gender: {prosecutorGender}");
+        //Debug.Log($"Initializing TTS - Prosecutor Gender: {prosecutorGender}");
 
         if (_translatedDescription.witnessNames == null || _translatedDescription.witnessGenders == null)
         {
@@ -247,7 +247,7 @@ public class Court : MonoBehaviour
             _translatedDescription.witnessGenders,
             prosecutorGender);
 
-        Debug.Log("TTS system initialized with character voices");
+        //Debug.Log("TTS system initialized with character voices");
     }
 
     private void InitializeChat()

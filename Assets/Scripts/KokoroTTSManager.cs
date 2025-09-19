@@ -19,6 +19,9 @@ public class KokoroTTSManager : MonoBehaviour
     [SerializeField] private string[] maleVoiceNames;
     [SerializeField] private string[] femaleVoiceNames;
 
+    [Header("Judge Voice Settings")]
+    [SerializeField] private string[] judgeVoices = { "am_michael", "am_santa" };
+
     [Header("Audio Settings")]
     [SerializeField, Range(0.1f, 3f)] private float judgeSpeed = 0.9f;
     [SerializeField, Range(0.1f, 3f)] private float prosecutorSpeed = 1.1f;
@@ -29,9 +32,6 @@ public class KokoroTTSManager : MonoBehaviour
     [SerializeField] private float sentenceBufferDelay = 0.2f;
     [SerializeField] private int minWordsForTTS = 4;
     [SerializeField] private float silenceBetweenSentences = 0.3f;
-
-    [Header("Judge Voice Settings")]
-    [SerializeField] private string[] judgeVoices = { "am_michael", "am_santa" };
 
     private KokoroTTS tts;
     private Dictionary<string, string> characterToVoice;
@@ -249,11 +249,11 @@ public class KokoroTTSManager : MonoBehaviour
             AssignVoiceToCharacter(witnessName, gender, witnessVoices);
         }
 
-        Debug.Log("Voice assignments completed:");
+        /*Debug.Log("Voice assignments completed:");
         foreach (var kvp in characterToVoice)
         {
             Debug.Log($"- {kvp.Key} ({characterGenders[kvp.Key]}): {kvp.Value}");
-        }
+        }*/
     }
 
     private void AssignJudgeVoice()
@@ -480,7 +480,6 @@ public class KokoroTTSManager : MonoBehaviour
     private async System.Threading.Tasks.Task ProcessTTSQueue(Action finalCallback = null)
     {
         if (streamingState.isProcessingQueue) return;
-
         streamingState.isProcessingQueue = true;
         var currentToken = streamingState.cancellationToken;
 
@@ -489,6 +488,8 @@ public class KokoroTTSManager : MonoBehaviour
             while ((streamingState.pendingSentences.Count > 0 || streamingState.isStreaming)
                    && currentToken != null && !currentToken.Token.IsCancellationRequested)
             {
+                
+
                 if (streamingState.pendingSentences.Count == 0 && streamingState.isStreaming)
                 {
                     await System.Threading.Tasks.Task.Delay((int)(sentenceBufferDelay * 1000), currentToken.Token);
@@ -586,7 +587,7 @@ public class KokoroTTSManager : MonoBehaviour
     {
         if (string.IsNullOrEmpty(text)) return "";
 
-        // CORREZIONE: Pulizia più delicata per preservare i nomi propri
+        // Pulizia più delicata per preservare i nomi propri
         string cleaned = text;
 
         // Rimuovi solo tag HTML/markdown evidenti
@@ -614,8 +615,12 @@ public class KokoroTTSManager : MonoBehaviour
     {
         try
         {
-            while (currentAudioSource != null && currentAudioSource.isPlaying && !cancellationToken.IsCancellationRequested)
+            while (currentAudioSource != null &&
+                   (currentAudioSource.isPlaying) &&
+                   !cancellationToken.IsCancellationRequested)
             {
+                
+
                 await Awaitable.NextFrameAsync();
             }
         }
@@ -631,23 +636,6 @@ public class KokoroTTSManager : MonoBehaviour
         if (characterName == "Prosecutor") return prosecutorSpeed;
         return witnessSpeed;
     }
-    /*public void GenerateSpeech(string characterName, string text, Action onComplete = null)
-    {
-        if (!isInitialized || characterName.ToLower().Contains("defense"))
-        {
-            onComplete?.Invoke();
-            return;
-        }
-
-        StartStreamingTTS(characterName);
-        UpdateStreamingText(characterName, text);
-        FinalizeStreamingTTS(characterName, onComplete);
-    }*/
-
-    /*public string GetCharacterGender(string characterName)
-    {
-        return characterGenders.TryGetValue(characterName, out string gender) ? gender : "M";
-    }*/
 
     public void StopAllSpeech()
     {
@@ -660,19 +648,8 @@ public class KokoroTTSManager : MonoBehaviour
 
         streamingState.Clear();
         currentSpeakingCharacter = "";
-
         //Debug.Log("TTS speech stopped");
     }
-
-    /*public bool IsAnySpeaking()
-    {
-        return currentAudioSource != null && currentAudioSource.isPlaying;
-    }
-
-    public bool IsCharacterSpeaking(string characterName)
-    {
-        return currentSpeakingCharacter == characterName && IsAnySpeaking();
-    }*/
 
     private void OnDestroy()
     {
@@ -691,7 +668,7 @@ public class KokoroTTSManager : MonoBehaviour
             }
         }
 
-        Debug.Log("TTS Manager destroyed");
+        //Debug.Log("TTS Manager destroyed");
     }
 
     public void ResetForNewGame()
