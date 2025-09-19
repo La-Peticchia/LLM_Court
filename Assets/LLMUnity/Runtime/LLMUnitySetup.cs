@@ -286,6 +286,7 @@ namespace LLMUnity
 
                 ResumingWebClient client = new ResumingWebClient();
                 downloadClients[savePath] = client;
+      
                 await client.DownloadFileTaskAsyncResume(new Uri(fileUrl), tmpPath, !overwrite, progressCallback);
                 downloadClients.Remove(savePath);
 #if UNITY_EDITOR

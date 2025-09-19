@@ -1,66 +1,27 @@
 [
   {
-    "title": "State v. John Cena: The Grand Slam Night Murder",
-    "playerGoal": "Obtain an acquittal or secure a reduced sentence for the defendant through skillful legal maneuvering.",
-    "summary": "John Cena, a world-famous professional wrestler, is on trial for allegedly murdering sports agent Daniel Foster after a heated post-event argument at Madison Arena. The prosecution claims that CCTV footage captured John leaving the VIP lounge moments before the victim was found dead with blunt force trauma consistent with wrestling techniques. However, ambiguous witness accounts and forensic gaps raise questions about potential motive and opportunity amongst other guests present during the altercation.",
-    "shortSummary": "Defend John Cena against murder charges following an arena event confrontation—evidence appears damning but witnesses' statements reveal inconsistencies demanding sharp scrutiny.",
+    "title": "The Case of the Château Trespass",
+    "playerGoal": "Secure acquittal for the defendant by proving that their entry onto private property was justified or non-criminal under French law.",
+    "summary": "In a small town in France, Luc Morel is accused of unlawfully entering and occupying part of Madame Leroy’s historic château grounds. The dispute centers on whether Luc mistakenly relied on ambiguous property boundaries cited in local records when he entered what he believed to be public land. Witness testimony provides conflicting accounts about prior permission given to locals during renovations, plus there are discrepancies within surveillance footage timestamps and maintenance logs attributed to past disputes over access rights.",
+    "shortSummary": "Luc Morel faces charges after allegedly trespassing into a restricted section of Madame Leroy's estate due to unclear boundary markings and disputed permissions involving other residents' historical access claims.",
     "evidence": [
-      "VIP Lounge video shows blurred figure resembling John departing minutes before time of death.",
-      "Bloodied commemorative championship belt found near crime scene left undisturbed; no fingerprints detected.",
-      "Several texts sent from John's phone suggest resentment toward Foster but lack clear threats.",
-      "An unsigned parking validation ticket in John's jacket pocket ties him to venue yet overlaps timelines confusingly."
+      "A faded map showing partially overlapping boundaries between communal land and the privately-owned area.",
+      "A letter from 2019 suggesting community members were allowed temporary garden access during repairs but not specifying duration or precise zones involved.",
+      "CCTV footage with an unexplained gap at noon—the time alleged trespass began—leaving room for interpretation regarding who approached first."
     ],
     "witnessNames": [
-      "Amy Reynolds",
-      "Luis Hernandez",
-      "Ted Maxwell"
+      "Sophie Leroy",
+      "Hugo Dubois"
     ],
     "witnessDescriptions": [
-      "Amy Reynolds is Mr. Foster’s assistant known for her meticulous nature; she states she saw ‘a tall man in black’ arguing loudly outside VIP shortly before midnight but did not positively identify it as Mr. Cena due to dim lighting.",
-      "Luis Hernandez works security at Madison Arena and often projects calm professionalism under pressure; he testifies noticing two shadows moving quickly down hallway adjacent to crime scene while claiming only one used exit doors connected directly into backstage area.",
-      "Ted Maxwell is an outspoken guest relations staffer who frequently gossips about wrestlers off-duty; his testimony contends that noisy fans inside event hall could have masked sounds of struggle making precise timeline construction difficult."
+      "Sophie Leroy, owner of the château since inherited seven years ago: meticulous yet somewhat reserved; she firmly insists Luc violated her privacy without any valid invitation while admitting misunderstandings often occurred about which parts neighbors could cross during external works last year.",
+      "Hugo Dubois, longtime municipal staff member who oversaw several repair projects near estate borders: friendly but occasionally vague; claims villagers like Luc were verbally informed some areas might be accessible briefly although such announcements weren't formally documented."
     ],
     "witnessGenders": [
       "F",
-      "M",
-      "F"
+      "M"
     ],
-    "additionalInfo": [
-      "Amy Reynolds, the assistant to Daniel Foster, testified that she saw a \"tall man in black\" arguing loudly outside the VIP lounge shortly before midnight. She described the scene but did not get a clear look at the person's face due to dim lighting, and therefore could not positively identify the individual as John Cena.",
-      "There is no mention of Alaric Shadowwind or any symbols drawn on the ground in the provided case description, \"State v. John Cena: The Grand Slam Night Murder\". The case appears to be a fictional trial summary involving John Cena, a professional wrestler, accused of murdering sports agent Daniel Foster. If you'd like to start a new scenario or provide more context about Alaric Shadowwind and the dragon, I'd be happy to help!"
-    ],
-    "language": "english"
-  },
-  {
-    "title": "State v. John Cena: The Grand Slam Night Murder",
-    "playerGoal": "Obtain an acquittal or secure a reduced sentence for the defendant through skillful legal maneuvering.",
-    "summary": "John Cena, a world-famous professional wrestler, is on trial for allegedly murdering sports agent Daniel Foster after a heated post-event argument at Madison Arena. The prosecution claims that CCTV footage captured John leaving the VIP lounge moments before the victim was found dead with blunt force trauma consistent with wrestling techniques. However, ambiguous witness accounts and forensic gaps raise questions about potential motive and opportunity amongst other guests present during the altercation.",
-    "shortSummary": "Defend John Cena against murder charges following an arena event confrontation—evidence appears damning but witnesses' statements reveal inconsistencies demanding sharp scrutiny.",
-    "evidence": [
-      "VIP Lounge video shows blurred figure resembling John departing minutes before time of death.",
-      "Bloodied commemorative championship belt found near crime scene left undisturbed; no fingerprints detected.",
-      "Several texts sent from John's phone suggest resentment toward Foster but lack clear threats.",
-      "An unsigned parking validation ticket in John's jacket pocket ties him to venue yet overlaps timelines confusingly."
-    ],
-    "witnessNames": [
-      "Amy Reynolds",
-      "Luis Hernandez",
-      "Ted Maxwell"
-    ],
-    "witnessDescriptions": [
-      "Amy Reynolds is Mr. Foster’s assistant known for her meticulous nature; she states she saw ‘a tall man in black’ arguing loudly outside VIP shortly before midnight but did not positively identify it as Mr. Cena due to dim lighting.",
-      "Luis Hernandez works security at Madison Arena and often projects calm professionalism under pressure; he testifies noticing two shadows moving quickly down hallway adjacent to crime scene while claiming only one used exit doors connected directly into backstage area.",
-      "Ted Maxwell is an outspoken guest relations staffer who frequently gossips about wrestlers off-duty; his testimony contends that noisy fans inside event hall could have masked sounds of struggle making precise timeline construction difficult."
-    ],
-    "witnessGenders": [
-      "F",
-      "M",
-      "F"
-    ],
-    "additionalInfo": [
-      "Amy Reynolds, the assistant to Daniel Foster, testified that she saw a \"tall man in black\" arguing loudly outside the VIP lounge shortly before midnight. She described the scene but did not get a clear look at the person's face due to dim lighting, and therefore could not positively identify the individual as John Cena.",
-      "There is no mention of Alaric Shadowwind or any symbols drawn on the ground in the provided case description, \"State v. John Cena: The Grand Slam Night Murder\". The case appears to be a fictional trial summary involving John Cena, a professional wrestler, accused of murdering sports agent Daniel Foster. If you'd like to start a new scenario or provide more context about Alaric Shadowwind and the dragon, I'd be happy to help!"
-    ],
+    "additionalInfo": [],
     "language": "english"
   }
 ]
