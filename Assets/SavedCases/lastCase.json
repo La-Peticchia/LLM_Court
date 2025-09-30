@@ -1,25 +1,26 @@
 [
   {
-    "title": "The Case of the Château Trespass",
-    "playerGoal": "Secure acquittal for the defendant by proving that their entry onto private property was justified or non-criminal under French law.",
-    "summary": "In a small town in France, Luc Morel is accused of unlawfully entering and occupying part of Madame Leroy’s historic château grounds. The dispute centers on whether Luc mistakenly relied on ambiguous property boundaries cited in local records when he entered what he believed to be public land. Witness testimony provides conflicting accounts about prior permission given to locals during renovations, plus there are discrepancies within surveillance footage timestamps and maintenance logs attributed to past disputes over access rights.",
-    "shortSummary": "Luc Morel faces charges after allegedly trespassing into a restricted section of Madame Leroy's estate due to unclear boundary markings and disputed permissions involving other residents' historical access claims.",
+    "title": "The Summit Ridge Incident",
+    "playerGoal": "Secure a full acquittal for the defendant accused of murder.",
+    "summary": "Mountain guide Julia Mathers is charged with murdering her client, an experienced hiker found dead near a perilous ledge atop Silverpine Mountain. Despite ambiguous physical evidence and conflicting witness accounts, prosecutors claim motive by highlighting recent disputes regarding expedition fees and safety disagreements. The defense must untangle contradictory timelines, challenge unclear forensic findings about cause of death versus accidental fall, and confront subtle gaps in alibi statements to prove reasonable doubt beyond circumstantial allegations.",
+    "shortSummary": "Julia Mathers faces trial for allegedly murdering her hiking client on Silverpine Mountain amid competing claims over whether it was an accident or foul play; evidence remains conflicted.",
     "evidence": [
-      "A faded map showing partially overlapping boundaries between communal land and the privately-owned area.",
-      "A letter from 2019 suggesting community members were allowed temporary garden access during repairs but not specifying duration or precise zones involved.",
-      "CCTV footage with an unexplained gap at noon—the time alleged trespass began—leaving room for interpretation regarding who approached first."
+      "A torn parka sleeve discovered thirty meters from the body but lacking blood traces.",
+      "The victim’s phone recording ends abruptly minutes before estimated time of death—no argument heard directly.",
+      "Witness cell service logs show intermittent connection spikes during stormy weather at summit.",
+      "No fingerprints on pushed rock debris except partials matching both local wildlife and unknown individual."
     ],
     "witnessNames": [
-      "Sophie Leroy",
-      "Hugo Dubois"
+      "Liam Porter",
+      "Sara Chen"
     ],
     "witnessDescriptions": [
-      "Sophie Leroy, owner of the château since inherited seven years ago: meticulous yet somewhat reserved; she firmly insists Luc violated her privacy without any valid invitation while admitting misunderstandings often occurred about which parts neighbors could cross during external works last year.",
-      "Hugo Dubois, longtime municipal staff member who oversaw several repair projects near estate borders: friendly but occasionally vague; claims villagers like Luc were verbally informed some areas might be accessible briefly although such announcements weren't formally documented."
+      "As fellow mountain guide Liam Porter has extensive experience leading similar expeditions; analytical yet somewhat evasive under pressure, he testifies that he saw Julia arguing with the victim earlier that day but admits visibility was poor due to fog covering most details.",
+      "Sara Chen is an amateur climber who joined another group nearby; hesitant yet earnest in demeanor, she reports hearing raised voices echoing from above while ascending herself—she insists she glimpsed someone running downslope after rocks fell but couldn’t confirm their identity."
     ],
     "witnessGenders": [
-      "F",
-      "M"
+      "M",
+      "F"
     ],
     "additionalInfo": [],
     "language": "english"

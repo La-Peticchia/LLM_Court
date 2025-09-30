@@ -676,10 +676,11 @@ public class Court : MonoBehaviour
     void DebugDialogue()
     {
         //Debug
-        string[] dialogueLines = llmCharacter.chat.Where(x => x.role != "system")
+        string[] dialogueLines = llmCharacter.chat //.Where(x => x.role != "system")
             .Select(x => $"<start_of_turn>\n{x.role}: {x.content}\n<end_of_turn>").ToArray();
         Debug.Log(string.Join("\n\n", dialogueLines));
     }
+    
     /*public void SetCurrentRound(int round)
     {
         if (round >= 0 && round < _roundsTimeline.Count)

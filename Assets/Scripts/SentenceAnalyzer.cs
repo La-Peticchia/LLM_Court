@@ -305,7 +305,6 @@ public class SentenceAnalyzer : MonoBehaviour
             " # Role and Objective\n" +
             "- Write a final, legally sound verdict for a simulated court case, determining whether the Defense Attorney (player) wins or loses, based on provided case facts and courtroom dialogue summary.\n\n" +
             "# Key Operational Rules (Reminder)\n" +
-            "- Begin with a concise checklist (3-7 bullets) of what you will do; keep items conceptual, not implementation-level.\n" +
             "- Use only information provided in the inputs; do not speculate beyond given content.\n" +
             "- After completing the verdict, double-check that the output is clear, directly justified by evidence and argument quality, and matches the required format.\n\n" +
             "# Instructions\n" +

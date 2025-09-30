@@ -5672,7 +5672,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1317443167}
   m_HandleRect: {fileID: 1317443166}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -7492,8 +7492,8 @@ MonoBehaviour:
   dontDestroyOnLoad: 0
   contextSize: 8192
   batchSize: 512
-  model: gemma-3-4b-it-Q4_K_M.gguf
-  chatTemplate: gemma
+  model: DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf
+  chatTemplate: chatml
   lora: 
   loraWeights: 
   flashAttention: 0
@@ -7505,7 +7505,7 @@ MonoBehaviour:
   minContextLength: 0
   maxContextLength: 131072
   embeddingsOnly: 0
-  embeddingLength: 2560
+  embeddingLength: 5120
 --- !u!4 &1047848255
 Transform:
   m_ObjectHideFlags: 0
@@ -8424,7 +8424,7 @@ MonoBehaviour:
   llmCharacter: {fileID: 290782657}
   analysisPrompt: "You are an AI who analyzes dialogues taken from a courtroom dialogue;
     the user will specify the dialogue (it could be only one speaker) and you must
-    answer by only writing the format specified by the user. \n"
+    answer by only writing the format specified by the user. \n/nothink\n"
   summaryPrompt: '# Role and Objective
 
     - Summarize courtroom dialogues provided
@@ -8504,7 +8504,9 @@ MonoBehaviour:
 
     - Summarize courtroom dialogues provided
     by the user, highlighting evidence of the defendant''s guilt or innocence in
-    a clear, concise manner.'
+    a clear, concise manner.
+
+    /nothink'
   finalVerdictPrompt: "# Role and Objective\r\n- Act as a Judge in a courtroom, delivering
     final verdicts based on a logical and consistent assessment of courtroom discussions
     and arguments.\r\n\r\n# Reminder: Plan First; Output must be concise and standardized;
@@ -8525,7 +8527,7 @@ MonoBehaviour:
     articulating your decision and justification.\n- All statements must remain in
     plain text and adhere to the tone and structure of a formal judicial address.\r\n\r\n#
     Stop Condition\r\n- Your task concludes when a final verdict is given that directly
-    corresponds to the established reasoning and case record."
+    corresponds to the established reasoning and case record.\n/nothink"
   splitCharacters: '>'
   numOfMessages: 5
 --- !u!4 &1129324685
